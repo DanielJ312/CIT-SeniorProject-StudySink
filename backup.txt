@@ -1,7 +1,4 @@
-jsunhaopftkftfbl
-
-
-
+Email Code: jsunhaopftkftfbl
 
 <p>By: <?=end(run_database("SELECT username FROM user_t WHERE userid = :userid LIMIT 1", $values))?></p>
 
