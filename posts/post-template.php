@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     add_comment($_POST, $post->postID);
 }
 
-if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['action'] == "delete") {
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action']) == "delete") {
     delete_comment($_POST, $postID);
     header("Location: 413.php");
 }
@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['action'] == "delete") {
             <?= check_login(false) && $post->username == $_SESSION['USER']->username ? " (You)" : "" ?>
         </p>
     </div>
+    <?php if (check_login(false)): ?>
     <div>
         <h4>Add Comment</h4>
         <form method="post">
@@ -43,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['action'] == "delete") {
             <input type="submit" value="Submit">
         </form>
     </div>
+    <?php endif; ?>
     <div>
         <h4>Comments (<?= is_array($comments) ? count($comments) : "0"; ?>):</h4>
         <?php if (is_array($comments)) : for ($i = 0; $i < count($comments); $i++) : ?>
@@ -52,7 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['action'] == "delete") {
                 <?= check_login(false) && $comments[$i]->username == $_SESSION['USER']->username ? " (You)" : "" ?></b>:
                 <?= $comments[$i]->content; ?>  
                 <?= "(" . display_time($comments[$i]->CommentCreated, "m/d/Y h:i:s A") . ")"; ?>
-                <?= check_login(false) && $comments[$i]->username == $_SESSION['USER']->username ? '<input type="submit" value="Delete" onclick="DeleteComment(' . $comments[$i]->commentID . ')">' : "" ?>
+                <?php if (check_login(false) && $comments[$i]->username == $_SESSION['USER']->username): ?>
+                    <input type="submit" value="Delete" onclick="DeleteComment(<?= $comments[$i]->commentID ?>)">
+                <?php endif; ?>
             </p>
         <?php endfor; endif;?>
     </div>

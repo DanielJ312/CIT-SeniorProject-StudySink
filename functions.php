@@ -88,13 +88,13 @@ function send_code($type, $recipient) {
     switch ($type) {
         case 'verify':
             $values['type'] = "verify";
-            $message = "Your verification code is <b>" . $values['code'] . "</b>.";
             $subject = "Verify Account";
+            $message = "Your verification code is <b>" . $values['code'] . "</b>.";
             break;
         case 'reset':
             $values['type'] = "reset";
-            $message = "Your verification code to reset your password is " . $values['code'] . ".";
             $subject = "Password Reset";
+            $message = "Your verification code to reset your password is " . $values['code'] . ".";
             break;
         default:
             break;
