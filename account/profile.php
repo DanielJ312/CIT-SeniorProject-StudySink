@@ -30,10 +30,4 @@ update_session($_SESSION['USER']);
     </div>
 </div>
 
-<!-- // $currTime= get_local_time();
-// echo $currTime . "<br>";
-// $currTime = new DateTime("@$currTime");
-// echo $currTime->format('Y-m-d h:i:s') . "<br>"; -->
-
-
 <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>

@@ -2,20 +2,6 @@
 $pageTitle = "Home Page";
 include("includes/header.php");
 
-// $currTime= get_local_time();
-// echo $currTime . "<br>";
-// $currTime = new DateTime("@$currTime");
-// echo $currTime->format('Y-m-d h:i:s') . "<br>";
-
-// date_default_timezone_set('America/Los_angeles'); // Set the timezone to your local timezone
-// $currentLocalTime = date('U'); // Get the current local time
-// echo $currentLocalTime . "<br>";
-// $currentLocalTime = date('Y-m-d H:i:s e'); // Get the current local time
-// echo $currentLocalTime;
-
-// echo $_SERVER['REQUEST_URI'];
-// echo getAfterDotCom($_SERVER['REQUEST_URI']);
-
 ?>
 
 <h2><?=isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>

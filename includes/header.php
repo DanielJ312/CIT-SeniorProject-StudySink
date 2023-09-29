@@ -7,7 +7,7 @@
 <head>
     <title><?php if(isset($pageTitle)) {echo "$pageTitle";} ?></title>
     <link rel="stylesheet" href="/styles.css">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <header>
     <h1>Login & Registration System</h1>

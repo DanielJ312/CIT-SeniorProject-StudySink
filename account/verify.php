@@ -21,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 <h2><?=isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
 <h4>Access when logged in</h4>
-
 <div>
     <div>
         <?php display_errors($errors); ?>
@@ -36,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
 
 <?php 
-
 function verify_account() {
     $errors = array();
     $values = array();

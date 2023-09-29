@@ -8,7 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (count($errors) == 0) {
         header("Location: login.php");
-        // die;
     }
 }
 
@@ -30,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
 
 <?php 
-
 function reset_password($data) {
     $errors = array();
 
@@ -64,4 +62,5 @@ function reset_password($data) {
 
     return $errors;
 }
+
 ?>

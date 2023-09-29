@@ -8,7 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (count($errors) == 0) {
         header("Location: profile.php");
-        // die;
     }
 }
 
@@ -31,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
 
 <?php 
-
 function login($data) {
     $errors = array();
     $loginType = "email";
@@ -82,4 +80,5 @@ function login($data) {
 
     return $errors;
 }
+
 ?>

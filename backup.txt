@@ -1,52 +1,5 @@
 jsunhaopftkftfbl
 
-for ($i=0; $i < sizeof($result); $i++) { 
-    echo $result[$i]->userid . " " . $result[$i]->username . " " . $result[$i]->email . " " . $result[$i]->password . "<br><br>";
-}
-
-
-<!-- <?php
-                if ($pageTitle == "Home Page") {
-                    echo '<a href="index.php">Home</a>
-                    <a href="account/profile.php">Profile</a>
-                    <a href="account/register.php">Registration</a>
-                    <a href="account/login.php">Login</a>
-                    <a href="account/logout.php">Logout</a>
-                    <div class="topnav-right"><a href="">' .  $_SESSION['USER']->username . '</a></div>';
-                    
-                }
-                else {
-                    echo '<a href="../index.php">Home</a>
-                    <a href="profile.php">Profile</a>
-                    <a href="register.php">Registration</a>
-                    <a href="login.php">Login</a>
-                    <a href="logout.php">Logout</a>
-                    <div class="topnav-right"><a href="">' .  $_SESSION['USER']->username . '</a></div>';
-                }
-            ?> -->
-
-<?php 
-                // update_session();
-                if (isset($_SESSION['USER'])) {echo $_SESSION['USER']->username;}
-                else {echo 'Username';}
-
-                // if (!isset($_SESSION)) {echo 'Username';}
-                // else {echo $_SESSION['USER']->username;}
-                
-                ?>
-
-// if ($pageTitle == "Home Page") {
-    //     require "functions.php";
-    // }
-    // else {
-    //     require "../functions.php";
-    // }
-
-<?php if(count($errors) > 0) {
-            foreach($errors as $errors) {
-                echo $errors . "<br>";
-            }
-        }?>
 
 
 

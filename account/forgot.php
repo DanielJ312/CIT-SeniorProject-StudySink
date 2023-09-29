@@ -8,7 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (count($errors) == 0) {
         header("Location: reset.php");
-        // die;
     }
 }
 
@@ -29,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
 
 <?php 
-
 function check_email($data) {
     $errors = array();
 
@@ -54,4 +52,5 @@ function check_email($data) {
     
     return $errors;
 }
+
 ?>
