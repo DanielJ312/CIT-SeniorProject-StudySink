@@ -14,7 +14,7 @@
     <nav class="navbar">
         <a class="<?php check_active_page('/index.php');?>" href="/index.php">Home</a>
         <a class="<?php check_active_page('/request.php');?>" href="/request.php">Request</a>
-        <a class="<?php check_active_page('/Posts/index.php');?>" href="/posts/index.php">Posts</a>
+        <a class="<?php check_active_page('/Posts/index.php');?>" href="/posts/index.php">Forum</a>
         <a class="<?php check_active_page('/account/profile.php');?>" href="/account/profile.php">Profile</a>
         <a class="<?php check_active_page('/account/register.php');?>" href="/account/register.php">Registration</a>
         <a class="<?php check_active_page('/account/login.php');?>" href="/account/login.php">Login</a>

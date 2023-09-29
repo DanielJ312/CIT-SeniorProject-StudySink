@@ -9,3 +9,5 @@ Email Code: jsunhaopftkftfbl
 // $query = "SELECT * FROM comment_t WHERE postid = :postid";
 
 <!-- <b><?=run_database("SELECT * FROM user_t WHERE userid = {$comments[$i]->author}")[0]->username;  ?></b>:  -->
+
+ <?= check_login(false) && $comments[$i]->username == $_SESSION['USER']->username ? '<input type="submit" value="Delete" onclick="DeleteComment(' . $comments[$i]->commentID . ')">' : "" ?>
