@@ -1,15 +1,10 @@
 <?php 
-$pageTitle = "Post Creation Page";
+$pageTitle = "Create Post";
 include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php");
 
 $errors = array();
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $errors = create_post($_POST);
-
-    if (count($errors) == 0) {
-        // header("Location: profile.php");
-        // die;
-    }
 }
 
 ?>
@@ -46,10 +41,9 @@ function create_post($data) {
         $values['author'] = $_SESSION['USER']->userid;
         $values['created'] = get_local_time();
 
-        $query = "INSERT INTO post_t (postID,title, content, author, created) VALUES (:postID, :title, :content, :author, :created)";
+        $query = "INSERT INTO post_t (postID, title, content, author, created) VALUES (:postID, :title, :content, :author, :created)";
         run_database($query, $values);
 
-        // copy("413.php","{$values['postID']}.php");
         header("Location: {$values['postID']}.php");
     }
 

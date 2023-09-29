@@ -1,17 +1,9 @@
 <?php 
-$pageTitle = "Forum Testing";
+$pageTitle = "Forum";
 include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php");
 
 $query = "SELECT * FROM post_t INNER JOIN user_t ON post_t.author = user_t.userid ORDER BY post_t.created ASC";
 $post = run_database($query);
-
-// copy("1.php","2.php");
-// $file = file_get_contents("1.php");
-// $newfile = str_replace('$postID = 1', '$postID = 747', $file);
-// $file = fopen("2.php", "w");
-// fwrite($file, $newfile);
-
-// fix logged out forum
 
 ?>
 
