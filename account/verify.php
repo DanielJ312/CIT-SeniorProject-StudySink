@@ -1,5 +1,5 @@
 <?php 
-$pageTitle = "Verify";
+$pageTitle = "Verify Account";
 include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php");
 
 // check_login();

@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Forum Testing";
+$pageTitle = "Forum";
 include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php");
 
 $postID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';

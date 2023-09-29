@@ -1,5 +1,5 @@
 <?php 
-$pageTitle = "Home Page";
+$pageTitle = "Home";
 include("includes/header.php");
 
 ?>
@@ -10,7 +10,7 @@ include("includes/header.php");
     <p>This page is accessible whether or not you are logged in.</p>
 
     <?php 
-        $query = "SELECT * FROM user_t ";
+        $query = "SELECT * FROM user_t";
         $result = run_database($query);
     ?>
     <table>

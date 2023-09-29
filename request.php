@@ -1,8 +1,6 @@
 <?php 
-$pageTitle = "Form";
+$pageTitle = "Request";
 include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php");
-
-check_login( );
 
 $errors = array();
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -12,6 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         // header("Location: profile.php");
         // die;
     }
+}
+
+if (!check_login()) {
+   header("Location: /account/login.php");
 }
 
 ?>

@@ -1,5 +1,5 @@
 <?php 
-$pageTitle = "Login Page";
+$pageTitle = "Login";
 include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php");
 
 $errors = array();
@@ -9,6 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (count($errors) == 0) {
         header("Location: profile.php");
     }
+}
+if (check_login()) {
+    header("Location: /account/profile.php");
 }
 
 ?>

@@ -35,12 +35,32 @@ function check_login($redirect = true) {
     if (isset($_SESSION['USER']) && isset($_SESSION['LOGGED_IN'])) {
         return true;
     }
+    else {
+        return false;
+    }
+    
     if ($redirect) {
         header("Location: /account/login.php");
-        die;
+        // die;
     } else {
         return false;
     }
+}
+
+function update_session() {
+    //finish
+    if (isset($_SESSION['USER'])) {
+        $values = array();
+        $values['userid'] = $_SESSION['USER']->userid;
+    
+        $query = "SELECT * FROM user_t WHERE userid = :userid limit 1";
+        $result = run_database($query, $values);
+        $result = $result[0];
+    
+        $_SESSION['USER'] = $result;
+        $_SESSION['LOGGED_IN'] = true;
+    }
+    
 }
 
 function check_verification() {
@@ -85,18 +105,7 @@ function send_code($type, $recipient) {
     send_mail($recipient, $subject, $message);
 }
 
-function update_session() {
-    //finish
-    $values = array();
-    $values['userid'] = $_SESSION['USER']->userid;
 
-    $query = "SELECT * FROM user_t WHERE userid = :userid limit 1";
-    $result = run_database($query, $values);
-    $result = $result[0];
-
-    $_SESSION['USER'] = $result;
-    $_SESSION['LOGGED_IN'] = true;
-}
 
 function check_page($currect_page){
     $url_array =  explode('/', $_SERVER['REQUEST_URI']) ;

@@ -1,5 +1,5 @@
 <?php 
-$pageTitle = "Registration Form";
+$pageTitle = "Create Account";
 include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php");
 
 $errors = array();
@@ -9,6 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (count($errors) == 0) {
         header("Location: login.php");
     }
+}
+if (isset($_SESSION['LOGGED_IN'])) {
+    header("Location: /account/profile.php");
 }
 
 ?>
