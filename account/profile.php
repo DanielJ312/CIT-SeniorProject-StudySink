@@ -3,12 +3,14 @@ $pageTitle = "Profile";
 include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php");
 update_session($_SESSION['USER']);
 
+if (!isset($_SESSION['LOGGED_IN'])) {
+    header("Location: /account/login.php");
+}
+
 // check_login();
 ?>
 
 <h2><?=isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
-<!-- <h3>Access when logged in</h3> -->
-
 <div>
    <div> 
         <p><?=check_login() ? "Hello " . $_SESSION['USER']->username . ". You are logged in." : "" ?></p>
