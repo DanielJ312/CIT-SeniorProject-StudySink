@@ -1,6 +1,6 @@
 <?php 
 $pageTitle = "Home Page";
-include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php");
+include("includes/header.php");
 
 // $currTime= get_local_time();
 // echo $currTime . "<br>";

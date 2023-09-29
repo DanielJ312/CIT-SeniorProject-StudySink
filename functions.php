@@ -5,8 +5,14 @@ session_start();
 require($_SERVER['DOCUMENT_ROOT'] . "/mail.php");
 
 function run_database($query, $values = array()) {;
-    $server = "mysql:host=localhost;dbname=test";
-    $connection = new PDO($server, 'root', '');
+    $dbhost = "localhost";
+    $dbport = "3306";
+    $dbname = "test";
+    $dbusername = "root";
+    $dbpassword = "";
+    
+    $server = "mysql:host=$dbhost;port=$dbport;dbname=$dbname;";
+    $connection = new PDO($server, $dbusername, $dbpassword);
 
     if (!$connection)  {
         return false;

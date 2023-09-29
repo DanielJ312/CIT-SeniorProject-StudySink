@@ -10,7 +10,6 @@ if (empty($post)) {
     header("Location: index.php");
 }
 
-
 $query = "SELECT *, comment_t.created AS CommentCreated FROM user_t INNER JOIN comment_t ON user_t.userid = comment_t.author WHERE postid = :postid";
 $comments = run_database($query, $values);
 

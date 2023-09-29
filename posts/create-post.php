@@ -49,7 +49,7 @@ function create_post($data) {
         $query = "INSERT INTO post_t (postID,title, content, author, created) VALUES (:postID, :title, :content, :author, :created)";
         run_database($query, $values);
 
-        copy("413.php","{$values['postID']}.php");
+        // copy("413.php","{$values['postID']}.php");
         header("Location: {$values['postID']}.php");
     }
 
