@@ -15,7 +15,7 @@ $post = run_database($query);
     <h3>Posts</h3>
     <div>
         <?php for ($i=0; $i < count($post); $i++): ?> 
-            <a href="/posts/<?=$post[$i]->postID; ?>.php">
+            <a href="/forum/posts/<?=$post[$i]->postID; ?>.php">
                 <p><?=$post[$i]->title?></p>
                 <p>By: <?= $post[$i]->username ?></p>
             </a>

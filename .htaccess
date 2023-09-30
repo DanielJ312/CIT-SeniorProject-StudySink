@@ -6,7 +6,7 @@ RewriteEngine ON
 # RewriteRule ^ %{REQUEST_URI}.php [NC,L]
 
 # Post Redirect
-RewriteCond %{REQUEST_URI} ^/posts/ [NC]
+RewriteCond %{REQUEST_URI} ^/forum/posts/ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /posts/post-template.php?url=$1 [QSA,L]
+RewriteRule ^(.*)$ /forum/posts/post-template.php?url=$1 [QSA,L]
