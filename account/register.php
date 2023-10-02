@@ -57,14 +57,13 @@ function signup($data) {
     
     // save
     if (count($errors) == 0) {
-        $values['userid'] = createID();
+        $values['userid'] = generateID("user");
         $values['username'] = $data['username'];
         $values['email'] = $data['email'];
         $values['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         $values['created'] = get_local_time();
         
         $query = "INSERT INTO user_t (userid, username, email, password, created) VALUES (:userid, :username, :email, :password, :created)";
-
         run_database($query, $values);
     }
 

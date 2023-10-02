@@ -15,7 +15,7 @@ include("includes/header.php");
     ?>
     <table>
         <tr>
-            <th>userid</th><th>username</th><th>email</th><th>password</th><th>verified</th>
+            <th>userid</th><th>username</th><th>email</th><th>password</th><th>verified</th><th>created</th>
         </tr>
     <?php for ($i=0; $i < sizeof($result); $i++): ?>
         <tr>
@@ -24,6 +24,7 @@ include("includes/header.php");
             <td><?=$result[$i]->email?></td>
             <td><?=$result[$i]->password?></td>
             <td><?=$result[$i]->verified == 1 ? "yes" : "no"?></td>
+            <td><?= display_time($result[$i]->created, "Y-m-d h:i:s A"); ?></td>
         </tr>
     <?php endfor; ?>
     </table>
