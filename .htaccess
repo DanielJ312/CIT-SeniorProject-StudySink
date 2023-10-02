@@ -1,4 +1,5 @@
 RewriteEngine ON
+
 # File Extension Removal
 # RewriteCond %{THE_REQUEST} /([^.]+)\.php [NC]
 # RewriteRule ^ /%1 [NC,L,R]

@@ -1,16 +1,18 @@
 <?php
-    require($_SERVER['DOCUMENT_ROOT'] . "/functions.php");
+require($_SERVER['DOCUMENT_ROOT'] . "/functions.php");
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title><?php if(isset($pageTitle)) {echo "$pageTitle";} ?></title>
+    <title><?= isset($pageTitle) ? $pageTitle : "" ?></title>
     <link rel="stylesheet" href="/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- <link rel="icon" type="image/x-icon" href="/images/favicon.ico"> -->
 </head>
 <header>
-    <h1>Login & Registration System</h1>
+    <h1>StudySink Backend Development</h1>
     <nav class="navbar">
         <a class="<?php check_active_page('/index.php');?>" href="/index.php">Home</a>
         <a class="<?php check_active_page('/request.php');?>" href="/request.php">Request</a>
