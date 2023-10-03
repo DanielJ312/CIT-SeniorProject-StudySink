@@ -10,4 +10,4 @@ RewriteEngine ON
 RewriteCond %{REQUEST_URI} ^/forum/posts/ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /forum/posts/post-template.php?url=$1 [QSA,L]
+RewriteRule ^(.*)$ /forum/posts/template.php?url=$1 [QSA,L]
