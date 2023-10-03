@@ -1,15 +1,15 @@
 <?php
 date_default_timezone_set('America/Los_Angeles');
-
 session_start();
 require($_SERVER['DOCUMENT_ROOT'] . "/mail.php");
 
 function run_database($query, $values = array()) {;
-    $dbhost = "localhost";
-    $dbport = "3306";
-    $dbname = "test";
-    $dbusername = "root";
-    $dbpassword = "";
+    $database = parse_ini_file('config.ini');
+    $dbhost = $database['db_host'];
+    $dbport = $database['db_port'];
+    $dbname = $database['db_name'];
+    $dbusername = $database['db_username'];
+    $dbpassword = $database['db_password'];
     
     $server = "mysql:host=$dbhost;port=$dbport;dbname=$dbname;";
     $connection = new PDO($server, $dbusername, $dbpassword);
@@ -64,9 +64,6 @@ function update_session() {
 }
 
 function check_verification() {
-    // if ($_SESSION['USER']->email = $_SESSION['USER']->verified) {
-    // $temp = $_SESSION['USER']->verified;
-    // echo "$temp";
     $userid = $_SESSION['USER']->userid;
     $query = "SELECT * FROM user_t where userid = '$userid' limit 1 ";
     $result = run_database($query);
@@ -82,7 +79,7 @@ function check_verification() {
 
 function send_code($type, $recipient) {
     $values['code'] = rand(10000, 99999);
-    $values['expires'] = (time() + (60 * 5));
+    $values['expires'] = (get_local_time() + (60 * 5));
     $values['email'] = $recipient;
 
     switch ($type) {
@@ -99,24 +96,27 @@ function send_code($type, $recipient) {
         default:
             break;
     }
-    
     $query = "INSERT INTO verify_t (code, type, expires, email) values (:code, :type, :expires, :email)";
     run_database($query, $values);
     send_mail($recipient, $subject, $message);
 }
 
-
-
-function check_page($currect_page){
-    $url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
-    $url = end($url_array);  
-    if($currect_page == $url){
-        echo 'active'; //class name in css 
-    } 
-}
+// function check_page($currect_page){
+//     $url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
+//     $url = end($url_array);  
+//     if($currect_page == $url){
+//         echo 'active';
+//     } 
+// }
 
 function check_active_page($currectPage) {
     if ($currectPage == $_SERVER['REQUEST_URI']) {
+        echo "active";
+    }
+}
+
+function check_active_dir($dirToCheck) {
+    if (str_contains($_SERVER['REQUEST_URI'], $dirToCheck)) {
         echo "active";
     }
 }
@@ -135,6 +135,28 @@ function get_local_time() {
 
 function display_time($time, $format) {
     return (new DateTime("@$time"))->format("$format");
+}
+
+function generate_ID($type) {
+    do {
+        switch ($type) {
+            case 'user':
+                $createdID = rand(101, 999);
+                break;
+            default:
+                # code...
+                break;
+        }
+        $query = "SELECT * FROM {$type}_t WHERE {$type}id = '$createdID' limit 1";
+        $result = run_database($query);
+        $result = $result[0];
+    } while ($createdID == $result->userid);
+    
+    return $createdID;
+}
+
+function check_set_title($pageTitle) {
+    return isset($pageTitle) ? $pageTitle : "Page Header";
 }
 
 ?>
