@@ -7,7 +7,7 @@ $values['postid'] = $postID;
 $query = "SELECT *, post_t.created AS PostCreated FROM post_t INNER JOIN user_t ON post_t.author = user_t.userid WHERE postid = :postid";
 $post = run_database($query, $values)[0];
 if (empty($post)) {
-    header("Location: index.php");
+    header("Location: /forum/index.php");
 }
 
 $query = "SELECT *, comment_t.created AS CommentCreated FROM user_t INNER JOIN comment_t ON user_t.userid = comment_t.author WHERE postid = :postid";
@@ -19,13 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action']) == "delete") {
     delete_comment($_POST, $postID);
-    header("Location: 413.php");
+    header("Location: {$post->postID}.php"); // NOT WORKING - WORK ON A FIX
 }
 
 ?>
 
-<script src="post.js"></script>
-<h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
+<script src="/forum/forum.js"></script>
+<h2><?= check_set_title($pageTitle); ?></h2>
 <div>
     <div>
         <h3><?= $post->title ?></h3>
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action']) == "delete")
     <div>
         <h4>Comments (<?= is_array($comments) ? count($comments) : "0"; ?>):</h4>
         <?php if (is_array($comments)) : for ($i = 0; $i < count($comments); $i++) : ?>
-            <p>
+            <p class = "comment-<?= $comments[$i]->commentID ?>">
                 <b><?= $comments[$i]->username; ?>
                 <?= $comments[$i]->username == $post->username ? " (OP)" : "" ?>
                 <?= check_login(false) && $comments[$i]->username == $_SESSION['USER']->username ? " (You)" : "" ?></b>:
