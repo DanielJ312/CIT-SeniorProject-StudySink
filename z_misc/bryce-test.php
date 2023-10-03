@@ -11,14 +11,14 @@ $list = retrieve();
     <div>
         <h3>Insert Data</h3>
         <p>This form will insert the submitted value to a database.</p> 
-        <p>It assumes there is a databased called <b>test</b> and a table called <b>table_t</b> with attributes <b>id</b> and <b>content</b>.</p>
+        <p>It assumes there is a database called <b>test</b> with a table called <b>table_t</b> that has attributes <b>id</b> & <b>content</b>.</p>
         <form method="post">
             <p>Content: <input type="text" name="content"></p>
             <input type="submit" formnovalidate value="Submit">
         </form>
     </div>
     <div>
-        <h3>All current values will be listed below</h3>
+        <h3>Current Stored Data</h3>
         <table>
             <tr>
                 <th>id</th><th>content</th>
