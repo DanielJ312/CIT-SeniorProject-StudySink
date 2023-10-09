@@ -2,11 +2,18 @@
 $pageTitle = "Verify Account";
 include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php");
 
-// check_login();
+$expiredCode = false;
+
+if (!isset($_SESSION['LOGGED_IN'])) {
+    header("Location: /account/login.php");
+}
 
 $errors = array();
 if ($_SERVER['REQUEST_METHOD'] == "GET" && !check_verification()) {
-    send_code("verify", $_SESSION['USER']->email);
+    $expiredCode = is_code_active("verify", $_SESSION['USER']->email);
+}
+else {
+    header('Location: profile.php');
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -27,6 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     </div>
     <p>A verification code has been sent to your email. Enter the code below.</p>
     <form method="post">
+        <?php if ($expiredCode == false): ?>
+            <p>Your previous verifcation code has expired. A new one has been sent.</p> 
+        <?php else: ?>
+            <p>You currently have an active verifcation code.</p> 
+        <?php endif; ?>
         <p>Code: <input type="text" name="code"></p>
         <input type="submit" value="Verify">
     </form>
@@ -36,8 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 <?php 
 function verify_account() {
-    $errors = array();
-    $values = array();
     $values['email'] = $_SESSION['USER']->email;
     $values['code'] = $_POST['code'];
 
@@ -45,14 +55,12 @@ function verify_account() {
     $result = run_database($query, $values);
     if (is_array($result)) {
         $result = $result[0];
-        $time = time();
 
-        if ($result->expires > $time) {
+        if ($result->expires > get_local_time()) {
             $email = $result->email;
-            $query = "UPDATE user_t SET verified = 1 where email = '$email'  limit 1";
+            $query = "UPDATE user_t SET verified = 1 where email = '$email' limit 1";
             $result = run_database($query);
-
-            // $_SESSION['USER'] = $result;
+            delete_code("verify", $email);
             header("Location: profile.php");
             die;
         } else {

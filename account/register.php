@@ -57,7 +57,7 @@ function signup($data) {
     
     // save
     if (count($errors) == 0) {
-        $values['userid'] = generateID("user");
+        $values['userid'] = generate_ID("user");
         $values['username'] = $data['username'];
         $values['email'] = $data['email'];
         $values['password'] = password_hash($data['password'], PASSWORD_DEFAULT);

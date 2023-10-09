@@ -5,7 +5,6 @@ include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php");
 $errors = array();
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $errors = reset_password($_POST);
-
     if (count($errors) == 0) {
         header("Location: login.php");
     }
@@ -36,9 +35,13 @@ function reset_password($data) {
     $values['code'] = $data['code'];
     $query = "SELECT * FROM verify_t WHERE code = :code limit 1";
     $result = run_database($query, $values);
-    
+        
     if (is_array($result)) {
-        if (strlen(trim($data['password'])) < 4) {
+        if (get_local_time() > $result[0]->expires) {
+            $errors[] = 'Your code has expired so a new one has been sent. Please enter the new one.';
+            is_code_active("reset", $result[0]->email);
+        }
+        else if (strlen(trim($data['password'])) < 4) {
             $errors[] = "Please enter a valid password.";
         }
         else if ($data['password'] != $data['password2']) {
@@ -53,8 +56,8 @@ function reset_password($data) {
             // die;
             $query = "UPDATE user_t SET password = :password WHERE email = :email";
             run_database($query, $values);
+            delete_code("reset", $result->email);
         }
-
     }
     else {
         $errors[] = "Verifcation code is incorrect.";
@@ -62,5 +65,16 @@ function reset_password($data) {
 
     return $errors;
 }
+
+// function check_expiration($data) {
+//     $values = array();
+//     $values['code'] = $data['code'];
+//     $query = "SELECT * FROM verify_t WHERE code = :code limit 1";
+//     $result = run_database($query, $values);
+
+//     if (is_array($result) && get_local_time() > $result[0]->expires) {
+//         return true;
+//     }
+// }
 
 ?>
