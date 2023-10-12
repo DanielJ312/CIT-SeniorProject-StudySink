@@ -1,9 +1,8 @@
 <?php
+require 'vendor/autoload.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-require 'PHPMailer-master/src/Exception.php';
-require 'PHPMailer-master/src/PHPMailer.php';
-require 'PHPMailer-master/src/SMTP.php';
 
 function send_mail($recipient, $subject, $message) {
     $phpmailer = parse_ini_file('config.ini');
@@ -13,7 +12,6 @@ function send_mail($recipient, $subject, $message) {
     $mail->Port = $phpmailer['mailer_port'];
     $mail->SMTPAuth   = TRUE;
     $mail->SMTPSecure = "tls";
-    // $mail->SMTPDebug  = 0;
     $mail->Username   = $phpmailer['mailer_username'];
     $mail->Password   = $phpmailer['mailer_password'];
 
