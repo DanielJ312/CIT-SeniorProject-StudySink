@@ -66,15 +66,4 @@ function reset_password($data) {
     return $errors;
 }
 
-// function check_expiration($data) {
-//     $values = array();
-//     $values['code'] = $data['code'];
-//     $query = "SELECT * FROM verify_t WHERE code = :code limit 1";
-//     $result = run_database($query, $values);
-
-//     if (is_array($result) && get_local_time() > $result[0]->expires) {
-//         return true;
-//     }
-// }
-
 ?>

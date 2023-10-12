@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     </div>
     <p>A verification code has been sent to your email. Enter the code below.</p>
     <form method="post">
-        <?php if ($expiredCode == false): ?>
+        <?php if ($expiredCode == true): ?>
             <p>Your previous verifcation code has expired. A new one has been sent.</p> 
         <?php else: ?>
             <p>You currently have an active verifcation code.</p> 
