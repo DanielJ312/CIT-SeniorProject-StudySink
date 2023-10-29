@@ -2,6 +2,9 @@
 $pageTitle = "Home";
 include("includes/header.php");
 
+$query = "SELECT * FROM user_t";
+$result = run_database($query);
+
 ?>
 
 <h2><?=isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
@@ -9,10 +12,6 @@ include("includes/header.php");
     <p>Welcome to the home page for the StudySink login system.</p>
     <p>This page is accessible whether or not you are logged in.</p>
 
-    <?php 
-        $query = "SELECT * FROM user_t";
-        $result = run_database($query);
-    ?>
     <table>
         <tr>
             <th>userid</th><th>username</th><th>email</th><th>password</th><th>verified</th><th>created</th>
