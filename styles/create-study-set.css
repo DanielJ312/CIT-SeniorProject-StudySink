@@ -141,6 +141,12 @@ h2 {
     position: relative;
 }
 
+.cardHeader .cardBack label {
+    margin-left: 5%;
+    box-sizing: border-box;
+    position: relative;
+}
+
 input[type="submit"], button {
     padding: 10px 20px;
     margin-top: 20px; 
