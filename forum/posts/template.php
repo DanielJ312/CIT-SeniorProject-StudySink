@@ -86,13 +86,13 @@ function add_comment($data, $postID) {
     }
 
     if (count($errors) == 0) {
-        $values['commentID'] = rand(100, 999);
-        $values['postID'] = $postID;
-        $values['content'] = $data['content'];
-        $values['author'] = $_SESSION['USER']->userid;
-        $values['created'] = get_local_time();
+        $values['CommentID'] = rand(100, 999);
+        $values['PostID'] = $postID;
+        $values['Content'] = $data['content'];
+        $values['UserID'] = $_SESSION['USER']->UserID;
+        $values['Created'] = get_local_time();
 
-        $query = "INSERT INTO comment_t (commentID, postID, content, author, created) VALUES (:commentID, :postID, :content, :author, :created)";
+        $query = "INSERT INTO COMMENT_T (CommentID, PostID, Content, UserID, Created) VALUES (:CommentID, :PostID, :Content, :UserID, :Created)";
         run_database($query, $values);
 
         header("Location: $postID.php");
@@ -102,9 +102,9 @@ function add_comment($data, $postID) {
 }
 
 function delete_comment($data, $postID) {
-    $values['commentID'] = $data['commentID'];
+    $values['CommentID'] = $data['commentID'];
 
-    $query = "DELETE FROM comment_t WHERE commentID = :commentID";
+    $query = "DELETE FROM COMMENT_T WHERE CommentID = :CommentID";
     run_database($query, $values);
 }
 ?>

@@ -3,7 +3,7 @@
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 $pageTitle = "Forum";
 
-$query = "SELECT * FROM POST_T INNER JOIN USER_T ON Post_t.UserID = User_t.UserID ORDER BY Post_t.Created ASC;";
+$query = "SELECT * FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID ORDER BY POST_T.Created ASC;";
 $post = run_database($query);
 ?>
 
