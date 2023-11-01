@@ -1,17 +1,17 @@
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . "/functions.php");
+# Sort.php - Runs sorting functions for posts
+require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 
 if (isset($_POST['sortType'])) {
     $type = null;
     $type = $_POST['sortType'];
-    // echo $data['type'];
 
     switch ($type) {
         case 'newest':
-            $query = "SELECT * FROM post_t INNER JOIN user_t ON post_t.author = user_t.userid ORDER BY post_t.created DESC";
+            $query = "SELECT * FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID ORDER BY POST_T.Created DESC;";
             break;
         default:
-            $query = "SELECT * FROM post_t INNER JOIN user_t ON post_t.author = user_t.userid ORDER BY post_t.created ASC";
+            $query = "SELECT * FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID ORDER BY POST_T.Created ASC;";
             break;
     }
 
@@ -19,13 +19,12 @@ if (isset($_POST['sortType'])) {
 
     for ($i=0; $i < count($post); $i++) {
         $currentPost = <<<currentPost
-        <a href="/forum/posts/{$post[$i]->postID}.php">
-            <p>{$post[$i]->title}</p>
-            <p>By: {$post[$i]->username}</p>
+        <a href="/forum/posts/{$post[$i]->PostID}.php">
+            <p>{$post[$i]->Title}</p>
+            <p>By: {$post[$i]->Username}</p>
         </a>
         currentPost;
         echo $currentPost;
     }
 }
-
 ?>
