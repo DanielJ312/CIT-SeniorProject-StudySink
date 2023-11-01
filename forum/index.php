@@ -1,4 +1,5 @@
 <!-- Forum Home - Lists all posts made and allows users to sort -->
+<!-- test -->
 <?php 
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 $pageTitle = "Forum";
