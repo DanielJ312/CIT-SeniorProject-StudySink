@@ -1,6 +1,7 @@
+# htaccess - Includes Apache redirect rules
 RewriteEngine ON
 
-# File Extension Removal
+# File Extension Removal - DISABLED FOR NOW
 # RewriteCond %{THE_REQUEST} /([^.]+)\.php [NC]
 # RewriteRule ^ /%1 [NC,L,R]
 # RewriteCond %{REQUEST_FILENAME}.php -f

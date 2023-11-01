@@ -1,5 +1,7 @@
+# gitignore - Files & Directories ignored by git
 # Composer
 /vendor/
 
 # Other
 /testing/
+/sql/
