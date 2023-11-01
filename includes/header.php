@@ -1,3 +1,4 @@
+<!-- Header - Contains HTML injected into the header tag -->
 <h1>StudySink Backend Development</h1>
 <nav class="navbar">
     <a class="<?php check_active_page('/index.php');?>" href="/index.php">Home</a>
@@ -23,4 +24,4 @@
             </div>
         <?php endif; ?>
     </div>
-</nav
+</nav>
