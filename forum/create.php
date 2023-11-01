@@ -1,27 +1,36 @@
+<!-- Create Post - Creates a forum post -->
 <?php 
+require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 $pageTitle = "Create Post";
-include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php");
 
-$errors = array();
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $errors = create_post($_POST);
-}
-
+$errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
 ?>
 
-<h2><?=isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
-<div>
-    <div>
-        <?php display_errors($errors); ?>
-    </div>
-    <form method="post">
-        <p>Title: <input type="text" name="title"></p>
-        <p>Content: <textarea name="content" rows="5" cols="40"></textarea></p>
-        <input type="submit" value="Submit">
-    </form>
-</div>
-
-<?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
+</head>
+<body>
+    <header>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+        <h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
+    </header>
+    <main>
+        <div>
+            <?php display_errors($errors); ?>
+        </div>
+        <form method="post">
+            <p>Title: <input type="text" name="title"></p>
+            <p>Content: <textarea name="content" rows="5" cols="40"></textarea></p>
+            <input type="submit" value="Submit">
+        </form>
+    </main>
+    <footer>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
+    </footer>
+</body>
+</html>
 
 <?php 
 function create_post($data) {
@@ -35,19 +44,18 @@ function create_post($data) {
     }
 
     if (count($errors) == 0) {
-        $values['postID'] = rand(100, 999);
-        $values['title'] = $data['title'];
-        $values['content'] = $data['content'];
-        $values['author'] = $_SESSION['USER']->userid;
-        $values['created'] = get_local_time();
+        $values['PostID'] = rand(100, 999);
+        $values['Title'] = $data['title'];
+        $values['Content'] = $data['content'];
+        $values['UserID'] = $_SESSION['USER']->UserID;
+        $values['Created'] = get_local_time();
 
-        $query = "INSERT INTO post_t (postID, title, content, author, created) VALUES (:postID, :title, :content, :author, :created)";
+        $query = "INSERT INTO POST_T (PostID, Title, Content, UserID, Created) VALUES (:PostID, :Title, :Content, :UserID, :Created);";
         run_database($query, $values);
 
-        header("Location: {$values['postID']}.php");
+        header("Location: posts/{$values['PostID']}.php");
     }
 
     return $errors;
 }
-
 ?>

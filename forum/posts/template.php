@@ -1,69 +1,81 @@
+<!-- Post Template - Displays post for given Post ID  -->
 <?php
+require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 $pageTitle = "Forum";
-include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php");
 
 $postID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
-$values['postid'] = $postID;
-$query = "SELECT *, post_t.created AS PostCreated FROM post_t INNER JOIN user_t ON post_t.author = user_t.userid WHERE postid = :postid";
+$values['PostID'] = $postID;
+$query = "SELECT *, POST_T.Created AS PostCreated FROM POST_T INNER JOIN USER_T ON POST_T.userid = USER_T.userid WHERE PostID = :PostID;";
 $post = run_database($query, $values)[0];
 if (empty($post)) {
     header("Location: /forum/index.php");
 }
 
-$query = "SELECT *, comment_t.created AS CommentCreated FROM user_t INNER JOIN comment_t ON user_t.userid = comment_t.author WHERE postid = :postid";
+$query = "SELECT *, COMMENT_T.created AS CommentCreated FROM USER_T INNER JOIN COMMENT_T ON USER_T.userid = COMMENT_T.userid WHERE PostID = :PostID;";
 $comments = run_database($query, $values);
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    add_comment($_POST, $post->postID);
+    add_comment($_POST, $post->PostID);
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action']) == "delete") {
     delete_comment($_POST, $postID);
-    header("Location: {$post->postID}.php"); // NOT WORKING - WORK ON A FIX
+    header("Location: {$post->PostID}.php"); // NOT WORKING - WORK ON A FIX
 }
-
 ?>
 
-<script src="/forum/forum.js"></script>
-<h2><?= check_set_title($pageTitle); ?></h2>
-<div>
-    <div>
-        <h3><?= $post->title ?></h3>
-        <p><?= $post->content; ?></p>
-        <p>Submitted: <?= display_time($post->PostCreated, "m/d/Y h:i:s A"); ?></p> 
-        <p>By: 
-            <?= $post->username; ?>
-            <?= check_login(false) && $post->username == $_SESSION['USER']->username ? " (You)" : "" ?>
-        </p>
-    </div>
-    <?php if (check_login(false)): ?>
-    <div>
-        <h4>Add Comment</h4>
-        <form method="post">
-            <p>Content: <textarea name="content" rows="5" cols="40"></textarea></p>
-            <input type="submit" value="Submit">
-        </form>
-    </div>
-    <?php endif; ?>
-    <div>
-        <h4>Comments (<?= is_array($comments) ? count($comments) : "0"; ?>):</h4>
-        <?php if (is_array($comments)) : for ($i = 0; $i < count($comments); $i++) : ?>
-            <p class = "comment-<?= $comments[$i]->commentID ?>">
-                <img width="25" src="<?= $comments[$i]->avatar ?>">
-                <b><?= $comments[$i]->username; ?>
-                <?= $comments[$i]->username == $post->username ? " (OP)" : "" ?>
-                <?= check_login(false) && $comments[$i]->username == $_SESSION['USER']->username ? " (You)" : "" ?></b>:
-                <?= $comments[$i]->content; ?>  
-                <?= "(" . display_time($comments[$i]->CommentCreated, "m/d/Y h:i:s A") . ")"; ?>
-                <?php if (check_login(false) && $comments[$i]->username == $_SESSION['USER']->username): ?>
-                    <input type="submit" value="Delete" onclick="DeleteComment(<?= $comments[$i]->commentID ?>)">
-                <?php endif; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
+    <script async src="/forum/forum.js"></script>
+</head>
+<body>
+    <header>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+        <h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
+    </header>
+    <main>
+        <div>
+            <h3><?= $post->Title ?></h3>
+            <p><?= $post->Content; ?></p>
+            <p>Submitted: <?= display_time($post->PostCreated, "m/d/Y h:i:s A"); ?></p> 
+            <p>By: 
+                <?= $post->Username; ?>
+                <?= check_login(false) && $post->Username == $_SESSION['USER']->Username ? " (You)" : "" ?>
             </p>
-        <?php endfor; endif;?>
-    </div>
-</div>
-
-<?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
+        </div>
+        <?php if (check_login(false)): ?>
+        <div>
+            <h4>Add Comment</h4>
+            <form method="post">
+                <p>Content: <textarea name="content" rows="5" cols="40"></textarea></p>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <?php endif; ?>
+        <div>
+            <h4>Comments (<?= is_array($comments) ? count($comments) : "0"; ?>):</h4>
+            <?php if (is_array($comments)) : for ($i = 0; $i < count($comments); $i++) : ?>
+                <p class = "comment-<?= $comments[$i]->CommentID ?>">
+                    <img width="25" src="<?= $comments[$i]->Avatar ?>">
+                    <b><?= $comments[$i]->Username; ?>
+                    <?= $comments[$i]->Username == $post->Username ? " (OP)" : "" ?>
+                    <?= check_login(false) && $comments[$i]->Username == $_SESSION['USER']->Username ? " (You)" : "" ?></b>:
+                    <?= $comments[$i]->Content; ?>  
+                    <?= "(" . display_time($comments[$i]->CommentCreated, "m/d/Y h:i:s A") . ")"; ?>
+                    <?php if (check_login(false) && $comments[$i]->Username == $_SESSION['USER']->Username): ?>
+                        <input type="submit" value="Delete" onclick="DeleteComment(<?= $comments[$i]->CommentID ?>)">
+                    <?php endif; ?>
+                </p>
+            <?php endfor; endif;?>
+        </div>
+    </main>
+    <footer>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
+    </footer>
+</body>
+</html>
 
 <?php
 function add_comment($data, $postID) {
@@ -95,5 +107,4 @@ function delete_comment($data, $postID) {
     $query = "DELETE FROM comment_t WHERE commentID = :commentID";
     run_database($query, $values);
 }
- 
 ?>
