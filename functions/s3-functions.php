@@ -1,12 +1,12 @@
 <?php
-require 'vendor/autoload.php';
-// require($_SERVER['DOCUMENT_ROOT'] . "/functions.php");
-// require '/aws/aws-autoloader.php';
+# Functions - Contains functions relating to AWS S3
+require ($_SERVER['DOCUMENT_ROOT'] ."/vendor/autoload.php");
+
 use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
 
 function upload_avatar($file) {
-    $credentials = parse_ini_file('config.ini');
+    $credentials = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
     $s3 = new S3Client([
         'version' => 'latest',
         'region' => $credentials['aws_region'],
@@ -46,6 +46,4 @@ function upload_avatar($file) {
         echo "Error: Please select a valid image file.";
     }
 }
-
 ?>
-

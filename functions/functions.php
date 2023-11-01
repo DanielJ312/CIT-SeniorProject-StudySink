@@ -1,11 +1,11 @@
 <?php
+# Functions - Contains functions that are used by multiple pages
 date_default_timezone_set('America/Los_Angeles');
 session_start();
-require($_SERVER['DOCUMENT_ROOT'] . "/mail.php");
-require($_SERVER['DOCUMENT_ROOT'] . "/s3functions.php");
+require($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 
 function run_database($query, $values = array()) {;
-    $database = parse_ini_file('config.ini');
+    $database = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");;
     $dbhost = $database['db_host'];
     $dbport = $database['db_port'];
     $dbname = $database['db_name'];
@@ -32,29 +32,21 @@ function run_database($query, $values = array()) {;
     return false;
 }
 
-function check_login($redirect = true) {
+function check_login() {
+    $loggedIn = false;
     if (isset($_SESSION['USER']) && isset($_SESSION['LOGGED_IN'])) {
-        return true;
+        $loggedIn = true;
     }
-    else {
-        return false;
-    }
-    
-    if ($redirect) {
-        header("Location: /account/login.php");
-        // die;
-    } else {
-        return false;
-    }
+    return $loggedIn;
 }
 
 function update_session() {
     //finish
     if (isset($_SESSION['USER'])) {
         $values = array();
-        $values['userid'] = $_SESSION['USER']->userid;
+        $values['UserID'] = $_SESSION['USER']->UserID;
     
-        $query = "SELECT * FROM user_t WHERE userid = :userid limit 1";
+        $query = "SELECT * FROM USER_T WHERE UserID = :UserID LIMIT 1;";
         $result = run_database($query, $values);
         $result = $result[0];
     
@@ -65,12 +57,12 @@ function update_session() {
 }
 
 function check_verification() {
-    $userid = $_SESSION['USER']->userid;
-    $query = "SELECT * FROM user_t where userid = '$userid' limit 1 ";
+    $userid = $_SESSION['USER']->UserID;
+    $query = "SELECT * FROM USER_T where UserID = '$userid' LIMIT 1;";
     $result = run_database($query);
     if (is_array($result)) {
         $result = $result[0];
-        if ($result->verified == 1) {
+        if ($result->Verified == 1) {
             return true;
         }
     }
@@ -79,24 +71,24 @@ function check_verification() {
 }
 
 function send_code($type, $recipient) {
-    $values['code'] = rand(10000, 99999);
-    $values['expires'] = (get_local_time() + (60 * 1));
-    $values['email'] = $recipient;
-    $values['type'] = "$type";
+    $values['Code'] = rand(10000, 99999);
+    $values['Expires'] = (get_local_time() + (60 * 1));
+    $values['Email'] = $recipient;
+    $values['Type'] = "$type";
 
     switch ($type) {
         case 'verify':
             $subject = "Verify Account";
             $message = <<<message
-            <p>Hello <b>{$_SESSION['USER']->username}</b>,</p>
-            Your account verification code is <b> {$values['code']}</b>.
+            <p>Hello <b>{$_SESSION['USER']->Username}</b>,</p>
+            Your account verification code is <b> {$values['Code']}</b>.
             message;
             break;
         case 'reset':
             $subject = "Password Reset";
             $message = <<<message
-            <p>Hello, <b>{$values['requestID']}</b></p>
-            Your password reset verification code is  <b>{$values['code']}</b>.
+            <p>Hello, <b>{$_SESSION['USER']->Username}</b></p>
+            Your password reset verification code is  <b>{$values['Code']}</b>.
             message;
             break;
         default:
@@ -104,19 +96,19 @@ function send_code($type, $recipient) {
     }
     delete_code($type, $recipient);
 
-    $query = "INSERT INTO verify_t (code, type, expires, email) values (:code, :type, :expires, :email)";
+    $query = "INSERT INTO CODE_T (Code, Type, Email, Expires) values (:Code, :Type, :Email, :Expires);";
     run_database($query, $values);
     send_mail($recipient, $subject, $message);
 }
 
 function is_code_active($type, $email) {
-    $values['type'] = $type;
-    $values['email'] = $email;
+    $values['Type'] = $type;
+    $values['Email'] = $email;
 
-    $query = "SELECT * FROM verify_t WHERE type = :type AND email = :email";
+    $query = "SELECT * FROM CODE_T WHERE Type = :Type AND Email = :Email;";
     $result = run_database($query, $values);
 
-    if (is_array($result) && get_local_time() < $result[0]->expires) {
+    if (is_array($result) && get_local_time() < $result[0]->Expires) {
         return true;
     }
     else {
@@ -126,7 +118,7 @@ function is_code_active($type, $email) {
 }
 
 function delete_code($type, $email) {
-    $query = "DELETE FROM verify_t WHERE type = '$type' AND email = '$email'";
+    $query = "DELETE FROM CODE_T WHERE type = '$type' AND Email = '$email';";
     run_database($query);
 }
 
@@ -161,7 +153,7 @@ function display_time($time, $format) {
 function generate_ID($type) {
     do {
         switch ($type) {
-            case 'user':
+            case 'User':
                 $createdID = rand(101, 999);
                 break;
             default:
@@ -171,7 +163,7 @@ function generate_ID($type) {
         $query = "SELECT * FROM {$type}_t WHERE {$type}id = '$createdID' limit 1";
         $result = run_database($query);
         $result = $result[0];
-    } while ($createdID == $result->userid);
+    } while ($createdID == $result->UserID);
     
     return $createdID;
 }

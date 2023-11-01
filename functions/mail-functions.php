@@ -1,11 +1,12 @@
 <?php
-require 'vendor/autoload.php';
+# Functions - Contains functions relating to PHPMailer
+require ($_SERVER['DOCUMENT_ROOT'] ."/vendor/autoload.php");
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 function send_mail($recipient, $subject, $message) {
-    $phpmailer = parse_ini_file('config.ini');
+    $phpmailer = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
     $mail = new PHPMailer();
     $mail->IsSMTP();
     $mail->Host = $phpmailer['mailer_host'];
@@ -34,5 +35,4 @@ function send_mail($recipient, $subject, $message) {
         return true;
     }
 }
-
 ?>
