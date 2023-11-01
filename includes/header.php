@@ -1,4 +1,3 @@
-<!-- Header - Contains HTML injected into the header tag -->
 <h1>StudySink Backend Development</h1>
 <nav class="navbar">
     <a class="<?php check_active_page('/index.php');?>" href="/index.php">Home</a>
@@ -9,6 +8,7 @@
     <a class="<?php check_active_page('/account/login.php');?>" href="/account/login.php">Login</a>
     <a class="<?php check_active_page('/account/logout.php');?>" href="/account/logout.php">Logout</a>
     <a class="<?php check_active_page('/account/forgot.php');?>" href="/account/forgot.php">Reset</a>
+    <a class="<?php check_active_page('/study-sets/create-study-set.php');?>" href="/study-sets/create-study-set.php">Create Study Set</a>
     <div style="float:right;">
         <?php if (!isset($_SESSION['USER'])): ?>
             <a class="dropdown" href="/account/login.php">Login</a>
@@ -23,4 +23,4 @@
             </div>
         <?php endif; ?>
     </div>
-</nav>
+</nav
