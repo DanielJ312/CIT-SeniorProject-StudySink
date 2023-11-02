@@ -3,7 +3,7 @@
 <div class="body">
     <div class="navbarMain">
         <div class="navbar-left">
-            <a href="Home" id="Home"><img src="StudySinkWords.png" alt="Company Logo" class="companyLogo" title="Home"></a>
+            <a href="Home" id="Home"><img src="/assets/StudySinkBanner.png" alt="Company Logo" class="companyLogo" title="Home"></a>
         </div>
         <div class="navbar-center">
             <div class="search-container">
@@ -22,7 +22,7 @@
             <a href="Home" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl"></i></a>
             <a href="UniversityPage" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-flip-horizontal fa-2xl"></i></a>
             <div class="dropdown">
-                <img src="pp.png" alt="Place Holder" class="profile-picture" id="profilePicture" title="Profile">
+                <img src="/assets/DefaultAvatar.png" alt="Place Holder" class="profile-picture" id="profilePicture" title="Profile">
                 <div class="dropdown-content-profile" id="profileDropdown">
                     <a href="Profile">Profile</a>
                     <a href="Settings">Settings</a>
@@ -35,7 +35,7 @@
     <div class="navbarmobile">
         <header style="height: 20px;">
             <i class="fa-solid fa-bars fa-2xl" id="menuIcon" title="Menu Icon"></i>
-            <img id="logo" src="StudySinkwords.png" alt="Company Logo" title="Home" style="margin-top: -10px; margin-bottom: -10px;">
+            <img id="logo" src="/assets/StudySinkBanner.png" alt="Company Logo" title="Home" style="margin-top: -10px; margin-bottom: -10px;">
             <nav>
                 <div>
                     <form id="search-form" class="searchform">
@@ -72,14 +72,42 @@
 <nav class="navbar">
     <span>Development Navbar:</span>
     <a class="<?php check_active_page('/index.php');?>" href="/index.php">Home</a>
-    <a class="<?php check_active_page('/request/index.php');?>" href="/request/index.php">Request</a>
-    <a class="<?php check_active_dir('/forum');?>" href="/forum/index.php">Forum</a>
-    <a class="<?php check_active_page('/study-sets/create.php');?>" href="/study-sets/create.php">Create Study Set</a>
-    <a class="<?php check_active_page('/account/profile.php');?>" href="/account/profile.php">Profile</a>
-    <a class="<?php check_active_page('/account/register.php');?>" href="/account/register.php">Registration</a>
-    <a class="<?php check_active_page('/account/login.php');?>" href="/account/login.php">Login</a>
-    <a class="<?php check_active_page('/account/logout.php');?>" href="/account/logout.php">Logout</a>
-    <a class="<?php check_active_page('/account/forgot.php');?>" href="/account/forgot.php">Reset</a>
+    <div class="dropdown">
+        <button class="dropbtn <?php check_active_dir('/request');?>">Request</button>
+        <div class="dropdown-content">
+            <a class="<?php check_active_page('/request/index.php');?>" href="/request/index.php">Submit</a>
+            <a class="<?php check_active_page('');?>" href="">Success</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn <?php check_active_dir('/forum');?>">Forum</button>
+        <div class="dropdown-content">
+            <a class="<?php check_active_page('/forum/index.php');?>" href="/forum/index.php">Posts</a>
+            <a class="<?php check_active_page('/forum/create.php');?>" href="/forum/create.php">Create</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn <?php check_active_dir('/study-sets');?>">Study Sets</button>
+        <div class="dropdown-content">
+            <a class="<?php check_active_page('/study-sets/create.php');?>" href="/study-sets/create.php">Create</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn <?php check_active_dir('/study-sets');?>">Study Sets</button>
+        <div class="dropdown-content">
+            <a class="<?php check_active_page('/study-sets/create.php');?>" href="/study-sets/create.php">Create</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn <?php check_active_dir('/account');?>">Account</button>
+        <div class="dropdown-content">
+            <a class="<?php check_active_page('/account/profile.php');?>" href="/account/profile.php">Profile</a>
+            <a class="<?php check_active_page('/account/register.php');?>" href="/account/register.php">Registration</a>
+            <a class="<?php check_active_page('/account/login.php');?>" href="/account/login.php">Login</a>
+            <a class="<?php check_active_page('/account/logout.php');?>" href="/account/logout.php">Logout</a>
+            <a class="<?php check_active_page('/account/forgot.php');?>" href="/account/forgot.php">Reset</a>
+        </div>
+    </div>
     <div style="float:right;">
     <?php if (!isset($_SESSION['USER'])): ?>
         <a class="dropdown" href="/account/login.php">Login</a>
