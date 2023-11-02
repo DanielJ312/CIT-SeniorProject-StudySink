@@ -89,12 +89,7 @@
     <div class="dropdown">
         <button class="dropbtn <?php check_active_dir('/study-sets');?>">Study Sets</button>
         <div class="dropdown-content">
-            <a class="<?php check_active_page('/study-sets/create.php');?>" href="/study-sets/create.php">Create</a>
-        </div>
-    </div>
-    <div class="dropdown">
-        <button class="dropbtn <?php check_active_dir('/study-sets');?>">Study Sets</button>
-        <div class="dropdown-content">
+            <a class="<?php check_active_page('');?>" href="">Study Sets</a>
             <a class="<?php check_active_page('/study-sets/create.php');?>" href="/study-sets/create.php">Create</a>
         </div>
     </div>
