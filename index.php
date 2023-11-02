@@ -19,21 +19,24 @@ $users = run_database("SELECT * FROM USER_T;");
     </header>
     <main>
         <div>
-            <p>Welcome to the home page for the StudySink login system.</p>
-            <p>This page is accessible whether or not you are logged in.</p>
+            <p>Welcome to the home page for the StudySink Backend Development.</p>
+            <p>This page currently has no use and instead lists all created users.</p>
             <table>
                 <h3>User Account Information</h3>
                 <tr>
-                    <th>userid</th><th>username</th><th>email</th><th>password</th><th>verified</th><th>created</th>
+                    <th>Avatar</th><th>UserID</th><th>Username</th><th>Email</th>
+                    <th>Password</th><th>Verified</th><th>Created</th><th>Current User</th>
                 </tr>
                 <?php for ($i = 0; $i < sizeof($users); $i++) : ?>
                 <tr>
+                    <td><img width="25" src="<?= $users[$i]->Avatar ?>"></td>
                     <td><?= $users[$i]->UserID ?></td>
                     <td><?= $users[$i]->Username ?></td>
                     <td><?= $users[$i]->Email ?></td>
                     <td><?= $users[$i]->Password ?></td>
                     <td><?= $users[$i]->Verified == 1 ? "yes" : "no" ?></td>
                     <td><?= display_time($users[$i]->Created, "Y-m-d h:i:s A"); ?></td>
+                    <td><?= check_login(false) && $users[$i]->Username == $_SESSION['USER']->Username ? "Yes" : "" ?></b></td>
                 </tr>
                 <?php endfor; ?>
             </table>
