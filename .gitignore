@@ -1,6 +1,7 @@
 # gitignore - Files & Directories ignored by git
 # Composer
 /vendor/
+composer.lock
 
 # Other
 /testing/
