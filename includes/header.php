@@ -7,7 +7,7 @@
         </div>
         <div class="navbar-center">
             <div class="search-container">
-                <a href="SearchResults"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #000000;"></i></a>
+              <a href="SearchResults"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #000000;"></i></a>
                 <input type="text" id="searchBar" placeholder="Search Study sets, Universities, Posts" style="padding-left: 35px;">
             </div>
         </div>
@@ -33,10 +33,10 @@
         </div>
     </div>
     <div class="navbarmobile">
-        <header style="height: 20px;">
+        <header class="mobileheader" style="height: 20px;">
             <i class="fa-solid fa-bars fa-2xl" id="menuIcon" title="Menu Icon"></i>
             <img id="logo" src="/assets/StudySinkBanner.png" alt="Company Logo" title="Home" style="margin-top: -10px; margin-bottom: -10px;">
-            <nav>
+            <nav class="mobilenav">
                 <div>
                     <form id="search-form" class="searchform">
                         <a href="SearchResults" class="mag"><i class="fa-solid fa-magnifying-glass fa-sm" style="color: #000000; padding-left: 2px; margin-bottom: 3px"></i></a>

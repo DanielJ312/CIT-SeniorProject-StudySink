@@ -1,5 +1,6 @@
 
 /*-- Fonts: font-family: 'Comfortaa', sans-serif; --*/
+
 .navbarmobile {
     display: none;
 }
@@ -88,15 +89,6 @@
     margin-right: 13px;
 }
 
-a {
-    color: black;
-}
-
-a:hover, a:focus {
-    color: white;
-    font-family: 'Comfortaa', sans-serif;
-}
-
 .fa-circle-plus:hover {
  cursor: pointer;
  color: white;
@@ -155,7 +147,6 @@ a:hover, a:focus {
     background-color: #C2D9FF;
 }
 
-
 /* -- Mobile compatibility at 850px -- */
 @media only screen and (max-width: 850px) {
     .navbarMain {
@@ -168,7 +159,7 @@ a:hover, a:focus {
         font-family: 'Comfortaa', sans-serif;
     }
    
-    header {
+    .mobileheader {
         display: flex;
         font-family: 'Comfortaa', sans-serif;
         background-color: #0078d4;
@@ -233,7 +224,7 @@ a:hover, a:focus {
         width: 169px;
     }
 
-    nav {
+    .mobilenav {
         display: none;
         flex-direction: column;
         background-color: #0078d4;
@@ -243,16 +234,8 @@ a:hover, a:focus {
         width: 200px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
     }
-
-    a {
-        font-family: 'Comfortaa', sans-serif;
-        margin: 0;
-        border-top-width: 2px;
-        border-top-style: solid;
-        border-top-color: black;
-    }
     
-    nav a {
+    .mobilenav a {
         font-family: 'Comfortaa', sans-serif;
         color: white;
         text-decoration: none;
@@ -263,7 +246,7 @@ a:hover, a:focus {
         align-items: center;
     }
 
-    nav a:hover {
+    .mobilenav a:hover {
         font-family: 'Comfortaa', sans-serif;
         background-color: #C2D9FF;
     }
