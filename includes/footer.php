@@ -1,0 +1,1 @@
+<!-- Footer - Contains HTML injected into the footer tag -->
