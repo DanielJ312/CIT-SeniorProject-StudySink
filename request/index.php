@@ -50,18 +50,14 @@ function submit_form($data) {
 
     if (count($errors) == 0) {
         $values['RequestID'] = rand(10000, 99999);
-        $values['Email'] = $_SESSION['USER']->email;
+        $values['Email'] = $_SESSION['USER']->Email;
         $values['University'] = $data['university'];
         $values['Message'] = $data['message'];
-
-        // DATABASE INSERTION TEMPORARILY DISABLED
-        // $query = "INSERT INTO REQUEST_T (RequestID, Email, University, Message) VALUES (:RequestID, :Email, :University, :Subjects)";
-        // run_database($query, $values);
 
         $subject = "Request ID: " . $values['RequestID'];
         $message = <<<message
         <p><b>Request #</b>: {$values['RequestID']}</p>
-        <p><b>Username</b>: {$_SESSION['USER']->username}</p>
+        <p><b>Username</b>: {$_SESSION['USER']->Username}</p>
         <p><b>University</b>: {$values['University']}</p>
         <p><b>Message</b>: {$values['Message']}</p>
         message;
