@@ -18,25 +18,19 @@ function upload_avatar($file) {
 
     if (isset($file['image']) && $file['image']['error'] === UPLOAD_ERR_OK) {
         $file_path = $file['image']['tmp_name'];
-        $key = "uploads/{$_SESSION['USER']->userid}_{$_SESSION['USER']->username}_" . (time() - (60*60*7)) . ".png";
+        $key = "avatars/{$_SESSION['USER']->UserID}_{$_SESSION['USER']->Username}_" . (time() - (60*60*7)) . ".png";
 
         try {
-            // Upload the file.
             $result = $s3->putObject([
                 'Bucket' => $credentials['s3_bucket_name'],
                 'Key' => $key,
                 'SourceFile' => $file_path,
                 'ACL' => 'public-read',
-                // 'ContentDisposition' => 'inline',
             ]);
-
-            // Display the uploaded image.
-            echo "<h2>File uploaded successfully!</h2>";
-            echo "<img src='" . $result['ObjectURL'] . "' alt='Uploaded Image'>";
             
-            $values['userid'] = $_SESSION['USER']->userid;
-            $values['avatar'] = $result['ObjectURL'];
-            $query = "UPDATE user_t SET avatar = :avatar WHERE userid = :userid";
+            $values['UserID'] = $_SESSION['USER']->UserID;
+            $values['Avatar'] = $result['ObjectURL'];
+            $query = "UPDATE USER_T SET Avatar = :Avatar WHERE UserID = :UserID";
             run_database($query, $values);
 
         } catch (S3Exception $e) {

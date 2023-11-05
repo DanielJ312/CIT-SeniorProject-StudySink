@@ -11,7 +11,7 @@ if (empty($post)) {
     header("Location: /forum/index.php");
 }
 
-$query = "SELECT *, COMMENT_T.created AS CommentCreated FROM USER_T INNER JOIN COMMENT_T ON USER_T.userid = COMMENT_T.userid WHERE PostID = :PostID;";
+$query = "SELECT *, COMMENT_T.created AS CommentCreated FROM USER_T INNER JOIN COMMENT_T ON USER_T.userid = COMMENT_T.userid WHERE PostID = :PostID ORDER BY COMMENT_T.Created ASC;";
 $comments = run_database($query, $values);
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
