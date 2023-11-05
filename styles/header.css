@@ -39,7 +39,7 @@
     border-style: solid;
 }
 
-.profile-picture:hover {
+ .profile-picture:hover {
     border-color: white;
 }
 
@@ -92,6 +92,24 @@
 .fa-circle-plus:hover {
  cursor: pointer;
  color: white;
+}
+
+.fa-house {
+    color: black;
+}
+
+.fa-house:hover {
+    cursor: pointer;
+    color: white;
+}
+
+.fa-graduation-cap {
+    color: black;
+}
+
+.fa-graduation-cap:hover {
+    cursor: pointer;
+    color: white;
 }
 
 /* -- Dropdown Contect for Create -- */
@@ -151,13 +169,19 @@
 @media only screen and (max-width: 850px) {
     .navbarMain {
         display: none;
-    }
+   }
+
+   .navitem{
+    border-top: 2px;
+    border-top-style: solid;
+    border-top-color: black;
+}
 
     .navbarmobile {
         visibility: visible;
         display:flex;
         font-family: 'Comfortaa', sans-serif;
-    }
+   }
    
     .mobileheader {
         display: flex;
@@ -168,7 +192,7 @@
         padding: 15px;
         justify-content: space-between;
         align-items: center;
-    }
+   }
 
     #logo {
         margin-right: 3%;
@@ -176,32 +200,32 @@
         height: 45px;
         order: 2;
         cursor: pointer;
-    }
+   }
 
-    .fa-bars {
+   .fa-bars {
        color: black;
        cursor: pointer;
-    }
+   }
 
-    .fa-bars:hover {
+   .fa-bars:hover {
        color: white;
-    }
+   }
 
-    .searchform {
+   .searchform {
         padding: 15px 2px;
         position: relative;
         border-top-color: black; 
         border-top-width: 2px; 
         border-top-style: solid;
-    }
+   }
 
-    .mag {
+   .mag{
         padding: 0;
         cursor: pointer;
         padding-left: 1px;
-    }
+   }
 
-    .searchform a {
+   .searchform a {
         position: absolute;
         font-family: 'Comfortaa', sans-serif;
         left: 2%;
@@ -209,9 +233,9 @@
         transform: translateY(-50%);
         cursor: pointer;
         border-top-width: 0px;
-    }
+   }
 
-    .searchbar {
+   .searchbar {
         background-color: #C2D9FF;
         border: none;
         display: flex;
@@ -222,7 +246,7 @@
         padding-bottom: 3px;
         padding-left: 12%;
         width: 169px;
-    }
+   }
 
     .mobilenav {
         display: none;
@@ -233,8 +257,8 @@
         left: 0;
         width: 200px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
-    }
-    
+   }
+
     .mobilenav a {
         font-family: 'Comfortaa', sans-serif;
         color: white;
@@ -244,23 +268,23 @@
         display: flex;
         justify-content: center;
         align-items: center;
-    }
+   }
 
     .mobilenav a:hover {
         font-family: 'Comfortaa', sans-serif;
         background-color: #C2D9FF;
-    }
+   }
 
     .dropdown-content {
         display: none;
         background-color: #43a9f7;
-    }
+   }
 
     .dropdown-content a {
         font-family: 'Comfortaa', sans-serif;
         display: flex;
         align-items: center;
-    }
+   }
 
     .dropdown.active a{
         font-family: 'Comfortaa', sans-serif;
@@ -268,6 +292,6 @@
 
     .dropdown.active .dropdown-content {
         display: block;
-    }
+   }
    
 } /* End of mobile compatability*/

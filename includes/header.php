@@ -1,71 +1,71 @@
 <!-- Header - Contains HTML injected into the header tag -->
 <!-- Primary Navbar -->
 <div class="body">
-    <div class="navbarMain">
+<div class="navbarMain">
         <div class="navbar-left">
-            <a href="Home" id="Home"><img src="/assets/StudySinkBanner.png" alt="Company Logo" class="companyLogo" title="Home"></a>
-        </div>
-        <div class="navbar-center">
-            <div class="search-container">
-              <a href="SearchResults"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #000000;"></i></a>
-                <input type="text" id="searchBar" placeholder="Search Study sets, Universities, Posts" style="padding-left: 35px;">
-            </div>
-        </div>
-        <div class="navbar-right">
+            <a href="Home" id="Home"><img src="assets/StudySinkBanner.png" alt="Company Logo" class="companyLogo" title="Home"></a>
+         </div>
+         <div class="navbar-center">
+		  <div class="search-container">
+		    <a href="SearchResults"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #000000;"></i></a>
+            <input type="text" id="searchBar" placeholder="Search Study sets, Universities, Posts" style="padding-left: 35px;">
+		  </div>
+         </div>
+         <div class="navbar-right">
             <div class="dropdown" style="padding-top: 15px; padding-bottom: 15px;">
-                <i class="fa-solid fa-circle-plus fa-2xl" id="createIcon" title="Create" style="cursor: pointer;"></i>
-                    <div class="dropdown-content-create" id="createDropdown">
-                    <a href="CreateStudySet">Create Study Set</a>
-                    <a href="CreatePost">Create Post</a>
-                    </div>
+               <i class="fa-solid fa-circle-plus fa-2xl" id="createIcon" title="Create" style="color: black;"></i>
+               <div class="dropdown-content-create" id="createDropdown">
+                  <a href="CreateStudySet">Create Study Set</a>
+                  <a href="CreatePost">Create Post</a>
+               </div>
             </div>
             <a href="Home" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl"></i></a>
             <a href="UniversityPage" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-flip-horizontal fa-2xl"></i></a>
             <div class="dropdown">
-                <img src="/assets/DefaultAvatar.png" alt="Place Holder" class="profile-picture" id="profilePicture" title="Profile">
-                <div class="dropdown-content-profile" id="profileDropdown">
-                    <a href="Profile">Profile</a>
-                    <a href="Settings">Settings</a>
-                    <a href="Help/Request">Help/Request University</a>
-                    <a href="Logout">Logout</a>
-                </div>
+               <img src="assets/DefaultAvatar.png" alt="Pic" class="profile-picture" id="profilePicture" title="Profile">
+               <div class="dropdown-content-profile" id="profileDropdown">
+                  <a href="Profile">Profile</a>
+                  <a href="Settings">Settings</a>
+                  <a href="Help/Request">Help/Request University</a>
+                  <a href="Logout">Logout</a>
+               </div>
             </div>
-        </div>
-    </div>
-    <div class="navbarmobile">
-        <header class="mobileheader" style="height: 20px;">
-            <i class="fa-solid fa-bars fa-2xl" id="menuIcon" title="Menu Icon"></i>
-            <img id="logo" src="/assets/StudySinkBanner.png" alt="Company Logo" title="Home" style="margin-top: -10px; margin-bottom: -10px;">
-            <nav class="mobilenav">
-                <div>
-                    <form id="search-form" class="searchform">
-                        <a href="SearchResults" class="mag"><i class="fa-solid fa-magnifying-glass fa-sm" style="color: #000000; padding-left: 2px; margin-bottom: 3px"></i></a>
-                        <input type="text" id="search-input" placeholder="Search" class="searchbar" title="search">
-                    </form>
-                </div>
-                <div class="nav-options">
-                    <a href="Home" title="Home">Home</a>
-                    <a href="University" title="My University">My University</a>
-                    <div class="dropdown">
-                        <a href="#" title="Create">Create</a>
-                        <div class="dropdown-content">
-                            <a href="StudySetCreate" title="Create Study Set">Study Set</a>
-                            <a href="postCreate" title="Create Post">Post</a>
-                        </div>
-                    </div>
-                    <div class="dropdown">
-                        <a href="#" style="border-bottom-color: black; border-bottom-width: 2px; border-bottom-style: solid;" title="Profile">Profile</a>
-                        <div class="dropdown-content">
-                            <a href="Profile" style="border-top-width: 0px;" title="My Profile">My Profile</a>
-                            <a href="Settings" title="Settings">Settings</a>
-                            <a href="Help" title="Help">Help/Request Uni</a>
-                            <a href="Logout" style="border-bottom-color: black; border-bottom-width: 2px; border-bottom-style: solid;" title="Logout">Logout</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        <header>
-    </div>
+         </div>
+      </div>
+      <div class="navbarmobile">
+	   <header class="mobileheader" style="height: 20px;">
+         <i class="fa-solid fa-bars fa-2xl" id="menuIcon" title="Menu Icon"></i>
+         <img id="logo" src="assets/StudySinkBanner.png" alt="Company Logo" title="Home" style="margin-top: -10px; margin-bottom: -10px;">
+         <nav class="mobilenav">
+		   <div>
+            <form id="search-form" class="searchform">
+			  <a href="SearchResults" class="mag"><i class="fa-solid fa-magnifying-glass fa-sm" style="color: #000000; padding-left: 2px; margin-bottom: 3px"></i></a>
+             <input type="text" id="search-input" placeholder="Search" class="searchbar" title="search">
+            </form>
+		   </div>
+		    <div class="nav-options">
+            <div class="navitem"><a href="Home" title="Home">Home</a></div>
+            <div class="navitem"><a href="University" title="My University">My University</a></div>
+            <div class="dropdown">
+               <div class="navitem"><a href="#" title="Create">Create</a></div>
+               <div class="dropdown-content">
+                  <div class="navitem"><a href="StudySetCreate" title="Create Study Set">Study Set</a></div>
+                  <div class="navitem"><a href="postCreate" title="Create Post">Post</a></div>
+               </div>
+            </div>
+            <div class="dropdown">
+               <div class="navitem"><a href="#" style="border-bottom-color: black; border-bottom-width: 2px; border-bottom-style: solid;" title="Profile">Profile</a></div>
+               <div class="dropdown-content">
+                  <a href="Profile" style="border-top-width: 0px;" title="My Profile">My Profile</a>
+                  <div class="navitem"><a href="Settings" title="Settings">Settings</a></div>
+                  <div class="navitem"><a href="Help" title="Help">Help/Request Uni</a></div>
+                  <div class="navitem"><a href="Logout" style="border-bottom-color: black; border-bottom-width: 2px; border-bottom-style: solid;" title="Logout">Logout</a></div>
+               </div>
+            </div>
+		   </div>
+         </nav>
+		<header>
+      </div>
 </div>
 
 <!-- Development Navbar For Easy Access -->
