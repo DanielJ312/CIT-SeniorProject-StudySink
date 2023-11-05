@@ -6,3 +6,4 @@ composer.lock
 # Other
 /testing/
 /sql/
+config.ini
