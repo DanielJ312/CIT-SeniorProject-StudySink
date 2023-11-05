@@ -3,7 +3,7 @@
 <div class="body">
 <div class="navbarMain">
         <div class="navbar-left">
-            <a href="Home" id="Home"><img src="assets/StudySinkBanner.png" alt="Company Logo" class="companyLogo" title="Home"></a>
+            <a href="Home" id="Home"><img src="https://studysink.s3.amazonaws.com/assets/StudySinkBanner.png" alt="Company Logo" class="companyLogo" title="Home"></a>
          </div>
          <div class="navbar-center">
 		  <div class="search-container">
@@ -22,7 +22,7 @@
             <a href="Home" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl"></i></a>
             <a href="UniversityPage" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-flip-horizontal fa-2xl"></i></a>
             <div class="dropdown">
-               <img src="assets/DefaultAvatar.png" alt="Pic" class="profile-picture" id="profilePicture" title="Profile">
+               <img src="https://studysink.s3.amazonaws.com/assets/DefaultAvatar.jpg" alt="Pic" class="profile-picture" id="profilePicture" title="Profile">
                <div class="dropdown-content-profile" id="profileDropdown">
                   <a href="Profile">Profile</a>
                   <a href="Settings">Settings</a>
@@ -35,7 +35,7 @@
       <div class="navbarmobile">
 	   <header class="mobileheader" style="height: 20px;">
          <i class="fa-solid fa-bars fa-2xl" id="menuIcon" title="Menu Icon"></i>
-         <img id="logo" src="assets/StudySinkBanner.png" alt="Company Logo" title="Home" style="margin-top: -10px; margin-bottom: -10px;">
+         <img id="logo" src="https://studysink.s3.amazonaws.com/assets/StudySinkBanner.png" alt="Company Logo" title="Home" style="margin-top: -10px; margin-bottom: -10px;">
          <nav class="mobilenav">
 		   <div>
             <form id="search-form" class="searchform">
