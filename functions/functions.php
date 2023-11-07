@@ -153,14 +153,14 @@ function display_time($time, $format) {
 function generate_ID($type) {
     do {
         switch ($type) {
-            case 'User':
+            case 'USER':
                 $createdID = rand(101, 999);
                 break;
             default:
                 # code...
                 break;
         }
-        $query = "SELECT * FROM {$type}_T WHERE {$type}id = '$createdID' limit 1";
+        $query = "SELECT * FROM {$type}_T WHERE {$type}ID = '$createdID' limit 1";
         $result = run_database($query);
         $result = $result[0];
     } while ($createdID == $result->UserID);

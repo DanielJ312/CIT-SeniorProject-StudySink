@@ -11,7 +11,7 @@ if (empty($post)) {
     header("Location: /forum/index.php");
 }
 
-$query = "SELECT *, COMMENT_T.created AS CommentCreated FROM USER_T INNER JOIN COMMENT_T ON USER_T.userid = COMMENT_T.userid WHERE PostID = :PostID;";
+$query = "SELECT *, COMMENT_T.created AS CommentCreated FROM USER_T INNER JOIN COMMENT_T ON USER_T.userid = COMMENT_T.userid WHERE PostID = :PostID ORDER BY COMMENT_T.Created ASC;";
 $comments = run_database($query, $values);
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -57,16 +57,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action']) == "delete")
         <div>
             <h4>Comments (<?= is_array($comments) ? count($comments) : "0"; ?>):</h4>
             <?php if (is_array($comments)) : for ($i = 0; $i < count($comments); $i++) : ?>
-                <p class = "comment-<?= $comments[$i]->CommentID ?>">
-                    <img width="25" src="<?= $comments[$i]->Avatar ?>">
+                <p class = "comment-<?= $comments[$i]->CommentID; ?>">
+                    <img width="25" src="<?= $comments[$i]->Avatar; ?>">
                     <b><?= $comments[$i]->Username; ?>
-                    <?= $comments[$i]->Username == $post->Username ? " (OP)" : "" ?>
-                    <?= check_login(false) && $comments[$i]->Username == $_SESSION['USER']->Username ? " (You)" : "" ?></b>:
+                    <?= $comments[$i]->Username == $post->Username ? " (OP)" : ""; ?>
+                    <?= check_login(false) && $comments[$i]->Username == $_SESSION['USER']->Username ? " (You)" : ""; ?></b>:
                     <?= $comments[$i]->Content; ?>  
                     <?= "(" . display_time($comments[$i]->CommentCreated, "m/d/Y h:i:s A") . ")"; ?>
-                    <?php if (check_login(false) && $comments[$i]->Username == $_SESSION['USER']->Username): ?>
-                        <input type="submit" value="Delete" onclick="DeleteComment(<?= $comments[$i]->CommentID ?>)">
-                    <?php endif; ?>
+                <?php if (check_login(false) && $comments[$i]->Username == $_SESSION['USER']->Username): ?>
+                    <input type="submit" value="Delete" onclick="DeleteComment(<?= $comments[$i]->CommentID; ?>)">
+                <?php endif; ?>
                 </p>
             <?php endfor; endif;?>
         </div>

@@ -1,5 +1,5 @@
-
 /*-- Fonts: font-family: 'Comfortaa', sans-serif; --*/
+
 .navbarmobile {
     display: none;
 }
@@ -65,16 +65,16 @@
 }
 
 .search-container {
-   position: relative;
-   width: 100%;
+    position: relative;
+    width: 100%;
 }
 
 .search-container a {
-   position: absolute;
-   left: 1%;
-   top: 50%;
-   transform: translateY(-50%);
-   cursor: pointer;
+    position: absolute;
+    left: 1%;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
 }
 
 /*-- Right Icons --*/
@@ -88,18 +88,27 @@
     margin-right: 13px;
 }
 
-a {
+.fa-circle-plus:hover {
+    cursor: pointer;
+    color: white;
+}
+
+.fa-house {
     color: black;
 }
 
-a:hover, a:focus {
+.fa-house:hover {
+    cursor: pointer;
     color: white;
-    font-family: 'Comfortaa', sans-serif;
 }
 
-.fa-circle-plus:hover {
- cursor: pointer;
- color: white;
+.fa-graduation-cap {
+    color: black;
+}
+
+.fa-graduation-cap:hover {
+    cursor: pointer;
+    color: white;
 }
 
 /* -- Dropdown Contect for Create -- */
@@ -108,7 +117,7 @@ a:hover, a:focus {
     position: absolute;
     background-color: #0078d4;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
     z-index: 1;
     border: 2px;
     right: 200px;
@@ -135,7 +144,7 @@ a:hover, a:focus {
     position: absolute;
     background-color: #0078d4;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
     z-index: 1;
     border: 2px;
     right: 0.5%;
@@ -155,20 +164,25 @@ a:hover, a:focus {
     background-color: #C2D9FF;
 }
 
-
 /* -- Mobile compatibility at 850px -- */
 @media only screen and (max-width: 850px) {
     .navbarMain {
         display: none;
     }
 
+    .navitem {
+        border-top: 2px;
+        border-top-style: solid;
+        border-top-color: black;
+    }
+
     .navbarmobile {
         visibility: visible;
-        display:flex;
+        display: flex;
         font-family: 'Comfortaa', sans-serif;
     }
-   
-    header {
+
+    .mobileheader {
         display: flex;
         font-family: 'Comfortaa', sans-serif;
         background-color: #0078d4;
@@ -188,19 +202,19 @@ a:hover, a:focus {
     }
 
     .fa-bars {
-       color: black;
-       cursor: pointer;
+        color: black;
+        cursor: pointer;
     }
 
     .fa-bars:hover {
-       color: white;
+        color: white;
     }
 
     .searchform {
         padding: 15px 2px;
         position: relative;
-        border-top-color: black; 
-        border-top-width: 2px; 
+        border-top-color: black;
+        border-top-width: 2px;
         border-top-style: solid;
     }
 
@@ -233,7 +247,7 @@ a:hover, a:focus {
         width: 169px;
     }
 
-    nav {
+    .mobilenav {
         display: none;
         flex-direction: column;
         background-color: #0078d4;
@@ -241,18 +255,10 @@ a:hover, a:focus {
         top: 50px;
         left: 0;
         width: 200px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
     }
 
-    a {
-        font-family: 'Comfortaa', sans-serif;
-        margin: 0;
-        border-top-width: 2px;
-        border-top-style: solid;
-        border-top-color: black;
-    }
-    
-    nav a {
+    .mobilenav a {
         font-family: 'Comfortaa', sans-serif;
         color: white;
         text-decoration: none;
@@ -263,7 +269,7 @@ a:hover, a:focus {
         align-items: center;
     }
 
-    nav a:hover {
+    .mobilenav a:hover {
         font-family: 'Comfortaa', sans-serif;
         background-color: #C2D9FF;
     }
@@ -279,12 +285,14 @@ a:hover, a:focus {
         align-items: center;
     }
 
-    .dropdown.active a{
+    .dropdown.active a {
         font-family: 'Comfortaa', sans-serif;
     }
 
     .dropdown.active .dropdown-content {
         display: block;
     }
-   
-} /* End of mobile compatability*/
+
+}
+
+/* End of mobile compatability*/
