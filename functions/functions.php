@@ -160,7 +160,7 @@ function generate_ID($type) {
                 # code...
                 break;
         }
-        $query = "SELECT * FROM {$type}_t WHERE {$type}id = '$createdID' limit 1";
+        $query = "SELECT * FROM {$type}_T WHERE {$type}id = '$createdID' limit 1";
         $result = run_database($query);
         $result = $result[0];
     } while ($createdID == $result->UserID);
@@ -172,4 +172,8 @@ function check_set_title($pageTitle) {
     return isset($pageTitle) ? $pageTitle : "Page Header";
 }
 
+function get_universities_list() {
+    $query = "SELECT UniversityID, Name FROM UNIVERSITY_T ORDER BY Name ASC";
+    return run_database($query);
+}
 ?>

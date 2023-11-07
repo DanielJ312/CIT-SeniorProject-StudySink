@@ -15,7 +15,7 @@
             <div class="dropdown" style="padding-top: 15px; padding-bottom: 15px;">
                 <i class="fa-solid fa-circle-plus fa-2xl" id="createIcon" title="Create" style="cursor: pointer;"></i>
                     <div class="dropdown-content-create" id="createDropdown">
-                    <a href="CreateStudySet">Create Study Set</a>
+                    <a href="../study-sets/create.php">Create Study Set</a>
                     <a href="CreatePost">Create Post</a>
                     </div>
             </div>
@@ -49,7 +49,7 @@
                     <div class="dropdown">
                         <a href="#" title="Create">Create</a>
                         <div class="dropdown-content">
-                            <a href="StudySetCreate" title="Create Study Set">Study Set</a>
+                            <a href="../study-sets/create.php" title="Create Study Set">Study Set</a>
                             <a href="postCreate" title="Create Post">Post</a>
                         </div>
                     </div>

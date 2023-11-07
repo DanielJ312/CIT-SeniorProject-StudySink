@@ -6,7 +6,7 @@ body {
     padding: 20px;
 }
 
-input[type="text"], textarea{
+input, textarea, select{
     display: flex;
     justify-content: flex-start;
     width: 100%;
@@ -80,7 +80,7 @@ h2 {
     margin: 0;
 }
 
-.studySetTags .columnTags input {
+.studySetTags .columnTags select, .studySetTags .columnTags input {
     width: 95%;
     margin-left: auto;
     margin-bottom: 10px;
