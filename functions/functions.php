@@ -152,19 +152,25 @@ function display_time($time, $format) {
 
 function generate_ID($type) {
     do {
+        $createdID = '';
         switch ($type) {
             case 'USER':
                 $createdID = rand(101, 999);
+                $query = "SELECT * FROM USER_T WHERE UserID = :createdID limit 1";
+                break;
+            case 'STUDY_SET':
+                $createdID = time() + mt_rand(1000, 9999);
+                $query = "SELECT * FROM STUDY_SET_T WHERE StudySetID = :createdID limit 1";
                 break;
             default:
-                # code...
+                throw new Exception("Invalid ID type specified.");
                 break;
         }
-        $query = "SELECT * FROM {$type}_T WHERE {$type}ID = '$createdID' limit 1";
-        $result = run_database($query);
-        $result = $result[0];
-    } while ($createdID == $result->UserID);
-    
+
+        $result = run_database($query, [':createdID' => $createdID]);
+        
+    } while (!empty($result));
+
     return $createdID;
 }
 

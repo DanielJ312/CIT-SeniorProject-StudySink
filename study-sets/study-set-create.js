@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var subjectInput = document.getElementById('setSubject');
     var courseInput = document.getElementById('setCourse');
 
+    // Listens to the change event on the university input
     universityInput.addEventListener('change', function() {
         var universityName = this.value.trim();
         var options = document.querySelectorAll('#universities option');
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Listens to the change event on the subject input
     subjectInput.addEventListener('change', function() {
         var subjectName = this.value.trim();
         var options = document.querySelectorAll('#subjects option');
@@ -42,9 +44,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-
+    // Functions works correctly to retreive the correct courses based on the subject selected
     function fetchSubjectsForUniversity(universityId) {
-        // console.log('Fetching Subject for university ID:', universityId); // For debugging
+        console.log('Fetching Subject for university ID:', universityId); // For debugging
         fetch('./get-subjects.php?universityId=' + universityId)
             .then(function(response) {
                 return response.json();
@@ -57,8 +59,9 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
+    // Function works correctly to retreive the correct courses based on the subject selected
     function fetchCoursesForSubject(subjectId) {
-        // console.log('Fetching courses for subject ID:', subjectId); // For debugging
+        console.log('Fetching courses for subject ID:', subjectId); // For debugging
         fetch('./get-courses.php?subjectId=' + subjectId)
             .then(function(response) {
                 return response.json();
@@ -69,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     alert('There was an error fetching courses: ' + data.error);
                 } else if (Array.isArray(data)) {
                     updateCourseOptions(data);
+                    console.log('Received courses based on Subject:', data);
                 } else {
                     console.error('Received data is not an array:', data);
                 }
@@ -100,5 +104,39 @@ document.addEventListener('DOMContentLoaded', function() {
             option.setAttribute('data-id', course.CourseID);
             courseDatalist.appendChild(option);
         });
+    }
+
+    document.querySelector('#studySetForm').addEventListener('submit', handleFormSubmit);
+
+    function handleFormSubmit(e) {
+        e.preventDefault(); // Stop the form from submitting initially
+
+        // Get the displayed course abbreviation
+        var courseAbbreviation = courseInput.value.trim();
+        var courseID;
+
+        // Find the option element that has the matching abbreviation and get its CourseID
+        var options = document.querySelectorAll('#courses option');
+        for (var option of options) {
+            if (option.value === courseAbbreviation) {
+                courseID = option.getAttribute('data-id');
+                break;
+            }
+        }
+
+        if (courseID) {
+            // Create a hidden input to hold the actual CourseID value
+            var hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'course_id';
+            hiddenInput.value = courseID;
+            e.target.appendChild(hiddenInput);
+
+            // Now submit the form
+            e.target.submit();
+        } else {
+            console.error('Selected course not found:', courseAbbreviation);
+            // Optionally, show an error to the user
+        }
     }
 });

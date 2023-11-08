@@ -18,7 +18,7 @@ $universities = get_universities_list();
         <main>
             <div class="studySetContainer">
                 <h2><?=isset($pageTitle) ? $pageTitle : "Create a Study Set" ?></h2>
-                <form id="studySetForm">
+                <form id="studySetForm" method="POST" action="save-study-set.php">
                     <div class="titleContainer">
                         <input type="text" id="setTitle" placeholder="Enter Title Here: &quot;Computer Science 101 - Chapter 1&quot;" name="setTitle" required>
                     </div>
@@ -43,9 +43,13 @@ $universities = get_universities_list();
                             </datalist>
                             
                             <input list="courses" id="setCourse" placeholder="Course" name="setCourse" required>
-                            <datalist id="courses">
-                                <!-- Options will be added here by JavaScript -->
-                            </datalist>
+                                <datalist id="courses">
+                                    <?php foreach ($courses as $course): ?>
+                                        <option value="<?php echo htmlspecialchars($course->Abbreviation); ?>" data-id="<?php echo htmlspecialchars($course->CourseID); ?>">
+                                            <?php echo htmlspecialchars($course->Name); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </datalist>
                             
                             <input type="text" id="setTeacher" placeholder="Teacher" name="setTeacher" required>
                         </div>
@@ -54,7 +58,7 @@ $universities = get_universities_list();
                         <!-- Study cards will be added here -->
                     </div>
                     <button type="button" onclick="addCard()">Add a Study Card</button>
-                    <button type="submit">Submit Study Set</button>
+                    <button type="submit">Save Study Set</button>
                 </form>
             </div>
         </main>
