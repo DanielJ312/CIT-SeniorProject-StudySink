@@ -1,3 +1,4 @@
+/*
 function addCard() {
     var cardContainer = document.getElementById("studyCards");
     var cardCount = cardContainer.children.length + 1;
@@ -17,16 +18,17 @@ function addCard() {
         </div>
     `;
     cardContainer.appendChild(card);
-}
+}*/
 
 document.addEventListener('DOMContentLoaded', function() {
 
+    /*
     // Call to create the initial 5 cards
     for (let i = 0; i < 5; i++) {
         addCard();
-    }
+    }*/
 
-    document.getElementById('addCardBtn').addEventListener('click', addCard);
+    //document.getElementById('addCardBtn').addEventListener('click', addCard);
 
     var universityInput = document.getElementById('setUniversity');
     var subjectInput = document.getElementById('setSubject');

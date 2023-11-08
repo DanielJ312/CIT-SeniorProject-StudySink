@@ -57,9 +57,9 @@ $universities = get_universities_list();
                     <div id="studyCards" class=studyCards>
                         <!-- Study cards will be added here -->
                     </div>
+                    <button type="button" id="addCardBtn">Add a Study Card</button>
+                    <button type="submit">Save Study Set</button>
                 </form>
-                <button type="button" id="addCardBtn">Add a Study Card</button>
-                <button type="submit">Save Study Set</button>
             </div>
         </main>
         <footer>
