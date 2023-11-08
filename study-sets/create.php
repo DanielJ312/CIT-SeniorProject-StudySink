@@ -1,6 +1,6 @@
 <?php 
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
-$pageTitle = "Create Study Set";
+//$pageTitle = "Create Study Set";
 $universities = get_universities_list();
 ?>
 
@@ -8,16 +8,16 @@ $universities = get_universities_list();
 <html lang="en">
     <head>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-        <link rel="stylesheet" href="/styles/study-set-create.css">
+        <link rel="stylesheet" href="../styles/study-set-create.css">
     </head>
-    <body>
+    <body class="createStudySetBody">
         <header>
             <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-            <h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
+            <!--<h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>-->
         </header>
         <main>
             <div class="studySetContainer">
-                <h2><?=isset($pageTitle) ? $pageTitle : "Create a Study Set" ?></h2>
+                <h2 class="header2"><?=isset($pageTitle) ? $pageTitle : "Create a Study Set" ?></h2>
                 <form id="studySetForm" method="POST" action="save-study-set.php">
                     <div class="titleContainer">
                         <input type="text" id="setTitle" placeholder="Enter Title Here: &quot;Computer Science 101 - Chapter 1&quot;" name="setTitle" required>
@@ -57,9 +57,9 @@ $universities = get_universities_list();
                     <div id="studyCards" class=studyCards>
                         <!-- Study cards will be added here -->
                     </div>
-                    <button type="button" onclick="addCard()">Add a Study Card</button>
-                    <button type="submit">Save Study Set</button>
                 </form>
+                <button type="button" id="addCardBtn">Add a Study Card</button>
+                <button type="submit">Save Study Set</button>
             </div>
         </main>
         <footer>

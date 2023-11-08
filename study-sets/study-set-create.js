@@ -1,4 +1,33 @@
+function addCard() {
+    var cardContainer = document.getElementById("studyCards");
+    var cardCount = cardContainer.children.length + 1;
+
+    var card = document.createElement("div");
+    card.className = "studyCard";
+    card.innerHTML = `
+        <div class="cardHeader">
+            <div class="cardFront">
+                <label for="cardFront${cardCount}">Front:</label>
+                <input type="text" id="cardFront${cardCount}" name="cardFront${cardCount}" required>
+            </div>
+            <div class="cardBack">
+                <label for="cardBack${cardCount}">Back:</label>
+                <input type="text" id="cardBack${cardCount}" name="cardBack${cardCount}" required>
+            </div>
+        </div>
+    `;
+    cardContainer.appendChild(card);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+
+    // Call to create the initial 5 cards
+    for (let i = 0; i < 5; i++) {
+        addCard();
+    }
+
+    document.getElementById('addCardBtn').addEventListener('click', addCard);
+
     var universityInput = document.getElementById('setUniversity');
     var subjectInput = document.getElementById('setSubject');
     var courseInput = document.getElementById('setCourse');
@@ -139,4 +168,5 @@ document.addEventListener('DOMContentLoaded', function() {
             // Optionally, show an error to the user
         }
     }
+
 });
