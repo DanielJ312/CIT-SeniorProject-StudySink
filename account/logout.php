@@ -1,11 +1,16 @@
-<?php
-# Logout - Logs out user by unsetting session variables and destroying session 
+<?php 
 session_start();
 
-unset($_SESSION['USER']);
-unset($_SESSION['LOGGED_IN']);
+// if (isset($_SESSION['USER'])) {
+//     unset($_SESSION['USER']);
+// }
+
+// if (isset($_SESSION['LOGGED_IN'])) {
+//     unset($_SESSION['LOGGED_IN']);
+// }
 
 session_destroy();
 
 header("Location: login.php");
+
 ?>
