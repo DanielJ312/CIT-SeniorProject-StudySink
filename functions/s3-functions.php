@@ -32,6 +32,7 @@ function upload_avatar($file) {
             $values['Avatar'] = $result['ObjectURL'];
             $query = "UPDATE USER_T SET Avatar = :Avatar WHERE UserID = :UserID";
             run_database($query, $values);
+            update_session();
 
         } catch (S3Exception $e) {
             echo "There was an error uploading the file: " . $e->getMessage();

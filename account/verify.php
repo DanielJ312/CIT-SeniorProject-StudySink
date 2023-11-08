@@ -52,7 +52,7 @@ function verify_account() {
     if (is_array($result)) {
         $result = $result[0];
 
-        if ($result->xpires > get_local_time()) {
+        if ($result->Expires > get_local_time()) {
             $email = $result->Email;
             $query = "UPDATE USER_T SET Verified = 1 WHERE Email = '$email' LIMIT 1;";
             $result = run_database($query);
