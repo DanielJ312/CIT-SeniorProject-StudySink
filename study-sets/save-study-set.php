@@ -48,8 +48,31 @@ try {
         ':Modified' => $currentTime
     ];
 
-    // Execute the query
+    // Execute the query for study set
     $result = run_database($query, $values);
+
+    // Get the last inserted StudySetID
+    $pdo = get_pdo_connection(); // This gets the PDO connection object
+
+    // Handle the card data
+    if (isset($_POST['cards'])) {
+        $cards = json_decode($_POST['cards'], true);
+        $cardQuery = "INSERT INTO STUDY_CARD_T (StudySetID, Front, Back, Created, Modified)
+                    VALUES (:StudySetID, :Front, :Back, :Created, :Modified)";
+
+        $currentTime = time();
+
+        foreach ($cards as $card) {
+            $stmt = $pdo->prepare($cardQuery);
+            $stmt->execute([
+                ':StudySetID' => $studySetID,
+                ':Front' => $card['front'],
+                ':Back' => $card['back'],
+                ':Created' => $currentTime,
+                ':Modified' => $currentTime
+            ]);
+        }
+    }
 
     header('Location: /index.php?status=success');
 } 

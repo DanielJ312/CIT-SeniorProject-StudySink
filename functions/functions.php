@@ -32,6 +32,16 @@ function run_database($query, $values = array()) {;
     return false;
 }
 
+function get_pdo_connection() {
+    static $connection = null;
+    if ($connection === null) {
+        $database = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
+        $server = "mysql:host={$database['db_host']};port={$database['db_port']};dbname={$database['db_name']};";
+        $connection = new PDO($server, $database['db_username'], $database['db_password']);
+    }
+    return $connection;
+}
+
 function check_login() {
     $loggedIn = false;
     if (isset($_SESSION['USER']) && isset($_SESSION['LOGGED_IN'])) {

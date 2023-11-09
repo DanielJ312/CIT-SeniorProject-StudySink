@@ -1,4 +1,3 @@
-/*
 function addCard() {
     var cardContainer = document.getElementById("studyCards");
     var cardCount = cardContainer.children.length + 1;
@@ -18,17 +17,16 @@ function addCard() {
         </div>
     `;
     cardContainer.appendChild(card);
-}*/
+}
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    /*
     // Call to create the initial 5 cards
     for (let i = 0; i < 5; i++) {
         addCard();
-    }*/
+    }
 
-    //document.getElementById('addCardBtn').addEventListener('click', addCard);
+    document.getElementById('addCardBtn').addEventListener('click', addCard);
 
     var universityInput = document.getElementById('setUniversity');
     var subjectInput = document.getElementById('setSubject');
@@ -162,13 +160,31 @@ document.addEventListener('DOMContentLoaded', function() {
             hiddenInput.name = 'course_id';
             hiddenInput.value = courseID;
             e.target.appendChild(hiddenInput);
-
-            // Now submit the form
-            e.target.submit();
         } else {
             console.error('Selected course not found:', courseAbbreviation);
             // Optionally, show an error to the user
         }
-    }
 
+        // Collect card data
+        var cards = [];
+        var cardElements = document.querySelectorAll('.studyCard');
+        cardElements.forEach(function(card, index) {
+            var front = card.querySelector('.cardFront input').value;
+            var back = card.querySelector('.cardBack input').value;
+            cards.push({ front: front, back: back });
+        });
+
+        // Convert cards data to a JSON string
+        var cardsJSON = JSON.stringify(cards);
+
+        // Add cards data to the form
+        var cardsInput = document.createElement('input');
+        cardsInput.type = 'hidden';
+        cardsInput.name = 'cards';
+        cardsInput.value = cardsJSON;
+        e.target.appendChild(cardsInput);
+
+        // Now submit the form
+        e.target.submit();
+    }
 });
