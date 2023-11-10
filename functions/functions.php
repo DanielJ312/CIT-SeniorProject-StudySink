@@ -32,6 +32,16 @@ function run_database($query, $values = array()) {;
     return false;
 }
 
+function get_pdo_connection() {
+    static $connection = null;
+    if ($connection === null) {
+        $database = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
+        $server = "mysql:host={$database['db_host']};port={$database['db_port']};dbname={$database['db_name']};";
+        $connection = new PDO($server, $database['db_username'], $database['db_password']);
+    }
+    return $connection;
+}
+
 function check_login() {
     $loggedIn = false;
     if (isset($_SESSION['USER']) && isset($_SESSION['LOGGED_IN'])) {
@@ -152,19 +162,25 @@ function display_time($time, $format) {
 
 function generate_ID($type) {
     do {
+        $createdID = '';
         switch ($type) {
             case 'USER':
                 $createdID = rand(101, 999);
+                $query = "SELECT * FROM USER_T WHERE UserID = :createdID limit 1";
+                break;
+            case 'STUDY_SET':
+                $createdID = time() + mt_rand(1000, 9999);
+                $query = "SELECT * FROM STUDY_SET_T WHERE StudySetID = :createdID limit 1";
                 break;
             default:
-                # code...
+                throw new Exception("Invalid ID type specified.");
                 break;
         }
-        $query = "SELECT * FROM {$type}_T WHERE {$type}ID = '$createdID' limit 1";
-        $result = run_database($query);
-        $result = $result[0];
-    } while ($createdID == $result->UserID);
-    
+
+        $result = run_database($query, [':createdID' => $createdID]);
+        
+    } while (!empty($result));
+
     return $createdID;
 }
 
@@ -172,4 +188,8 @@ function check_set_title($pageTitle) {
     return isset($pageTitle) ? $pageTitle : "Page Header";
 }
 
+function get_universities_list() {
+    $query = "SELECT UniversityID, Name FROM UNIVERSITY_T ORDER BY Name ASC";
+    return run_database($query);
+}
 ?>
