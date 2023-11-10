@@ -22,10 +22,10 @@ $users = run_database("SELECT * FROM USER_T;");
             <p>Welcome to the home page for the StudySink Backend Development.</p>
             <p>This page currently has no use and instead lists all created users.</p>
             <table>
-                <h3>User Account Information</h3>
+                <h3>Created Users</h3>
                 <tr>
                     <th>Avatar</th><th>UserID</th><th>Username</th><th>Email</th>
-                    <th>Password</th><th>Verified</th><th>Created</th><th>Current User</th>
+                    <th>Verified</th><th>Created</th><th>Current User</th>
                 </tr>
                 <?php for ($i = 0; $i < sizeof($users); $i++) : ?>
                 <tr>
@@ -33,7 +33,6 @@ $users = run_database("SELECT * FROM USER_T;");
                     <td><?= $users[$i]->UserID ?></td>
                     <td><?= $users[$i]->Username ?></td>
                     <td><?= $users[$i]->Email ?></td>
-                    <td><?= $users[$i]->Password ?></td>
                     <td><?= $users[$i]->Verified == 1 ? "yes" : "no" ?></td>
                     <td><?= display_time($users[$i]->Created, "Y-m-d h:i:s A"); ?></td>
                     <td><?= check_login(false) && $users[$i]->Username == $_SESSION['USER']->Username ? "Yes" : "" ?></b></td>

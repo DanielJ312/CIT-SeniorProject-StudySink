@@ -108,7 +108,7 @@
     <div class="dropdowndev">
         <button class="dropbtn <?php check_active_dir('/study-sets'); ?>">Study Sets</button>
         <div class="dropdowndev-content">
-            <a class="<?php check_active_page(''); ?>" href="">Study Sets</a>
+            <a class="<?php check_active_page('/study-sets/index.php'); ?>" href="/study-sets/index.php">Study Sets</a>
             <a class="<?php check_active_page('/study-sets/create.php'); ?>" href="/study-sets/create.php">Create</a>
         </div>
     </div>
@@ -137,4 +137,4 @@
         <?php endif; ?>
     </div>
 </nav>
-<h1>StudySink Backend Development</h1>
+<h1>StudySink Development</h1>

@@ -5,11 +5,9 @@ $pageTitle = "Forum";
 
 $postID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
 $values['PostID'] = $postID;
-$query = "SELECT *, POST_T.Created AS PostCreated FROM POST_T INNER JOIN USER_T ON POST_T.userid = USER_T.userid WHERE PostID = :PostID;";
+$query = "SELECT *, POST_T.Created AS PostCreated FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID WHERE PostID = :PostID;";
 $post = run_database($query, $values)[0];
-if (empty($post)) {
-    header("Location: /forum/index.php");
-}
+empty($post) ? header("Location: /forum/index.php") : null;
 
 $query = <<<query
 SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes
