@@ -1,22 +1,34 @@
 function addCard() {
     var cardContainer = document.getElementById("studyCards");
     var cardCount = cardContainer.children.length + 1;
-
     var card = document.createElement("div");
+    
     card.className = "studyCard";
     card.innerHTML = `
         <div class="cardHeader">
-            <div class="cardFront">
-                <label for="cardFront${cardCount}">Front:</label>
-                <input type="text" id="cardFront${cardCount}" name="cardFront${cardCount}" required>
+            <div class=topOfCard>
+                <button type="button" class="deleteCardBtn">Delete</button>
             </div>
-            <div class="cardBack">
-                <label for="cardBack${cardCount}">Back:</label>
-                <input type="text" id="cardBack${cardCount}" name="cardBack${cardCount}" required>
+            <div class=frontAndBack>
+                <div class="cardFront">
+                    <textarea id="cardFront${cardCount}" placeholder="Enter term" "name="cardFront${cardCount}" required></textarea>
+                </div>
+                <div class="cardBack">
+                    <textarea id="cardBack${cardCount}" placeholder="Enter definition" name="cardBack${cardCount}" required></textarea>
+                </div>
             </div>
         </div>
     `;
     cardContainer.appendChild(card);
+
+    // Add event listener to delete button
+    card.querySelector('.deleteCardBtn').addEventListener('click', function() {
+        if (cardContainer.children.length > 1) {
+            cardContainer.removeChild(card);
+        } else {
+            alert("You cannot delete the last study card.");
+        }
+    });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -41,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         for (let option of options) {
             if (option.value === universityName) {
                 universityId = option.getAttribute('data-id');
+                console.log('University ID:', universityId);
                 break;
             }
         }
@@ -169,8 +182,8 @@ document.addEventListener('DOMContentLoaded', function() {
         var cards = [];
         var cardElements = document.querySelectorAll('.studyCard');
         cardElements.forEach(function(card, index) {
-            var front = card.querySelector('.cardFront input').value;
-            var back = card.querySelector('.cardBack input').value;
+            var front = card.querySelector('.cardFront textarea').value;
+            var back = card.querySelector('.cardBack textarea').value;
             cards.push({ front: front, back: back });
         });
 

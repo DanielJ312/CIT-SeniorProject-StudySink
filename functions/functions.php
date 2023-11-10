@@ -169,7 +169,7 @@ function generate_ID($type) {
                 $query = "SELECT * FROM USER_T WHERE UserID = :createdID limit 1";
                 break;
             case 'STUDY_SET':
-                $createdID = time() + mt_rand(1000, 9999);
+                $createdID = time(); //+ mt_rand(1000, 9999)
                 $query = "SELECT * FROM STUDY_SET_T WHERE StudySetID = :createdID limit 1";
                 break;
             default:

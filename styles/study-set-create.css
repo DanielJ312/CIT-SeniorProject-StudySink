@@ -6,7 +6,15 @@
     color: #ffffff;
 }
 
-input, textarea {
+.studySetContainer {
+    max-width: 50%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    border: solid 1px #ffffff;
+}
+
+.studySetContainer input, .studySetContainer textarea {
     display: flex;
     justify-content: flex-start;
     width: 100%;
@@ -15,14 +23,6 @@ input, textarea {
     border-radius: 8px;
     background-color: #2e2e2e;
     color: #ffffff;
-}
-
-.studySetContainer {
-    max-width: 50%;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 8px;
-    border: solid 1px #ffffff;
 }
 
 .header2 {
@@ -61,7 +61,7 @@ input, textarea {
 
 .description textarea{
     width: 95%;
-    height: 100%;
+    height: 95%;
     padding: 0px;
     margin: 0px;
     resize: none;
@@ -98,46 +98,73 @@ input, textarea {
 
 .cardHeader {
     display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 15px;
+    border: solid 1px #ffffff; 
+    background-color: #0078d4;
+}
+.topOfCard {
+    display: flex;
+    justify-content: flex-end;
     width: 100%;
     padding: 0;
     margin: 0;
+    border: solid 1px #000000; 
+}
+
+.frontAndBack {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: solid 1px #000000; 
+
 }
 
 .cardFront {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
+    align-items: center;
     width: 50%;
     padding: 0px;
-    margin: 0px;
+    margin-left: 0px;
     position: relative;
+    border: solid 1px #810e0e; 
 }
 
-.cardHeader .cardFront input[type="text"] {
+.cardHeader .cardFront textarea {
     width: 95%;
     margin-bottom: 0px;
     padding: 10px;
     box-sizing: border-box;
     position: relative;
+    resize: none;
 }
 
 .cardBack {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
+    align-items: center;
     width: 50%;
     padding: 0px;
     margin: 0px;
     position: relative;
+    border: solid 1px #1b810e; 
 }
 
-.cardHeader .cardBack input[type="text"] {
+.cardHeader .cardBack textarea {
     width: 95%;
     margin-left: auto;
     margin-bottom: 10px;
     padding: 10px;
     box-sizing: border-box;
     position: relative;
+    resize: none;
 }
 
 .cardHeader .cardBack label {
@@ -146,11 +173,19 @@ input, textarea {
     position: relative;
 }
 
-input[type="submit"], button {
+.formButtons {
+    display: flex;
+    justify-content: flex;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.formButtons input[type="submit"], button{
     padding: 10px 20px;
-    margin-top: 20px; 
+    margin-left: 5px; 
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     background-color: #007BFF;
     color: #ffffff;
     cursor: pointer;
@@ -159,4 +194,11 @@ input[type="submit"], button {
 
 input[type="submit"]:hover, button:hover {
     background-color: #0056b3;
+}
+
+.deleteCardBtn {
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
