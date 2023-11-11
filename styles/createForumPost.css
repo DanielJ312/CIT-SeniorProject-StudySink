@@ -14,7 +14,7 @@
 }
 
 .fa-circle-xmark:hover {
-    color: white;
+    color: #f59c1a;
     cursor: pointer;
 }
 
@@ -24,11 +24,25 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: orange;
+    background: rgb(245,156,26);
+    background: linear-gradient(343deg, rgba(245,156,26,1) 6%, rgba(0,120,212,1) 72%); 
     padding: 2% 4%;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
     width: 40%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Style for web browser scrollbar for pop up container */
+#popupContainer::-webkit-scrollbar {
+    width: 12px;
+    background-color: #0078d4;
+}
+
+#popupContainer::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 6px;
 }
 
 .contentitem {
@@ -75,44 +89,85 @@ box-sizing: border-box;
 
 /* Uni and Subject label texts */
 #Unilabel, #subjectlabel {
-font-size: 1.6em;
+font-family: 'Comfortaa', sans-serif;
+font-size: 1.9em;
+color: black;
 }
 
 /* Post Title and Post Content boxes */
 #titleinput,
-#content {
+#contentinput {
 font-family: 'Comfortaa', sans-serif;
-background-color: peachpuff;
+background-color: rgb(205, 230, 238);
 width: 90%; 
 box-sizing: border-box; 
 margin: 5px 0;
+padding: 1em;
+outline: none;
+border: none;
+box-shadow: inset 2px 5px 10px rgba(0,0,0,0.3);
+transition: 300ms ease-in-out;
+border-radius: 15px;
+color: black;
+}
+
+#titleinput:focus,
+#contentinput:focus {
+    background-color: white;
+    transform: scale(1.02);
+    box-shadow: 13px 13px 100px #969696,
+               -13px -13px 100px #ffffff;
 }
 
 #titleinput {
 font-size: 1.5em;
 }
 
+/* Character Counts for Title and Content */
+#titlecharCount, #contentcharCount {
+    font-family: 'Comfortaa', sans-serif;
+    display: flex;
+    color: black;
+    opacity: 30%;
+    margin-left: 85%;
+  }
+
+
 /* Dropdown options */
 #universityforum option,
 #subjectforum option {
 font-size: 16px;
-color: Black;
-font-family: 'Arial', sans-serif;
+color: white;
+font-family: 'Comfortaa', sans-serif;
 border: 0px;
+outline: none;
 padding: 0px;
 }
 
+/* Content boxes for Unversity and Subject */
 .foruminput {
     font-family: 'Comfortaa', sans-serif;
     display: flex;
     justify-content: flex-start;
     width: 60%;
-    padding: 10px;
+    padding: 1em;
+    outline: none;
+    border: none;
+    box-shadow: inset 2px 5px 10px rgba(0,0,0,0.3);
+    transition: 300ms ease-in-out;
     margin-bottom: 20px;
-    border-radius: 8px;
-    background-color: peachpuff;
+    border-radius: 15px;
+    background-color: lightblue;
     color: black;
 }
+
+.foruminput:focus {
+    background-color: white;
+    transform: scale(1.05);
+    box-shadow: 13px 13px 100px #969696,
+               -13px -13px 100px #ffffff;
+  }
+
 
 #overlay {
     display: none;
@@ -124,21 +179,102 @@ padding: 0px;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+/* POST button */
 .submitpostbutton {
-    font-size: 1.5em;
-    border-radius: 3px;
-    border: 0px;
-    color: black;
-    background-color: peachpuff;
-    margin-left: 85%;
+    margin-left: 80%;
     padding: 6px 20px;
-}
-
-.submitpostbutton:hover {
-    color: black;
-    background-color: white;
+    position: relative;
+    border: none;
+    background: transparent;
+    padding: 0;
     cursor: pointer;
-}
+    outline-offset: 4px;
+    transition: filter 250ms;
+    user-select: none;
+    touch-action: manipulation;
+   }
+   
+   .shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: hsl(0deg 0% 0% / 0.25);
+    will-change: transform;
+    transform: translateY(2px);
+    transition: transform
+       600ms
+       cubic-bezier(.3, .7, .4, 1);
+   }
+   
+   .edge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: linear-gradient(
+       to left,
+       hsl(19, 68%, 40%) 0%,
+       hsl(17, 73%, 51%) 8%,
+       hsl(22, 100%, 32%) 92%,
+       hsl(17, 96%, 37%)00%
+     );
+   }
+   
+   .front {
+    display: block;
+    position: relative;
+    padding: 12px 27px;
+    border-radius: 12px;
+    font-size: 1.5em;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: 600;
+    color: black;
+    background: hsl(32, 69%, 47%);
+    will-change: transform;
+    transform: translateY(-4px);
+    transition: transform
+       600ms
+       cubic-bezier(.3, .7, .4, 1);
+   }
+   
+   .submitpostbutton:hover {
+    filter: brightness(110%);
+   }
+   
+   .submitpostbutton:hover .front {
+    transform: translateY(-6px);
+    transition: transform
+       250ms
+       cubic-bezier(.3, .7, .4, 1.5);
+   }
+   
+   .submitpostbutton:active .front {
+    transform: translateY(-2px);
+    transition: transform 34ms;
+   }
+   
+   .submitpostbutton:hover .shadow {
+    transform: translateY(4px);
+    transition: transform
+       250ms
+       cubic-bezier(.3, .7, .4, 1.5);
+   }
+   
+   .submitpostbutton:active .shadow {
+    transform: translateY(1px);
+    transition: transform 34ms;
+   }
+   
+   .submitpostbutton:focus:not(:focus-visible) {
+    outline: none;
+   }
+
+
 
 /* Mobile Compatability at 850px */
 @media (max-width: 850px) {
@@ -150,6 +286,7 @@ padding: 0px;
 
 #popupContainer {
     width: 70%;
+    max-height: 90vh;
 }
 
 #titleinput {
@@ -162,20 +299,24 @@ padding: 0px;
 
 #Unilabel, #subjectlabel {
     margin-left: 0;
-    font-size: 1.2em;
+    font-size: 1.5em;
 }
 
-#universityforum, #subjectforum, #titleinput, #content {
+#universityforum, #subjectforum, #titleinput, #contentinput {
     margin-left: 0;
 }
 
 .submitpostbutton {
-    font-size: 1.2em;
-    border-radius: 3px;
-    border: 0px;
-    color: black;
-    background-color: peachpuff;
     margin-left: 70%;
     padding: 6px 20px;
-}
+    position: relative;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+    transition: filter 250ms;
+    user-select: none;
+    touch-action: manipulation;
+   }
 }

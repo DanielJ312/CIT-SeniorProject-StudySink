@@ -46,7 +46,7 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
         </div>
     <?php endif; ?>
     </div>
-    
+
     <!-- End of Full Size Nav bar and Beginning of Mobile Nav Bar -->
     <div class="navbarmobile">
         <header class="mobileheader" style="height: 20px;">
@@ -97,7 +97,7 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
             <i class="fa-regular fa-circle-xmark fa-2xl" id="closeButton" onclick="closePopup()"></i>
             <div class="contentitem">
               <label for="universityforum" id="Unilabel">University</label>
-                <input class="foruminput" list="universitiesforum" id="setUniversityforum" placeholder="University" name="setUniversityforum" required>
+                <input class="foruminput" list="universitiesforum" id="setUniversityforum" placeholder="Select from the dropdown" name="setUniversityforum" required>
                 <datalist id="universitiesforum">
                     <?php foreach($universitiesforum as $universityforum): ?>
                         <option value="<?= htmlspecialchars($universityforum->Name) ?>" data-id="<?= $universityforum->UniversityID ?>">
@@ -108,18 +108,24 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
             </div>
             <div class="contentitem">
               <label for="subjectforum" id="subjectlabel">Subject</label>
-               <input class="foruminput" list="subjectsforum" id="setSubjectforum" placeholder="Subject" name="setSubjectforum">
+               <input class="foruminput" list="subjectsforum" id="setSubjectforum" placeholder="Select from the dropdown" name="setSubjectforum">
                 <datalist id="subjectsforum">
                     <!-- Options will be added here by JavaScript after selecting a university -->
                 </datalist>
             </div>
             <div class="contentitemtitle">
-              <textarea name="title" type="text" id="titleinput" placeholder="Post Title" rows="2" style="resize: none;" required></textarea>
+              <textarea name="title" type="text" id="titleinput" placeholder="Post Title" rows="2" style="resize: none;" oninput="titlecountChar(this)" required></textarea>
+              <span id="titlecharCount"></span>
             </div>
             <div class="contentitempost">
-              <textarea name="content" id="content" rows="10" placeholder="What do you want to share?" style="resize: none;" required></textarea>
+              <textarea name="content" id="contentinput" rows="10" placeholder="What do you want to share?" style="resize: none;" onkeyup="contentcountChar(this)" required></textarea>
+              <span id="contentcharCount"></span>
             </div>
-            <button type="submit" onclick="submitPost()" class="submitpostbutton">Post</button>
+            <button type="submit" onclick="closePopup()" class="submitpostbutton">  
+                <span class="shadow"></span>
+                <span class="edge"></span>
+                <span class="front text">Post</span>
+            </button>
           </div>
         </form>
       </div>

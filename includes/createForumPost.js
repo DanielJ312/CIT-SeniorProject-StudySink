@@ -6,12 +6,6 @@ function openPopup() {
 function closePopup() {
     document.getElementById("overlay").style.display = "none";
     document.getElementById("popupContainer").style.display = "none";
-
-    //could potentially cause issues with reading the data
-    // document.getElementById('university').value = '';
-    // document.getElementById('subject').value = '';
-    // document.getElementById('titleinput').value = '';
-    // document.getElementById('content').value = '';
 }
 
 //close window when closebutton is clicked
@@ -24,15 +18,42 @@ document.getElementById("overlay").addEventListener("click", function (event) {
     }
 });
 
-//When Post button is clicked
-function submitPost() {
-    var universityValue = document.getElementById("setUniversityforum").value;
-    var subjectValue = document.getElementById("setSubjectforum").value;
-    // Add logic to handle the post submission and redirect to post
 
-    console.log("submitPost function ran");
-    closePopup();
+// Character Counter for Post Title textarea and Post Content textarea
+function titlecountChar(titleinput) {
+    const maxLength = 255;
+    const currentLength = titleinput.value.length;
+    const remainingChars = Math.max(maxLength - currentLength, 0);
+
+    if (currentLength > maxLength) {
+      titleinput.value = titleinput.value.substring(0, maxLength);
+    }
+
+    if (currentLength == 0) {
+        document.getElementById('titlecharCount').innerText = ``;
+      }
+    else{
+    document.getElementById('titlecharCount').innerText = `${remainingChars}`;
+    }
 }
+
+function contentcountChar(contentinput) {
+    const maxLength = 10000;
+    const currentLength = contentinput.value.length;
+    const remainingChars = Math.max(maxLength - currentLength, 0);
+
+    if (currentLength > maxLength) {
+      contentinput.value = contentinput.value.substring(0, maxLength);
+    }
+
+    if (currentLength == 0) {
+        document.getElementById('contentcharCount').innerText = ``;
+      }
+    else{
+    document.getElementById('contentcharCount').innerText = `${remainingChars}`;
+    }
+}
+
 
 // Functionality for Dynamic Dropdown Menus
 document.addEventListener('DOMContentLoaded', function() {
