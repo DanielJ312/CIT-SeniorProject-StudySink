@@ -5,7 +5,7 @@
 }
 
 /* Reset default styles for body */
-.body {
+.Navbody {
     font-family: 'Comfortaa', sans-serif;
     margin: 0;
 }
@@ -39,7 +39,7 @@
 }
 
 .profile-picture:hover {
-    border-color: white;
+    border-color: #f59c1a;
 }
 
 /*-- Search bar --*/
@@ -77,7 +77,17 @@
     cursor: pointer;
 }
 
+.fa-magnifying-glass{
+    color: black;
+}
+
+.fa-magnifying-glass:hover{
+    color: #f59c1a;
+    cursor: pointer;
+}
+
 /*-- Right Icons --*/
+
 .navbar-right {
     display: flex;
     align-items: center;
@@ -88,9 +98,13 @@
     margin-right: 13px;
 }
 
+.fa-circle-plus{
+    color: black;
+}
+
 .fa-circle-plus:hover {
     cursor: pointer;
-    color: white;
+    color: #f59c1a;
 }
 
 .fa-house {
@@ -99,7 +113,7 @@
 
 .fa-house:hover {
     cursor: pointer;
-    color: white;
+    color: #f59c1a;
 }
 
 .fa-graduation-cap {
@@ -108,7 +122,22 @@
 
 .fa-graduation-cap:hover {
     cursor: pointer;
-    color: white;
+    color: #f59c1a;
+}
+
+.fa-id-card {
+    color: black;
+    padding-right: 35px;
+    margin-top: 9px;
+}
+
+.fa-id-card:hover {
+    color: #f59c1a;
+    cursor: pointer;
+}
+
+.active {
+    color: #f59c1a;
 }
 
 /* -- Dropdown Contect for Create -- */
@@ -136,6 +165,7 @@
 
 .dropdown-content-create a:hover {
     background-color: #C2D9FF;
+    cursor: pointer;
 }
 
 /* -- Dropdown Contect for profile -- */
@@ -207,7 +237,7 @@
     }
 
     .fa-bars:hover {
-        color: white;
+        color: #f59c1a;
     }
 
     .searchform {
