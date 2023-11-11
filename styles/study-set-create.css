@@ -126,19 +126,15 @@
 
 .cardFront {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 50%;
-    padding: 0px;
-    margin-left: 0px;
-    position: relative;
-    border: solid 1px #810e0e; 
 }
 
 .cardHeader .cardFront textarea {
     width: 95%;
-    margin-bottom: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     padding: 10px;
     box-sizing: border-box;
     position: relative;
@@ -147,30 +143,19 @@
 
 .cardBack {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: center; 
     width: 50%;
-    padding: 0px;
-    margin: 0px;
-    position: relative;
-    border: solid 1px #1b810e; 
 }
 
 .cardHeader .cardBack textarea {
     width: 95%;
-    margin-left: auto;
+    margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
     box-sizing: border-box;
     position: relative;
     resize: none;
-}
-
-.cardHeader .cardBack label {
-    margin-left: 5%;
-    box-sizing: border-box;
-    position: relative;
 }
 
 .formButtons {
