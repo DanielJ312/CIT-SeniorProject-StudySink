@@ -7,7 +7,9 @@ function addCard() {
     card.innerHTML = `
         <div class="cardHeader">
             <div class=topOfCard>
-                <button type="button" class="deleteCardBtn">Delete</button>
+                <button type="button" class="deleteCardBtn" aria-label="Delete this card">
+                    <i class="fas fa-trash"></i>
+                </button>
             </div>
             <div class=frontAndBack>
                 <div class="cardFront">
