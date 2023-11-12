@@ -1,16 +1,12 @@
 // Forum.js - Runs any javascript function for the forum
 function DeleteComment(commentIDToDelete) {
     $.ajax({
-        url:"template.php",    //the page containing php script
+        url: '/functions/forum-functions.php', 
         type: "post",    //request type,
         dataType: 'json',
-        data: {commentID: commentIDToDelete, action: "delete"},
+        data: {function: "delete", commentID: commentIDToDelete, action: "delete"},
     });
     $("#comment-" + commentIDToDelete).remove();
-}
-
-function TestFunction(test) {
-    console.log(test);
 }
 
 // Event handler for select change
@@ -22,17 +18,19 @@ $('.sort').on('change', function() {
 
 // Function to update the sorted data
 function updateSortedData(sortType) {
+    console.log(postID);
     $.ajax({
         url: '/functions/forum-functions.php', 
         type: 'POST',
-        data: { function: "sort", sortType: sortType },
+        data: { function: "sort", postID: postID, sortType: sortType },
         success: function(response) {
-            $('.forum-posts').html(response); // Update the container with sorted data
+            $('.sort-container').html(response); // Update the container with sorted data
         },
         error: function(xhr, status, error) {
             console.error(error);
         }
     });
+    
 }
 
 function updateCommentVote(commentID, userID, voteType) {

@@ -23,15 +23,16 @@ $post = run_database($query);
             <p><a href="create.php">Create a new post</a></p>
         </div>
         <h3>Posts</h3>
-        <form action="" method="post">
-            <select class="sort" name="sorts"  >
-                <option value="oldest">Oldest</option>
-                <option value="newest">Newest</option>
-                <option value="popular">Popular</option>
+        <form method="post">
+            <select class="sort" name="sorts">
+                <option value="post-oldest">Oldest</option>
+                <option value="post-newest">Newest</option>
+                <option value="post-popular">Popular</option>
+                <?= "<script>var postID = 0;</script>"; ?>
             </select>
         </form>
         <!-- <button onclick="TestFunction('testing value')"></button> -->
-        <div class="forum-posts">
+        <div class="sort-container">
         <?php for ($i=0; $i < count($post); $i++): ?> 
             <a href="/forum/posts/<?=$post[$i]->PostID; ?>.php">
                 <p><?=$post[$i]->Title?></p>

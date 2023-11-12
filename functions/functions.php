@@ -192,4 +192,13 @@ function get_universities_list() {
     $query = "SELECT UniversityID, Name FROM UNIVERSITY_T ORDER BY Name ASC";
     return run_database($query);
 }
+
+function check_user_vote($userID, $commentID) {
+    $query = "SELECT VoteType FROM CVOTE_T WHERE CommentID = $commentID AND UserID = $userID;";
+    $result = run_database($query);
+    if (is_array($result) && !$result[0]->VoteType == 0) {
+        return $result[0]->VoteType;
+    }
+}
+
 ?>
