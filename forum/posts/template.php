@@ -1,11 +1,18 @@
 <!-- Post Template - Displays post for given Post ID  -->
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+// require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 $pageTitle = "Forum";
 
 $postID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
 $values['PostID'] = $postID;
-$query = "SELECT *, POST_T.Created AS PostCreated FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID WHERE PostID = :PostID;";
+$query = <<<query
+SELECT PostID, Title, Content, POST_T.Created AS PostCreated, Username, Avatar, UNIVERSITY_T.Name AS UniversityName, SUBJECT_T.Name AS SubjectName
+FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID 
+	INNER JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
+    INNER JOIN SUBJECT_T ON POST_T.SubjectID = SUBJECT_T.SubjectID
+WHERE PostID = :PostID;
+query;
 $post = run_database($query, $values)[0];
 if (empty($post)) header("Location: /forum/index.php");
 
@@ -20,8 +27,6 @@ query;
 $comments = run_database($query, $values);
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
-// if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action'])) delete_comment($_POST);
-
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
     <main>
         <div>
             <h3><?= $post->Title ?></h3>
+            <i><?= $post->UniversityName; ?> - <?= $post->SubjectName; ?></i>
             <p><?= $post->Content; ?></p>
             <p>Submitted: <?= display_time($post->PostCreated, "m/d/Y h:i:s A"); ?></p> 
             <p>By: 
@@ -46,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
             </p>
         </div>
         <div>
-            <h4>Comments (<?= is_array($comments) ? count($comments) : "0"; ?>):</h4>
+            <h4>Comments (<span class = comment-total><?= is_array($comments) ? count($comments) : "0"; ?></span>):</h4>
             <form id="sort-dropdown" method="">
                 <?= "<script>var postID = $postID;</script>"; ?>
                 <select id= "sort" class="sort" name="sorts">
@@ -55,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
                     <option value="comment-popular">Popular</option>
                 </select>
             </form>
-        <?php if (isset($_SESSION['USER'])): ?>
+        <?php if (check_login()) : ?>
             <div>
                 <h4>Add Comment</h4>
                 <form id="add-comment" method="post">
@@ -65,35 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
             </div>
         <?php endif; ?>
             <div class="sort-container">
-            <?php if (is_array($comments)) : foreach ($comments as $comment) : ?>
-                <p id="comment-<?= $comment->CommentID; ?>">
-                    <img width="25" src="<?= $comment->Avatar; ?>">
-                    <b><?= $comment->Username; ?>
-                    <?= $comment->Username == $post->Username ? " (OP)" : ""; ?>
-                    <?= check_login(false) && $comment->Username == $_SESSION['USER']->Username ? " (You)" : ""; ?></b>:
-                    <?= $comment->Content; ?>  
-                    <?= "(" . display_time($comment->CommentCreated, "m/d/Y h:i:s A") . ")"; ?>
-                    <span>&lpar;Votes: 
-                        <span id="comment-<?= $comment->CommentID; ?>-v"><?= $comment->Votes; ?></span>&rpar;
-                    </span>
-                <?php if (check_login()): ?>
-                    <span id = "comment-<?= $comment->CommentID; ?>-vb">
-                    <?php $userVote = check_user_vote($_SESSION['USER']->UserID, $comment->CommentID); ?>
-                    <?php if ($userVote == 1) : ?>
-                        <input id="comment-<?= $comment->CommentID; ?>-downvote" type="button" value="Downvote" onclick="updateCommentVote(<?= $comment->CommentID; ?>, <?= $_SESSION['USER']->UserID; ?>, '-1')">
-                    <?php elseif ($userVote == -1) : ?>
-                        <input id="comment-<?= $comment->CommentID; ?>-upvote" type="button" value="Upvote" onclick="updateCommentVote(<?= $comment->CommentID; ?>, <?= $_SESSION['USER']->UserID; ?>, '1')">
-                    <?php else : ?>
-                        <input id="comment-<?= $comment->CommentID; ?>-upvote" type="button" value="Upvote" onclick="updateCommentVote(<?= $comment->CommentID; ?>, <?= $_SESSION['USER']->UserID; ?>, '1')">
-                        <input id="comment-<?= $comment->CommentID; ?>-downvote" type="button" value="Downvote" onclick="updateCommentVote(<?= $comment->CommentID; ?>, <?= $_SESSION['USER']->UserID; ?>, '-1')">
-                    <?php endif; ?>
-                    </span>
-                    <?php if ($comment->Username == $_SESSION['USER']->Username) : ?>
-                        <input type="submit" value="Delete" onclick="DeleteComment(<?= $comment->CommentID; ?>)">
-                    <?php endif; ?>
-                <?php endif; ?>
-                </p>
-            <?php endforeach; endif;?>
+                <!-- Comments will get inserted here -->
             </div>
         </div>
     </main>
@@ -102,30 +80,3 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
     </footer>
 </body>
 </html>
-
-<?php
-function add_comment($data, $postID) {
-    $errors = array();
-
-    if(empty($data['content'])) {
-        $errors[] = "Please enter content for the comment.";
-    }
-
-    if (count($errors) == 0) {
-        $values['CommentID'] = $tempID = rand(100, 999);
-        $values['PostID'] = $postID;
-        $values['Content'] = $data['content'];
-        $values['UserID'] = $_SESSION['USER']->UserID;
-        $values['Created'] = get_local_time();
-
-        $query = "INSERT INTO COMMENT_T (CommentID, PostID, Content, UserID, Created) VALUES (:CommentID, :PostID, :Content, :UserID, :Created)";
-        run_database($query, $values);
-        $query = "INSERT INTO CVOTE_T (CommentID, UserID, VoteType) VALUES ($tempID, {$_SESSION['USER']->UserID}, 1);";
-        run_database($query);
-
-        header("Location: $postID.php");
-    }
-
-    return $errors;
-}
-?>

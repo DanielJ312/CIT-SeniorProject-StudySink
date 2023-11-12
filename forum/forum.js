@@ -1,12 +1,22 @@
 // Forum.js - Runs any javascript function for the forum
+
+$( document ).ready(function() {
+    var currentPath = window.location.pathname;
+    if (currentPath.startsWith('/forum/post')) {
+        $('.sort-container').html(updateSortedData("comment-oldest"));
+    }
+});
+
 function DeleteComment(commentIDToDelete) {
     $.ajax({
         url: '/functions/forum-functions.php', 
         type: "post",    //request type,
         dataType: 'json',
-        data: {function: "delete", commentID: commentIDToDelete, action: "delete"},
+        data: {function: "delete", commentID: commentIDToDelete},
     });
-    $("#comment-" + commentIDToDelete).remove();
+    $("#comment-" + commentIDToDelete).remove(); 
+    var total = $(".comment-total");
+    total.text(Number(total.text())-1);
 }
 
 // Event handler for select change
