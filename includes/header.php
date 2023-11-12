@@ -1,23 +1,30 @@
+<?php
+$query = "SELECT * FROM UNIVERSITY_T;";
+$universitiesforum = get_universities_list();
+$errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
+?>
+
 <!-- Header - Contains HTML injected into the header tag -->
-<!-- Primary Navbar -->
-<div class="body">
+<!-- Full Size Navbar -->
+<script defer src="/includes/createForumPost.js"></script>
+<div class="Navbody">
     <div class="navbarMain">
         <div class="navbar-left">
             <a href="/index.php" id="Home"><img src="https://studysink.s3.amazonaws.com/assets/StudySinkBanner.png" alt="Company Logo" class="companyLogo" title="Home"></a>
         </div>
         <div class="navbar-center">
             <div class="search-container">
-                <a href="SearchResults"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #000000;"></i></a>
+                <a href="SearchResults"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a>
                 <input type="text" id="searchBar" placeholder="Search Study sets, Universities, Posts" style="padding-left: 35px;">
             </div>
-        </div>
+    </div>
     <?php if (check_login()) : ?>
         <div class="navbar-right">
             <div class="dropdown" style="padding-top: 15px; padding-bottom: 15px;">
-                <i class="fa-solid fa-circle-plus fa-2xl" id="createIcon" title="Create" style="color: black;"></i>
+                <i class="fa-solid fa-circle-plus fa-2xl " id="createIcon" title="Create"></i>
                 <div class="dropdown-content-create" id="createDropdown">
                     <a href="/study-sets/create.php">Create Study Set</a>
-                    <a href="/forum/create.php">Create Post</a>
+                    <a onclick="openPopup()">Create Post</a>
                 </div>
             </div>
             <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl"></i></a>
@@ -35,17 +42,12 @@
     <?php else: ?>
         <div class="navbar-right">
             <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl"></i></a>
-            <div class="dropdown">
-                <span>Login Or Register</span>
-                <img src="https://studysink.s3.amazonaws.com/assets/DefaultAvatar.jpg" alt="Pic" class="profile-picture" id="profilePicture" title="Profile">
-                <div class="dropdown-content-profile" id="profileDropdown">
-                    <a href="/account/login.php">Login</a>
-                    <a href="/account/register.php">Register</a>
-                </div>
-            </div>
+            <a href="/account/login.php" id="Login" title="Login or Register"><i class="fa-solid fa-id-card fa-2xl"></i></a>
         </div>
     <?php endif; ?>
     </div>
+
+    <!-- End of Full Size Nav bar and Beginning of Mobile Nav Bar -->
     <div class="navbarmobile">
         <header class="mobileheader" style="height: 20px;">
             <i class="fa-solid fa-bars fa-2xl" id="menuIcon" title="Menu Icon"></i>
@@ -65,7 +67,7 @@
                         <div class="navitem"><a href="#" title="Create">Create</a></div>
                         <div class="dropdown-content">
                             <div class="navitem"><a href="/study-sets/create.php" title="Create Study Set">Study Set</a></div>
-                            <div class="navitem"><a href="/forum/create.php" title="Create Post">Post</a></div>
+                            <div class="navitem"><a title="Create Post" onclick="openPopup()">Post</a></div>
                         </div>
                     </div>
                     <div class="dropdown">
@@ -78,8 +80,8 @@
                         </div>
                     </div>
                 <?php else: ?>
-                    <div class="navitem"><a href="/login.php" title="Home">Login</a></div>
-                    <div class="navitem"><a href="/register.php" title="Home">Register</a></div>
+                    <div class="navitem"><a href="/account/login.php" title="Home">Login</a></div>
+                    <div class="navitem"><a href="/account/register.php" title="Home">Register</a></div>
                 <?php endif; ?>
                 </div>
             </nav>
@@ -87,7 +89,49 @@
     </div>
 </div>
 
-<!-- Development Navbar For Easy Access -->
+<!-- End of Mobile Nav Bar and Beginning of Create Forum Post Pop up Window -->
+<div id="forumBody">
+      <div id="overlay">
+        <form method="post">
+          <div id="popupContainer">
+            <i class="fa-regular fa-circle-xmark fa-2xl" id="closeButton" onclick="closePopup()"></i>
+            <div class="contentitem">
+              <label for="universityforum" id="Unilabel">University</label>
+                <input class="foruminput" list="universitiesforum" id="setUniversityforum" placeholder="Select from the dropdown" name="setUniversityforum" required>
+                <datalist id="universitiesforum">
+                    <?php foreach($universitiesforum as $universityforum): ?>
+                        <option value="<?= htmlspecialchars($universityforum->Name) ?>" data-id="<?= $universityforum->UniversityID ?>">
+                            <?= htmlspecialchars($universityforum->Name) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </datalist>
+            </div>
+            <div class="contentitem">
+              <label for="subjectforum" id="subjectlabel">Subject</label>
+               <input class="foruminput" list="subjectsforum" id="setSubjectforum" placeholder="Select from the dropdown" name="setSubjectforum">
+                <datalist id="subjectsforum">
+                    <!-- Options will be added here by JavaScript after selecting a university -->
+                </datalist>
+            </div>
+            <div class="contentitemtitle">
+              <textarea name="title" type="text" id="titleinput" placeholder="Post Title" rows="2" style="resize: none;" oninput="titlecountChar(this)" required></textarea>
+              <span id="titlecharCount"></span>
+            </div>
+            <div class="contentitempost">
+              <textarea name="content" id="contentinput" rows="10" placeholder="What do you want to share?" style="resize: none;" onkeyup="contentcountChar(this)" required></textarea>
+              <span id="contentcharCount"></span>
+            </div>
+            <button type="submit" onclick="closePopup()" class="submitpostbutton">  
+                <span class="shadow"></span>
+                <span class="edge"></span>
+                <span class="front text">Post</span>
+            </button>
+          </div>
+        </form>
+      </div>
+</div>
+
+<!-- End of Create Forum Post Pop up Window and Beginning of Development Navbar For Easy Access -->
 <nav class="navbar">
     <span>Development Navbar:</span>
     <a class="<?php check_active_page('/index.php'); ?>" href="/index.php">Home</a>
@@ -137,4 +181,45 @@
         <?php endif; ?>
     </div>
 </nav>
-<h1>StudySink Development</h1>
+
+<!-- End of Development Navbar For Easy Access and Beginning of Forum Post Submit Functionality PHP -->
+
+<?php 
+ function create_post($data) {
+    $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE Name = '{$data['setUniversityforum']}';";
+    $universityID = run_database($query)[0]->UniversityID;
+
+    $query = "SELECT SubjectID FROM SUBJECT_T WHERE Name = '{$data['setSubjectforum']}';";
+    $subjectID = run_database($query)[0]->SubjectID;
+
+    $errors = array();
+
+    if(empty($data['setUniversityforum'])) {
+      $errors[] = "Please select a Unviersity from the dropdown to associate your post with.";
+    }
+    if(empty($data['title'])) {
+        $errors[] = "Please enter a post title.";
+    }
+    if(empty($data['content'])) {
+        $errors[] = "Please enter content for the post.";
+    }
+
+    if (count($errors) == 0) {
+        $values['PostID'] = rand(100, 99999);
+        $values['UniversityID'] = $universityID;
+        $values['SubjectID'] = $subjectID;
+        $values['Title'] = $data['title'];
+        $values['Content'] = $data['content'];
+        $values['UserID'] = $_SESSION['USER']->UserID;
+        $values['Created'] = get_local_time();
+
+        $query = "INSERT INTO POST_T (PostID, UniversityID, SubjectID, Title, Content, UserID, Created) VALUES (:PostID, :UniversityID, :SubjectID, :Title, :Content, :UserID, :Created);";
+        run_database($query, $values);
+        header("Location: /forum/posts/{$values['PostID']}.php");
+    }
+
+    return $errors;
+ }
+?>
+
+<h1>StudySink Backend Development</h1>

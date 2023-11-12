@@ -4,8 +4,8 @@ date_default_timezone_set('America/Los_Angeles');
 session_start();
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 
-function run_database($query, $values = array()) {;
-    $database = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");;
+function run_database($query, $values = array()) {
+    $database = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
     $dbhost = $database['db_host'];
     $dbport = $database['db_port'];
     $dbname = $database['db_name'];
