@@ -9,6 +9,7 @@ $universities = get_universities_list();
     <head>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
         <link rel="stylesheet" href="../styles/study-set-create.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     </head>
     <body class="createStudySetBody">
         <header>
@@ -24,7 +25,7 @@ $universities = get_universities_list();
                     </div>
                     <div class="studySetTags"> 
                         <div class="description">
-                            <textarea id="setDescription" placeholder=" Add a Description..." name="setDescription" required></textarea>
+                            <textarea type= "text" id="setDescription" placeholder="Add a Description..." name="setDescription" required></textarea>
                         </div>
                        
                         <div class="columnTags">
@@ -57,8 +58,10 @@ $universities = get_universities_list();
                     <div id="studyCards" class=studyCards>
                         <!-- Study cards will be added here -->
                     </div>
-                    <button type="button" id="addCardBtn">Add a Study Card</button>
-                    <button type="submit">Save Study Set</button>
+                    <div class="formButtons"> 
+                        <button type="button" id="addCardBtn">Add a Study Card</button>
+                        <button type="submit">Save Study Set</button>
+                    </div>
                 </form>
             </div>
         </main>
