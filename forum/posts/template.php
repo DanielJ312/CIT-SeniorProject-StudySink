@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
             </p>
         </div>
         <div>
-            <h4>Comments (<span class = comment-total><?= is_array($comments) ? count($comments) : "0"; ?></span>):</h4>
+            <h4>Comments (<span class="comment-total"><?= is_array($comments) ? count($comments) : "0"; ?></span>):</h4>
             <form id="sort-dropdown" method="">
                 <?= "<script>var postID = $postID;</script>"; ?>
                 <select id= "sort" class="sort" name="sorts">

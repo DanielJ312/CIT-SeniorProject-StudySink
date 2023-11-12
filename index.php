@@ -19,13 +19,13 @@ $users = run_database("SELECT * FROM USER_T;");
     </header>
     <main>
         <div>
-            <p>Welcome to the home page for the StudySink Backend Development.</p>
+            <p>Welcome to the home page for StudySink Development.</p>
             <p>This page currently has no use and instead lists all created users.</p>
             <table>
                 <h3>Created Users</h3>
                 <tr>
                     <th>Avatar</th><th>UserID</th><th>Username</th><th>Email</th>
-                    <th>Verified</th><th>Created</th><th>Current User</th>
+                    <th>Verified</th><th>Created</th><th>You</th>
                 </tr>
                 <?php for ($i = 0; $i < sizeof($users); $i++) : ?>
                 <tr>
