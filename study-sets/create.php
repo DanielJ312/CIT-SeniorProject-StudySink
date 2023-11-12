@@ -25,7 +25,7 @@ $universities = get_universities_list();
                     </div>
                     <div class="studySetTags"> 
                         <div class="description">
-                            <textarea type= "text" id="setDescription" placeholder=" Add a Description..." name="setDescription" required></textarea>
+                            <textarea type= "text" id="setDescription" placeholder="Add a Description..." name="setDescription" required></textarea>
                         </div>
                        
                         <div class="columnTags">

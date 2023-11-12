@@ -13,10 +13,10 @@ function addCard() {
             </div>
             <div class=frontAndBack>
                 <div class="cardFront">
-                    <textarea id="cardFront${cardCount}" placeholder="Enter term" "name="cardFront${cardCount}" required></textarea>
+                    <textarea class="card-textarea" id="cardFront${cardCount}" placeholder="Enter term" name="cardFront${cardCount}" required></textarea>
                 </div>
                 <div class="cardBack">
-                    <textarea id="cardBack${cardCount}" placeholder="Enter definition" name="cardBack${cardCount}" required></textarea>
+                    <textarea class="card-textarea" id="cardBack${cardCount}" placeholder="Enter definition" name="cardBack${cardCount}" required></textarea>
                 </div>
             </div>
         </div>
@@ -31,6 +31,19 @@ function addCard() {
             alert("You cannot delete the last study card.");
         }
     });
+
+     // Attach autoExpandTextArea to the new textareas and initialize their height
+     var newTextAreaFront = card.querySelector('.cardFront .card-textarea');
+     var newTextAreaBack = card.querySelector('.cardBack .card-textarea');
+     newTextAreaFront.addEventListener('input', autoExpandTextArea);
+     newTextAreaBack.addEventListener('input', autoExpandTextArea);
+     autoExpandTextArea({ target: newTextAreaFront });
+     autoExpandTextArea({ target: newTextAreaBack });
+}
+
+function autoExpandTextArea(event) {
+    event.target.style.height = 'auto'; // Reset the height
+    event.target.style.height = event.target.scrollHeight + 'px'; // Set the height to scroll height
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -39,6 +52,13 @@ document.addEventListener('DOMContentLoaded', function() {
     for (let i = 0; i < 5; i++) {
         addCard();
     }
+    
+    // Attach this function to the 'input' event of all textareas
+    document.querySelectorAll('.studySetContainer .card-textarea').forEach(textarea => {
+        textarea.addEventListener('input', autoExpandTextArea);
+        // Trigger the expand function in case the textarea is pre-filled
+        autoExpandTextArea({ target: textarea });
+    });   
 
     document.getElementById('addCardBtn').addEventListener('click', addCard);
 

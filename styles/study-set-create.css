@@ -26,6 +26,11 @@
     color: #ffffff;
 }
 
+.studySetContainer input:focus, .studySetContainer textarea:focus {
+    outline: none; /* Need to see if we can highlight text in the text area*/
+    outline-offset: 2px;
+}
+
 .studySetContainer input::placeholder, .studySetContainer textarea::placeholder {
     color: #ffffff;
     opacity: 1; 
@@ -68,7 +73,7 @@
 .description textarea{
     width: 95%;
     height: 95%;
-    padding: 0px;
+    padding: 5px;
     margin: 0px;
     resize: none;
     position: absolute;
@@ -172,7 +177,7 @@
     margin: 0;
 }
 
-.formButtons input[type="submit"], button{
+.formButtons input[type="submit"], .formButtons button{
     padding: 10px 20px;
     margin-left: 5px; 
     border: none;
@@ -183,7 +188,7 @@
     transition: background-color 0.2s;
 }
 
-input[type="submit"]:hover, button:hover {
+.formButtons input[type="submit"]:hover, .formButtons button:hover {
     background-color: #0056b3;
 }
 
