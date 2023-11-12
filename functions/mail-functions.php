@@ -3,9 +3,9 @@
 require ($_SERVER['DOCUMENT_ROOT'] ."/vendor/autoload.php");
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 function send_mail($recipient, $subject, $message) {
+    // Server Settings
     $phpmailer = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
     $mail = new PHPMailer();
     $mail->IsSMTP();
@@ -16,23 +16,14 @@ function send_mail($recipient, $subject, $message) {
     $mail->Username   = $phpmailer['mailer_username'];
     $mail->Password   = $phpmailer['mailer_password'];
 
-    $mail->IsHTML(true);
-    $mail->AddAddress($recipient);
+    //Recipients
     $mail->SetFrom("StudySinkLLC@gmail.com", "StudySink LLC");
-    //$mail->AddReplyTo("reply-to-email", "reply-to-name");
-    //$mail->AddCC("cc-recipient-email", "cc-recipient-name");
-    $mail->Subject = $subject;
-    $content = $message;
+    $mail->AddAddress($recipient);
 
-    $mail->MsgHTML($content);
-    if (!$mail->Send()) {
-        //echo "Error while sending Email.";
-        //echo "<pre>";
-        //var_dump($mail);
-        return false;
-    } else {
-        //echo "Email sent successfully";
-        return true;
-    }
+    //Content
+    $mail->IsHTML(true);
+    $mail->Subject = $subject;
+    $mail->Body = $message;
+    $mail->Send();
 }
 ?>

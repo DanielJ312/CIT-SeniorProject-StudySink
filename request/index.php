@@ -2,7 +2,7 @@
 <?php
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 update_session();
-check_login() ? null : header("Location: /account/login.php");
+if (!check_login()) header("Location: /account/login.php"); 
 $pageTitle = "Request";
 
 $errors = array();

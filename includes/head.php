@@ -5,7 +5,7 @@
 <title><?= isset($pageTitle) ? $pageTitle : "" ?></title>
 <link rel="stylesheet" href="/styles/global.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+<link rel="icon" type="image/x-icon" href="https://studysink.s3.amazonaws.com/assets/StudySinkIcon.ico">
 
 <!-- Navbar -->
 <link rel="stylesheet" href="/styles/header.css">
