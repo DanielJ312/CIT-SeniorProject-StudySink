@@ -57,7 +57,6 @@ function contentcountChar(contentinput) {
 
 // Functionality for Dynamic Dropdown Menus
 document.addEventListener('DOMContentLoaded', function() {
-
     var universityInput = document.getElementById('setUniversityforum');
     var subjectInput = document.getElementById('setSubjectforum');
 
@@ -130,5 +129,4 @@ document.addEventListener('DOMContentLoaded', function() {
             subjectDatalist.appendChild(option);
         });
     }
-
 });
