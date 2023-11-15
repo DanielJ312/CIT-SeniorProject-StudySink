@@ -1,4 +1,5 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 $query = "SELECT * FROM UNIVERSITY_T;";
 $universitiesforum = get_universities_list();
 $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
@@ -84,7 +85,7 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
                 <?php endif; ?>
                 </div>
             </nav>
-        <header>
+        :<header>
     </div>
 </div>
 
@@ -96,7 +97,7 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
                 <i class="fa-regular fa-circle-xmark fa-2xl" id="closeButton" onclick="closePopup()"></i>
                 <div class="contentitem">
                     <label for="universityforum" id="Unilabel">University</label>
-                    <input class="foruminput" list="universitiesforum" id="setUniversityforum" placeholder="Select from the dropdown" name="setUniversityforum" required>
+                    <input class="foruminput" list="universitiesforum" id="setUniversityforum" placeholder="Select from the dropdown" name="university" required>
                     <datalist id="universitiesforum">
                         <?php foreach ($universitiesforum as $universityforum) : ?>
                             <option value="<?= htmlspecialchars($universityforum->Name) ?>" data-id="<?= $universityforum->UniversityID ?>">
@@ -107,7 +108,7 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
                 </div>
                 <div class="contentitem">
                     <label for="subjectforum" id="subjectlabel">Subject</label>
-                    <input class="foruminput" list="subjectsforum" id="setSubjectforum" placeholder="Select from the dropdown" name="setSubjectforum">
+                    <input class="foruminput" list="subjectsforum" id="setSubjectforum" placeholder="Select from the dropdown" name="subject">
                     <datalist id="subjectsforum">
                         <!-- Options will be added here by JavaScript after selecting a university -->
                     </datalist>
@@ -181,44 +182,6 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
     </div>
 </nav>
 
-<!-- End of Development Navbar For Easy Access and Beginning of Forum Post Submit Functionality PHP -->
-
-<?php
-function create_post($data) {
-    $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE Name = '{$data['setUniversityforum']}';";
-    $universityID = run_database($query)[0]->UniversityID;
-
-    $query = "SELECT SubjectID FROM SUBJECT_T WHERE Name = '{$data['setSubjectforum']}';";
-    $subjectID = run_database($query)[0]->SubjectID;
-
-    $errors = array();
-
-    if (empty($data['setUniversityforum'])) {
-        $errors[] = "Please select a Unviersity from the dropdown to associate your post with.";
-    }
-    if (empty($data['title'])) {
-        $errors[] = "Please enter a post title.";
-    }
-    if (empty($data['content'])) {
-        $errors[] = "Please enter content for the post.";
-    }
-
-    if (count($errors) == 0) {
-        $values['PostID'] = rand(100, 99999);
-        $values['UniversityID'] = $universityID;
-        $values['SubjectID'] = $subjectID;
-        $values['Title'] = $data['title'];
-        $values['Content'] = $data['content'];
-        $values['UserID'] = $_SESSION['USER']->UserID;
-        $values['Created'] = get_local_time();
-
-        $query = "INSERT INTO POST_T (PostID, UniversityID, SubjectID, Title, Content, UserID, Created) VALUES (:PostID, :UniversityID, :SubjectID, :Title, :Content, :UserID, :Created);";
-        run_database($query, $values);
-        header("Location: /forum/posts/{$values['PostID']}.php");
-    }
-
-    return $errors;
-}
-?>
-
 <h1>StudySink Development</h1>
+
+<!-- End of Development Navbar For Easy Access and Beginning of Forum Post Submit Functionality PHP -->
