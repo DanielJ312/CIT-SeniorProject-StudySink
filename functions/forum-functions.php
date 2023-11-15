@@ -1,6 +1,6 @@
 <?php
 # Forum Functions - Runs functions relating to the forum
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 
 // Switch for deciding which function to run in AJAX
 if (isset($_POST['function'])) {
@@ -9,7 +9,7 @@ if (isset($_POST['function'])) {
             delete_comment();
             break;
         case "sort": 
-            update_post_sort();
+            update_sort();
             break;
         case "update-vote": 
             update_vote();
@@ -19,7 +19,77 @@ if (isset($_POST['function'])) {
     }
 }
 
-function update_post_sort() {
+# Post Functions
+function create_post($data) {
+    $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE NAME = '{$data['university']}';";
+    $universityID = run_database($query)[0]->UniversityID;
+
+    $query = "SELECT SubjectID FROM SUBJECT_T WHERE NAME = '{$data['subject']}';";
+    $subjectID = run_database($query)[0]->SubjectID;
+
+    $errors = array();
+
+    if (empty($data['university'])) {
+        $errors[] = "Please select a Unviersity from the dropdown to associate your post with.";
+    }
+    if (empty($data['title'])) {
+        $errors[] = "Please enter a post title.";
+    }
+    if (empty($data['content'])) {
+        $errors[] = "Please enter content for the post.";
+    }
+
+    if (count($errors) == 0) {
+        $values['PostID'] = rand(100, 99999);
+        $values['UniversityID'] = $universityID;
+        $values['SubjectID'] = $subjectID;
+        $values['Title'] = $data['title'];
+        $values['Content'] = $data['content'];
+        $values['UserID'] = $_SESSION['USER']->UserID;
+        $values['Created'] = get_local_time();
+
+        $query = "INSERT INTO POST_T (PostID, UniversityID, SubjectID, Title, Content, UserID, Created) VALUES (:PostID, :UniversityID, :SubjectID, :Title, :Content, :UserID, :Created);";
+        run_database($query, $values);
+        header("Location: /forum/posts/{$values['PostID']}.php");
+    }
+
+    return $errors;
+}
+
+# Comment Functions
+function add_comment($data, $postID) {
+    $errors = array();
+
+    if(empty($data['content'])) {
+        $errors[] = "Please enter content for the comment.";
+    }
+
+    if (count($errors) == 0) {
+        $values['CommentID'] = $tempID = rand(100, 999);
+        $values['PostID'] = $postID;
+        $values['Content'] = $data['content'];
+        $values['UserID'] = $_SESSION['USER']->UserID;
+        $values['Created'] = get_local_time();
+
+        $query = "INSERT INTO COMMENT_T (CommentID, PostID, Content, UserID, Created) VALUES (:CommentID, :PostID, :Content, :UserID, :Created)";
+        run_database($query, $values);
+        $query = "INSERT INTO CVOTE_T (CommentID, UserID, VoteType) VALUES ($tempID, {$_SESSION['USER']->UserID}, 1);";
+        run_database($query);
+
+        header("Location: $postID.php");
+    }
+
+    return $errors;
+}
+
+function delete_comment() {
+    $values['CommentID'] = $_POST['commentID'];
+    $query = "DELETE FROM COMMENT_T WHERE CommentID = :CommentID";
+    run_database($query, $values);
+}
+
+# General Functions
+function update_sort() {
     $type = $_POST['sortType'];
     $postID = $_POST['postID'];
 
@@ -42,7 +112,7 @@ function update_post_sort() {
     if ($type == "c" && is_array($sorted) > 0) {
         $postUsername = run_database("SELECT Username FROM USER_T INNER JOIN POST_T ON USER_T.UserID = POST_T.UserID WHERE POST_T.PostID = $postID")[0]->Username;
         foreach ($sorted as $comment) {
-            include "comment-template.php";
+            include($_SERVER['DOCUMENT_ROOT'] . "/forum/posts/c-template.php");
         }
     }
 }
@@ -115,36 +185,5 @@ function update_vote() {
     $voteTotal = $voteTotal[0]->VoteCount;
 
     echo $voteTotal;
-}
-
-function add_comment($data, $postID) {
-    $errors = array();
-
-    if(empty($data['content'])) {
-        $errors[] = "Please enter content for the comment.";
-    }
-
-    if (count($errors) == 0) {
-        $values['CommentID'] = $tempID = rand(100, 999);
-        $values['PostID'] = $postID;
-        $values['Content'] = $data['content'];
-        $values['UserID'] = $_SESSION['USER']->UserID;
-        $values['Created'] = get_local_time();
-
-        $query = "INSERT INTO COMMENT_T (CommentID, PostID, Content, UserID, Created) VALUES (:CommentID, :PostID, :Content, :UserID, :Created)";
-        run_database($query, $values);
-        $query = "INSERT INTO CVOTE_T (CommentID, UserID, VoteType) VALUES ($tempID, {$_SESSION['USER']->UserID}, 1);";
-        run_database($query);
-
-        header("Location: $postID.php");
-    }
-
-    return $errors;
-}
-
-function delete_comment() {
-    $values['CommentID'] = $_POST['commentID'];
-    $query = "DELETE FROM COMMENT_T WHERE CommentID = :CommentID";
-    run_database($query, $values);
 }
 ?>
