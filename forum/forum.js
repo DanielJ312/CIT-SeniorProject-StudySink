@@ -1,22 +1,23 @@
 // Forum.js - Runs any javascript function for the forum
 
 /*  Sorting Functions */
-$( document ).ready(function() {
+$(document).ready(function () {
     var currentPath = window.location.pathname;
-    if (currentPath.startsWith('/forum/post')) {
-        $('.sort-container').html(updateSortedData("comment-oldest"));
-    }
-});
-
-$( document ).ready(function() {
-    var currentPath = window.location.pathname;
-    if (currentPath.startsWith('/forum/')) {
+    if (currentPath.includes('/forum/index')) {
         $('.sort-container').html(updateSortedData("post-oldest"));
     }
 });
 
+$(document).ready(function () {
+    var currentPath = window.location.pathname;
+    console.log(currentPath);
+    if (currentPath.includes('/forum/post')) {
+        $('.sort-container').html(updateSortedData("comment-oldest"));
+    }
+});
+
 // Event handler for select change
-$('.sort').on('change', function() {
+$('.sort').on('change', function () {
     var sortType = $(this).val(); // Get the selected value
     updateSortedData(sortType); // Call the function to update the sorted data
     console.log(sortType);
@@ -26,13 +27,13 @@ $('.sort').on('change', function() {
 function updateSortedData(sortType) {
     console.log(postID);
     $.ajax({
-        url: '/functions/forum-functions.php', 
+        url: '/functions/forum-functions.php',
         type: 'POST',
         data: { function: "sort", postID: postID, sortType: sortType },
-        success: function(response) {
+        success: function (response) {
             $('.sort-container').html(response); // Update the container with sorted data
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error(error);
         }
     });
@@ -41,25 +42,25 @@ function updateSortedData(sortType) {
 /*  Comment Functions */
 function DeleteComment(commentIDToDelete) {
     $.ajax({
-        url: '/functions/forum-functions.php', 
+        url: '/functions/forum-functions.php',
         type: "post",    //request type,
         dataType: 'json',
-        data: {function: "delete", commentID: commentIDToDelete},
+        data: { function: "delete", commentID: commentIDToDelete },
     });
-    $("#comment-" + commentIDToDelete).remove(); 
+    $("#comment-" + commentIDToDelete).remove();
     var total = $(".comment-total");
-    total.text(Number(total.text())-1);
+    total.text(Number(total.text()) - 1);
 }
 
 function updateCommentVote(commentID, userID, voteType) {
     // console.log(commentID, userID, voteType);
     $.ajax({
-        url: '/functions/forum-functions.php',  
+        url: '/functions/forum-functions.php',
         type: 'POST',
-        data: { function: "update-vote", commentID: commentID, userID: userID, voteType: voteType},
-        success: function(response) {
+        data: { function: "update-vote", commentID: commentID, userID: userID, voteType: voteType },
+        success: function (response) {
             $("#comment-" + commentID + "-v").html(response);
-            
+
             type = voteType == 1 ? "down" : "up";
             // newButton = `<input id="comment-${commentID}-${type}vote" type="button" value="${type}vote" onclick="updateCommentVote(${commentID}, ${userID}, '${-voteType}')">`
 
@@ -67,7 +68,7 @@ function updateCommentVote(commentID, userID, voteType) {
 
             $("#comment-" + commentID + "-vb").html(newButton);
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error(error);
         }
     });
@@ -79,7 +80,7 @@ function toggleDropdown(dropdown) {
 }
 
 // Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (!event.target.matches('.ellipsis-icon')) {
         var dropdowns = document.getElementsByClassName('dropdown-content');
         var i;
