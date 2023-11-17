@@ -4,7 +4,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 update_session();
 $pageTitle = "Login";
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") $errors = login($_POST);
+$errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? login($_POST) : [];
 if (check_login()) header("Location: /account/profile.php"); 
 ?>
 

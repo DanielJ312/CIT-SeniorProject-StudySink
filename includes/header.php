@@ -2,7 +2,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 $query = "SELECT * FROM UNIVERSITY_T;";
 $universitiesforum = get_universities_list();
-$errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
+$postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']) ? create_post($_POST) : [];
 ?>
 
 <!-- Header - Contains HTML injected into the header tag -->
