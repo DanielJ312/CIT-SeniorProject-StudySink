@@ -1,6 +1,7 @@
 <!-- Create Post - Creates a forum post -->
 <?php 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+update_session();
 $pageTitle = "Create Post";
 
 $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];

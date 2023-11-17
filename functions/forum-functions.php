@@ -20,6 +20,11 @@ if (isset($_POST['function'])) {
 }
 
 # Post Functions
+function get_posts() {
+    $query = "SELECT * FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID ORDER BY POST_T.Created ASC;";
+    return run_database($query);
+}
+
 function create_post($data) {
     $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE NAME = '{$data['university']}';";
     $universityID = run_database($query)[0]->UniversityID;
@@ -54,6 +59,32 @@ function create_post($data) {
     }
 
     return $errors;
+}
+
+function get_post($postID) {
+    $values['PostID'] = $postID;
+    $query = <<<query
+    SELECT PostID, Title, Content, POST_T.Created AS PostCreated, Username, Avatar, UNIVERSITY_T.Name AS UniversityName, SUBJECT_T.Name AS SubjectName
+    FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID 
+        INNER JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
+        INNER JOIN SUBJECT_T ON POST_T.SubjectID = SUBJECT_T.SubjectID
+    WHERE PostID = :PostID;
+    query;
+    return run_database($query, $values)[0];
+}
+
+function get_comments($postID) {
+    $values['PostID'] = $postID;
+    $query = <<<query
+    SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes
+    FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
+        INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
+    WHERE PostID = :PostID
+    GROUP BY CommentID
+    ORDER BY COMMENT_T.Created ASC;
+    query;
+    return run_database($query, $values);
+
 }
 
 # Comment Functions

@@ -1,7 +1,7 @@
 <!-- Register - User creates account by entering username, email, and password -->
 <?php 
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
-check_login() ? header("Location: /account/profile.php") : null;
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+if (check_login()) header("Location: /account/profile.php"); 
 $pageTitle = "Create Account";
 
 $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = signup($_POST)) == 0) ? header("Location: login.php") : $errors) : [];
@@ -60,11 +60,19 @@ function signup($data) {
     
     // save
     if (count($errors) == 0) {
-        $values['UserID'] = generate_ID("USER");
-        $values['Username'] = $data['username'];
-        $values['Email'] = $data['email'];
-        $values['Password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-        $values['Created'] = get_local_time();
+        // $values['UserID'] = generate_ID("USER");
+        // $values['Username'] = $data['username'];
+        // $values['Email'] = $data['email'];
+        // $values['Password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        // $values['Created'] = get_local_time();
+
+        $values = [
+            'UserID' => generate_ID("USER"),
+            'Username' => $data['username'],
+            'Email' => $data['email'],
+            'Password' => password_hash($data['password'], PASSWORD_DEFAULT),
+            'Created' => get_local_time()
+        ];
         
         $query = "INSERT INTO USER_T (UserID, Username, Email, Password, Created) VALUES (:UserID, :Username, :Email, :Password, :Created);";
         run_database($query, $values);

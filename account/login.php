@@ -1,10 +1,11 @@
 <!-- Login - Users enter account information to login with either email or username -->
 <?php 
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+update_session();
 $pageTitle = "Login";
 
-$errors = $_SERVER['REQUEST_METHOD'] == "POST" ? login($_POST) : [];
-check_login() ? header("Location: /account/profile.php") : null;
+if ($_SERVER['REQUEST_METHOD'] == "POST") $errors = login($_POST);
+if (check_login()) header("Location: /account/profile.php"); 
 ?>
 
 <!DOCTYPE html>

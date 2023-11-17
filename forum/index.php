@@ -1,10 +1,10 @@
 <!-- Forum Home - Lists all posts made and allows users to sort -->
 <?php 
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
+update_session();
 $pageTitle = "Forum";
 
-$query = "SELECT * FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID ORDER BY POST_T.Created ASC;";
-$post = run_database($query);
+$post = get_posts();
 ?>
 
 <!DOCTYPE html>
@@ -31,14 +31,8 @@ $post = run_database($query);
                 <?= "<script>var postID = 0;</script>"; ?>
             </select>
         </form>
-        <!-- <button onclick="TestFunction('testing value')"></button> -->
         <div class="sort-container">
-        <?php for ($i=0; $i < count($post); $i++): ?> 
-            <a href="/forum/posts/<?=$post[$i]->PostID; ?>.php">
-                <p><?=$post[$i]->Title?></p>
-                <p>By: <?= $post[$i]->Username ?></p>
-            </a>
-        <?php endfor; ?>
+            <!-- Posts will get inserted here -->
         </div>
     </main>
     <footer>

@@ -1,5 +1,6 @@
 // Forum.js - Runs any javascript function for the forum
 
+/*  Sorting Functions */
 $( document ).ready(function() {
     var currentPath = window.location.pathname;
     if (currentPath.startsWith('/forum/post')) {
@@ -7,17 +8,12 @@ $( document ).ready(function() {
     }
 });
 
-function DeleteComment(commentIDToDelete) {
-    $.ajax({
-        url: '/functions/forum-functions.php', 
-        type: "post",    //request type,
-        dataType: 'json',
-        data: {function: "delete", commentID: commentIDToDelete},
-    });
-    $("#comment-" + commentIDToDelete).remove(); 
-    var total = $(".comment-total");
-    total.text(Number(total.text())-1);
-}
+$( document ).ready(function() {
+    var currentPath = window.location.pathname;
+    if (currentPath.startsWith('/forum/')) {
+        $('.sort-container').html(updateSortedData("post-oldest"));
+    }
+});
 
 // Event handler for select change
 $('.sort').on('change', function() {
@@ -40,7 +36,19 @@ function updateSortedData(sortType) {
             console.error(error);
         }
     });
-    
+}
+
+/*  Comment Functions */
+function DeleteComment(commentIDToDelete) {
+    $.ajax({
+        url: '/functions/forum-functions.php', 
+        type: "post",    //request type,
+        dataType: 'json',
+        data: {function: "delete", commentID: commentIDToDelete},
+    });
+    $("#comment-" + commentIDToDelete).remove(); 
+    var total = $(".comment-total");
+    total.text(Number(total.text())-1);
 }
 
 function updateCommentVote(commentID, userID, voteType) {
@@ -52,11 +60,34 @@ function updateCommentVote(commentID, userID, voteType) {
         success: function(response) {
             $("#comment-" + commentID + "-v").html(response);
             
-            type = voteType == 1 ? "Downvote" : "Upvote";
-            $("#comment-" + commentID + "-vb").html(`<input id="comment-${commentID}-${type}" type="button" value="${type}" onclick="updateCommentVote(${commentID}, ${userID}, '${-voteType}')">`);
+            type = voteType == 1 ? "down" : "up";
+            // newButton = `<input id="comment-${commentID}-${type}vote" type="button" value="${type}vote" onclick="updateCommentVote(${commentID}, ${userID}, '${-voteType}')">`
+
+            newButton = `<a class="far fa-thumbs-${type}" id="comment-${commentID}-${type}vote" type="button" value="${type}vote" onclick="updateCommentVote(${commentID}, ${userID}, '${-voteType}')">`;
+
+            $("#comment-" + commentID + "-vb").html(newButton);
         },
         error: function(xhr, status, error) {
             console.error(error);
         }
     });
+}
+
+//Dropdown Functions
+function toggleDropdown(dropdown) {
+    dropdown.querySelector('.dropdown-content').classList.toggle('show');
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+    if (!event.target.matches('.ellipsis-icon')) {
+        var dropdowns = document.getElementsByClassName('dropdown-content');
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
 }

@@ -1,6 +1,7 @@
 <!-- Forgot - User enters email to send a verification code to reset password -->
 <?php 
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 check_login() ? header("Location: /account/profile.php") : null;
 $pageTitle = "Reset Password";
 
