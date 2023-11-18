@@ -19,7 +19,7 @@
             </div>
         </div>
         <p class="comment-content">
-            <?= $comment->Content; ?> &lpar;Votes:<span id="comment-<?= $comment->CommentID; ?>-v"><?= $comment->Votes; ?></span>&rpar;
+            <?= $comment->Content; ?> <p class="votes">Votes:<span id="comment-<?= $comment->CommentID; ?>-v"><?= $comment->Votes; ?></span></p>
         </p>
         <div class="post-icons">
             <?php if (check_login()) : ?>

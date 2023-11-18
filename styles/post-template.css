@@ -16,7 +16,7 @@
     background-color: #ffffff;
     border: 1px solid #f59c1a;
     border-radius: 5px;
-    padding: 20px;
+    padding: 5px;
     margin: 20px 0px;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -202,3 +202,23 @@
 #addComment:hover {
     background-color: #0078d4;
 }
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+#sort {
+    border: 1px solid #f59c1a;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+.votes {
+    display:flex;
+    justify-content: flex-end;
+  }
