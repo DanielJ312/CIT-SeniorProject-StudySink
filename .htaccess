@@ -8,13 +8,31 @@ RewriteEngine ON
 # RewriteRule ^ %{REQUEST_URI}.php [NC,L]
 
 # Post Redirect
-RewriteCond %{REQUEST_URI} ^/forum/posts/ [NC]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /forum/posts/template.php?url=$1 [QSA,L]
+# RewriteCond %{REQUEST_URI} ^/forum/posts/ [NC]
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.*)$ /forum/posts/template.php?url=$1 [QSA,L]
 
-# Study Set Redirect
-RewriteCond %{REQUEST_URI} ^/study-sets/ [NC]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /study-sets/template.php?url=$1 [QSA,L]
+# # Study Set Redirect
+# RewriteCond %{REQUEST_URI} ^/study-sets/ [NC]
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.*)$ /study-sets/template.php?url=$1 [QSA,L]
+
+# <FilesMatch "\.(html|htm|js|css)$">
+#     Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+# </FilesMatch>
+
+<FilesMatch ".(ico|pdf|flv|jpg|jpeg|png|html|htm|js|css|)$">
+    Header set Cache-Control "max-age=84600, public"
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Post and Study Set Redirect
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(forum/posts|study-sets)/(.*)$ $1/template.php?url=$2 [QSA,L]
+</IfModule>
