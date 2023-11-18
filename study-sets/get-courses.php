@@ -5,7 +5,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 // Function to fetch courses based on a subject ID using the run_database function
 function get_courses_by_subject($subjectId) {
     // Prepare the query to fetch courses
-    $query = "SELECT CourseID, Name, Abbreviation FROM COURSE_T WHERE SubjectID = :SubjectID";
+    $query = "SELECT CourseID, Name, Abbreviation FROM COURSE_T WHERE SubjectID = :SubjectID ORDER BY Abbreviation ASC";
     $values = array(':SubjectID' => $subjectId);
 
     // Use the run_database function to execute the query

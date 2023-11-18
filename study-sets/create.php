@@ -21,11 +21,11 @@ $universities = get_universities_list();
                 <h2 class="header2"><?=isset($pageTitle) ? $pageTitle : "Create a Study Set" ?></h2>
                 <form id="studySetForm" method="POST" action="save-study-set.php">
                     <div class="titleContainer">
-                        <input type="text" id="setTitle" placeholder="Enter Title Here: &quot;Computer Science 101 - Chapter 1&quot;" name="setTitle" required>
+                        <input type="text" id="setTitle" placeholder="Enter Title Here: &quot;Computer Science 101 - Chapter 1&quot;" name="setTitle" maxlength="255" required>
                     </div>
                     <div class="studySetTags"> 
                         <div class="description">
-                            <textarea type= "text" id="setDescription" placeholder="Add a Description..." name="setDescription" required></textarea>
+                            <textarea type= "text" id="setDescription" placeholder="Add a Description..." name="setDescription" maxlength="500" required></textarea>
                         </div>
                        
                         <div class="columnTags">
@@ -52,7 +52,7 @@ $universities = get_universities_list();
                                     <?php endforeach; ?>
                                 </datalist>
                             
-                            <input type="text" id="setTeacher" placeholder="Teacher" name="setTeacher" required>
+                            <input type="text" id="setTeacher" placeholder="Teacher" name="setTeacher" maxlength="65" required>
                         </div>
                     </div>
                     <div id="studyCards" class=studyCards>
