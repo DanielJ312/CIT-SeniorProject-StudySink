@@ -1,11 +1,13 @@
 <!-- Verify - User recieves email with verifcation code to verify their account -->
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
-check_login() ? null : header("Location: /account/login.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
+if (!check_login()) header("Location: /account/login.php"); 
+update_session();
 $pageTitle = "Verify Account";
 
-$expiredCode = $_SERVER['REQUEST_METHOD'] == "GET" && !check_verification() ? is_code_active("verify", $_SESSION['USER']->Email) : null;
-$errors = $_SERVER['REQUEST_METHOD'] == "POST" ? verify_account() : [];
+if ($_SERVER['REQUEST_METHOD'] == "GET" && !check_verification()) $expiredCode = is_code_active("verify", $_SESSION['USER']->Email);
+if ($_SERVER['REQUEST_METHOD'] == "POST") $errors = verify_account();
 ?>
 
 <!DOCTYPE html>
@@ -44,8 +46,10 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? verify_account() : [];
 
 <?php 
 function verify_account() {
-    $values['Email'] = $_SESSION['USER']->Email;
-    $values['Code'] = $_POST['code'];
+    $values = [
+        'Email' => $_SESSION['USER']->Email,
+        'Code' => $_POST['code']
+    ];
 
     $query = "SELECT * FROM CODE_T where Email = :Email && Code = :Code;";
     $result = run_database($query, $values);

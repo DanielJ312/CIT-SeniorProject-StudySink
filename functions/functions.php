@@ -2,56 +2,42 @@
 # Functions - Contains functions that are used by multiple pages
 date_default_timezone_set('America/Los_Angeles');
 session_start();
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 
 function run_database($query, $values = array()) {
-    $database = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
-    $dbhost = $database['db_host'];
-    $dbport = $database['db_port'];
-    $dbname = $database['db_name'];
-    $dbusername = $database['db_username'];
-    $dbpassword = $database['db_password'];
-    
-    $server = "mysql:host=$dbhost;port=$dbport;dbname=$dbname;";
-    $connection = new PDO($server, $dbusername, $dbpassword);
-
-    if (!$connection)  {
-        return false;
-    }
+    $connection = get_pdo_connection();
+    if (!$connection) return false;
 
     $statement = $connection->prepare($query);
     $check = $statement->execute($values);
 
     if ($check) {
         $data = $statement->fetchAll((PDO::FETCH_OBJ));
-        if (count($data) > 0) {
-            return $data;
-        }
+        if (count($data) > 0) return $data;
     }
-
     return false;
 }
 
 function get_pdo_connection() {
     static $connection = null;
     if ($connection === null) {
-        $database = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
+        $database = read_config();
         $server = "mysql:host={$database['db_host']};port={$database['db_port']};dbname={$database['db_name']};";
         $connection = new PDO($server, $database['db_username'], $database['db_password']);
     }
     return $connection;
 }
 
+function read_config(){
+    return parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
+}
+
 function check_login() {
     $loggedIn = false;
-    if (isset($_SESSION['USER']) && isset($_SESSION['LOGGED_IN'])) {
-        $loggedIn = true;
-    }
+    if (isset($_SESSION['USER']) && isset($_SESSION['LOGGED_IN'])) $loggedIn = true;
     return $loggedIn;
 }
 
 function update_session() {
-    //finish
     if (isset($_SESSION['USER'])) {
         $values = array();
         $values['UserID'] = $_SESSION['USER']->UserID;
@@ -63,7 +49,6 @@ function update_session() {
         $_SESSION['USER'] = $result;
         $_SESSION['LOGGED_IN'] = true;
     }
-    
 }
 
 function check_verification() {
@@ -72,76 +57,14 @@ function check_verification() {
     $result = run_database($query);
     if (is_array($result)) {
         $result = $result[0];
-        if ($result->Verified == 1) {
-            return true;
-        }
+        if ($result->Verified == 1) return true;
     }
-
     return false;
 }
 
-function send_code($type, $recipient) {
-    $values['Code'] = rand(10000, 99999);
-    $values['Expires'] = (get_local_time() + (60 * 1));
-    $values['Email'] = $recipient;
-    $values['Type'] = "$type";
-
-    switch ($type) {
-        case 'verify':
-            $subject = "Verify Account";
-            $message = <<<message
-            <p>Hello <b>{$_SESSION['USER']->Username}</b>,</p>
-            Your account verification code is <b> {$values['Code']}</b>.
-            message;
-            break;
-        case 'reset':
-            $subject = "Password Reset";
-            $message = <<<message
-            <p>Hello, <b>{$_SESSION['USER']->Username}</b></p>
-            Your password reset verification code is  <b>{$values['Code']}</b>.
-            message;
-            break;
-        default:
-            break;
-    }
-    delete_code($type, $recipient);
-
-    $query = "INSERT INTO CODE_T (Code, Type, Email, Expires) values (:Code, :Type, :Email, :Expires);";
-    run_database($query, $values);
-    send_mail($recipient, $subject, $message);
-}
-
-function is_code_active($type, $email) {
-    $values['Type'] = $type;
-    $values['Email'] = $email;
-
-    $query = "SELECT * FROM CODE_T WHERE Type = :Type AND Email = :Email;";
-    $result = run_database($query, $values);
-
-    if (is_array($result) && get_local_time() < $result[0]->Expires) {
-        return true;
-    }
-    else {
-        send_code($type, $email);
-        return false;
-    }
-}
-
-function delete_code($type, $email) {
-    $query = "DELETE FROM CODE_T WHERE type = '$type' AND Email = '$email';";
-    run_database($query);
-}
-
-function check_active_page($currectPage) {
-    if ($currectPage == $_SERVER['REQUEST_URI']) {
-        echo "active";
-    }
-}
-
-function check_active_dir($dirToCheck) {
-    if (str_contains($_SERVER['REQUEST_URI'], $dirToCheck)) {
-        echo "active";
-    }
+function check_active($toCheck, $page = null) {
+    if (str_contains($_SERVER['REQUEST_URI'], $toCheck) && $page == null) echo "active";
+    else if ($_SERVER['REQUEST_URI'] == '/index.php' && $page == 'home') echo "active";
 }
 
 function display_errors($errors) {
@@ -200,5 +123,4 @@ function check_user_vote($userID, $commentID) {
         return $result[0]->VoteType;
     }
 }
-
 ?>

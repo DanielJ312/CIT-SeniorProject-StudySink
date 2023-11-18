@@ -1,12 +1,12 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 $query = "SELECT * FROM UNIVERSITY_T;";
 $universitiesforum = get_universities_list();
-$errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
+$postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']) ? create_post($_POST) : [];
 ?>
 
 <!-- Header - Contains HTML injected into the header tag -->
 <!-- Full Size Navbar -->
-<script defer src="/includes/createForumPost.js"></script>
 <div class="Navbody">
     <div class="navbarMain">
         <div class="navbar-left">
@@ -17,20 +17,20 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
                 <a href="SearchResults"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a>
                 <input type="text" id="searchBar" placeholder="Search Study sets, Universities, Posts" style="padding-left: 35px;">
             </div>
-    </div>
+        </div>
     <?php if (check_login()) : ?>
         <div class="navbar-right">
             <div class="dropdown" style="padding-top: 15px; padding-bottom: 15px;">
-                <i class="fa-solid fa-circle-plus fa-2xl " id="createIcon" title="Create"></i>
+                <i class="fa-solid fa-circle-plus fa-2xl <?= check_active('/study-sets/create.php'); ?>" id="createIcon" title="Create"></i>
                 <div class="dropdown-content-create" id="createDropdown">
                     <a href="/study-sets/create.php">Create Study Set</a>
                     <a onclick="openPopup()">Create Post</a>
                 </div>
             </div>
-            <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl"></i></a>
+            <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index.php', 'home'); ?>"></i></a>
             <a href="UniversityPage" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-flip-horizontal fa-2xl"></i></a>
             <div class="dropdown">
-            <img src="<?= $_SESSION['USER']->Avatar ?>" alt="Avatar" class="profile-picture" id="profilePicture" title="Avatar">
+                <img src="<?= $_SESSION['USER']->Avatar ?>" alt="Avatar" class="profile-picture <?= check_active('/account/profile.php'); ?>" id="profilePicture" title="Avatar">
                 <div class="dropdown-content-profile" id="profileDropdown">
                     <a href="/account/profile.php">Profile</a>
                     <a href="/account/settings.php">Settings</a>
@@ -39,10 +39,10 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
                 </div>
             </div>
         </div>
-    <?php else: ?>
+    <?php else : ?>
         <div class="navbar-right">
-            <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl"></i></a>
-            <a href="/account/login.php" id="Login" title="Login or Register"><i class="fa-solid fa-id-card fa-2xl"></i></a>
+            <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index.php', 'home'); ?>"></i></a>
+            <a href="/account/login.php" id="Login" title="Login or Register"><i class="fa-solid fa-id-card fa-2xl <?= check_active('/account'); ?>"></i></a>
         </div>
     <?php endif; ?>
     </div>
@@ -79,91 +79,91 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
                             <div class="navitem"><a href="/request/logout.php" style="border-bottom-color: black; border-bottom-width: 2px; border-bottom-style: solid;" title="Logout">Logout</a></div>
                         </div>
                     </div>
-                <?php else: ?>
+                <?php else : ?>
                     <div class="navitem"><a href="/account/login.php" title="Home">Login</a></div>
                     <div class="navitem"><a href="/account/register.php" title="Home">Register</a></div>
                 <?php endif; ?>
                 </div>
             </nav>
-        <header>
+        :<header>
     </div>
 </div>
 
 <!-- End of Mobile Nav Bar and Beginning of Create Forum Post Pop up Window -->
 <div id="forumBody">
-      <div id="overlay">
+    <div id="overlay">
         <form method="post">
-          <div id="popupContainer">
-            <i class="fa-regular fa-circle-xmark fa-2xl" id="closeButton" onclick="closePopup()"></i>
-            <div class="contentitem">
-              <label for="universityforum" id="Unilabel">University</label>
-                <input class="foruminput" list="universitiesforum" id="setUniversityforum" placeholder="Select from the dropdown" name="setUniversityforum" required>
-                <datalist id="universitiesforum">
-                    <?php foreach($universitiesforum as $universityforum): ?>
-                        <option value="<?= htmlspecialchars($universityforum->Name) ?>" data-id="<?= $universityforum->UniversityID ?>">
-                            <?= htmlspecialchars($universityforum->Name) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </datalist>
+            <div id="popupContainer">
+                <i class="fa-regular fa-circle-xmark fa-2xl" id="closeButton" onclick="closePopup()"></i>
+                <div class="contentitem">
+                    <label for="universityforum" id="Unilabel">University</label>
+                    <input class="foruminput" list="universitiesforum" id="setUniversityforum" placeholder="Select from the dropdown" name="university" required>
+                    <datalist id="universitiesforum">
+                        <?php foreach ($universitiesforum as $universityforum) : ?>
+                            <option value="<?= htmlspecialchars($universityforum->Name) ?>" data-id="<?= $universityforum->UniversityID ?>">
+                                <?= htmlspecialchars($universityforum->Name) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </datalist>
+                </div>
+                <div class="contentitem">
+                    <label for="subjectforum" id="subjectlabel">Subject</label>
+                    <input class="foruminput" list="subjectsforum" id="setSubjectforum" placeholder="Select from the dropdown" name="subject">
+                    <datalist id="subjectsforum">
+                        <!-- Options will be added here by JavaScript after selecting a university -->
+                    </datalist>
+                </div>
+                <div class="contentitemtitle">
+                    <textarea name="title" type="text" id="titleinput" placeholder="Post Title" rows="2" style="resize: none;" oninput="titlecountChar(this)" required></textarea>
+                    <span id="titlecharCount"></span>
+                </div>
+                <div class="contentitempost">
+                    <textarea name="content" id="contentinput" rows="10" placeholder="What do you want to share?" style="resize: none;" onkeyup="contentcountChar(this)" required></textarea>
+                    <span id="contentcharCount"></span>
+                </div>
+                <button type="submit" onclick="closePopup()" class="submitpostbutton">
+                    <span class="shadow"></span>
+                    <span class="edge"></span>
+                    <span class="front text">Post</span>
+                </button>
             </div>
-            <div class="contentitem">
-              <label for="subjectforum" id="subjectlabel">Subject</label>
-               <input class="foruminput" list="subjectsforum" id="setSubjectforum" placeholder="Select from the dropdown" name="setSubjectforum">
-                <datalist id="subjectsforum">
-                    <!-- Options will be added here by JavaScript after selecting a university -->
-                </datalist>
-            </div>
-            <div class="contentitemtitle">
-              <textarea name="title" type="text" id="titleinput" placeholder="Post Title" rows="2" style="resize: none;" oninput="titlecountChar(this)" required></textarea>
-              <span id="titlecharCount"></span>
-            </div>
-            <div class="contentitempost">
-              <textarea name="content" id="contentinput" rows="10" placeholder="What do you want to share?" style="resize: none;" onkeyup="contentcountChar(this)" required></textarea>
-              <span id="contentcharCount"></span>
-            </div>
-            <button type="submit" onclick="closePopup()" class="submitpostbutton">  
-                <span class="shadow"></span>
-                <span class="edge"></span>
-                <span class="front text">Post</span>
-            </button>
-          </div>
         </form>
-      </div>
+    </div>
 </div>
 
 <!-- End of Create Forum Post Pop up Window and Beginning of Development Navbar For Easy Access -->
 <nav class="navbar">
     <span>Development Navbar:</span>
-    <a class="<?php check_active_page('/index.php'); ?>" href="/index.php">Home</a>
+    <a class="<?php check_active('/index.php', 'home'); ?>" href="/index.php">Home</a>
     <div class="dropdowndev">
-        <button class="dropbtn <?php check_active_dir('/request'); ?>">Request</button>
+        <button class="dropbtn <?php check_active('/request'); ?>">Request</button>
         <div class="dropdowndev-content">
-            <a class="<?php check_active_page('/request/index.php'); ?>" href="/request/index.php">Submit</a>
-            <a class="<?php check_active_page(''); ?>" href="">Success</a>
+            <a class="<?php check_active('/request/index.php'); ?>" href="/request/index.php">Submit</a>
+            <a class="<?php #check_active(''); ?>" href="">Success</a>
         </div>
     </div>
     <div class="dropdowndev">
-        <button class="dropbtn <?php check_active_dir('/forum'); ?>">Forum</button>
+        <button class="dropbtn <?php check_active('/forum'); ?>">Forum</button>
         <div class="dropdowndev-content">
-            <a class="<?php check_active_page('/forum/index.php'); ?>" href="/forum/index.php">Posts</a>
-            <a class="<?php check_active_page('/forum/create.php'); ?>" href="/forum/create.php">Create</a>
+            <a class="<?php check_active('/forum/index.php'); ?>" href="/forum/index.php">Posts</a>
+            <a class="<?php check_active('/forum/create.php'); ?>" href="/forum/create.php">Create</a>
         </div>
     </div>
     <div class="dropdowndev">
-        <button class="dropbtn <?php check_active_dir('/study-sets'); ?>">Study Sets</button>
+        <button class="dropbtn <?php check_active('/study-sets'); ?>">Study Sets</button>
         <div class="dropdowndev-content">
-            <a class="<?php check_active_page('/study-sets/index.php'); ?>" href="/study-sets/index.php">Study Sets</a>
-            <a class="<?php check_active_page('/study-sets/create.php'); ?>" href="/study-sets/create.php">Create</a>
+            <a class="<?php check_active('/study-sets/index.php'); ?>" href="/study-sets/index.php">Study Sets</a>
+            <a class="<?php check_active('/study-sets/create.php'); ?>" href="/study-sets/create.php">Create</a>
         </div>
     </div>
     <div class="dropdowndev">
-        <button class="dropbtn <?php check_active_dir('/account'); ?>">Account</button>
+        <button class="dropbtn <?php check_active('/account'); ?>">Account</button>
         <div class="dropdowndev-content">
-            <a class="<?php check_active_page('/account/profile.php'); ?>" href="/account/profile.php">Profile</a>
-            <a class="<?php check_active_page('/account/register.php'); ?>" href="/account/register.php">Registration</a>
-            <a class="<?php check_active_page('/account/login.php'); ?>" href="/account/login.php">Login</a>
-            <a class="<?php check_active_page('/account/logout.php'); ?>" href="/account/logout.php">Logout</a>
-            <a class="<?php check_active_page('/account/forgot.php'); ?>" href="/account/forgot.php">Reset</a>
+            <a class="<?php check_active('/account/profile.php'); ?>" href="/account/profile.php">Profile</a>
+            <a class="<?php check_active('/account/register.php'); ?>" href="/account/register.php">Registration</a>
+            <a class="<?php check_active('/account/login.php'); ?>" href="/account/login.php">Login</a>
+            <a class="<?php check_active('/account/logout.php'); ?>" href="/account/logout.php">Logout</a>
+            <a class="<?php check_active('/account/forgot.php'); ?>" href="/account/forgot.php">Reset</a>
         </div>
     </div>
     <div style="float:right;">
@@ -171,9 +171,9 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
             <a class="dropdowndev" href="/account/login.php">Login</a>
         <?php else : ?>
             <div class="dropdowndev">
-                <button class="dropbtn <?php check_active_page('/account/profile.php'); ?>"><?= $_SESSION['USER']->Username ?></button>
+                <button class="dropbtn <?php check_active('/account/profile.php'); ?>"><?= $_SESSION['USER']->Username ?></button>
                 <div class="dropdowndev-content">
-                    <a class="<?php check_active_page('/account/profile.php'); ?>" href="/account/profile.php">Profile</a>
+                    <a class="<?php check_active('/account/profile.php'); ?>" href="/account/profile.php">Profile</a>
                     <a href="">Settings</a>
                     <a href="/account/logout.php">Logout</a>
                 </div>
@@ -183,43 +183,3 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
 </nav>
 
 <!-- End of Development Navbar For Easy Access and Beginning of Forum Post Submit Functionality PHP -->
-
-<?php 
- function create_post($data) {
-    $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE Name = '{$data['setUniversityforum']}';";
-    $universityID = run_database($query)[0]->UniversityID;
-
-    $query = "SELECT SubjectID FROM SUBJECT_T WHERE Name = '{$data['setSubjectforum']}';";
-    $subjectID = run_database($query)[0]->SubjectID;
-
-    $errors = array();
-
-    if(empty($data['setUniversityforum'])) {
-      $errors[] = "Please select a Unviersity from the dropdown to associate your post with.";
-    }
-    if(empty($data['title'])) {
-        $errors[] = "Please enter a post title.";
-    }
-    if(empty($data['content'])) {
-        $errors[] = "Please enter content for the post.";
-    }
-
-    if (count($errors) == 0) {
-        $values['PostID'] = rand(100, 99999);
-        $values['UniversityID'] = $universityID;
-        $values['SubjectID'] = $subjectID;
-        $values['Title'] = $data['title'];
-        $values['Content'] = $data['content'];
-        $values['UserID'] = $_SESSION['USER']->UserID;
-        $values['Created'] = get_local_time();
-
-        $query = "INSERT INTO POST_T (PostID, UniversityID, SubjectID, Title, Content, UserID, Created) VALUES (:PostID, :UniversityID, :SubjectID, :Title, :Content, :UserID, :Created);";
-        run_database($query, $values);
-        header("Location: /forum/posts/{$values['PostID']}.php");
-    }
-
-    return $errors;
- }
-?>
-
-<h1>StudySink Backend Development</h1>

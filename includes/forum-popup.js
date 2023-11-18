@@ -1,11 +1,13 @@
 function openPopup() {
     document.getElementById("overlay").style.display = "block";
     document.getElementById("popupContainer").style.display = "block";
+    document.getElementById("createIcon").classList.add("active");
 }
 
 function closePopup() {
     document.getElementById("overlay").style.display = "none";
     document.getElementById("popupContainer").style.display = "none";
+    document.getElementById("createIcon").classList.remove("active");
 }
 
 //close window when closebutton is clicked
@@ -57,7 +59,6 @@ function contentcountChar(contentinput) {
 
 // Functionality for Dynamic Dropdown Menus
 document.addEventListener('DOMContentLoaded', function() {
-
     var universityInput = document.getElementById('setUniversityforum');
     var subjectInput = document.getElementById('setSubjectforum');
 
@@ -130,5 +131,4 @@ document.addEventListener('DOMContentLoaded', function() {
             subjectDatalist.appendChild(option);
         });
     }
-
 });

@@ -14,7 +14,8 @@
     border: solid 1px #ffffff;
 }
 
-.studySetContainer input, .studySetContainer textarea {
+.studySetContainer input,
+.studySetContainer textarea {
     display: flex;
     justify-content: flex-start;
     width: 100%;
@@ -26,14 +27,17 @@
     color: #ffffff;
 }
 
-.studySetContainer input:focus, .studySetContainer textarea:focus {
-    outline: none; /* Need to see if we can highlight text in the text area*/
+.studySetContainer input:focus,
+.studySetContainer textarea:focus {
+    outline: none;
+    /* Need to see if we can highlight text in the text area*/
     outline-offset: 2px;
 }
 
-.studySetContainer input::placeholder, .studySetContainer textarea::placeholder {
+.studySetContainer input::placeholder,
+.studySetContainer textarea::placeholder {
     color: #ffffff;
-    opacity: 1; 
+    opacity: 1;
 }
 
 .header2 {
@@ -70,7 +74,7 @@
     position: relative;
 }
 
-.description textarea{
+.description textarea {
     width: 95%;
     height: 95%;
     padding: 5px;
@@ -91,7 +95,8 @@
     margin: 0;
 }
 
-.studySetTags .columnTags select, .studySetTags .columnTags input {
+.studySetTags .columnTags select,
+.studySetTags .columnTags input {
     width: 95%;
     margin-left: auto;
     margin-bottom: 10px;
@@ -116,13 +121,14 @@
     border-radius: 8px;
     background-color: #2e3856;
 }
+
 .topOfCard {
     display: flex;
     justify-content: flex-end;
     width: 100%;
     padding: 0;
     margin: 0;
-    border-bottom: solid 2px #000000; 
+    border-bottom: solid 2px #000000;
 }
 
 .frontAndBack {
@@ -155,7 +161,7 @@
 .cardBack {
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     width: 50%;
 }
 
@@ -178,9 +184,10 @@
     margin: 0;
 }
 
-.formButtons input[type="submit"], .formButtons button{
+.formButtons input[type="submit"],
+.formButtons button {
     padding: 10px 20px;
-    margin-left: 5px; 
+    margin-left: 5px;
     border: none;
     border-radius: 8px;
     background-color: #007BFF;
@@ -189,17 +196,18 @@
     transition: background-color 0.2s;
 }
 
-.formButtons input[type="submit"]:hover, .formButtons button:hover {
+.formButtons input[type="submit"]:hover,
+.formButtons button:hover {
     background-color: #0056b3;
 }
 
 .deleteCardBtn {
     background-color: transparent;
-    color: red; 
+    color: red;
     border: none;
     cursor: pointer;
-    padding: 10px; 
-    outline: none; 
+    padding: 10px;
+    outline: none;
 }
 
 .deleteCardBtn i {

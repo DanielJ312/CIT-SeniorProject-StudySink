@@ -16,4 +16,5 @@
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
 
 <!-- Create Forum Post Pop up -->
-<link rel="stylesheet" href="/styles/createForumPost.css"> 
+<link rel="stylesheet" href="/styles/post-create.css"> 
+<script defer src="/includes/forum-popup.js"></script>

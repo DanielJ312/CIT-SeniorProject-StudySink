@@ -1,5 +1,5 @@
 /* Fonts: font-family: 'Comfortaa', sans-serif; */
- #forumbody {
+#forumbody {
     font-family: 'Comfortaa', sans-serif;
     margin: 0;
     padding: 0;
@@ -24,8 +24,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgb(245,156,26);
-    background: linear-gradient(343deg, rgba(245,156,26,1) 6%, rgba(0,120,212,1) 72%); 
+    background: rgb(245, 156, 26);
+    background: linear-gradient(343deg, rgba(245, 156, 26, 1) 6%, rgba(0, 120, 212, 1) 72%);
     padding: 2% 4%;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
@@ -72,43 +72,45 @@
 /* University */
 #Unilabel,
 #universityforum {
-margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 /* Subject */
 #subjectlabel,
 #subjectforum {
-margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
-#universityforum, #subjectforum {
-border: 0px;
-width: 60%;
-box-sizing: border-box; 
+#universityforum,
+#subjectforum {
+    border: 0px;
+    width: 60%;
+    box-sizing: border-box;
 }
 
 /* Uni and Subject label texts */
-#Unilabel, #subjectlabel {
-font-family: 'Comfortaa', sans-serif;
-font-size: 1.9em;
-color: black;
+#Unilabel,
+#subjectlabel {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.9em;
+    color: black;
 }
 
 /* Post Title and Post Content boxes */
 #titleinput,
 #contentinput {
-font-family: 'Comfortaa', sans-serif;
-background-color: rgb(205, 230, 238);
-width: 90%; 
-box-sizing: border-box; 
-margin: 5px 0;
-padding: 1em;
-outline: none;
-border: none;
-box-shadow: inset 2px 5px 10px rgba(0,0,0,0.3);
-transition: 300ms ease-in-out;
-border-radius: 15px;
-color: black;
+    font-family: 'Comfortaa', sans-serif;
+    background-color: rgb(205, 230, 238);
+    width: 90%;
+    box-sizing: border-box;
+    margin: 5px 0;
+    padding: 1em;
+    outline: none;
+    border: none;
+    box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.3);
+    transition: 300ms ease-in-out;
+    border-radius: 15px;
+    color: black;
 }
 
 #titleinput:focus,
@@ -116,32 +118,33 @@ color: black;
     background-color: white;
     transform: scale(1.02);
     box-shadow: 13px 13px 100px #969696,
-               -13px -13px 100px #ffffff;
+        -13px -13px 100px #ffffff;
 }
 
 #titleinput {
-font-size: 1.5em;
+    font-size: 1.5em;
 }
 
 /* Character Counts for Title and Content */
-#titlecharCount, #contentcharCount {
+#titlecharCount,
+#contentcharCount {
     font-family: 'Comfortaa', sans-serif;
     display: flex;
     color: black;
     opacity: 30%;
     margin-left: 85%;
-  }
+}
 
 
 /* Dropdown options */
 #universityforum option,
 #subjectforum option {
-font-size: 16px;
-color: white;
-font-family: 'Comfortaa', sans-serif;
-border: 0px;
-outline: none;
-padding: 0px;
+    font-size: 16px;
+    color: white;
+    font-family: 'Comfortaa', sans-serif;
+    border: 0px;
+    outline: none;
+    padding: 0px;
 }
 
 /* Content boxes for Unversity and Subject */
@@ -153,7 +156,7 @@ padding: 0px;
     padding: 1em;
     outline: none;
     border: none;
-    box-shadow: inset 2px 5px 10px rgba(0,0,0,0.3);
+    box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.3);
     transition: 300ms ease-in-out;
     margin-bottom: 20px;
     border-radius: 15px;
@@ -165,8 +168,8 @@ padding: 0px;
     background-color: white;
     transform: scale(1.05);
     box-shadow: 13px 13px 100px #969696,
-               -13px -13px 100px #ffffff;
-  }
+        -13px -13px 100px #ffffff;
+}
 
 
 #overlay {
@@ -192,9 +195,9 @@ padding: 0px;
     transition: filter 250ms;
     user-select: none;
     touch-action: manipulation;
-   }
-   
-   .shadow {
+}
+
+.shadow {
     position: absolute;
     top: 0;
     left: 0;
@@ -204,28 +207,24 @@ padding: 0px;
     background: hsl(0deg 0% 0% / 0.25);
     will-change: transform;
     transform: translateY(2px);
-    transition: transform
-       600ms
-       cubic-bezier(.3, .7, .4, 1);
-   }
-   
-   .edge {
+    transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
+}
+
+.edge {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     border-radius: 12px;
-    background: linear-gradient(
-       to left,
-       hsl(19, 68%, 40%) 0%,
-       hsl(17, 73%, 51%) 8%,
-       hsl(22, 100%, 32%) 92%,
-       hsl(17, 96%, 37%)00%
-     );
-   }
-   
-   .front {
+    background: linear-gradient(to left,
+            hsl(19, 68%, 40%) 0%,
+            hsl(17, 73%, 51%) 8%,
+            hsl(22, 100%, 32%) 92%,
+            hsl(17, 96%, 37%)00%);
+}
+
+.front {
     display: block;
     position: relative;
     padding: 12px 27px;
@@ -237,86 +236,84 @@ padding: 0px;
     background: hsl(32, 69%, 47%);
     will-change: transform;
     transform: translateY(-4px);
-    transition: transform
-       600ms
-       cubic-bezier(.3, .7, .4, 1);
-   }
-   
-   .submitpostbutton:hover {
+    transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
+}
+
+.submitpostbutton:hover {
     filter: brightness(110%);
-   }
-   
-   .submitpostbutton:hover .front {
+}
+
+.submitpostbutton:hover .front {
     transform: translateY(-6px);
-    transition: transform
-       250ms
-       cubic-bezier(.3, .7, .4, 1.5);
-   }
-   
-   .submitpostbutton:active .front {
+    transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.submitpostbutton:active .front {
     transform: translateY(-2px);
     transition: transform 34ms;
-   }
-   
-   .submitpostbutton:hover .shadow {
+}
+
+.submitpostbutton:hover .shadow {
     transform: translateY(4px);
-    transition: transform
-       250ms
-       cubic-bezier(.3, .7, .4, 1.5);
-   }
-   
-   .submitpostbutton:active .shadow {
+    transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.submitpostbutton:active .shadow {
     transform: translateY(1px);
     transition: transform 34ms;
-   }
-   
-   .submitpostbutton:focus:not(:focus-visible) {
+}
+
+.submitpostbutton:focus:not(:focus-visible) {
     outline: none;
-   }
+}
 
 
 
 /* Mobile Compatability at 850px */
 @media (max-width: 850px) {
 
-.fa-circle-xmark {
-    color: black;
-    margin-top: 5%;
-}
+    .fa-circle-xmark {
+        color: black;
+        margin-top: 5%;
+    }
 
-#popupContainer {
-    width: 70%;
-    max-height: 90vh;
-}
+    #popupContainer {
+        width: 70%;
+        max-height: 90vh;
+    }
 
-#titleinput {
-    font-size: 1.25em;
-}
+    #titleinput {
+        font-size: 1.25em;
+    }
 
-.contentitem {
-    width: 100%;
-}
+    .contentitem {
+        width: 100%;
+    }
 
-#Unilabel, #subjectlabel {
-    margin-left: 0;
-    font-size: 1.5em;
-}
+    #Unilabel,
+    #subjectlabel {
+        margin-left: 0;
+        font-size: 1.5em;
+    }
 
-#universityforum, #subjectforum, #titleinput, #contentinput {
-    margin-left: 0;
-}
+    #universityforum,
+    #subjectforum,
+    #titleinput,
+    #contentinput {
+        margin-left: 0;
+    }
 
-.submitpostbutton {
-    margin-left: 70%;
-    padding: 6px 20px;
-    position: relative;
-    border: none;
-    background: transparent;
-    padding: 0;
-    cursor: pointer;
-    outline-offset: 4px;
-    transition: filter 250ms;
-    user-select: none;
-    touch-action: manipulation;
-   }
+    .submitpostbutton {
+        margin-left: 70%;
+        padding: 6px 20px;
+        position: relative;
+        border: none;
+        background: transparent;
+        padding: 0;
+        cursor: pointer;
+        outline-offset: 4px;
+        transition: filter 250ms;
+        user-select: none;
+        touch-action: manipulation;
+    }
 }

@@ -1,6 +1,7 @@
 <!-- Reset - User enters verification code and new password to change password -->
 <?php 
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 check_login() ? header("Location: /account/profile.php") : null;
 $pageTitle = "Reset Password";
 

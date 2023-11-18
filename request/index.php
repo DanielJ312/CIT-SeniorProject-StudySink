@@ -1,6 +1,6 @@
 <!-- Request - Form for users to request a new university or subject to be added -->
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 update_session();
 if (!check_login()) header("Location: /account/login.php"); 
 $pageTitle = "Request";
