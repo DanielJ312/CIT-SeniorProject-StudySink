@@ -1,4 +1,4 @@
-<!-- Forum Home - Lists all posts made and allows users to sort -->
+<!-- Study-Set Display Page - Lists all Study Sets in Database -->
 <?php 
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 $pageTitle = "Forum";
