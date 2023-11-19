@@ -69,6 +69,7 @@
 .post-account {
     font-size: 15px;
     margin: 0;
+    font-weight: bold;
 }
 
 .dropbtn:hover,
@@ -129,6 +130,7 @@
     position: absolute;
     bottom: 8px;
     right: 16px;
+    padding-right: 25px;
 }
 
 /* Style for individual comments */
@@ -154,6 +156,7 @@
 .comment-account {
     font-size: 15px;
     margin: 0;
+    font-weight: bold;
 }
 
 .comment-date {
@@ -207,7 +210,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
+}
 
 #sort {
     border: 1px solid #f59c1a;
@@ -218,7 +221,18 @@
     cursor: pointer;
 }
 
-.votes {
-    display:flex;
+.vote {
+    display: flex;
     justify-content: flex-end;
-  }
+}
+
+.votes {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.post-iconsp {
+    bottom: 8px;
+    right: 16px;
+    padding-right: 5px;
+}

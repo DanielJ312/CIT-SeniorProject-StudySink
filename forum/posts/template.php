@@ -29,12 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
         <div class="margin">
             <div class="university-info">
                 <h2><?= $post->UniversityName; ?></h2>
-                <h3> Computer information Technology</h3>
+                <?php if (isset($post->SubjectName)) : ?>
+                    <h3><?= $post->SubjectName; ?></h3>
+                <?php endif ?>
             </div>
             <div class="posts">
                 <div class="post">
                     <div class="post-header">
-                        <img src="<?= $post->Avatar; ?>" alt="Place Holder" class="profile-picture" />
+                        <img src="<?= $post->Avatar; ?>" title="<?= $post->Username; ?>" alt="Place Holder" class="profile-picture" />
                         <div class="post-info">
                             <p class="post-account"><?= $post->Username; ?></p>
                             <p class="post-date">Posted on <?= display_time($post->PostCreated, "F j, Y"); ?></p>
@@ -42,19 +44,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
                     </div>
                     <h3 class="post-title"><?= $post->Title; ?></h3>
                     <p class="post-content"><?= $post->Content; ?></p>
+                    <div class="vote">
+                        <div class="post-iconsp">
+                                <i class="far fa-thumbs-up"></i>
+                                <i class="far fa-thumbs-down"></i>
+                            </div>
+                        <div class="votes">N/A</div>
+                    </div>
                     <!-- Comments Section -->
                     <div class="comments">
-                    <div class="container">
-                        <h4>Comments (<span class="comment-total"><?= is_array($comments) ? count($comments) : "0"; ?></span>)</h4>
-                        <form id="sort-dropdown" method="">
-                            <?= "<script>var postID = $postID;</script>"; ?>
-                            <select id="sort" class="sort" name="sorts">
-                                <option value="comment-oldest">Oldest</option>
-                                <option value="comment-newest">Newest</option>
-                                <option value="comment-popular">Popular</option>
-                            </select>
-                        </form>
-</div>
+                        <div class="container">
+                            <h4>Comments (<span class="comment-total"><?= is_array($comments) ? count($comments) : "0"; ?></span>)</h4>
+                            <form id="sort-dropdown" method="">
+                                <?= "<script>var postID = $postID;</script>"; ?>
+                                <select id="sort" class="sort" name="sorts">
+                                    <option value="comment-oldest">Oldest</option>
+                                    <option value="comment-newest">Newest</option>
+                                    <option value="comment-popular">Popular</option>
+                                </select>
+                            </form>
+                        </div>
                         <?php if (check_login()) : ?>
                             <form id="add-comment" method="post">
                                 <div class="comment-bar">
@@ -62,7 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
                                     <button type="submit" value="Submit" id="addComment">Add</button>
                                 </div>
                             </form>
-                            
                         <?php endif; ?>
                         <div class="sort-container">
                             <!-- Comments will get inserted here -->

@@ -2,7 +2,7 @@
 <div id="comment-<?= $comment->CommentID; ?>">
     <div class="comment">
         <div class="comment-header">
-            <img src="<?= $comment->Avatar; ?>" alt="Place Holder" class="profile-picture" />
+            <img src="<?= $comment->Avatar; ?>" title="<?= $comment->Username; ?>" alt="Place Holder" class="profile-picture" />
             <div class="comment-info">
                 <p class="comment-account"><?= $comment->Username; ?></p>
                 <p class="comment-date"><?= display_time($comment->CommentCreated, "F j, Y"); ?></p>
@@ -19,9 +19,10 @@
             </div>
         </div>
         <p class="comment-content">
-            <?= $comment->Content; ?> <p class="votes">Votes:<span id="comment-<?= $comment->CommentID; ?>-v"><?= $comment->Votes; ?></span></p>
+            <?= $comment->Content; ?> 
         </p>
-        <div class="post-icons">
+        <div class="vote">
+            <div class="post-icons">
             <?php if (check_login()) : ?>
                 <span id="comment-<?= $comment->CommentID; ?>-vb">
                     <?php $userVote = check_user_vote($_SESSION['USER']->UserID, $comment->CommentID); ?>
@@ -35,6 +36,8 @@
                     <?php endif; ?>
                 </span>
             <?php endif; ?>
+            </div>
+            <div class="votes">&lpar;<span id="comment-<?= $comment->CommentID; ?>-v"><?= $comment->Votes; ?></span>&rpar;</div>
         </div>
     </div>
 </div>
