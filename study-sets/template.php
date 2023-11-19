@@ -1,4 +1,4 @@
-<!-- Post Template - Displays post for given Post ID  -->
+<!-- Study Set Template - Displays Study Set for given Study Set ID  -->
 <?php
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 $pageTitle = "Study Set";
@@ -11,13 +11,6 @@ empty($set) ? header("Location: /study-sets/create.php") : null;
 
 $query = "SELECT * FROM STUDY_CARD_T WHERE StudySetID = :StudySetID ORDER BY CardID;";
 $cards = run_database($query, $values);
-
-// $_SERVER['REQUEST_METHOD'] == "POST" ? add_comment($_POST, $post->PostID) : null;
-
-// if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action'])) {
-//     // delete_comment($_POST, $postID);
-//     header("Location: {$post->PostID}.php"); // NOT WORKING - WORK ON A FIX
-// }
 ?>
 
 <!DOCTYPE html>

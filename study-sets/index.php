@@ -11,33 +11,32 @@ $sets = run_database($query);
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
+    <link rel="stylesheet" href="../styles/study-set-styles/index.css">
     <!-- <script async src="/forum/forum.js"></script> -->
 </head>
-<body>
+<body class="studySetBrowsePageBody">
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-        <h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
+        <!-- <h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2> -->
     </header>
     <main>
-        <div>
-            <p><a href="/study-sets/create.php">Create a new study set</a></p>
-        </div>
-        <h3>Study Sets</h3>
-        <!-- <form action="" method="post">
-            <select class="sort" name="sorts">
-                <option value="oldest">Oldest</option>
-                <option value="newest">Newest</option>
-                <option value="popular">Popular</option>
-            </select>
-        </form> -->
-        <!-- <button onclick="TestFunction('testing value')"></button> -->
-        <div class="study-sets">
-        <?php for ($i=0; $i < count($sets); $i++): ?> 
-            <a href="/study-sets/<?=$sets[$i]->StudySetID; ?>.php">
-                <p><?=$sets[$i]->Title?></p>
-                <p>By: <?= $sets[$i]->Username ?></p>
-            </a>
-        <?php endfor; ?>
+        <div class="studySetBrowsePageContainer">
+            <h3>Study Sets</h3>
+            <div class="displayCardArea">
+                <?php for ($i = 0; $i < count($sets); $i++): ?> 
+                    <a href="/study-sets/<?= htmlspecialchars($sets[$i]->StudySetID); ?>.php" class="card-link">
+                        <div class="card">
+                            <img src="/path/to/default-image.png" alt="Default Image"/>
+                            <div>
+                                <h3><?= htmlspecialchars($sets[$i]->Title) ?></h3>
+                                <p>By: <?= htmlspecialchars($sets[$i]->Username) ?></p>
+                                <p>Posted on <?= display_time($sets[$i]->Created, "F j, Y") ?></p>
+                                <p><?= htmlspecialchars(substr($sets[$i]->Description, 0, 100)) ?>...</p>
+                            </div>
+                        </div>
+                    </a>
+                <?php endfor; ?>
+            </div>
         </div>
     </main>
     <footer>
@@ -45,3 +44,12 @@ $sets = run_database($query);
     </footer>
 </body>
 </html>
+
+<!-- <form action="" method="post">
+    <select class="sort" name="sorts">
+        <option value="oldest">Oldest</option>
+        <option value="newest">Newest</option>
+        <option value="popular">Popular</option>
+    </select>
+</form> -->
+<!-- <button onclick="TestFunction('testing value')"></button> -->

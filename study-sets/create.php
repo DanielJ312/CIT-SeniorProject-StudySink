@@ -8,7 +8,7 @@ $universities = get_universities_list();
 <html lang="en">
     <head>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-        <link rel="stylesheet" href="../styles/study-set-create.css">
+        <link rel="stylesheet" href="../styles/study-set-styles/study-set-create.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     </head>
     <body class="createStudySetBody">
