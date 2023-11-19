@@ -26,11 +26,11 @@ function get_posts() {
 }
 
 function create_post($data) {
-    $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE NAME = '{$data['university']}';";
+    $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE Name = '{$data['university']}';";
     $universityID = run_database($query)[0]->UniversityID;
 
-    $query = "SELECT SubjectID FROM SUBJECT_T WHERE NAME = '{$data['subject']}';";
-    $subjectID = run_database($query)[0]->SubjectID;
+    $query = "SELECT SubjectID FROM SUBJECT_T WHERE Name = '{$data['subject']}';";
+    $subjectID = run_database($query)[0]->SubjectID ?? 0;
 
     $errors = array();
 
@@ -45,13 +45,15 @@ function create_post($data) {
     }
 
     if (count($errors) == 0) {
-        $values['PostID'] = rand(100, 99999);
-        $values['UniversityID'] = $universityID;
-        $values['SubjectID'] = $subjectID;
-        $values['Title'] = $data['title'];
-        $values['Content'] = $data['content'];
-        $values['UserID'] = $_SESSION['USER']->UserID;
-        $values['Created'] = get_local_time();
+        $values = [
+            'PostID' => rand(100, 99999),
+            'UniversityID' => $universityID,
+            'SubjectID' => $subjectID,
+            'Title' => $data['title'],
+            'Content' => $data['content'],
+            'UserID' => $_SESSION['USER']->UserID,
+            'Created' => get_local_time()
+        ];
 
         $query = "INSERT INTO POST_T (PostID, UniversityID, SubjectID, Title, Content, UserID, Created) VALUES (:PostID, :UniversityID, :SubjectID, :Title, :Content, :UserID, :Created);";
         run_database($query, $values);
