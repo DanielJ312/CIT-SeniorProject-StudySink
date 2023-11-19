@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
         <div class="margin">
             <div class="university-info">
                 <h2><?= $post->UniversityName; ?></h2>
+                <h3> Computer information Technology</h3>
             </div>
             <div class="posts">
                 <div class="post">
@@ -43,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
                     <p class="post-content"><?= $post->Content; ?></p>
                     <!-- Comments Section -->
                     <div class="comments">
+                    <div class="container">
                         <h4>Comments (<span class="comment-total"><?= is_array($comments) ? count($comments) : "0"; ?></span>)</h4>
                         <form id="sort-dropdown" method="">
                             <?= "<script>var postID = $postID;</script>"; ?>
@@ -52,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
                                 <option value="comment-popular">Popular</option>
                             </select>
                         </form>
+</div>
                         <?php if (check_login()) : ?>
                             <form id="add-comment" method="post">
                                 <div class="comment-bar">
