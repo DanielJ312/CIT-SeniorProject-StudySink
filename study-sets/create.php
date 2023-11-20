@@ -19,7 +19,7 @@ $universities = get_universities_list();
         <main>
             <div class="studySetContainer">
                 <h2 class="header2"><?=isset($pageTitle) ? $pageTitle : "Create a Study Set" ?></h2>
-                <form id="studySetForm" method="POST" action="save-study-set.php">
+                <form id="studySetForm" method="POST" action="save-study-set">
                     <div class="titleContainer">
                         <input type="text" id="setTitle" placeholder="Enter Title Here: &quot;Computer Science 101 - Chapter 1&quot;" name="setTitle" maxlength="255" required>
                     </div>
