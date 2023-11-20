@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function fetchSubjectsForUniversity(universityId) {
         console.log('Fetching Subject for university ID:', universityId); // For debugging
-        fetch('./includes/get-subjects.php?universityId=' + universityId)
+        fetch('/includes/get-subjects.php?universityId=' + universityId)
             .then(function(response) {
                 return response.json();
 
