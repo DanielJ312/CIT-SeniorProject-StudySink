@@ -12,6 +12,7 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = check_email
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
+    <link rel="stylesheet" type="text/css" href="/account/forgot.css">
 </head>
 <body>
     <header>
@@ -19,6 +20,7 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = check_email
         <h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
     </header>
     <main>
+        <div class="forgot-container">
         <div>
             <?php display_errors($errors); ?>
         </div>
@@ -26,10 +28,11 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = check_email
             <?php if ($displayRedirect): ?>
                 <p>A verification code for this email is already active. <a href="reset.php">Change your password.</a></p> 
             <?php endif; ?>
-            <p>Enter your email to reset your password:</p>
-            <p>Email: <input type="email" name="email"></p>
-            <input type="submit" value="Send Code To Email">
+            <h3>Enter your email to reset your password</h3>
+            <p>Email:&nbsp; <input type="email" name="email"></p>
+            <input type="submit" value="Submit">
         </form>
+            </div>
     </main>
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
