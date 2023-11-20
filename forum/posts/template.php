@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
                         </div>
                     </div>
                 </div>
-            </div>
+            
         </div>
     </main>
     <footer>
