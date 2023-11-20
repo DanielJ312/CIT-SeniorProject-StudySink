@@ -3,16 +3,11 @@
 /*  Sorting Functions */
 $(document).ready(function () {
     var currentPath = window.location.pathname;
-    if (currentPath.includes('/forum/index')) {
-        $('.sort-container').html(updateSortedData("post-oldest"));
-    }
-});
-
-$(document).ready(function () {
-    var currentPath = window.location.pathname;
-    console.log(currentPath);
     if (currentPath.includes('/forum/post')) {
         $('.sort-container').html(updateSortedData("comment-oldest"));
+    }
+    else if (currentPath.includes('/forum/')) {
+        $('.sort-container').html(updateSortedData("post-oldest"));
     }
 });
 
@@ -27,7 +22,7 @@ $('.sort').on('change', function () {
 function updateSortedData(sortType) {
     console.log(postID);
     $.ajax({
-        url: '/functions/forum-functions.php',
+        url: '/functions/forum-functions',
         type: 'POST',
         data: { function: "sort", postID: postID, sortType: sortType },
         success: function (response) {
@@ -40,9 +35,38 @@ function updateSortedData(sortType) {
 }
 
 /*  Comment Functions */
+function AddComment() {
+    console.log(postID);
+    content = $('#commentInput').val();
+    console.log(content);
+    
+    if (content.length > 0) {
+        console.log("comment has content"); 
+        $.ajax({
+            url: '/functions/forum-functions',
+            type: 'POST',
+            data: { function: "add", postID: postID, content: content },
+            success: function (response) {
+                $('.sort-container').append(response); 
+                $('#commentInput').val("");
+                var total = $(".comment-total");
+                total.text(Number(total.text()) + 1);
+
+                var comment = $('.sort-container .comment').last().attr('id');
+                console.log(comment);
+                $('html, body').scrollTop($(`#${comment}`).offset().top);
+                $(`#${comment}`).css("background-color", "#FEFFB6");
+            },
+        });
+    }
+    else {
+        console.log("empty comment");
+    }
+}
+
 function DeleteComment(commentIDToDelete) {
     $.ajax({
-        url: '/functions/forum-functions.php',
+        url: '/functions/forum-functions',
         type: "post",    //request type,
         dataType: 'json',
         data: { function: "delete", commentID: commentIDToDelete },
@@ -52,10 +76,52 @@ function DeleteComment(commentIDToDelete) {
     total.text(Number(total.text()) - 1);
 }
 
+function OpenCommentEditor(commentID) {
+    content = $(`#comment-${commentID}-c p`).html();
+    console.log(content);
+    $(`#comment-${commentID}-c p`).toggle();
+    var div = $("<div>").addClass("edit-bar");
+    var input = $("<input>").attr({
+        type: "text",
+        class: "commentInput",
+        value: content,
+        name: "content"
+    });
+    var button = $("<button>").attr({
+        type: "submit",
+        class: "addComment",
+        onclick: `EditComment(${commentID})`
+    }).text("Save");
+
+    div.append(input, button);
+    $(`#comment-${commentID}-c`).append(div);
+}   
+
+function EditComment(commentID) {
+    content = $(`#comment-${commentID}-c .commentInput`).val();
+    
+    if (content.length > 0) {
+        console.log("comment has content"); 
+        $.ajax({
+            url: '/functions/forum-functions',
+            type: 'POST',
+            data: { function: "edit", postID: postID, commentID: commentID, content: content },
+            success: function (response) {
+                $(`#comment-${commentID}-c p`).html(response);
+                $(`#comment-${commentID}-c .edit-bar`).remove();
+                $(`#comment-${commentID}-c p`).toggle();
+            },
+        });
+    }
+    else {
+        console.log("empty comment");
+    }
+}
+
 function updateCommentVote(commentID, userID, voteType) {
     // console.log(commentID, userID, voteType);
     $.ajax({
-        url: '/functions/forum-functions.php',
+        url: '/functions/forum-functions',
         type: 'POST',
         data: { function: "update-vote", commentID: commentID, userID: userID, voteType: voteType },
         success: function (response) {

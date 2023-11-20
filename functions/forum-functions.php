@@ -5,8 +5,14 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 // Switch for deciding which function to run in AJAX
 if (isset($_POST['function'])) {
     switch ($_POST['function']) {
+        case "add":
+            add_comment();
+            break;
         case "delete":
             delete_comment();
+            break;
+        case "edit":
+            edit_comment();
             break;
         case "sort": 
             update_sort();
@@ -26,11 +32,11 @@ function get_posts() {
 }
 
 function create_post($data) {
-    $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE NAME = '{$data['university']}';";
+    $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE Name = '{$data['university']}';";
     $universityID = run_database($query)[0]->UniversityID;
 
-    $query = "SELECT SubjectID FROM SUBJECT_T WHERE NAME = '{$data['subject']}';";
-    $subjectID = run_database($query)[0]->SubjectID;
+    $query = "SELECT SubjectID FROM SUBJECT_T WHERE Name = '{$data['subject']}';";
+    $subjectID = run_database($query)[0]->SubjectID ?? 0;
 
     $errors = array();
 
@@ -45,13 +51,15 @@ function create_post($data) {
     }
 
     if (count($errors) == 0) {
-        $values['PostID'] = rand(100, 99999);
-        $values['UniversityID'] = $universityID;
-        $values['SubjectID'] = $subjectID;
-        $values['Title'] = $data['title'];
-        $values['Content'] = $data['content'];
-        $values['UserID'] = $_SESSION['USER']->UserID;
-        $values['Created'] = get_local_time();
+        $values = [
+            'PostID' => rand(100, 99999),
+            'UniversityID' => $universityID,
+            'SubjectID' => $subjectID,
+            'Title' => $data['title'],
+            'Content' => $data['content'],
+            'UserID' => $_SESSION['USER']->UserID,
+            'Created' => get_local_time()
+        ];
 
         $query = "INSERT INTO POST_T (PostID, UniversityID, SubjectID, Title, Content, UserID, Created) VALUES (:PostID, :UniversityID, :SubjectID, :Title, :Content, :UserID, :Created);";
         run_database($query, $values);
@@ -88,35 +96,47 @@ function get_comments($postID) {
 }
 
 # Comment Functions
-function add_comment($data, $postID) {
-    $errors = array();
+function add_comment() {
+    $values = [
+        'CommentID' => $tempID = rand(100, 999),
+        'PostID' => $_POST['postID'],
+        'Content' => $_POST['content'],
+        'UserID' => $_SESSION['USER']->UserID,
+        'Created' => get_local_time()
+    ];
 
-    if(empty($data['content'])) {
-        $errors[] = "Please enter content for the comment.";
-    }
-
-    if (count($errors) == 0) {
-        $values['CommentID'] = $tempID = rand(100, 999);
-        $values['PostID'] = $postID;
-        $values['Content'] = $data['content'];
-        $values['UserID'] = $_SESSION['USER']->UserID;
-        $values['Created'] = get_local_time();
-
-        $query = "INSERT INTO COMMENT_T (CommentID, PostID, Content, UserID, Created) VALUES (:CommentID, :PostID, :Content, :UserID, :Created)";
-        run_database($query, $values);
-        $query = "INSERT INTO CVOTE_T (CommentID, UserID, VoteType) VALUES ($tempID, {$_SESSION['USER']->UserID}, 1);";
-        run_database($query);
-
-        header("Location: $postID.php");
-    }
-
-    return $errors;
+    $query = "INSERT INTO COMMENT_T (CommentID, PostID, Content, UserID, Created) VALUES (:CommentID, :PostID, :Content, :UserID, :Created)";
+    run_database($query, $values);
+    $query = "INSERT INTO CVOTE_T (CommentID, UserID, VoteType) VALUES ($tempID, {$_SESSION['USER']->UserID}, 1);";
+    run_database($query);
+    
+    $query = <<<query
+    SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes
+    FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
+        INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
+    WHERE COMMENT_T.CommentID = {$values['CommentID']}
+    query;
+    $comment = run_database($query)[0];
+    include($_SERVER['DOCUMENT_ROOT'] . "/forum/posts/c-template.php");
 }
 
 function delete_comment() {
     $values['CommentID'] = $_POST['commentID'];
     $query = "DELETE FROM COMMENT_T WHERE CommentID = :CommentID";
     run_database($query, $values);
+}
+
+function edit_comment() {
+    $values = [
+        'CommentID' => $_POST['commentID'],
+        // 'PostID' => $_POST['postID'],
+        'Content' => $_POST['content'],
+        // 'Created' => get_local_time()
+    ];
+    $query = "UPDATE COMMENT_T SET Content = :Content WHERE CommentID = :CommentID;";
+    run_database($query, $values);
+    echo $values['Content'];
+    // $query = "UPDATE USER_T SET Password = :Password WHERE Email = :Email";
 }
 
 # General Functions
@@ -187,7 +207,7 @@ function create_sort_query($type, $postID) {
                 INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
             WHERE PostID = $postID
             GROUP BY CommentID
-            ORDER BY Votes DESC;
+            ORDER BY Votes DESC, CommentCreated ASC;
             query;
             break;  
     }
@@ -214,7 +234,6 @@ function update_vote() {
     $query = "SELECT sum(VoteType) AS VoteCount FROM CVOTE_T WHERE CommentID = $commentID";
     $voteTotal = run_database($query);
     $voteTotal = $voteTotal[0]->VoteCount;
-
     echo $voteTotal;
 }
 ?>

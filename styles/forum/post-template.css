@@ -69,6 +69,7 @@
 .post-account {
     font-size: 15px;
     margin: 0;
+    font-weight: bold;
 }
 
 .dropbtn:hover,
@@ -129,6 +130,7 @@
     position: absolute;
     bottom: 8px;
     right: 16px;
+    padding-right: 25px;
 }
 
 /* Style for individual comments */
@@ -154,6 +156,7 @@
 .comment-account {
     font-size: 15px;
     margin: 0;
+    font-weight: bold;
 }
 
 .comment-date {
@@ -181,7 +184,19 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-#commentInput {
+.edit-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.commentInput {
     flex: 1;
     padding: 8px;
     border: 1px solid #cccccc;
@@ -189,7 +204,7 @@
     margin-right: 8px;
 }
 
-#addComment {
+.addComment {
     background-color: #f59c1a;
     color: white;
     border: none;
@@ -199,7 +214,7 @@
     transition: background-color 0.3s ease;
 }
 
-#addComment:hover {
+.addComment:hover {
     background-color: #0078d4;
 }
 
@@ -207,7 +222,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
+}
 
 #sort {
     border: 1px solid #f59c1a;
@@ -218,22 +233,18 @@
     cursor: pointer;
 }
 
-.votes {
-    display:flex;
+.vote {
+    display: flex;
     justify-content: flex-end;
-  }
+}
 
-  #comment {
-    font-size: 20px;
-    margin: 10px 0px;
-  }
+.votes {
+    display: flex;
+    justify-content: flex-end;
+}
 
-  .comments {
-    display: block;
-    background-color: #ffffff;
-    border: 1px solid #f59c1a;
-    border-radius: 5px;
-    padding: 10px;
-    text-decoration: none; /* Remove underline from the link */
-    color: inherit; /* Inherit text color from the parent element */
-  }
+.post-iconsp {
+    bottom: 8px;
+    right: 16px;
+    padding-right: 5px;
+}

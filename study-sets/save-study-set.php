@@ -34,7 +34,7 @@ try {
               VALUES (:StudySetID, :UserID, :CourseID, :Title, :Description, :Teacher, :Created, :Modified)";
 
     // Current time for Created and Modified fields
-    $currentTime = time();
+    $currentTime = get_local_time();
 
     // Array of values to bind to the query
     $values = [
@@ -60,7 +60,7 @@ try {
         $cardQuery = "INSERT INTO STUDY_CARD_T (StudySetID, Front, Back, Created, Modified)
                     VALUES (:StudySetID, :Front, :Back, :Created, :Modified)";
 
-        $currentTime = time();
+        $currentTime = get_local_time();
 
         foreach ($cards as $card) {
             $stmt = $pdo->prepare($cardQuery);

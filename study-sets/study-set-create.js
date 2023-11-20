@@ -13,10 +13,10 @@ function addCard() {
             </div>
             <div class=frontAndBack>
                 <div class="cardFront">
-                    <textarea class="card-textarea" id="cardFront${cardCount}" placeholder="Enter term" name="cardFront${cardCount}" required></textarea>
+                    <textarea class="card-textarea" id="cardFront${cardCount}" placeholder="Enter term" name="cardFront${cardCount}" maxlength="999" required></textarea>
                 </div>
                 <div class="cardBack">
-                    <textarea class="card-textarea" id="cardBack${cardCount}" placeholder="Enter definition" name="cardBack${cardCount}" required></textarea>
+                    <textarea class="card-textarea" id="cardBack${cardCount}" placeholder="Enter definition" name="cardBack${cardCount}" maxlength="999" required></textarea>
                 </div>
             </div>
         </div>
@@ -44,6 +44,18 @@ function addCard() {
 function autoExpandTextArea(event) {
     event.target.style.height = 'auto'; // Reset the height
     event.target.style.height = event.target.scrollHeight + 'px'; // Set the height to scroll height
+}
+
+// Function to validate if the input value is in the dropdown options
+function isValidDropdownSelection(inputElement, dropdownId) {
+    var options = document.querySelectorAll(`#${dropdownId} option`);
+    var inputValue = inputElement.value.trim();
+    for (var option of options) {
+        if (option.value === inputValue) {
+            return true; // Input matches an option in the dropdown
+        }
+    }
+    return false; // No match found
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -145,6 +157,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Error fetching courses:', error);
             });
     }   
+
+    // Updating the event listeners for the dropdown inputs
+    document.getElementById('setUniversity').addEventListener('change', function() {
+        if (!isValidDropdownSelection(this, 'universities')) {
+            alert("Please select a valid University from the list.");
+            this.value = ''; // Clear the invalid input
+        }
+    });
+
+    document.getElementById('setSubject').addEventListener('change', function() {
+        if (!isValidDropdownSelection(this, 'subjects')) {
+            alert("Please select a valid Subject from the list.");
+            this.value = '';
+        }
+    });
+
+    document.getElementById('setCourse').addEventListener('change', function() {
+        if (!isValidDropdownSelection(this, 'courses')) {
+            alert("Please select a valid Course from the list.");
+            this.value = '';
+        }
+    });
 
     function updateSubjectOptions(subjects) {
         var subjectDatalist = document.getElementById('subjects');

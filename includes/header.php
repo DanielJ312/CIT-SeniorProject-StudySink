@@ -21,16 +21,16 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
     <?php if (check_login()) : ?>
         <div class="navbar-right">
             <div class="dropdown" style="padding-top: 15px; padding-bottom: 15px;">
-                <i class="fa-solid fa-circle-plus fa-2xl <?= check_active('/study-sets/create.php'); ?>" id="createIcon" title="Create"></i>
+                <i class="fa-solid fa-circle-plus fa-2xl <?= check_active('/study-sets/create'); ?>" id="createIcon" title="Create"></i>
                 <div class="dropdown-content-create" id="createDropdown">
                     <a href="/study-sets/create.php">Create Study Set</a>
                     <a onclick="openPopup()">Create Post</a>
                 </div>
             </div>
-            <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index.php', 'home'); ?>"></i></a>
+            <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index', 'home'); ?>"></i></a>
             <a href="UniversityPage" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-flip-horizontal fa-2xl"></i></a>
             <div class="dropdown">
-                <img src="<?= $_SESSION['USER']->Avatar ?>" alt="Avatar" class="profile-picture <?= check_active('/account/profile.php'); ?>" id="profilePicture" title="Avatar">
+                <img src="<?= $_SESSION['USER']->Avatar ?>" alt="Avatar" class="profile-picture <?= check_active('/account/profile'); ?>" id="profilePicture" title="Avatar">
                 <div class="dropdown-content-profile" id="profileDropdown">
                     <a href="/account/profile.php">Profile</a>
                     <a href="/account/settings.php">Settings</a>
@@ -41,7 +41,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
         </div>
     <?php else : ?>
         <div class="navbar-right">
-            <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index.php', 'home'); ?>"></i></a>
+            <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index', 'home'); ?>"></i></a>
             <a href="/account/login.php" id="Login" title="Login or Register"><i class="fa-solid fa-id-card fa-2xl <?= check_active('/account'); ?>"></i></a>
         </div>
     <?php endif; ?>
@@ -134,46 +134,46 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
 <!-- End of Create Forum Post Pop up Window and Beginning of Development Navbar For Easy Access -->
 <nav class="navbar">
     <span>Development Navbar:</span>
-    <a class="<?php check_active('/index.php', 'home'); ?>" href="/index.php">Home</a>
+    <a class="<?php check_active('/', 'home'); ?>" href="/index.php">Home</a>
     <div class="dropdowndev">
         <button class="dropbtn <?php check_active('/request'); ?>">Request</button>
         <div class="dropdowndev-content">
-            <a class="<?php check_active('/request/index.php'); ?>" href="/request/index.php">Submit</a>
+            <a class="<?php check_active('/request/index'); ?>" href="/request/index.php">Submit</a>
             <a class="<?php #check_active(''); ?>" href="">Success</a>
         </div>
     </div>
     <div class="dropdowndev">
         <button class="dropbtn <?php check_active('/forum'); ?>">Forum</button>
         <div class="dropdowndev-content">
-            <a class="<?php check_active('/forum/index.php'); ?>" href="/forum/index.php">Posts</a>
-            <a class="<?php check_active('/forum/create.php'); ?>" href="/forum/create.php">Create</a>
+            <a class="<?php check_active('/forum/index'); ?>" href="/forum/index.php">Posts</a>
+            <a class="<?php check_active('/forum/create'); ?>" href="/forum/create.php">Create</a>
         </div>
     </div>
     <div class="dropdowndev">
         <button class="dropbtn <?php check_active('/study-sets'); ?>">Study Sets</button>
         <div class="dropdowndev-content">
-            <a class="<?php check_active('/study-sets/index.php'); ?>" href="/study-sets/index.php">Study Sets</a>
-            <a class="<?php check_active('/study-sets/create.php'); ?>" href="/study-sets/create.php">Create</a>
+            <a class="<?php check_active('/study-sets/index'); ?>" href="/study-sets/index.php">Study Sets</a>
+            <a class="<?php check_active('/study-sets/create'); ?>" href="/study-sets/create.php">Create</a>
         </div>
     </div>
     <div class="dropdowndev">
         <button class="dropbtn <?php check_active('/account'); ?>">Account</button>
         <div class="dropdowndev-content">
-            <a class="<?php check_active('/account/profile.php'); ?>" href="/account/profile.php">Profile</a>
-            <a class="<?php check_active('/account/register.php'); ?>" href="/account/register.php">Registration</a>
-            <a class="<?php check_active('/account/login.php'); ?>" href="/account/login.php">Login</a>
-            <a class="<?php check_active('/account/logout.php'); ?>" href="/account/logout.php">Logout</a>
-            <a class="<?php check_active('/account/forgot.php'); ?>" href="/account/forgot.php">Reset</a>
+            <a class="<?php check_active('/account/profile'); ?>" href="/account/profile.php">Profile</a>
+            <a class="<?php check_active('/account/register'); ?>" href="/account/register.php">Registration</a>
+            <a class="<?php check_active('/account/login'); ?>" href="/account/login.php">Login</a>
+            <a class="<?php check_active('/account/logout'); ?>" href="/account/logout.php">Logout</a>
+            <a class="<?php check_active('/account/forgot'); ?>" href="/account/forgot.php">Reset</a>
         </div>
     </div>
     <div style="float:right;">
         <?php if (!check_login()) : ?>
-            <a class="dropdowndev" href="/account/login.php">Login</a>
+            <a class="dropdowndev" href="/account/login">Login</a>
         <?php else : ?>
             <div class="dropdowndev">
-                <button class="dropbtn <?php check_active('/account/profile.php'); ?>"><?= $_SESSION['USER']->Username ?></button>
+                <button class="dropbtn <?php check_active('/account/profile'); ?>"><?= $_SESSION['USER']->Username ?></button>
                 <div class="dropdowndev-content">
-                    <a class="<?php check_active('/account/profile.php'); ?>" href="/account/profile.php">Profile</a>
+                    <a class="<?php check_active('/account/profile'); ?>" href="/account/profile.php">Profile</a>
                     <a href="">Settings</a>
                     <a href="/account/logout.php">Logout</a>
                 </div>
