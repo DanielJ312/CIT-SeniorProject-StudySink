@@ -49,6 +49,7 @@ $commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
                             </div>
                         <div class="votes">WIP</div>
                     </div>
+                    </div>
                     <!-- Comments Section -->
                     <div class="comments">
                         <div class="container">
@@ -74,7 +75,7 @@ $commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
                             <!-- Comments will get inserted here -->
                         </div>
                     </div>
-                </div>
+                
             
         </div>
     </main>
