@@ -15,61 +15,41 @@ $cards = run_database($query, $values);
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-</head>
-<body>
-    <header>
-        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-        <h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
-    </header>
-    <main>
-        <div>
-            <h3><?= $set->Title ?></h3>
-            <p>Description: <?= $set->Description; ?></p>
-            <p>Professor: <?= $set->Teacher; ?></p>
-            <p>Submitted: <?= display_time($set->SetCreated, "m/d/Y h:i:s A"); ?></p> 
-            <p>By: 
-                <?= $set->Username; ?>
-                <?= check_login(false) && $set->Username == $_SESSION['USER']->Username ? " (You)" : "" ?>
-            </p>
-        </div>
-        <div>
-            <table>
-                <h3>Cards</h3>
-                <tr>
-                    <th>Card</th><th>Front</th><th>Back</th>
-                </tr>
-                <?php for ($i = 0; $i < sizeof($cards); $i++) : ?>
-                <tr>
-                    <td><?= $i+1; ?></td>
-                    <td><?= $cards[$i]->Front; ?></td>
-                    <td><?= $cards[$i]->Back; ?></td>
-                </tr>
-                <?php endfor; ?>
-            </table>
-        </div>
-        <!-- <?php if (check_login(false)): ?>
-        <div>
-            <h4>Add Comment</h4>
-            <form method="post">
-                <p>Content: <textarea name="content" rows="5" cols="40"></textarea></p>
-                <input type="submit" value="Submit">
-            </form>
-        </div>
-        <?php endif; ?> -->
-        <div>
-            <!-- <h4>Comments (<?= is_array($comments) ? count($comments) : "0"; ?>):</h4> -->
-            <h4>Comments</h4>
-            <p>Comments are disabled for the time being.</p>
-        </div>
-    </main>
-    <footer>
-        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
-    </footer>
-</body>
+    <head>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
+        <link rel="stylesheet" href="../styles/study-set-styles/template.css">
+    </head>
+    <body>
+        <header>
+            <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+            <h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
+        </header>
+        <main>
+            <div class="studySetTemplateContainer">
+                <div class="studySetDetails">
+                    <p><?= htmlspecialchars($set->Title) ?></p>
+                    <p>Description: <?= htmlspecialchars($set->Description); ?></p>
+                    <p>Professor: <?= htmlspecialchars($set->Teacher); ?></p>
+                    <p>Submitted: <?= display_time($set->SetCreated, "m/d/Y h:i:s A"); ?></p>
+                    <p>By: <?= htmlspecialchars($set->Username); ?>
+                        <?= check_login(false) && $set->Username == $_SESSION['USER']->Username ? " (You)" : "" ?>
+                    </p>
+                </div>
+                <?php foreach ($cards as $card): ?>
+                    <div class="cardContainer">
+                        <!-- <div class="card-header">Card <?= htmlspecialchars($card->CardID); ?></div> NOTE: Need to create a way to number cards-->
+                        <div class="cardContainerFront"><?= htmlspecialchars($card->Front); ?></div>
+                        <div class="cardContainerBack"><?= htmlspecialchars($card->Back); ?></div>
+                    </div>
+                <?php endforeach; ?>
+                <div class="commentContainer">
+                    <div class="card-header">Comments</div>
+                    <div class="card-content">Comments are disabled for the time being.</div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
+        </footer>
+    </body>
 </html>
-
-<?php
-
-?>

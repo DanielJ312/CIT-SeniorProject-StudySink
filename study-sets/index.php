@@ -3,7 +3,7 @@
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 $pageTitle = "Forum";
 
-$query = "SELECT * FROM STUDY_SET_T INNER JOIN USER_T ON STUDY_SET_T.UserID = USER_T.UserID ORDER BY STUDY_SET_T.Created ASC;";
+$query = "SELECT *, STUDY_SET_T.Created AS SetCreated FROM STUDY_SET_T INNER JOIN USER_T ON STUDY_SET_T.UserID = USER_T.UserID ORDER BY STUDY_SET_T.Created ASC;";
 $sets = run_database($query);
 ?>
 
@@ -30,7 +30,7 @@ $sets = run_database($query);
                             <div>
                                 <h3><?= htmlspecialchars($sets[$i]->Title) ?></h3>
                                 <p>By: <?= htmlspecialchars($sets[$i]->Username) ?></p>
-                                <p>Posted on <?= display_time($sets[$i]->Created, "F j, Y") ?></p>
+                                <p>Posted on <?= display_time($sets[$i]->SetCreated, "F j, Y") ?></p>
                                 <p><?= htmlspecialchars(substr($sets[$i]->Description, 0, 100)) ?>...</p>
                             </div>
                         </div>
