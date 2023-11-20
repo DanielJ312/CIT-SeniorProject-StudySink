@@ -2,6 +2,7 @@
 <?php 
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 update_session();
+if (!check_login()) header("Location: /account/login.php"); 
 $pageTitle = "Create Post";
 
 $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];

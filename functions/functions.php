@@ -64,7 +64,7 @@ function check_verification() {
 
 function check_active($toCheck, $page = null) {
     if (str_contains($_SERVER['REQUEST_URI'], $toCheck) && $page == null) echo "active";
-    else if ($_SERVER['REQUEST_URI'] == '/index.php' && $page == 'home') echo "active";
+    else if ($_SERVER['REQUEST_URI'] == '/' && $page == 'home') echo "active";
 }
 
 function display_errors($errors) {
