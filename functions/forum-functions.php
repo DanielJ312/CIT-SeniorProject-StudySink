@@ -11,6 +11,9 @@ if (isset($_POST['function'])) {
         case "delete":
             delete_comment();
             break;
+        case "edit":
+            edit_comment();
+            break;
         case "sort": 
             update_sort();
             break;
@@ -121,6 +124,19 @@ function delete_comment() {
     $values['CommentID'] = $_POST['commentID'];
     $query = "DELETE FROM COMMENT_T WHERE CommentID = :CommentID";
     run_database($query, $values);
+}
+
+function edit_comment() {
+    $values = [
+        'CommentID' => $_POST['commentID'],
+        // 'PostID' => $_POST['postID'],
+        'Content' => $_POST['content'],
+        // 'Created' => get_local_time()
+    ];
+    $query = "UPDATE COMMENT_T SET Content = :Content WHERE CommentID = :CommentID;";
+    run_database($query, $values);
+    echo $values['Content'];
+    // $query = "UPDATE USER_T SET Password = :Password WHERE Email = :Email";
 }
 
 # General Functions

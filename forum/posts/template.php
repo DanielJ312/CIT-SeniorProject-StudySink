@@ -17,7 +17,7 @@ $commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <script async src="/forum/forum.js"></script>
-    <link rel="stylesheet" href="/styles/post-template.css" />
+    <link rel="stylesheet" href="/styles/forum/post-template.css" />
 </head>
 <body>
     <header>
@@ -63,10 +63,10 @@ $commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
                             </form>
                         </div>
                         <?php if (check_login()) : ?>
-                            <div id="add-comment" method="post">
+                            <div id="add-comment">
                                 <div class="comment-bar">
-                                    <input type="text" id="commentInput" placeholder="Add a comment..." name="content"/>
-                                    <button onclick="AddComment(<?= $post->PostID; ?>)" type="submit" value="Submit" id="addComment">Add</button>
+                                    <input type="text" class="commentInput" placeholder="Add a comment..." name="content"/>
+                                    <button onclick="AddComment()" type="submit" value="Submit" class="addComment">Add</button>
                                 </div>
                             </div>
                         <?php endif; ?>

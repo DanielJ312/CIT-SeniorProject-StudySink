@@ -1,4 +1,3 @@
-<!-- Comment-template.php - Template file for sorted comments -->
 <div id="comment-<?= $comment->CommentID; ?>" class="comment">
     <div class="comment-header">
         <img src="<?= $comment->Avatar; ?>" title="<?= $comment->Username; ?>" alt="Place Holder" class="profile-picture" />
@@ -10,16 +9,20 @@
             <i class="fa-solid fa-ellipsis-vertical ellipsis-icon"></i>
             <div class="dropdown-content">
                 <a href="#home">Report</a>
-                <a href="#home">Edit</a>
                 <?php if (check_login() && $comment->Username == $_SESSION['USER']->Username) : ?>
+                    <a onclick="OpenCommentEditor(<?= $comment->CommentID; ?>)">Edit</a>
                     <a onclick="DeleteComment(<?= $comment->CommentID; ?>)">Delete</a>
                 <?php endif; ?>
-            </div>      
+            </div>
         </div>
     </div>
-    <p class="comment-content">
-        <?= $comment->Content; ?> 
-    </p>
+    <div id="comment-<?= $comment->CommentID; ?>-c" >
+        <p class="comment-content"><?= $comment->Content; ?></p>
+        <!-- <div class="edit-bar">
+            <input type="text" id="commentInput" placeholder="Add a comment..." name="content"/>
+            <button onclick="" type="submit" id="addComment">Save</button>
+        </div> -->
+    </div>
     <div class="vote">
         <div class="post-icons">
         <?php if (check_login()) : ?>
@@ -37,5 +40,5 @@
         <?php endif; ?>
         </div>
         <div class="votes">&lpar;<span id="comment-<?= $comment->CommentID; ?>-v"><?= $comment->Votes; ?></span>&rpar;</div>
-        </div>
+    </div>
 </div>

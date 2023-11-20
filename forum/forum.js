@@ -4,7 +4,7 @@
 $(document).ready(function () {
     var currentPath = window.location.pathname;
     if (currentPath.includes('/forum/post')) {
-        $('.sort-container').html(updateSortedData("comment-popular"));
+        $('.sort-container').html(updateSortedData("comment-oldest"));
     }
     else if (currentPath.includes('/forum/')) {
         $('.sort-container').html(updateSortedData("post-oldest"));
@@ -35,7 +35,7 @@ function updateSortedData(sortType) {
 }
 
 /*  Comment Functions */
-function AddComment(postID) {
+function AddComment() {
     console.log(postID);
     content = $('#commentInput').val();
     console.log(content);
@@ -74,6 +74,48 @@ function DeleteComment(commentIDToDelete) {
     $("#comment-" + commentIDToDelete).remove();
     var total = $(".comment-total");
     total.text(Number(total.text()) - 1);
+}
+
+function OpenCommentEditor(commentID) {
+    content = $(`#comment-${commentID}-c p`).html();
+    console.log(content);
+    $(`#comment-${commentID}-c p`).toggle();
+    var div = $("<div>").addClass("edit-bar");
+    var input = $("<input>").attr({
+        type: "text",
+        class: "commentInput",
+        value: content,
+        name: "content"
+    });
+    var button = $("<button>").attr({
+        type: "submit",
+        class: "addComment",
+        onclick: `EditComment(${commentID})`
+    }).text("Save");
+
+    div.append(input, button);
+    $(`#comment-${commentID}-c`).append(div);
+}   
+
+function EditComment(commentID) {
+    content = $(`#comment-${commentID}-c .commentInput`).val();
+    
+    if (content.length > 0) {
+        console.log("comment has content"); 
+        $.ajax({
+            url: '/functions/forum-functions',
+            type: 'POST',
+            data: { function: "edit", postID: postID, commentID: commentID, content: content },
+            success: function (response) {
+                $(`#comment-${commentID}-c p`).html(response);
+                $(`#comment-${commentID}-c .edit-bar`).remove();
+                $(`#comment-${commentID}-c p`).toggle();
+            },
+        });
+    }
+    else {
+        console.log("empty comment");
+    }
 }
 
 function updateCommentVote(commentID, userID, voteType) {
