@@ -8,9 +8,8 @@ $pageTitle = "Forum";
 $postID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
 $post = get_post($postID);
 if (empty($post)) header("Location: /forum/index.php");
-$comments = get_comments($postID);
-
-if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
+$commentTotal= get_comments($postID);
+$commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-        <!-- <h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2> -->
     </header>
     <main class="post-body">
         <div class="margin">
@@ -31,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
                 <h2><?= $post->UniversityName; ?></h2>
                 <?php if (isset($post->SubjectName)) : ?>
                     <h3><?= $post->SubjectName; ?></h3>
-                <?php endif ?>
+                <?php endif; ?>
             </div>
             <div class="posts">
                 <div class="post">
@@ -49,12 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
                                 <i class="far fa-thumbs-up"></i>
                                 <i class="far fa-thumbs-down"></i>
                             </div>
-                        <div class="votes">N/A</div>
+                        <div class="votes">WIP</div>
                     </div>
                     <!-- Comments Section -->
                     <div class="comments">
                         <div class="container">
-                            <h4>Comments (<span class="comment-total"><?= is_array($comments) ? count($comments) : "0"; ?></span>)</h4>
+                            <h4>Comments (<span class="comment-total"><?= $commentTotal; ?></span>)</h4>
                             <form id="sort-dropdown" method="">
                                 <?= "<script>var postID = $postID;</script>"; ?>
                                 <select id="sort" class="sort" name="sorts">
@@ -65,12 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") add_comment($_POST, $post->PostID);
                             </form>
                         </div>
                         <?php if (check_login()) : ?>
-                            <form id="add-comment" method="post">
+                            <div id="add-comment" method="post">
                                 <div class="comment-bar">
                                     <input type="text" id="commentInput" placeholder="Add a comment..." name="content"/>
-                                    <button type="submit" value="Submit" id="addComment">Add</button>
+                                    <button onclick="AddComment(<?= $post->PostID; ?>)" type="submit" value="Submit" id="addComment">Add</button>
                                 </div>
-                            </form>
+                            </div>
                         <?php endif; ?>
                         <div class="sort-container">
                             <!-- Comments will get inserted here -->
