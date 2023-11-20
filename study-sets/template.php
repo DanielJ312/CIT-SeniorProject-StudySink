@@ -5,7 +5,7 @@ $pageTitle = "Study Set";
 
 $setID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
 $values['StudySetID'] = $setID;
-$query = "SELECT *, STUDY_SET_T.Created AS SetCreated FROM STUDY_SET_T INNER JOIN USER_T ON STUDY_SET_T.UserID = USER_T.UserID WHERE StudySetID = :StudySetID;";
+$query = "SELECT STUDY_SET_T.*, USER_T.Username, USER_T.Avatar, STUDY_SET_T.Created AS SetCreated FROM STUDY_SET_T INNER JOIN USER_T ON STUDY_SET_T.UserID = USER_T.UserID WHERE StudySetID = :StudySetID;";
 $set = run_database($query, $values)[0];
 empty($set) ? header("Location: /study-sets/create.php") : null;
 
@@ -27,6 +27,7 @@ $cards = run_database($query, $values);
         <main>
             <div class="studySetTemplateContainer">
                 <div class="studySetDetails">
+                    <img src="<?= htmlspecialchars($set->Avatar); ?>" alt="<?= htmlspecialchars($set->Username); ?>'s avatar" class="profile-picture"/>
                     <p><?= htmlspecialchars($set->Title) ?></p>
                     <p>Description: <?= htmlspecialchars($set->Description); ?></p>
                     <p>Professor: <?= htmlspecialchars($set->Teacher); ?></p>

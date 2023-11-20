@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (universityId) {
+            console.log("About to fetch Subjects for University");
             fetchSubjectsForUniversity(universityId);
         } else {
             console.log('University ID not found for the selected name:', universityName);
@@ -113,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     
         if (subjectId) {
-            // console.log('Fetching courses for subject ID:', subjectId); // For debugging
+            console.log("Before the fetchCoursesForSubject function");
             fetchCoursesForSubject(subjectId);
         } else {
             console.log('Subject ID not found for the selected name:', subjectName);

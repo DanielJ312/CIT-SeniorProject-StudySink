@@ -3,7 +3,7 @@
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 $pageTitle = "Forum";
 
-$query = "SELECT *, STUDY_SET_T.Created AS SetCreated FROM STUDY_SET_T INNER JOIN USER_T ON STUDY_SET_T.UserID = USER_T.UserID ORDER BY STUDY_SET_T.Created ASC;";
+$query = "SELECT STUDY_SET_T.*, USER_T.Username, USER_T.Avatar, STUDY_SET_T.Created AS SetCreated FROM STUDY_SET_T INNER JOIN USER_T ON STUDY_SET_T.UserID = USER_T.UserID ORDER BY STUDY_SET_T.Created ASC;";
 $sets = run_database($query);
 ?>
 
@@ -26,7 +26,7 @@ $sets = run_database($query);
                 <?php for ($i = 0; $i < count($sets); $i++): ?> 
                     <a href="/study-sets/<?= htmlspecialchars($sets[$i]->StudySetID); ?>.php" class="card-link">
                         <div class="card">
-                            <img src="/path/to/default-image.png" alt="Default Image"/>
+                        <img src="<?= htmlspecialchars($sets[$i]->Avatar); ?>" alt="<?= htmlspecialchars($sets[$i]->Username); ?>'s avatar" class="profile-picture"/>
                             <div>
                                 <h3><?= htmlspecialchars($sets[$i]->Title) ?></h3>
                                 <p>By: <?= htmlspecialchars($sets[$i]->Username) ?></p>
