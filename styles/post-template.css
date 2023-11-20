@@ -16,7 +16,7 @@
     background-color: #ffffff;
     border: 1px solid #f59c1a;
     border-radius: 5px;
-    padding: 20px;
+    padding: 5px;
     margin: 20px 0px;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -69,6 +69,7 @@
 .post-account {
     font-size: 15px;
     margin: 0;
+    font-weight: bold;
 }
 
 .dropbtn:hover,
@@ -129,6 +130,7 @@
     position: absolute;
     bottom: 8px;
     right: 16px;
+    padding-right: 25px;
 }
 
 /* Style for individual comments */
@@ -154,6 +156,7 @@
 .comment-account {
     font-size: 15px;
     margin: 0;
+    font-weight: bold;
 }
 
 .comment-date {
@@ -201,4 +204,35 @@
 
 #addComment:hover {
     background-color: #0078d4;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#sort {
+    border: 1px solid #f59c1a;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+.vote {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.votes {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.post-iconsp {
+    bottom: 8px;
+    right: 16px;
+    padding-right: 5px;
 }
