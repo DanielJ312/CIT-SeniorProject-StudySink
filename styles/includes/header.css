@@ -77,17 +77,16 @@
     cursor: pointer;
 }
 
-.fa-magnifying-glass{
+.fa-magnifying-glass {
     color: black;
 }
 
-.fa-magnifying-glass:hover{
+.fa-magnifying-glass:hover {
     color: #f59c1a;
     cursor: pointer;
 }
 
 /*-- Right Icons --*/
-
 .navbar-right {
     display: flex;
     align-items: center;
@@ -98,42 +97,26 @@
     margin-right: 13px;
 }
 
-.fa-circle-plus{
+.fa-circle-plus,
+.fa-house,
+.fa-book,
+.fa-graduation-cap,
+.fa-id-card {
     color: black;
 }
 
-.fa-circle-plus:hover {
-    cursor: pointer;
-    color: #f59c1a;
-}
-
-.fa-house {
-    color: black;
-}
-
-.fa-house:hover {
-    cursor: pointer;
-    color: #f59c1a;
-}
-
-.fa-graduation-cap {
-    color: black;
-}
-
-.fa-graduation-cap:hover {
+.fa-circle-plus:hover,
+.fa-house:hover,
+.fa-book:hover,
+.fa-graduation-cap:hover,
+.fa-id-card:hover {
     cursor: pointer;
     color: #f59c1a;
 }
 
 .fa-id-card {
-    color: black;
     padding-right: 35px;
     margin-top: 9px;
-}
-
-.fa-id-card:hover {
-    color: #f59c1a;
-    cursor: pointer;
 }
 
 .active {
