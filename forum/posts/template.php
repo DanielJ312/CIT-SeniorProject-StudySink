@@ -8,7 +8,7 @@ $pageTitle = "Forum";
 $postID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
 $post = get_post($postID);
 if (empty($post)) header("Location: /forum/index.php");
-$commentTotal= get_comments($postID);
+$commentTotal = get_comments($postID);
 $commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
 ?>
 

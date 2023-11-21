@@ -1,6 +1,7 @@
 <?php
 # Forum Functions - Runs functions relating to the forum
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 
 // Switch for deciding which function to run in AJAX
 if (isset($_POST['function'])) {
@@ -13,6 +14,9 @@ if (isset($_POST['function'])) {
             break;
         case "edit":
             edit_comment();
+            break;
+        case "report":
+            report_comment();
             break;
         case "sort": 
             update_sort();
@@ -92,7 +96,17 @@ function get_comments($postID) {
     ORDER BY COMMENT_T.Created ASC;
     query;
     return run_database($query, $values);
+}
 
+function get_comment($commentID) {
+    $values['CommentID'] = $commentID;
+    $query = <<<query
+    SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes
+    FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
+        INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
+    WHERE COMMENT_T.CommentID = :CommentID
+    query;
+    return run_database($query, $values)[0];
 }
 
 # Comment Functions
@@ -129,7 +143,6 @@ function delete_comment() {
 function edit_comment() {
     $values = [
         'CommentID' => $_POST['commentID'],
-        // 'PostID' => $_POST['postID'],
         'Content' => $_POST['content'],
         // 'Created' => get_local_time()
     ];
@@ -137,6 +150,25 @@ function edit_comment() {
     run_database($query, $values);
     echo $values['Content'];
     // $query = "UPDATE USER_T SET Password = :Password WHERE Email = :Email";
+}
+
+function report_comment() {
+    // $commentID = $_POST['commentID'];
+    $comment = get_comment($_POST['commentID']);
+    $commentDate = display_time($comment->CommentCreated, "F j, Y @ h:i:s A");
+    $userReporting = $_SESSION['USER'];
+    $caseID = rand(10000, 99999);
+    $recipient = "StudySinkLLC@gmail.com";
+
+    $subject = "Report Case ID: $caseID (Comment)";
+    $message = <<<message
+    <p>The following comment (<b>#{$comment->CommentID}</b>)  submitted by <b>{$comment->Username}</b> has been reported by <b>{$userReporting->Username}</b>. The comment was submitted on <b>{$commentDate}</b> and has a total of <b>{$comment->Votes}</b> likes.</p>
+    <p style="padding-left: 40px;">{$comment->Content}</p>
+    <p>Review the comment and take appropiate actions.</p>
+    message;
+    //<h3><b>{$userReporting->Username}</b>, has reported Comment <b>#{$comment->CommentID}</b> by user <b>{$comment->Username}</b>. Comment content:</p>
+
+    send_mail($recipient, $subject, $message);
 }
 
 # General Functions

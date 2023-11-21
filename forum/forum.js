@@ -95,6 +95,7 @@ function OpenCommentEditor(commentID) {
 
     div.append(input, button);
     $(`#comment-${commentID}-c`).append(div);
+    $(`#comment-${commentID} .dropdown`).toggle();
 }   
 
 function EditComment(commentID) {
@@ -105,17 +106,27 @@ function EditComment(commentID) {
         $.ajax({
             url: '/functions/forum-functions',
             type: 'POST',
-            data: { function: "edit", postID: postID, commentID: commentID, content: content },
+            data: { function: "edit", commentID: commentID, content: content },
             success: function (response) {
                 $(`#comment-${commentID}-c p`).html(response);
                 $(`#comment-${commentID}-c .edit-bar`).remove();
                 $(`#comment-${commentID}-c p`).toggle();
+                $(`#comment-${commentID} .dropdown`).toggle();
             },
         });
     }
     else {
         console.log("empty comment");
     }
+}
+
+function ReportComment(commentID) {
+    $(`#comment-${commentID} .report`).html("Reported!");
+    $.ajax({
+        url: '/functions/forum-functions',
+        type: 'POST',
+        data: { function: "report", commentID: commentID},
+    });
 }
 
 function updateCommentVote(commentID, userID, voteType) {
