@@ -13,8 +13,8 @@ $(document).ready(function () {
 
 // Event handler for select change
 $('.sort').on('change', function () {
-    var sortType = $(this).val(); // Get the selected value
-    updateSortedData(sortType); // Call the function to update the sorted data
+    var sortType = $(this).val();
+    updateSortedData(sortType); 
     console.log(sortType);
 });
 
@@ -26,7 +26,7 @@ function updateSortedData(sortType) {
         type: 'POST',
         data: { function: "sort", postID: postID, sortType: sortType },
         success: function (response) {
-            $('.sort-container').html(response); // Update the container with sorted data
+            $('.sort-container').html(response);
         },
         error: function (xhr, status, error) {
             console.error(error);
@@ -67,7 +67,7 @@ function AddComment() {
 function DeleteComment(commentIDToDelete) {
     $.ajax({
         url: '/functions/forum-functions',
-        type: "post",    //request type,
+        type: "post",
         dataType: 'json',
         data: { function: "delete", commentID: commentIDToDelete },
     });
