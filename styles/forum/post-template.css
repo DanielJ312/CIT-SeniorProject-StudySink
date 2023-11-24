@@ -90,6 +90,7 @@
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    font-family: Arial, sans-serif;
 }
 
 .dropdown-content a {
@@ -247,4 +248,14 @@
     bottom: 8px;
     right: 16px;
     padding-right: 5px;
+}
+
+.fa-heart.fa-solid {
+    cursor: pointer;
+    color: #f59c1a;
+}
+
+.fa-heart.fa-regular:hover {
+    cursor: pointer;
+    color: #f59c1a;
 }

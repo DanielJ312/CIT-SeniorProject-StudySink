@@ -1,6 +1,6 @@
 <div id="comment-<?= $comment->CommentID; ?>" class="comment">
     <div class="comment-header">
-        <img src="<?= $comment->Avatar; ?>" title="<?= $comment->Username; ?>" alt="Place Holder" class="profile-picture" />
+        <img src="<?= $comment->Avatar; ?>" title="<?= $comment->Username; ?>" alt="<?= $comment->Username; ?>" class="profile-picture" />
         <div class="comment-info">
             <p class="comment-account"><?= $comment->Username; ?></p>
             <p class="comment-date"><?= display_time($comment->CommentCreated, "F j, Y"); ?></p>
@@ -30,16 +30,9 @@
     <div class="vote">
         <div class="post-icons">
         <?php if (check_login()) : ?>
-            <span id="comment-<?= $comment->CommentID; ?>-vb">
+            <span>
                 <?php $userVote = check_user_vote($_SESSION['USER']->UserID, $comment->CommentID); ?>
-                <?php if ($userVote == 1) : ?>
-                    <a class="far fa-thumbs-down" id="comment-<?= $comment->CommentID; ?>-downvote" type="button" value="downvote" onclick="updateCommentVote(<?= $comment->CommentID; ?>, <?= $_SESSION['USER']->UserID; ?>, '-1')"></a>
-                <?php elseif ($userVote == -1) : ?>
-                    <a class="far fa-thumbs-up" id="comment-<?= $comment->CommentID; ?>-upvote" type="button" value="upvote" onclick="updateCommentVote(<?= $comment->CommentID; ?>, <?= $_SESSION['USER']->UserID; ?>, '1')"></a>
-                <?php else : ?>
-                    <a class="far fa-thumbs-up" id="comment-<?= $comment->CommentID; ?>-upvote" type="button" value="upvote" onclick="updateCommentVote(<?= $comment->CommentID; ?>, <?= $_SESSION['USER']->UserID; ?>, '1')"></a>
-                    <a class="far fa-thumbs-down" id="comment-<?= $comment->CommentID; ?>-downvote" type="button" value="downvote" onclick="updateCommentVote(<?= $comment->CommentID; ?>, <?= $_SESSION['USER']->UserID; ?>, '-1')"></a>
-                <?php endif; ?>
+                <a class="<?= $userVote == 1 ? "fa-solid" : "fa-regular"; ?> fa-heart button fa-lg" onclick="updateVote(<?= $comment->CommentID; ?>, <?= $_SESSION['USER']->UserID; ?>)"></a>
             </span>
         <?php endif; ?>
         </div>
