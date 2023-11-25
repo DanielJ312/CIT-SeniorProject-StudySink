@@ -114,7 +114,7 @@ $pageTitle = "University";
                     </div>
                     <div class="post">
                         <div class="post-header">
-                            <img src="https://cdn.glitch.global/c2bf878a-9e4d-451f-afec-4ed46e479314/Screenshot%202023-10-24%20235521.png?v=1698216981476" alt="Place Holder" class="profile-picture" />
+                            <img src="https://cdn.glitch.global/c2bf878a-9e4d-451f-afec-4ed46e479314/Screenshot%202023-10-24%20235521.png?v=1698216981476" alt="Place Holder" class="post-profile-picture" />
                             <div class="post-info">
                                 <p class="post-account">schoolsucks24</p>
                                 <p class="post-date">Posted on October 24, 2023</p>

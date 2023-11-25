@@ -39,6 +39,20 @@ $commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
                             <p class="post-account"><?= $post->Username; ?></p>
                             <p class="post-date">Posted on <?= display_time($post->PostCreated, "F j, Y"); ?></p>
                         </div>
+                        <?php if (check_login()): ?>
+        <div class="dropdown" onclick="toggleDropdown(this)">
+            <i class="fa-solid fa-ellipsis-vertical ellipsis-icon"></i>
+            <div class="dropdown-content">
+                <?php if ($_SESSION['USER']->UserID != $comment->UserID) : ?>
+                    <a class="report" onclick="ReportComment(<?= $comment->CommentID; ?>)">Report</a>
+                <?php endif; ?>
+                <?php if ($comment->Username == $_SESSION['USER']->Username) : ?>
+                    <a onclick="OpenCommentEditor(<?= $comment->CommentID; ?>)">Edit</a>
+                    <a onclick="DeleteComment(<?= $comment->CommentID; ?>)">Delete</a>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php endif; ?>
                     </div>
                     <h3 class="post-title"><?= $post->Title; ?></h3>
                     <p class="post-content"><?= $post->Content; ?></p>
