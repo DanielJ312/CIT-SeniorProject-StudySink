@@ -11,6 +11,7 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = reset_passw
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
+    <link rel="stylesheet" type="text/css" href="/account/reset.css">
 </head>
 <body>
     <header>
@@ -18,15 +19,17 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = reset_passw
         <h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
     </header>
     <main>
+    <div class="reset-container">
         <div>
             <?php display_errors($errors); ?>
         </div>
         <form method="post" novalidate>
-            <p>Code: <input type="text" name="code"></p> 
-            <p>Password: <input type="password" name="password"></p>
+            <p>Code: &nbsp; &nbsp; &nbsp;  <input type="text" name="code"></p> 
+            <p>Password:  <input type="password" name="password"></p>
             <p>Confirm Password: <input type="password" name="password2"></p>
             <input type="submit" value="Reset Password">
         </form>
+</div>
     </main>
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
