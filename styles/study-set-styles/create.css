@@ -2,8 +2,8 @@
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #1e1e1e;
-    color: #ffffff;
+    background-color: #f5f5f5;
+    color: black;
 }
 
 .studySetContainer {
@@ -11,7 +11,11 @@
     margin: 20px auto;
     padding: 20px;
     border-radius: 8px;
-    border: solid 1px #ffffff;
+    border: solid 1px #f59c1a;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
 }
 
 .studySetContainer input,
@@ -23,27 +27,30 @@
     margin-bottom: 20px;
     border-radius: 8px;
     border: none;
-    background-color: #2e3856;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: black;
+    box-sizing: border-box;
 }
 
 .studySetContainer input:focus,
 .studySetContainer textarea:focus {
-    outline: none;
-    /* Need to see if we can highlight text in the text area*/
-    outline-offset: 2px;
+    outline: 1px solid #f59c1a;
+    outline-offset: 0px;
 }
+
 
 .studySetContainer input::placeholder,
 .studySetContainer textarea::placeholder {
-    color: #ffffff;
+    color: #666;
     opacity: 1;
 }
 
 .header2 {
     font-size: 28px;
+    color: #333;
     margin: 0;
-    padding: 0px;
+    text-align: center;
+    padding-bottom: 20px;
 }
 
 .titleContainer {
@@ -55,6 +62,8 @@
 
 .titleContainer input {
     margin: 0px;
+    padding: 10px;
+    border: solid 1px #f59c1a;
 }
 
 .studySetTags {
@@ -77,13 +86,14 @@
 .description textarea {
     width: 95%;
     height: 95%;
-    padding: 5px;
+    padding: 10px;
     margin: 0px;
     resize: none;
     position: absolute;
     top: 0;
     left: 0;
     box-sizing: border-box;
+    border: solid 1px #f59c1a;
 }
 
 .columnTags {
@@ -103,6 +113,8 @@
     padding: 10px;
     box-sizing: border-box;
     position: relative;
+    border-color: solid 1px #f59c1a;
+    border: solid 1px #f59c1a;
 }
 
 .studyCards {
@@ -119,7 +131,7 @@
     padding: 0;
     margin-bottom: 15px;
     border-radius: 8px;
-    background-color: #2e3856;
+    background-color: #ffffff;
 }
 
 .topOfCard {
@@ -128,7 +140,7 @@
     width: 100%;
     padding: 0;
     margin: 0;
-    border-bottom: solid 2px #000000;
+    border-bottom: solid 2px #f59c1a;
 }
 
 .frontAndBack {
@@ -155,7 +167,7 @@
     box-sizing: border-box;
     position: relative;
     resize: none;
-    background-color: #2e3856;
+    background-color: #ffffff;
 }
 
 .cardBack {
@@ -173,12 +185,13 @@
     box-sizing: border-box;
     position: relative;
     resize: none;
-    background-color: #2e3856;
+    background-color: #ffffff;
 }
 
 .formButtons {
     display: flex;
     justify-content: flex;
+    padding-top: 20px;
     width: 100%;
     padding: 0;
     margin: 0;

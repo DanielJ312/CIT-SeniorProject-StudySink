@@ -1,9 +1,13 @@
+.studySetTemplateBody {
+    background-color:#f5f5f5;
+    color: black;
+}
+
 .studySetTemplateContainer {
     max-width: 65%;
     margin: 20px auto;
     padding: 20px;
     border-radius: 8px;
-    border: solid 1px #ffffff;
 }
 
 .studySetDetails {
@@ -11,43 +15,147 @@
     flex-direction: column;
     width: 100%;
     margin: 0;
-    padding: 0;
-    color: white;
+    padding: 5px;
+    color: black;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
-    border: solid 1px #ffffff;
-    background-color: #2c3e50;
+    border: solid 1px #f59c1a   ;
+    background-color: #ffffff;
     margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.profile-picture {
+    width: 50px; 
+    height: 50px;
+    margin-left: 0px;
+    margin-right: 10px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff; 
+    box-shadow: 0 0 8px rgba(0,0,0,0.1); 
+}
+
+.studySetTemplateHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    align-items: flex-start;
+    border-bottom: 1px solid #eee;
+}
+.studySetHeaderInfo {
+    margin-left: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.studySetHeaderInfo > p {
+    margin: 5px 0;
+    padding: 0px;
+    font-weight: bold; 
+}
+
+.studySetHeaderInfo > p:first-child {
+    font-size: 1.1em; 
+    margin-bottom: 0px;
+}
+
+.studySetHeaderInfo > p:last-child {
+    font-size: 0.9em; 
+    color: #666; 
+    margin-top: 5px;
+}
+
+.studySetDetailsBottom {
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+    padding: 10px;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+.studySetDetailsBottomLeft{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0px;
+    padding: 15px;
+    width: 65%;
+    box-sizing: border-box;
+}
+
+.studySetDetailsBottomLeft > h3 {
+    font-size: 1.05em; 
+    font-weight: bold;
+    color: #000; 
+    margin-bottom: 4px; 
+}
+
+.studySetDetailsBottomLeft > p {
+    margin: 4px 0; 
+    font-size: 0.95em; 
+    color: #333; 
+}
+
+.studySetDetailsBottomRight {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 0px;
+    padding: 15px;
+    background-color: #fff;
+    width: 35%;
+    box-sizing: border-box;
+}
+
+.studySetDetailsBottomRight {
+    margin: 0px;
+    font-size: 0.95em; 
+    color: #333; 
+}
+
+.studySetDetailsBottomRight > p:first-child {
+    font-size: 1.05em; 
+    font-weight: bold; 
+    color: #000; 
 }
 
 .cardContainer {
     display: flex;
     flex-direction: row;
     width: 100%;
-    padding: 0;
+    padding: 10px;
     margin: 0;
-    color: white;
+    color: black;
     border-radius: 8px;
-    background-color: #2c3e50;
-    border: solid 1px #ffffff;
+    background-color: #ffffff;
+    border: solid 1px #f59c1a;
     margin-bottom: 10px;
+    box-sizing: border-box;
 }
 
 .cardContainerFront {
     display: flex;
     flex-direction: column;
-    width: 50%;
-    padding: 0;
+    width: 35%;
+    padding: 0px 10px 0px 0px;
     margin: 0;
-    border-right: solid 1px #ffffff;
+    border-right: solid 1px #f59c1a;
 }
 
 .cardContainerBack {
     display: flex;
     flex-direction: column;
     width: 50%;
-    padding: 0;
+    padding: 10px;
     margin: 0;
+}
+
+.commentContainer {
+    color: black
 }
 .card-header {
     font-size: 1.2em;

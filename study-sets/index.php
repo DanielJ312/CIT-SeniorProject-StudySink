@@ -3,7 +3,26 @@
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 $pageTitle = "Forum";
 
-$query = "SELECT STUDY_SET_T.*, USER_T.Username, USER_T.Avatar, STUDY_SET_T.Created AS SetCreated FROM STUDY_SET_T INNER JOIN USER_T ON STUDY_SET_T.UserID = USER_T.UserID ORDER BY STUDY_SET_T.Created ASC;";
+$query = "
+    SELECT 
+        SS.StudySetID, 
+        SS.Title, 
+        SS.Created AS SetCreated, 
+        U.Username, 
+        U.Avatar, 
+        C.Name AS CourseName, 
+        C.Abbreviation AS CourseAbbreviation, 
+        S.Name AS SubjectName, 
+        UN.Name AS UniversityName
+    FROM 
+        STUDY_SET_T SS
+        JOIN USER_T U ON SS.UserID = U.UserID
+        JOIN COURSE_T C ON SS.CourseID = C.CourseID
+        JOIN SUBJECT_T S ON C.SubjectID = S.SubjectID
+        JOIN UNIVERSITY_T UN ON S.UniversityID = UN.UniversityID
+    ORDER BY 
+        SS.Created DESC
+";
 $sets = run_database($query);
 ?>
 
@@ -25,15 +44,24 @@ $sets = run_database($query);
             <div class="displayCardArea">
                 <?php for ($i = 0; $i < count($sets); $i++): ?> 
                     <a href="/study-sets/<?= htmlspecialchars($sets[$i]->StudySetID); ?>.php" class="card-link">
-                        <div class="card">
-                        <img src="<?= htmlspecialchars($sets[$i]->Avatar); ?>" alt="<?= htmlspecialchars($sets[$i]->Username); ?>'s avatar" class="profile-picture"/>
-                            <div>
-                                <h3><?= htmlspecialchars($sets[$i]->Title) ?></h3>
-                                <p>By: <?= htmlspecialchars($sets[$i]->Username) ?></p>
-                                <p>Posted on <?= display_time($sets[$i]->SetCreated, "F j, Y") ?></p>
-                                <p><?= htmlspecialchars(substr($sets[$i]->Description, 0, 100)) ?>...</p>
+                    <div class="cardContainer">
+                        <div class="cardHeaderTopLeft">
+                            <img src="<?= htmlspecialchars($sets[$i]->Avatar); ?>" alt="<?= htmlspecialchars($sets[$i]->Username); ?>'s avatar" class="profile-picture"/>
+                            <div class="cardHeaderUsernameDate">
+                                <p><?= htmlspecialchars($sets[$i]->Username); ?></p>
+                                <p>Posted on <?= display_time($sets[$i]->SetCreated, "F j, Y"); ?></p>
                             </div>
                         </div>
+                        <div class="studySetDetailsBottom">
+                            <div class="studySetDetailsBottomLeft">
+                                <h3><?= htmlspecialchars($sets[$i]->Title); ?></h3>
+                            </div>
+                            <div class="studySetDetailsBottomRight">
+                                <p><?= htmlspecialchars($sets[$i]->UniversityName); ?></p>
+                                <p><?= htmlspecialchars($sets[$i]->CourseAbbreviation); ?></p>
+                            </div>
+                        </div>
+                    </div>
                     </a>
                 <?php endfor; ?>
             </div>
@@ -44,12 +72,3 @@ $sets = run_database($query);
     </footer>
 </body>
 </html>
-
-<!-- <form action="" method="post">
-    <select class="sort" name="sorts">
-        <option value="oldest">Oldest</option>
-        <option value="newest">Newest</option>
-        <option value="popular">Popular</option>
-    </select>
-</form> -->
-<!-- <button onclick="TestFunction('testing value')"></button> -->
