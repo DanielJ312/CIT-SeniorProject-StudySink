@@ -152,7 +152,7 @@ function updateCommentVote(commentID, userID, voteType) {
 }
 
 function updateVote(commentID, userID) {
-    var check = $(`#comment-${commentID} a`).hasClass("fa-solid");
+    var check = $(`#comment-${commentID} .like`).hasClass("fa-solid");
     console.log(check);
 
     $.ajax({
@@ -161,7 +161,7 @@ function updateVote(commentID, userID) {
         data: { function: "update-vote", commentID: commentID, userID: userID },
         success: function (response) {
             $("#comment-" + commentID + "-v").html(response);
-            $(`#comment-${commentID} a`).removeClass(check ? "fa-solid" : "fa-regular").addClass(check ? "fa-regular" : "fa-solid");
+            $(`#comment-${commentID} .like`).removeClass(check ? "fa-solid" : "fa-regular").addClass(check ? "fa-regular" : "fa-solid");
         }
     });
 }

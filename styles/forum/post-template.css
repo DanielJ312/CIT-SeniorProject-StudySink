@@ -250,16 +250,20 @@
 #comment {
     font-size: 20px;
     margin: 10px 0px;
-  }
-  .comments {
+}
+
+.comments {
     display: block;
     background-color: #ffffff;
     border: 1px solid #f59c1a;
     border-radius: 5px;
     padding: 10px;
-    text-decoration: none; /* Remove underline from the link */
-    color: inherit; /* Inherit text color from the parent element */
-  }
+    text-decoration: none;
+    /* Remove underline from the link */
+    color: inherit;
+    /* Inherit text color from the parent element */
+}
+
 .fa-heart.fa-solid {
     cursor: pointer;
     color: #f59c1a;
