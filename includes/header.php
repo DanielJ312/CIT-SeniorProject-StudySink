@@ -28,7 +28,8 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
                 </div>
             </div>
             <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index', 'home'); ?>"></i></a>
-            <a href="UniversityPage" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-flip-horizontal fa-2xl"></i></a>
+            <a href="/study-sets/index.php" id="Sets" title="Study Sets"><i class="fa-solid fa-book fa-2xl <?= check_active('/study-sets'); ?>"></i></a>
+            <a href="/university/index.php" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-flip-horizontal fa-2xl <?= check_active('/university'); ?>"></i></a>
             <div class="dropdown">
                 <img src="<?= $_SESSION['USER']->Avatar ?>" alt="Avatar" class="profile-picture <?= check_active('/account/profile'); ?>" id="profilePicture" title="Avatar">
                 <div class="dropdown-content-profile" id="profileDropdown">
@@ -42,6 +43,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
     <?php else : ?>
         <div class="navbar-right">
             <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index', 'home'); ?>"></i></a>
+            <a href="/study-sets/index.php" id="Sets" title="Study Sets"><i class="fa-solid fa-book fa-2xl <?= check_active('/study-sets'); ?>"></i></a>
             <a href="/account/login.php" id="Login" title="Login or Register"><i class="fa-solid fa-id-card fa-2xl <?= check_active('/account'); ?>"></i></a>
         </div>
     <?php endif; ?>
@@ -61,6 +63,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
                 </div>
                 <div class="nav-options">
                     <div class="navitem"><a href="/index.php" title="Home">Home</a></div>
+                    <div class="navitem"><a href="/study-sets/index.php" id="Sets" title="Study Sets">Study Sets</a><div></div>
                 <?php if (check_login()) : ?>
                     <div class="navitem"><a href="University" title="My University">My University</a></div>
                     <div class="dropdown">
@@ -85,7 +88,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
                 <?php endif; ?>
                 </div>
             </nav>
-        :<header>
+        <header>
     </div>
 </div>
 

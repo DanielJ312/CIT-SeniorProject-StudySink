@@ -1,0 +1,194 @@
+/* Reset default styles for body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: black;
+}
+
+.margin {
+    margin: 20px 20%;
+}
+
+/* Styling for university info */
+.university-info {
+    background-color: #ffffff;
+    border: 1px solid #f59c1a;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for columns */
+.columns {
+    display: flex;
+}
+
+/* Styling for subject selection */
+.subject-selection-c {
+    background-color: #ffffff;
+    border: 1px solid #f59c1a;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    margin-top: 15px;
+    margin-right: 15px;
+}
+
+.subject-selection-c ul {
+    list-style: none;
+    padding: 0;
+}
+
+.subject-selection-c li {
+    margin: 10px 0;
+}
+
+.subject-selection-c a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.subject-selection-c a:hover {
+    color: #f59c1a;
+}
+
+/* Style for the search bar */
+.search-bar-csun {
+    text-align: left;
+    display: flex;
+}
+
+.search-bar-csun input {
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 9em;
+}
+
+.search-bar-csun button {
+    background-color: #0078d4;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* Adjust styling for the search bar icon as needed */
+.search-bar-csun button i {
+    font-size: 20px;
+}
+
+/* Styling for posts */
+.posts {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.01);
+    display: flex;
+    margin-top: 15px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Styling for individual posts */
+.post {
+    display: block;
+    background-color: #ffffff;
+    border: 1px solid #f59c1a;
+    border-radius: 5px;
+    padding: 10px;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 10px;
+}
+
+.post-account {
+    font-size: 10px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.post-date {
+    font-size: 8px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+}
+
+.post-icons {
+    position: absolute;
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+}
+
+.post-content {
+    padding-bottom: 10px;
+}
+
+.post-iconsp {
+    bottom: 8px;
+    right: 16px;
+    padding-right: 5px;
+}
+
+.vote {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.post-profile-picture {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 13px;
+    margin-right: 13px;
+}
+
+/* Media query for screens with a width of 375x667 */
+@media screen and (max-width: 435px) and (max-height: 669px) {
+
+    /* Remove margin for posts and change display property to grid */
+    .posts {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.01);
+        flex: auto;
+        margin-top: 15px;
+    }
+
+    .post {
+        background-color: #ffffff;
+        border: 1px solid #f59c1a;
+        border-radius: 5px;
+        padding: 10px;
+        text-decoration: none;
+        color: inherit;
+        margin-bottom: 10px;
+    }
+
+    .margin {
+        margin: 20px 0px;
+    }
+
+    .subject-selection-c {
+        background-color: #ffffff;
+        border: 1px solid #f59c1a;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        text-align: left;
+        margin-top: 15px;
+        margin-right: 15px;
+        display: none;
+    }
+}

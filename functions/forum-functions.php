@@ -1,6 +1,7 @@
 <?php
 # Forum Functions - Runs functions relating to the forum
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 
 // Switch for deciding which function to run in AJAX
 if (isset($_POST['function'])) {
@@ -10,6 +11,12 @@ if (isset($_POST['function'])) {
             break;
         case "delete":
             delete_comment();
+            break;
+        case "edit":
+            edit_comment();
+            break;
+        case "report":
+            report_comment();
             break;
         case "sort": 
             update_sort();
@@ -89,7 +96,17 @@ function get_comments($postID) {
     ORDER BY COMMENT_T.Created ASC;
     query;
     return run_database($query, $values);
+}
 
+function get_comment($commentID) {
+    $values['CommentID'] = $commentID;
+    $query = <<<query
+    SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes
+    FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
+        INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
+    WHERE COMMENT_T.CommentID = :CommentID
+    query;
+    return run_database($query, $values)[0];
 }
 
 # Comment Functions
@@ -123,6 +140,35 @@ function delete_comment() {
     run_database($query, $values);
 }
 
+function edit_comment() {
+    $values = [
+        'CommentID' => $_POST['commentID'],
+        'Content' => $_POST['content'],
+        // 'Created' => get_local_time()
+    ];
+    $query = "UPDATE COMMENT_T SET Content = :Content WHERE CommentID = :CommentID;";
+    run_database($query, $values);
+    echo $values['Content'];
+}
+
+function report_comment() {
+    // $commentID = $_POST['commentID'];
+    $comment = get_comment($_POST['commentID']);
+    $commentDate = display_time($comment->CommentCreated, "F j, Y @ h:i:s A");
+    $userReporting = $_SESSION['USER'];
+    $caseID = rand(10000, 99999);
+    $recipient = "StudySinkLLC@gmail.com";
+
+    $subject = "Report Case ID: $caseID (Comment)";
+    $message = <<<message
+    <p>The following comment (<b>#{$comment->CommentID}</b>)  submitted by <b>{$comment->Username}</b> has been reported by <b>{$userReporting->Username}</b>. The comment was submitted on <b>{$commentDate}</b> and has a total of <b>{$comment->Votes}</b> likes.</p>
+    <p style="padding-left: 40px;">{$comment->Content}</p>
+    <p>Review the comment and take appropiate actions.</p>
+    message;
+
+    send_mail($recipient, $subject, $message);
+}
+
 # General Functions
 function update_sort() {
     $type = $_POST['sortType'];
@@ -143,8 +189,7 @@ function update_sort() {
             echo $currentPost;
         }
     }
-    
-    if ($type == "c" && is_array($sorted) > 0) {
+    else if ($type == "c" && is_array($sorted) > 0) {
         $postUsername = run_database("SELECT Username FROM USER_T INNER JOIN POST_T ON USER_T.UserID = POST_T.UserID WHERE POST_T.PostID = $postID")[0]->Username;
         foreach ($sorted as $comment) {
             include($_SERVER['DOCUMENT_ROOT'] . "/forum/posts/c-template.php");
@@ -153,46 +198,38 @@ function update_sort() {
 }
 
 function create_sort_query($type, $postID) {
+    if ($type[0] == "p") { 
+        $query = "SELECT * FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID ";
+    }
+    else if ($type[0] == "c") {
+        $query = <<<query
+        SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes
+        FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
+            INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
+        WHERE PostID = $postID
+        GROUP BY CommentID 
+        query;
+    }
+
     switch ($type) {
         case 'post-oldest':
-            $query = "SELECT * FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID ORDER BY POST_T.Created ASC;";
+            $query .= "ORDER BY POST_T.Created ASC;";
             break;
         case 'post-newest':
-            $query = "SELECT * FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID ORDER BY POST_T.Created DESC;";
+            $query .= "ORDER BY POST_T.Created DESC;";
             break;
         case 'post-popular':
-            $query = "SELECT * FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID ORDER BY POST_T.Created DESC;";
+            $query .= "SELECT * FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID ORDER BY POST_T.Created DESC;";
             // NOT WORKING FOR THE TIME BEING, POST HAS NO VOTE FUNCTIONALITY
             break;
         case 'comment-oldest':
-            $query = <<<query
-            SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes
-            FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
-                INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
-            WHERE PostID = $postID
-            GROUP BY CommentID
-            ORDER BY COMMENT_T.Created ASC;
-            query;
+            $query .= "ORDER BY COMMENT_T.Created ASC;";
             break;
         case 'comment-newest':
-            $query = <<<query
-            SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes
-            FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
-                INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
-            WHERE PostID = $postID
-            GROUP BY CommentID
-            ORDER BY COMMENT_T.Created DESC;
-            query;
+            $query .= "ORDER BY COMMENT_T.Created DESC;";
             break;    
         case 'comment-popular':
-            $query = <<<query
-            SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes
-            FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
-                INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
-            WHERE PostID = $postID
-            GROUP BY CommentID
-            ORDER BY Votes DESC, CommentCreated ASC;
-            query;
+            $query .= "ORDER BY Votes DESC, CommentCreated ASC;";
             break;  
     }
     return $query;
@@ -201,15 +238,26 @@ function create_sort_query($type, $postID) {
 function update_vote() {
     $commentID = $_POST['commentID'];
     $userID = $_POST['userID'];
-    $voteType = $_POST['voteType'];
+    // $voteType = $_POST['voteType'];
+    $voteType = 1;
 
+    // $query = <<<query
+    // INSERT INTO CVOTE_T (CommentID, UserID, VoteType)
+    // VALUES ($commentID, $userID, $voteType) 
+    // ON DUPLICATE KEY UPDATE
+    // VoteType = CASE
+    //     WHEN VoteType = 1 THEN -1
+    //     WHEN VoteType = -1 THEN 1
+    //     ELSE VoteType
+    // END;
+    // query;
     $query = <<<query
     INSERT INTO CVOTE_T (CommentID, UserID, VoteType)
     VALUES ($commentID, $userID, $voteType) 
     ON DUPLICATE KEY UPDATE
     VoteType = CASE
-        WHEN VoteType = 1 THEN -1
-        WHEN VoteType = -1 THEN 1
+        WHEN VoteType = 1 THEN 0
+        WHEN VoteType = 0 THEN 1
         ELSE VoteType
     END;
     query;

@@ -20,24 +20,24 @@ $users = run_database("SELECT * FROM USER_T;");
     <main>
         <div>
             <p>Welcome to the home page for StudySink Development.</p>
-            <p>This page currently has no use and instead lists all created users.</p>
+            <h3 style="color: red">This page currently has no use and instead lists all created users.</h3>
             <table>
                 <h3>Created Users</h3>
                 <tr>
                     <th>Avatar</th><th>UserID</th><th>Username</th><th>Email</th>
                     <th>Verified</th><th>Created</th><th>You</th>
                 </tr>
-                <?php for ($i = 0; $i < sizeof($users); $i++) : ?>
+                <?php foreach ($users as $user) : ?>
                 <tr>
-                    <td><img width="25" src="<?= $users[$i]->Avatar ?>"></td>
-                    <td><?= $users[$i]->UserID ?></td>
-                    <td><?= $users[$i]->Username ?></td>
-                    <td><?= $users[$i]->Email ?></td>
-                    <td><?= $users[$i]->Verified == 1 ? "yes" : "no" ?></td>
-                    <td><?= display_time($users[$i]->Created, "Y-m-d h:i:s A"); ?></td>
-                    <td><?= check_login(false) && $users[$i]->Username == $_SESSION['USER']->Username ? "Yes" : "" ?></b></td>
+                    <td><img width="25" src="<?= $user->Avatar ?>"></td>
+                    <td><?= $user->UserID ?></td>
+                    <td><?= $user->Username ?></td>
+                    <td><?= $user->Email ?></td>
+                    <td><?= $user->Verified == 1 ? "yes" : "no" ?></td>
+                    <td><?= display_time($user->Created, "Y-m-d h:i:s A"); ?></td>
+                    <td><?= check_login(false) && $user->Username == $_SESSION['USER']->Username ? "Yes" : "" ?></b></td>
                 </tr>
-                <?php endfor; ?>
+                <?php endforeach; ?>
             </table>
         </div>
     </main>

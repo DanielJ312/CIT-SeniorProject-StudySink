@@ -4,7 +4,7 @@
 $(document).ready(function () {
     var currentPath = window.location.pathname;
     if (currentPath.includes('/forum/post')) {
-        $('.sort-container').html(updateSortedData("comment-popular"));
+        $('.sort-container').html(updateSortedData("comment-oldest"));
     }
     else if (currentPath.includes('/forum/')) {
         $('.sort-container').html(updateSortedData("post-oldest"));
@@ -13,8 +13,8 @@ $(document).ready(function () {
 
 // Event handler for select change
 $('.sort').on('change', function () {
-    var sortType = $(this).val(); // Get the selected value
-    updateSortedData(sortType); // Call the function to update the sorted data
+    var sortType = $(this).val();
+    updateSortedData(sortType); 
     console.log(sortType);
 });
 
@@ -26,7 +26,7 @@ function updateSortedData(sortType) {
         type: 'POST',
         data: { function: "sort", postID: postID, sortType: sortType },
         success: function (response) {
-            $('.sort-container').html(response); // Update the container with sorted data
+            $('.sort-container').html(response);
         },
         error: function (xhr, status, error) {
             console.error(error);
@@ -35,7 +35,7 @@ function updateSortedData(sortType) {
 }
 
 /*  Comment Functions */
-function AddComment(postID) {
+function AddComment() {
     console.log(postID);
     content = $('#commentInput').val();
     console.log(content);
@@ -67,13 +67,66 @@ function AddComment(postID) {
 function DeleteComment(commentIDToDelete) {
     $.ajax({
         url: '/functions/forum-functions',
-        type: "post",    //request type,
+        type: "post",
         dataType: 'json',
         data: { function: "delete", commentID: commentIDToDelete },
     });
     $("#comment-" + commentIDToDelete).remove();
     var total = $(".comment-total");
     total.text(Number(total.text()) - 1);
+}
+
+function OpenCommentEditor(commentID) {
+    content = $(`#comment-${commentID}-c p`).html();
+    console.log(content);
+    $(`#comment-${commentID}-c p`).toggle();
+    var div = $("<div>").addClass("edit-bar");
+    var input = $("<input>").attr({
+        type: "text",
+        class: "commentInput",
+        value: content,
+        name: "content"
+    });
+    var button = $("<button>").attr({
+        type: "submit",
+        class: "addComment",
+        onclick: `EditComment(${commentID})`
+    }).text("Save");
+
+    div.append(input, button);
+    $(`#comment-${commentID}-c`).append(div);
+    $(`#comment-${commentID} .dropdown`).toggle();
+}   
+
+function EditComment(commentID) {
+    content = $(`#comment-${commentID}-c .commentInput`).val();
+    
+    if (content.length > 0) {
+        console.log("comment has content"); 
+        $.ajax({
+            url: '/functions/forum-functions',
+            type: 'POST',
+            data: { function: "edit", commentID: commentID, content: content },
+            success: function (response) {
+                $(`#comment-${commentID}-c p`).html(response);
+                $(`#comment-${commentID}-c .edit-bar`).remove();
+                $(`#comment-${commentID}-c p`).toggle();
+                $(`#comment-${commentID} .dropdown`).toggle();
+            },
+        });
+    }
+    else {
+        console.log("empty comment");
+    }
+}
+
+function ReportComment(commentID) {
+    $(`#comment-${commentID} .report`).html("Reported!");
+    $.ajax({
+        url: '/functions/forum-functions',
+        type: 'POST',
+        data: { function: "report", commentID: commentID},
+    });
 }
 
 function updateCommentVote(commentID, userID, voteType) {
@@ -94,6 +147,21 @@ function updateCommentVote(commentID, userID, voteType) {
         },
         error: function (xhr, status, error) {
             console.error(error);
+        }
+    });
+}
+
+function updateVote(commentID, userID) {
+    var check = $(`#comment-${commentID} .like`).hasClass("fa-solid");
+    console.log(check);
+
+    $.ajax({
+        url: '/functions/forum-functions',
+        type: 'POST',
+        data: { function: "update-vote", commentID: commentID, userID: userID },
+        success: function (response) {
+            $("#comment-" + commentID + "-v").html(response);
+            $(`#comment-${commentID} .like`).removeClass(check ? "fa-solid" : "fa-regular").addClass(check ? "fa-regular" : "fa-solid");
         }
     });
 }
