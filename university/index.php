@@ -10,6 +10,7 @@ $pageTitle = "University";
 // if (empty($post)) header("Location: /forum/index.php");
 // $commentTotal= get_comments($postID);
 // $commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
+
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +34,7 @@ $pageTitle = "University";
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-        <h3 style="color: red">THIS PAGE IS CURRENTLY VERY WORK IN PROGRESS</h3>
+        <h3 style="color: red">THIS PAGE IS CURRENTLY A WORK IN PROGRESS</h3>
     </header>
     <main>
         <div class="margin">
@@ -48,18 +49,18 @@ $pageTitle = "University";
                         <button><i class="fas fa-search"></i></button>
                     </div>
                     <div class="subjects">
-            <ul><a href="CIT.html">Computer Information Technology</a></ul>
-            <ul><a href="subject_page.html">Subject 2</a></ul>
-            <ul><a href="subject_page.html">Subject 3</a></ul>
-            <ul><a href="subject_page.html">Subject 2</a></ul>
-            <ul><a href="subject_page.html">Subject 3</a></ul>
-            <ul><a href="subject_page.html">Subject 2</a></ul>
-            <ul><a href="subject_page.html">Subject 3</a></ul>      
-            <ul><a href="subject_page.html">Subject 2</a></ul>
-            <ul><a href="subject_page.html">Subject 3</a></ul>
-            <ul><a href="subject_page.html">Subject 2</a></ul>
-            <ul><a href="subject_page.html">Subject 3</a></ul>
-          </div>
+                        <ul><a href="CIT.html">Computer Information Technology</a></ul>
+                        <ul><a href="subject_page.html">Subject 2</a></ul>
+                        <ul><a href="subject_page.html">Subject 3</a></ul>
+                        <ul><a href="subject_page.html">Subject 2</a></ul>
+                        <ul><a href="subject_page.html">Subject 3</a></ul>
+                        <ul><a href="subject_page.html">Subject 2</a></ul>
+                        <ul><a href="subject_page.html">Subject 3</a></ul>
+                        <ul><a href="subject_page.html">Subject 2</a></ul>
+                        <ul><a href="subject_page.html">Subject 3</a></ul>
+                        <ul><a href="subject_page.html">Subject 2</a></ul>
+                        <ul><a href="subject_page.html">Subject 3</a></ul>
+                    </div>
                 </div>
                 <div class="posts">
                     <a href="post.html" class="post">
@@ -74,13 +75,12 @@ $pageTitle = "University";
                         <div class="post-content">This is the content of the first post.</div>
                         <div class="vote">
                             <div class="post-iconsp">
-                            <i class="fa-regular fa-heart"></i>
+                                <i class="fa-regular fa-heart"></i>
                             </div>
                             <div class="votes">
                                 (20)</div>
                         </div>
                     </a>
-
                     <div class="post">
                         <div class="post-header">
                             <img src="https://cdn.glitch.global/c2bf878a-9e4d-451f-afec-4ed46e479314/Screenshot%202023-10-24%20235521.png?v=1698216981476" alt="Place Holder" class="post-profile-picture" />
@@ -93,7 +93,7 @@ $pageTitle = "University";
                         <div class="post-content">This is the content of the first post.</div>
                         <div class="vote">
                             <div class="post-iconsp">
-                            <i class="fa-regular fa-heart"></i>
+                                <i class="fa-regular fa-heart"></i>
                             </div>
                             <div class="votes">
                                 (20)</div>
@@ -111,7 +111,7 @@ $pageTitle = "University";
                         <div class="post-content">This is the content of the first post.</div>
                         <div class="vote">
                             <div class="post-iconsp">
-                            <i class="fa-regular fa-heart"></i>
+                                <i class="fa-regular fa-heart"></i>
                             </div>
                             <div class="votes">
                                 (20)</div>
@@ -129,7 +129,7 @@ $pageTitle = "University";
                         <div class="post-content">This is the content of the first post.</div>
                         <div class="vote">
                             <div class="post-iconsp">
-                            <i class="fa-regular fa-heart"></i>
+                                <i class="fa-regular fa-heart"></i>
                             </div>
                             <div class="votes">
                                 (20)</div>
@@ -147,7 +147,7 @@ $pageTitle = "University";
                         <div class="post-content">This is the content of the first post.</div>
                         <div class="vote">
                             <div class="post-iconsp">
-                            <i class="fa-regular fa-heart"></i>
+                                <i class="fa-regular fa-heart"></i>
                             </div>
                             <div class="votes">
                                 (20)</div>
@@ -165,7 +165,7 @@ $pageTitle = "University";
                         <div class="post-content">This is the content of the first post.</div>
                         <div class="vote">
                             <div class="post-iconsp">
-                            <i class="fa-regular fa-heart"></i>
+                                <i class="fa-regular fa-heart"></i>
                             </div>
                             <div class="votes">(20)</div>
                         </div>
@@ -173,7 +173,7 @@ $pageTitle = "University";
                 </div>
             </div>
         </div>
-        </main>
+    </main>
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>

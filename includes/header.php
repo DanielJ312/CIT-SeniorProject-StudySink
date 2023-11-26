@@ -160,6 +160,13 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
         </div>
     </div>
     <div class="dropdowndev">
+        <button class="dropbtn <?php check_active('/university'); ?>">University</button>
+        <div class="dropdowndev-content">
+            <a class="<?php check_active('/university/index'); ?>" href="/university/index.php">Home</a>
+            <a class="<?php check_active('/university/csun-test'); ?>" href="/university/csun-test.php">CSUN Test</a>
+        </div>
+    </div>
+    <div class="dropdowndev">
         <button class="dropbtn <?php check_active('/account'); ?>">Account</button>
         <div class="dropdowndev-content">
             <a class="<?php check_active('/account/profile'); ?>" href="/account/profile.php">Profile</a>
