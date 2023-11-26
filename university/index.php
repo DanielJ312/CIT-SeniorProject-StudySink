@@ -47,11 +47,19 @@ $pageTitle = "University";
                         <input type="text" placeholder="Search Subjects..." />
                         <button><i class="fas fa-search"></i></button>
                     </div>
-                    <ul>
-                        <li><a href="CIT.html">Computer Information Technology</a></li>
-                        <li><a href="subject_page.html">Subject 2</a></li>
-                        <li><a href="subject_page.html">Subject 3</a></li>
-                    </ul>
+                    <div class="subjects">
+            <ul><a href="CIT.html">Computer Information Technology</a></ul>
+            <ul><a href="subject_page.html">Subject 2</a></ul>
+            <ul><a href="subject_page.html">Subject 3</a></ul>
+            <ul><a href="subject_page.html">Subject 2</a></ul>
+            <ul><a href="subject_page.html">Subject 3</a></ul>
+            <ul><a href="subject_page.html">Subject 2</a></ul>
+            <ul><a href="subject_page.html">Subject 3</a></ul>      
+            <ul><a href="subject_page.html">Subject 2</a></ul>
+            <ul><a href="subject_page.html">Subject 3</a></ul>
+            <ul><a href="subject_page.html">Subject 2</a></ul>
+            <ul><a href="subject_page.html">Subject 3</a></ul>
+          </div>
                 </div>
                 <div class="posts">
                     <a href="post.html" class="post">
@@ -66,8 +74,7 @@ $pageTitle = "University";
                         <div class="post-content">This is the content of the first post.</div>
                         <div class="vote">
                             <div class="post-iconsp">
-                                <i class="far fa-thumbs-up"></i>
-                                <i class="far fa-thumbs-down"></i>
+                            <i class="fa-regular fa-heart"></i>
                             </div>
                             <div class="votes">
                                 (20)</div>
@@ -86,8 +93,7 @@ $pageTitle = "University";
                         <div class="post-content">This is the content of the first post.</div>
                         <div class="vote">
                             <div class="post-iconsp">
-                                <i class="far fa-thumbs-up"></i>
-                                <i class="far fa-thumbs-down"></i>
+                            <i class="fa-regular fa-heart"></i>
                             </div>
                             <div class="votes">
                                 (20)</div>
@@ -105,8 +111,7 @@ $pageTitle = "University";
                         <div class="post-content">This is the content of the first post.</div>
                         <div class="vote">
                             <div class="post-iconsp">
-                                <i class="far fa-thumbs-up"></i>
-                                <i class="far fa-thumbs-down"></i>
+                            <i class="fa-regular fa-heart"></i>
                             </div>
                             <div class="votes">
                                 (20)</div>
@@ -124,8 +129,7 @@ $pageTitle = "University";
                         <div class="post-content">This is the content of the first post.</div>
                         <div class="vote">
                             <div class="post-iconsp">
-                                <i class="far fa-thumbs-up"></i>
-                                <i class="far fa-thumbs-down"></i>
+                            <i class="fa-regular fa-heart"></i>
                             </div>
                             <div class="votes">
                                 (20)</div>
@@ -143,8 +147,7 @@ $pageTitle = "University";
                         <div class="post-content">This is the content of the first post.</div>
                         <div class="vote">
                             <div class="post-iconsp">
-                                <i class="far fa-thumbs-up"></i>
-                                <i class="far fa-thumbs-down"></i>
+                            <i class="fa-regular fa-heart"></i>
                             </div>
                             <div class="votes">
                                 (20)</div>
@@ -162,8 +165,7 @@ $pageTitle = "University";
                         <div class="post-content">This is the content of the first post.</div>
                         <div class="vote">
                             <div class="post-iconsp">
-                                <i class="far fa-thumbs-up"></i>
-                                <i class="far fa-thumbs-down"></i>
+                            <i class="fa-regular fa-heart"></i>
                             </div>
                             <div class="votes">(20)</div>
                         </div>

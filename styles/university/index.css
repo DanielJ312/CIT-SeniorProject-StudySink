@@ -24,6 +24,7 @@ body {
 /* Styling for columns */
 .columns {
     display: flex;
+    align-items: flex-start;
 }
 
 /* Styling for subject selection */
@@ -41,6 +42,8 @@ body {
 .subject-selection-c ul {
     list-style: none;
     padding: 0;
+    margin-bottom:0px;
+    margin-top: 10px;
 }
 
 .subject-selection-c li {
@@ -191,3 +194,9 @@ body {
         display: none;
     }
 }
+
+.subjects {
+    width: 100%;
+    height: 205px;
+    overflow: auto;
+  }
