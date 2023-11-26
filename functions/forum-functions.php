@@ -189,8 +189,7 @@ function update_sort() {
             echo $currentPost;
         }
     }
-    
-    if ($type == "c" && is_array($sorted) > 0) {
+    else if ($type == "c" && is_array($sorted) > 0) {
         $postUsername = run_database("SELECT Username FROM USER_T INNER JOIN POST_T ON USER_T.UserID = POST_T.UserID WHERE POST_T.PostID = $postID")[0]->Username;
         foreach ($sorted as $comment) {
             include($_SERVER['DOCUMENT_ROOT'] . "/forum/posts/c-template.php");
@@ -239,15 +238,26 @@ function create_sort_query($type, $postID) {
 function update_vote() {
     $commentID = $_POST['commentID'];
     $userID = $_POST['userID'];
-    $voteType = $_POST['voteType'];
+    // $voteType = $_POST['voteType'];
+    $voteType = 1;
 
+    // $query = <<<query
+    // INSERT INTO CVOTE_T (CommentID, UserID, VoteType)
+    // VALUES ($commentID, $userID, $voteType) 
+    // ON DUPLICATE KEY UPDATE
+    // VoteType = CASE
+    //     WHEN VoteType = 1 THEN -1
+    //     WHEN VoteType = -1 THEN 1
+    //     ELSE VoteType
+    // END;
+    // query;
     $query = <<<query
     INSERT INTO CVOTE_T (CommentID, UserID, VoteType)
     VALUES ($commentID, $userID, $voteType) 
     ON DUPLICATE KEY UPDATE
     VoteType = CASE
-        WHEN VoteType = 1 THEN -1
-        WHEN VoteType = -1 THEN 1
+        WHEN VoteType = 1 THEN 0
+        WHEN VoteType = 0 THEN 1
         ELSE VoteType
     END;
     query;

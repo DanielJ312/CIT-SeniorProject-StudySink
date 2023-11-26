@@ -151,6 +151,21 @@ function updateCommentVote(commentID, userID, voteType) {
     });
 }
 
+function updateVote(commentID, userID) {
+    var check = $(`#comment-${commentID} .like`).hasClass("fa-solid");
+    console.log(check);
+
+    $.ajax({
+        url: '/functions/forum-functions',
+        type: 'POST',
+        data: { function: "update-vote", commentID: commentID, userID: userID },
+        success: function (response) {
+            $("#comment-" + commentID + "-v").html(response);
+            $(`#comment-${commentID} .like`).removeClass(check ? "fa-solid" : "fa-regular").addClass(check ? "fa-regular" : "fa-solid");
+        }
+    });
+}
+
 //Dropdown Functions
 function toggleDropdown(dropdown) {
     dropdown.querySelector('.dropdown-content').classList.toggle('show');
