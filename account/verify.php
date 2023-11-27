@@ -15,13 +15,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") $errors = verify_account();
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
+    <link rel="stylesheet" type="text/css" href="/account/verify.css">
 </head>
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
         <h2><?=isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
     </header>
-    <main>    
+    <main>
+        <div class="verify-container">    
         <h4>Access when logged in</h4>
         <div>
             <div>
@@ -37,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") $errors = verify_account();
                 <p>Code: <input type="text" name="code"></p>
                 <input type="submit" value="Verify">
             </form>
+            </div>
         </div>
     </main>
     <footer>

@@ -12,6 +12,7 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = signup($_PO
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
+    <link rel="stylesheet" type="text/css" href="/account/register.css">
 </head>
 <body>
     <header>
@@ -19,17 +20,19 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = signup($_PO
         <h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
     </header>
     <main>
+        <div class="register-container">
         <div>
             <?php display_errors($errors);?>
         </div>
         <form method="post">
-            <p>Username: <input type="text" name="username"></p>
-            <p>Email Address: <input type="email" name="email"></p>
-            <p>Password: <input type="password" name="password"></p>
+            <p>Username:&nbsp; &nbsp; <input type="text" name="username"></p>
+            <p>Email:&nbsp; &nbsp; <input type="email" name="email"></p>
+            <p>Password:&nbsp; <input type="password" name="password"></p>
             <p>Confirm Password: <input type="password" name="password2"></p>
             <input type="submit" formnovalidate value="Register">
             <p>Already have an account? <a href="login.php">Sign in</a></p>
         </form>
+        <div>
     </main>
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
