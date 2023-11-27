@@ -13,7 +13,7 @@ if (check_login()) header("Location: /account/profile.php");
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <link rel="stylesheet" type="text/css" href="/account/login.css">
+    <link rel="stylesheet" type="text/css" href="/styles/account/login.css">
 </head>
 <body>
 

@@ -12,7 +12,7 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = signup($_PO
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <link rel="stylesheet" type="text/css" href="/account/register.css">
+    <link rel="stylesheet" type="text/css" href="/styles/account/register.css">
 </head>
 <body>
     <header>

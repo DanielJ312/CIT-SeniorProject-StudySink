@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") $errors = verify_account();
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <link rel="stylesheet" type="text/css" href="/account/verify.css">
+    <link rel="stylesheet" type="text/css" href="/styles/account/verify.css">
 </head>
 <body>
     <header>

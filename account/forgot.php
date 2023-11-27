@@ -14,7 +14,7 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = check_email
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <link rel="stylesheet" type="text/css" href="/account/forgot.css">
+    <link rel="stylesheet" type="text/css" href="/styles/account/forgot.css">
 </head>
 <body>
     <header>

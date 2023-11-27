@@ -13,7 +13,7 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = reset_passw
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <link rel="stylesheet" type="text/css" href="/account/reset.css">
+    <link rel="stylesheet" type="text/css" href="/styles/account/reset.css">
 </head>
 <body>
     <header>
