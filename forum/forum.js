@@ -37,7 +37,7 @@ function updateSortedData(sortType) {
 /*  Comment Functions */
 function AddComment() {
     console.log(postID);
-    content = $('#commentInput').val();
+    content = $('.commentInput').val();
     console.log(content);
     
     if (content.length > 0) {
@@ -48,7 +48,7 @@ function AddComment() {
             data: { function: "add", postID: postID, content: content },
             success: function (response) {
                 $('.sort-container').append(response); 
-                $('#commentInput').val("");
+                $('.commentInput').val("");
                 var total = $(".comment-total");
                 total.text(Number(total.text()) + 1);
 
