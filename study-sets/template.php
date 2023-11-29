@@ -45,6 +45,9 @@ $cards = run_database($query, $values);
         <main>
             <div class="studySetTemplateContainer">
                 <h2><?= htmlspecialchars($set->Title) ?></h2>
+                <?php if ($set->Username == $_SESSION['USER']->Username) : ?>
+                    <p><a href="/study-sets/edit.php?id=<?= $setID; ?>">Edit</a></p>
+                <?php endif; ?>
                 <div class="studySetDetails">
 
                     <div class="studySetTemplateHeader">
@@ -54,7 +57,6 @@ $cards = run_database($query, $values);
                                 <?= check_login(false) && $set->Username == $_SESSION['USER']->Username ? " (You)" : "" ?>
                             </p>
                             <p>Created on <?= display_time($set->SetCreated, "F j, Y"); ?></p>
-                            
                         </div>
                     </div>
                     <div class="studySetDetailsBottom">

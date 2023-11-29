@@ -1,5 +1,5 @@
 <?php 
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 //$pageTitle = "Create Study Set";
 $universities = get_universities_list();
 ?>
@@ -14,7 +14,6 @@ $universities = get_universities_list();
     <body class="createStudySetBody">
         <header>
             <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-            <!--<h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>-->
         </header>
         <main>
             <div class="studySetContainer">
