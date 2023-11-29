@@ -19,15 +19,6 @@ $commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
     <script async src="/forum/forum.js"></script>
     <link rel="stylesheet" href="/styles/forum/post-template.css" />
 </head>
-<script>
-function handleKeyPress(event) {
-        // Check if the pressed key is Enter (key code 13)
-        if (event.keyCode === 13) {
-            // Call the AddComment function
-            AddComment();
-        }
-    }
-    </script>
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>

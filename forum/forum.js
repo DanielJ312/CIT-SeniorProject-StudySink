@@ -184,3 +184,11 @@ window.onclick = function (event) {
         }
     }
 }
+
+function handleKeyPress(event) {
+        // Check if the pressed key is Enter (key code 13)
+        if (event.keyCode === 13) {
+            // Call the AddComment function
+            AddComment();
+        }
+    }
