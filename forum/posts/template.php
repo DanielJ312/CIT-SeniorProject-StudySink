@@ -78,10 +78,10 @@ $commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
                     </div>
                     <?php if (check_login()) : ?>
                         <div id="add-comment">
-                            <div class="comment-bar">
-                                <input type="text" class="commentInput" placeholder="Add a comment..." name="content" />
-                                <button onclick="AddComment()" type="submit" value="Submit" class="addComment">Add</button>
-                            </div>
+                        <div class="comment-bar">
+                            <input type="text" class="commentInput" placeholder="Add a comment..." name="content" onkeypress="handleKeyPress(event)" />
+                            <button onclick="AddComment()" type="submit" value="Submit" class="addComment">Add</button>
+                        </div>
                         </div>
                     <?php endif; ?>
                     <div class="sort-container">
