@@ -79,7 +79,8 @@ $commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
                     <?php if (check_login()) : ?>
                         <div id="add-comment">
                         <div class="comment-bar">
-                            <input type="text" class="commentInput" placeholder="Add a comment..." name="content" onkeypress="handleKeyPress(event)" />
+                            <textarea style="resize: auto; height: 15px; width: 612px;" id="commentinput" oninput="commentcountChar(this)"type="text" class="commentInput" placeholder="Add a comment..." name="content" onkeypress="handleKeyPress(event)"></textarea>
+                            <span id="commentcharCount"></span>
                             <button onclick="AddComment()" type="submit" value="Submit" class="addComment">Add</button>
                         </div>
                         </div>

@@ -273,3 +273,12 @@
     cursor: pointer;
     color: #f59c1a;
 }
+
+/* Character Counts for Title and Content */
+#commentcharCount {
+    font-family: 'Comfortaa', sans-serif;
+    display: flex;
+    color: black;
+    opacity: 30%;
+    margin-right: 6px;
+  }
