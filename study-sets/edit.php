@@ -1,13 +1,14 @@
 <?php 
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/study-set-functions.php");
 update_session();
 if (!check_login()) header("Location: /study-sets/index.php");
 $pageTitle = "Edit Study Set";
 $universities = get_universities_list();
 
+$setID = $_GET['id'];
 if ($_SERVER['REQUEST_METHOD'] == "POST") edit_study_set($setID, $_POST);
 
-$setID = $_GET['id'];
 // if (!(check_login() && ($set->Username == $_SESSION['USER']->Username))) header("Location: /study-sets/index.php");
 
 $values['StudySetID'] = $setID;
@@ -53,7 +54,7 @@ $cards = run_database($query, $values);
     <main>
         <div class="studySetContainer">
             <h2 class="header2"><?=isset($pageTitle) ? $pageTitle : "Create a Study Set" ?></h2>
-            <form id="studySetForm" method="POST" action="save-study-set">
+            <form id="studySetForm" method="POST">
                 <div class="titleContainer">
                     <input type="text" id="setTitle" value="<?= $set->Title; ?>" placeholder="Enter Title Here: &quot;Computer Science 101 - Chapter 1&quot;" name="setTitle" maxlength="255" required>
                 </div>

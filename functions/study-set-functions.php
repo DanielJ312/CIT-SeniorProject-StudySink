@@ -82,7 +82,8 @@ function create_study_set($data) {
 }
 
 function edit_study_set($setID, $data) {
-    echo "<script>console.log('Entered')</script>;";
+    echo "<script>console.log('Entered');</script>";
+    echo "Test";
     $query = "DELETE FROM STUDY_CARD_T WHERE StudySetID = $setID;";
     run_database($query);
 
@@ -98,7 +99,8 @@ function edit_study_set($setID, $data) {
     $query = "UPDATE STUDY_SET_T 
         SET CourseID = :CourseID,
         Title = :Title,
-        Description = :Description
+        Description = :Description,
+        Instructor = :Instructor,
         Modified = :Modified
         WHERE StudySetID = :StudySetID";
     run_database($query, $values);
@@ -115,7 +117,7 @@ function edit_study_set($setID, $data) {
             $stmt->execute([
                 ':StudySetID' => $setID,
                 ':Front' => $card['front'],
-                ':Back' => $card['back'],
+                ':Back' => $card['back']
             ]);
         }
     }
