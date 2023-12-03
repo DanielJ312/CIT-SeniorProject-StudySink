@@ -14,7 +14,7 @@ body {
 }
 
 .margin {
-    margin: 20px 20%;
+    margin: 20px 15%;
 }
 
 /* Styling for university info */
@@ -110,6 +110,7 @@ body {
 
 /* Styling for individual posts */
 .post {
+    width: 335px;
     display: block;
     background-color: #ffffff;
     box-shadow: 0 0 5px #ff6f00;
@@ -190,11 +191,6 @@ body {
         color: inherit;
         margin-bottom: 10px;
     }
-
-    .margin {
-        margin: 20px 0px;
-    }
-
     .subject-selection-c {
         background-color: #ffffff;
         border: 1px solid #f59c1a;
