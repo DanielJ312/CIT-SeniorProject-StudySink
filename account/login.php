@@ -6,7 +6,7 @@ update_session();
 $pageTitle = "Login";
 
 $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? login($_POST) : [];
-if (check_login()) header("Location: /account/profile.php"); 
+if (check_login()) header("Location: /university/csun-test.php"); 
 ?>
 
 <!DOCTYPE html>

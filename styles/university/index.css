@@ -1,10 +1,16 @@
 /* Reset default styles for body */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Comfortaa', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
     color: black;
+
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#e6e8e9 10%, #fcfcfca2 10%),
+      linear-gradient(to right, #ebf8e100 10%, #c73030 10% 10.2%, #ebf8e100 10.5%);
+    background-size: 100% 30px, 100% 100%;
+    background-repeat: repeat, no-repeat;
 }
 
 .margin {
@@ -14,6 +20,7 @@ body {
 /* Styling for university info */
 .university-info {
     background-color: #ffffff;
+    box-shadow: 0 0 15px #ff6f00;
     border: 1px solid #f59c1a;
     border-radius: 5px;
     padding: 20px;
@@ -30,6 +37,7 @@ body {
 /* Styling for subject selection */
 .subject-selection-c {
     background-color: #ffffff;
+    box-shadow: 0 0 15px #ff6f00;
     border: 1px solid #f59c1a;
     border-radius: 5px;
     padding: 20px;
@@ -52,6 +60,7 @@ body {
 
 .subject-selection-c a {
     text-decoration: none;
+    
     color: black;
     font-weight: bold;
 }
@@ -103,7 +112,7 @@ body {
 .post {
     display: block;
     background-color: #ffffff;
-    border: 1px solid #f59c1a;
+    box-shadow: 0 0 5px #ff6f00;
     border-radius: 5px;
     padding: 10px;
     text-decoration: none;
@@ -137,6 +146,10 @@ body {
 
 .post-content {
     padding-bottom: 10px;
+}
+
+.post-content, .post-title {
+    color: black;
 }
 
 .post-iconsp {

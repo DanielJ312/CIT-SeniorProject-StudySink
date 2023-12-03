@@ -46,7 +46,7 @@ $posts =  run_database($query);
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-        <h3 style="color: red">THIS PAGE IS CURRENTLY WORK IN PROGRESS</h3>
+        <!-- <h3 style="color: red">THIS PAGE IS CURRENTLY WORK IN PROGRESS</h3> -->
     </header>
     <main>
         <div class="margin">
