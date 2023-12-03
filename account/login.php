@@ -29,11 +29,11 @@ if (check_login()) header("Location: /account/profile.php");
             <?php display_errors($errors); ?>
         </div>
         <form method="post">
-            <p>Email: &nbsp; &nbsp; &nbsp; &nbsp;   <input type="text" name="logininput"></p>
+            <p>Email: &nbsp; &nbsp;  <input type="text" name="logininput"></p>
             <p>Password:&nbsp;&nbsp; <input type="password" name="password"></p>
             <input type="submit" value="Login">
-            <p>Don't have an account? <a href="register.php">Sign up</a></p>
-            <p>Forgot password? <a href="forgot.php">Reset password</a></p>
+            <p>Don't have an account? <a href="register.php" style="color: black;">Sign up</a></p>
+            <p>Forgot password? <a href="forgot.php" style="color: black;">Reset password</a></p>
         </form>
     </div>
 

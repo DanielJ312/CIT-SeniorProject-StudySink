@@ -7,10 +7,10 @@
 }
 
 .login-container {
-    color: black;
-    background-color: #607C8E;
+    color: white;
+    background-color: #277BC0; /* Blue */
     border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px #ff6f00;
     padding: 20px;
     width: 300px;
     text-align: center;
@@ -21,7 +21,7 @@
 
 h2 {
     text-align: center;
-    color: white;
+    color: black;
     margin: 0;
 }
 
@@ -58,13 +58,13 @@ h2 {
 .login-container input[type="submit"] {
     flex: 2;
     padding: 10px;
-    background-color: #007BFF;
-    color: #fff;
+    background-color: white;
+    color: black;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .login-container input[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #ff6f00;
 }
