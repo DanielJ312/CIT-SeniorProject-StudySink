@@ -28,7 +28,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
                 </div>
             </div>
             <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index', 'home'); ?>"></i></a>
-            <a href="/study-sets/index.php" id="Sets" title="Study Sets"><i class="fa-solid fa-book fa-2xl <?= check_active('/study-sets'); ?>"></i></a>
+            <!-- <a href="/study-sets/index.php" id="Sets" title="Study Sets"><i class="fa-solid fa-book fa-2xl <?= check_active('/study-sets'); ?>"></i></a> -->
             <a href="/university/index.php" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-flip-horizontal fa-2xl <?= check_active('/university'); ?>"></i></a>
             <div class="dropdown">
                 <img src="<?= $_SESSION['USER']->Avatar ?>" alt="Avatar" class="profile-picture <?= check_active('/account/profile'); ?>" id="profilePicture" title="Avatar">
@@ -135,7 +135,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
 </div>
 
 <!-- End of Create Forum Post Pop up Window and Beginning of Development Navbar For Easy Access -->
-<nav class="navbar">
+<!-- <nav class="navbar">
     <span>Development Navbar:</span>
     <a class="<?php check_active('/', 'home'); ?>" href="/index.php">Home</a>
     <div class="dropdowndev">
@@ -190,6 +190,6 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
             </div>
         <?php endif; ?>
     </div>
-</nav>
+</nav> -->
 
 <!-- End of Development Navbar For Easy Access and Beginning of Forum Post Submit Functionality PHP -->
