@@ -68,7 +68,7 @@ $posts =  run_database($query);
                 </div>
                 <div class="posts">
                 <?php foreach ($posts as $post) : ?>
-                    <a href="post.html" class="post">
+                    <a href="/forum/posts/413" class="post">
                         <div class="post-header">
                             <img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" />
                             <div class="post-info">

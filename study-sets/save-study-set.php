@@ -30,7 +30,7 @@ try {
     // Generate a new StudySetID
     $studySetID = generate_ID('STUDY_SET'); // Modify the generate_ID function to handle STUDY_SET type
 
-    $query = "INSERT INTO STUDY_SET_T (StudySetID, UserID, CourseID, Title, Description, Teacher, Created, Modified)
+    $query = "INSERT INTO STUDY_SET_T (StudySetID, UserID, CourseID, Title, Description, Instructor, Created, Modified)
               VALUES (:StudySetID, :UserID, :CourseID, :Title, :Description, :Teacher, :Created, :Modified)";
 
     // Current time for Created and Modified fields
