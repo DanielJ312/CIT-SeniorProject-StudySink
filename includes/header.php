@@ -191,5 +191,3 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
         <?php endif; ?>
     </div>
 </nav>
-
-<!-- End of Development Navbar For Easy Access and Beginning of Forum Post Submit Functionality PHP -->

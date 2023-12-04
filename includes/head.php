@@ -25,3 +25,6 @@
 <!-- Request -->
 <link rel="stylesheet" href="/styles/request/request.css"> 
 <script defer src="/request/request.js"></script>
+
+<!-- Request Succession Confirmation screen-->
+<link rel="stylesheet" href="/styles/request/confirmation.css"> 

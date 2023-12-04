@@ -79,39 +79,40 @@ function submit_form($data) {
     }
 
     if (count($errors) == 0) {
-        $values['Name'] = $data['name'] ?? null;
-        $values['Email'] = $data['email'] ?? null;
-        $values['University'] = $data['universityName'] ?? null;
-        $values['Address'] = $data['universityAddress'] ?? null;
-        $values['OtherInfo'] = $data['otherInfo'] ?? null;
-        $values['Message'] = $data['description'] ?? null;
-        $IDnum = rand(10000, 9999999);
+      $values['Name'] = $data['name'] ?? null;
+      $values['Email'] = $data['email'] ?? null;
+      $values['University'] = $data['universityName'] ?? null;
+      $values['Address'] = $data['universityAddress'] ?? null;
+      $values['OtherInfo'] = $data['otherInfo'] ?? null;
+      $values['Message'] = $data['description'] ?? null;
+      $IDnum = rand(10000, 9999999);
 
         if ($values['Message'] != null){
-        $values['RequestID'] = "H$IDnum";
-        $subject = "Help Request - ID: " . $values['RequestID'];
-        $message = <<<message
-        <p><b>Request #</b>: {$values['RequestID']}</p>
-        <p><b>Username</b>: {$_SESSION['USER']->Username}</p>
-        <p><b>Name Provided</b>: {$values['Name']}</p>
-        <p><b>Email Provided</b>: {$values['Email']}</p>
-        <p><b>Message</b>: {$values['Message']}</p>
-        message;
+          $values['RequestID'] = "H$IDnum";
+          $subject = "Help Request - ID: " . $values['RequestID'];
+          $message = <<<message
+          <p><b>Request #</b>: {$values['RequestID']}</p>
+          <p><b>Username</b>: {$_SESSION['USER']->Username}</p>
+          <p><b>Name Provided</b>: {$values['Name']}</p>
+          <p><b>Email Provided</b>: {$values['Email']}</p>
+          <p><b>Message</b>: {$values['Message']}</p>
+          message;
+          header("Location: /request/helpConfirmation.php");
         }
-          else{
-        $values['RequestID'] = "REQ$IDnum";
-        $subject = "University Request - ID: " . $values['RequestID'];
-        $message = <<<message
-        <p><b>Request #</b>: {$values['RequestID']}</p>
-        <p><b>Username</b>: {$_SESSION['USER']->Username}</p>
-        <p><b>Name Provided</b>: {$values['Name']}</p>
-        <p><b>Email Provided</b>: {$values['Email']}</p>
-        <p><b>University</b>: {$values['University']}</p>
-        <p><b>University Address</b>: {$values['Address']}</p>
-        <p><b>Other Information</b>: {$values['OtherInfo']}</p>
-        message;
-          }
-
+        else{
+          $values['RequestID'] = "REQ$IDnum";
+          $subject = "University Request - ID: " . $values['RequestID'];
+          $message = <<<message
+          <p><b>Request #</b>: {$values['RequestID']}</p>
+          <p><b>Username</b>: {$_SESSION['USER']->Username}</p>
+          <p><b>Name Provided</b>: {$values['Name']}</p>
+          <p><b>Email Provided</b>: {$values['Email']}</p>
+          <p><b>University</b>: {$values['University']}</p>
+          <p><b>University Address</b>: {$values['Address']}</p>
+          <p><b>Other Information</b>: {$values['OtherInfo']}</p>
+          message;
+          header("Location: /request/reqconfirmation.php");
+        }  
         $recipient = "StudySinkLLC@gmail.com";
         send_mail($recipient, $subject, $message);
     }
