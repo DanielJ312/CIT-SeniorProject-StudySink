@@ -21,3 +21,7 @@
 <!-- Create Forum Post Pop up -->
 <link rel="stylesheet" href="/styles/forum/post-create.css"> 
 <script defer src="/includes/forum-popup.js"></script>
+
+<!-- Request -->
+<link rel="stylesheet" href="/styles/request/request.css"> 
+<script defer src="/request/request.js"></script>
