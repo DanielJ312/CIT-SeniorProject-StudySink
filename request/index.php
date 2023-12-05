@@ -16,6 +16,8 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? submit_form($_POST) : [];
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
+    <link rel="stylesheet" href="/styles/request/request.css"> 
+    <script defer src="/request/request.js"></script>
 </head>
 <header>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
@@ -97,7 +99,6 @@ function submit_form($data) {
           <p><b>Email Provided</b>: {$values['Email']}</p>
           <p><b>Message</b>: {$values['Message']}</p>
           message;
-          header("Location: /request/helpConfirmation.php");
         }
         else{
           $values['RequestID'] = "REQ$IDnum";
@@ -111,10 +112,13 @@ function submit_form($data) {
           <p><b>University Address</b>: {$values['Address']}</p>
           <p><b>Other Information</b>: {$values['OtherInfo']}</p>
           message;
-          header("Location: /request/reqconfirmation.php");
         }  
         $recipient = "StudySinkLLC@gmail.com";
         send_mail($recipient, $subject, $message);
+
+        $_SESSION['REQUEST']=$values;
+        header("Location: /request/confirmation.php");
+
     }
 
     return $errors;
