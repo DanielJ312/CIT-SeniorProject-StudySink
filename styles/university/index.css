@@ -35,6 +35,8 @@ body {
 
 /* Styling for subject selection */
 .subject-selection-c {
+    position:sticky;
+    top:10px;
     background-color: #ffffff;
     border: 1px solid #f59c1a;
     border-radius: 5px;
@@ -224,6 +226,6 @@ body {
 
 .subjects {
     width: 100%;
-    height: 205px;
+    height: 380px;
     overflow: auto;
   }
