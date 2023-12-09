@@ -34,8 +34,6 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? submit_form($_POST) : [];
       <span style="color: black;">Request University</span>
     </label>
     <form id="helpForm" method="post">
-      <label class="requestlabel" for="name">Name</label>
-      <input class="requestinput" type="text" id="name" name="name" required>
 
       <label class="requestlabel" for="email">Email</label>
       <input class="requestinput" type="email" id="email" name="email" required>
@@ -73,15 +71,11 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? submit_form($_POST) : [];
 function submit_form($data) {
     $errors = array();
 
-    if (empty($data['name'])) {
-        $errors[] = "Please enter a name.";
-    }
     if (empty($data['email'])) {
         $errors[] = "Please enter an email.";
     }
 
     if (count($errors) == 0) {
-      $values['Name'] = $data['name'] ?? null;
       $values['Email'] = $data['email'] ?? null;
       $values['University'] = $data['universityName'] ?? null;
       $values['Address'] = $data['universityAddress'] ?? null;
@@ -95,7 +89,6 @@ function submit_form($data) {
           $message = <<<message
           <p><b>Request #</b>: {$values['RequestID']}</p>
           <p><b>Username</b>: {$_SESSION['USER']->Username}</p>
-          <p><b>Name Provided</b>: {$values['Name']}</p>
           <p><b>Email Provided</b>: {$values['Email']}</p>
           <p><b>Message</b>: {$values['Message']}</p>
           message;
@@ -106,7 +99,6 @@ function submit_form($data) {
           $message = <<<message
           <p><b>Request #</b>: {$values['RequestID']}</p>
           <p><b>Username</b>: {$_SESSION['USER']->Username}</p>
-          <p><b>Name Provided</b>: {$values['Name']}</p>
           <p><b>Email Provided</b>: {$values['Email']}</p>
           <p><b>University</b>: {$values['University']}</p>
           <p><b>University Address</b>: {$values['Address']}</p>

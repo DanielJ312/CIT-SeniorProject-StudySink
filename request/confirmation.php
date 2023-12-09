@@ -25,9 +25,6 @@
       <div class="confirmation-label">Request ID:</div>
       <div class="confirmation-value"><?= $values['RequestID'] ?></div>
 
-      <div class="confirmation-label">Provided Name:</div>
-      <div class="confirmation-value"><?= $values['Name'] ?></div>
-
       <div class="confirmation-label">Provided Email:</div>
       <div class="confirmation-value"><?= $values['Email'] ?></div>
 
