@@ -184,3 +184,29 @@ window.onclick = function (event) {
         }
     }
 }
+
+function handleKeyPress(event) {
+        // Check if the pressed key is Enter (key code 13)
+        if (event.keyCode === 13) {
+            // Call the AddComment function
+            AddComment();
+        }
+    }
+
+    // Character Counter for Post Title textarea and Post Content textarea
+function commentcountChar(commnetinput) {
+    const maxLength = 2500;
+    const currentLength = commentinput.value.length;
+    const remainingChars = Math.max(maxLength - currentLength, 0);
+
+    if (currentLength > maxLength) {
+      commentinput.value = commentinput.value.substring(0, maxLength);
+    }
+
+    if (currentLength == 0) {
+        document.getElementById('commentcharCount').innerText = ``;
+      }
+    else{
+    document.getElementById('commentcharCount').innerText = `${remainingChars}`;
+    }
+}
