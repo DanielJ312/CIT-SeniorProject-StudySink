@@ -64,6 +64,7 @@ $cards = run_database($query, $values);
                     </div>
                     
                     <div class="columnTags">
+                        <!-- University Field -->
                         <input list="universities" id="setUniversity" value="<?= $set->UniversityName; ?>" placeholder="University" name="setUniversity" required>
                         <datalist id="universities">
                             <?php foreach($universities as $university): ?>
@@ -72,23 +73,32 @@ $cards = run_database($query, $values);
                                 </option>
                             <?php endforeach; ?>
                         </datalist>
-                        
+                        <!-- Hidden field for University ID -->
+                        <input type="hidden" name="universityId" id="universityId" value="<?= $set->UniversityID; ?>">
+
+                        <!-- Subject Field -->
                         <input list="subjects" id="setSubject" value="<?= $set->SubjectName; ?>" placeholder="Subject" name="setSubject" required>
                         <datalist id="subjects">
                             <!-- Options will be added here by JavaScript after selecting a university -->
                         </datalist>
-                        
+                        <!-- Hidden field for Subject ID -->
+                        <input type="hidden" name="subjectId" id="subjectId" value="<?= $set->SubjectID; ?>">
+
+                        <!-- Course Field -->
                         <input list="courses" id="setCourse" placeholder="Course" value="<?= $set->CourseAbbreviation; ?>" name="setCourse" required>
-                            <datalist id="courses">
-                                <?php foreach ($courses as $course): ?>
-                                    <option value="<?php echo htmlspecialchars($course->Abbreviation); ?>" data-id="<?php echo htmlspecialchars($course->CourseID); ?>">
-                                        <?php echo htmlspecialchars($course->Name); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </datalist>
-                        
-                        <input type="text" id="setTeacher" value="<?= $set->Instructor; ?>" placeholder="Instructor" name="instructor" maxlength="65" required>
+                        <datalist id="courses">
+                            <?php foreach ($courses as $course): ?>
+                                <option value="<?php echo htmlspecialchars($course->Abbreviation); ?>" data-id="<?php echo htmlspecialchars($course->CourseID); ?>">
+                                    <?php echo htmlspecialchars($course->Name); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </datalist>
+                        <!-- Hidden field for Course ID -->
+                        <input type="hidden" name="courseId" id="courseId" value="<?= $set->CourseID; ?>">
+
+                        <input type="text" id="setTeacher" placeholder="Instructor" name="instructor" maxlength="65" required>
                     </div>
+
                 </div>
                 <div id="studyCards" class="studyCards">
                     <!-- Study cards will be added here -->

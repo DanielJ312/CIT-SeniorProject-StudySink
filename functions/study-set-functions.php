@@ -11,6 +11,8 @@ function create_study_set($data) {
     // Assume the data from the form is in $_POST
     $title = $data['setTitle'] ?? null;
     $description = $data['setDescription'] ?? null;
+    $universityID = $data['universityId'] ?? null;
+    $subjectID = $data['subjectId'] ?? null;
     $courseID = $data['course_id'] ?? null;
     $instructor = $data['instructor'] ?? null;
     $userID = $_SESSION['USER']->UserID; // get the UserID from the session
