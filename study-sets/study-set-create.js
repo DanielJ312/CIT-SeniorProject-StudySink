@@ -46,18 +46,6 @@ function autoExpandTextArea(event) {
     event.target.style.height = event.target.scrollHeight + 'px'; // Set the height to scroll height
 }
 
-// Function to validate if the input value is in the dropdown options
-function isValidDropdownSelection(inputElement, dropdownId) {
-    var options = document.querySelectorAll(`#${dropdownId} option`);
-    var inputValue = inputElement.value.trim();
-    for (var option of options) {
-        if (option.value === inputValue) {
-            return true; // Input matches an option in the dropdown
-        }
-    }
-    return false; // No match found
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     element = document.querySelectorAll('.studySetContainer .create');
     
@@ -77,56 +65,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('addCardBtn').addEventListener('click', addCard);
 
-    var universityInput = document.getElementById('setUniversity');
-    var subjectInput = document.getElementById('setSubject');
-    var courseInput = document.getElementById('setCourse');
+    var universitySelect = document.getElementById('setUniversity');
+    var subjectSelect = document.getElementById('setSubject');
+    var courseSelect = document.getElementById('setCourse');
 
     // Listens to the change event on the university input
-    universityInput.addEventListener('change', function() {
-        var universityName = this.value.trim();
-        var options = document.querySelectorAll('#universities option');
-        var universityId;
-
-        for (let option of options) {
-            if (option.value === universityName) {
-                universityId = option.getAttribute('data-id');
-                console.log('University ID:', universityId);
-                break;
-            }
-        }
-
+    universitySelect.addEventListener('change', function() {
+        var universityId = this.value;
+    
         if (universityId) {
-            console.log("About to fetch Subjects for University");
+            console.log("Selected University ID:", universityId);
             fetchSubjectsForUniversity(universityId);
         } else {
-            console.log('University ID not found for the selected name:', universityName);
+            console.log('No University selected');
         }
-    });
+    
+        // Clear subject and course selects
+        subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+        courseSelect.innerHTML = '<option value="">Select Course</option>';
+    });   
 
     // Listens to the change event on the subject input
-    subjectInput.addEventListener('change', function() {
-        var subjectName = this.value.trim();
-        var options = document.querySelectorAll('#subjects option');
-        var subjectId;
-    
-        for (let option of options) {
-            if (option.value === subjectName) {
-                subjectId = option.getAttribute('data-id');
-                break;
-            }
-        }
-    
-        if (subjectId) {
-            console.log("Before the fetchCoursesForSubject function");
-            fetchCoursesForSubject(subjectId);
+    subjectSelect.addEventListener('change', function() {
+        var selectedSubjectId = this.value; // Get the selected SubjectID
+        
+        if (selectedSubjectId) {
+            console.log("Fetching Courses for Subject ID:", selectedSubjectId);
+            fetchCoursesForSubject(selectedSubjectId);
         } else {
-            console.log('Subject ID not found for the selected name:', subjectName);
+            console.log('No Subject selected');
+            courseSelect.innerHTML = '<option value="">Select Course</option>';
         }
-    });
+    });  
     
-    // Functions works correctly to retreive the correct courses based on the subject selected
     function fetchSubjectsForUniversity(universityId) {
-        console.log('Fetching Subject for university ID:', universityId); // For debugging
         fetch('./get-subjects.php?universityId=' + universityId)
             .then(function(response) {
                 return response.json();
@@ -139,7 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    // Function works correctly to retreive the correct courses based on the subject selected
     function fetchCoursesForSubject(subjectId) {
         console.log('Fetching courses for subject ID:', subjectId); // For debugging
         fetch('./get-courses.php?subjectId=' + subjectId)
@@ -160,51 +131,29 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(function(error) {
                 console.error('Error fetching courses:', error);
             });
-    }   
-
-    // Updating the event listeners for the dropdown inputs
-    document.getElementById('setUniversity').addEventListener('change', function() {
-        if (!isValidDropdownSelection(this, 'universities')) {
-            alert("Please select a valid University from the list.");
-            this.value = ''; // Clear the invalid input
-        }
-    });
-
-    document.getElementById('setSubject').addEventListener('change', function() {
-        if (!isValidDropdownSelection(this, 'subjects')) {
-            alert("Please select a valid Subject from the list.");
-            this.value = '';
-        }
-    });
-
-    document.getElementById('setCourse').addEventListener('change', function() {
-        if (!isValidDropdownSelection(this, 'courses')) {
-            alert("Please select a valid Course from the list.");
-            this.value = '';
-        }
-    });
+    }
 
     function updateSubjectOptions(subjects) {
-        var subjectDatalist = document.getElementById('subjects');
-        subjectDatalist.innerHTML = '';  // Clear existing options
+        var subjectSelect = document.getElementById('setSubject');
+        subjectSelect.innerHTML = '<option value="">Select Subject</option>'; // Clear existing options
     
         subjects.forEach(function(subject) {
             var option = document.createElement('option');
-            option.value = subject.Name;
-            option.setAttribute('data-id', subject.SubjectID);
-            subjectDatalist.appendChild(option);
+            option.value = subject.SubjectID; // Ensure this is the SubjectID
+            option.textContent = subject.Name;
+            subjectSelect.appendChild(option);
         });
     }
     
     function updateCourseOptions(courses) {
-        var courseDatalist = document.getElementById('courses');
-        courseDatalist.innerHTML = '';  // Clear existing options
+        var courseSelect = document.getElementById('setCourse');
+        courseSelect.innerHTML = '<option value="">Select Course</option>'; // Clear existing options
     
         courses.forEach(function(course) {
             var option = document.createElement('option');
-            option.value = course.Abbreviation; // This can be changed to Abbreviation or Name
-            option.setAttribute('data-id', course.CourseID);
-            courseDatalist.appendChild(option);
+            option.value = course.CourseID; 
+            option.textContent = course.Name; 
+            courseSelect.appendChild(option);
         });
     }
 

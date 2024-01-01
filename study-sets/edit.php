@@ -64,35 +64,32 @@ $cards = run_database($query, $values);
                     </div>
                     
                     <div class="columnTags">
-                        <!-- University Field -->
-                        <input list="universities" id="setUniversity" value="<?= $set->UniversityName; ?>" placeholder="University" name="setUniversity" required>
-                        <datalist id="universities">
+                        <!-- University Select -->
+                        <select id="setUniversity" name="setUniversity" required>
+                            <option value="">Select University</option>
                             <?php foreach($universities as $university): ?>
-                                <option value="<?= htmlspecialchars($university->Name) ?>" data-id="<?= $university->UniversityID ?>">
+                                <option value="<?= htmlspecialchars($university->UniversityID) ?>"
+                                        <?= $university->UniversityID == $set->UniversityID ? 'selected' : '' ?>>
                                     <?= htmlspecialchars($university->Name) ?>
                                 </option>
                             <?php endforeach; ?>
-                        </datalist>
+                        </select>
                         <!-- Hidden field for University ID -->
                         <input type="hidden" name="universityId" id="universityId" value="<?= $set->UniversityID; ?>">
 
-                        <!-- Subject Field -->
-                        <input list="subjects" id="setSubject" value="<?= $set->SubjectName; ?>" placeholder="Subject" name="setSubject" required>
-                        <datalist id="subjects">
+                        <!-- Subject Select -->
+                        <select id="setSubject" name="setSubject" required>
+                            <option value="">Select Subject</option>
                             <!-- Options will be added here by JavaScript after selecting a university -->
-                        </datalist>
+                        </select>
                         <!-- Hidden field for Subject ID -->
                         <input type="hidden" name="subjectId" id="subjectId" value="<?= $set->SubjectID; ?>">
 
-                        <!-- Course Field -->
-                        <input list="courses" id="setCourse" placeholder="Course" value="<?= $set->CourseAbbreviation; ?>" name="setCourse" required>
-                        <datalist id="courses">
-                            <?php foreach ($courses as $course): ?>
-                                <option value="<?php echo htmlspecialchars($course->Abbreviation); ?>" data-id="<?php echo htmlspecialchars($course->CourseID); ?>">
-                                    <?php echo htmlspecialchars($course->Name); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </datalist>
+                        <!-- Course Select -->
+                        <select id="setCourse" name="setCourse" required>
+                            <option value="">Select Course</option>
+                            <!-- Options will be added here by JavaScript after selecting a subject -->
+                        </select>
                         <!-- Hidden field for Course ID -->
                         <input type="hidden" name="courseId" id="courseId" value="<?= $set->CourseID; ?>">
 
@@ -127,6 +124,8 @@ $cards = run_database($query, $values);
                     <button type="submit">Save Study Set</button>
                 </div>
             </form>
+            <!-- Unique hidden element to identify the edit page -->
+            <div id="editPageIdentifier" style="display: none;"></div>
         </div>
     </main>
     <footer>
