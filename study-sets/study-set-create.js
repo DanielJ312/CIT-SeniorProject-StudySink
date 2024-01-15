@@ -112,7 +112,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function fetchCoursesForSubject(subjectId) {
-        console.log('Fetching courses for subject ID:', subjectId); // For debugging
         fetch('./get-courses.php?subjectId=' + subjectId)
             .then(function(response) {
                 return response.json();
@@ -123,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     alert('There was an error fetching courses: ' + data.error);
                 } else if (Array.isArray(data)) {
                     updateCourseOptions(data);
-                    console.log('Received courses based on Subject:', data);
+                    console.log('Received courses based on Subject ID:', subjectId, data);
                 } else {
                     console.error('Received data is not an array:', data);
                 }
@@ -157,25 +156,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Listens to the change event on the course input
+    courseSelect.addEventListener('change', function() {
+        var selectedCourseId = this.value; // Get the selected CourseID
+
+        if (selectedCourseId) {
+            console.log("Selected Course ID:", selectedCourseId);
+            // You can perform additional actions here if needed
+        } else {
+            console.log('No Course selected');
+        }
+    });
+
     document.querySelector('#studySetForm').addEventListener('submit', handleFormSubmit);
 
     function handleFormSubmit(e) {
         e.preventDefault(); // Stop the form from submitting initially
 
-        // Get the displayed course abbreviation
-        var courseAbbreviation = courseInput.value.trim();
-        var courseID;
-
-        // Find the option element that has the matching abbreviation and get its CourseID
-        var options = document.querySelectorAll('#courses option');
-        for (var option of options) {
-            if (option.value === courseAbbreviation) {
-                courseID = option.getAttribute('data-id');
-                break;
-            }
-        }
+        // Get the selected course ID directly
+        var courseSelect = document.getElementById('setCourse');
+        var courseID = courseSelect.value.trim();
 
         if (courseID) {
+            console.log('Submitting Course ID:', courseID); // Log the CourseID being submitted
             // Create a hidden input to hold the actual CourseID value
             var hiddenInput = document.createElement('input');
             hiddenInput.type = 'hidden';
@@ -183,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
             hiddenInput.value = courseID;
             e.target.appendChild(hiddenInput);
         } else {
-            console.error('Selected course not found:', courseAbbreviation);
+            console.error('Course ID not found or selected:', courseID);
             // Optionally, show an error to the user
         }
 
