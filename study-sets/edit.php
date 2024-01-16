@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") edit_study_set($setID, $_POST);
 $values['StudySetID'] = $setID;
 $query = "
     SELECT 
+        SS.CourseID AS CourseID,
         SS.*,
         U.Name AS UniversityName,
         U.UniversityID AS UniversityID,
@@ -135,6 +136,11 @@ $cards = run_database($query, $values);
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
+    <script>
+    var initialUniversityId = <?= json_encode($set->UniversityID) ?>;
+    var initialSubjectId = <?= json_encode($set->SubjectID) ?>;
+    var initialCourseId = <?= json_encode($set->CourseID) ?>;
+    </script>
     <script src="/study-sets/study-set-create.js"></script>
 </body>
 </html>

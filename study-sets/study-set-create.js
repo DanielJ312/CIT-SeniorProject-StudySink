@@ -49,9 +49,18 @@ function autoExpandTextArea(event) {
 document.addEventListener('DOMContentLoaded', function() {
     var pageType = document.getElementById('pageIdentifier').dataset.pageType;
     element = document.querySelectorAll('.studySetContainer .create');
-    
-    // Call to create the initial 5 cards
-    if (element.length > 0) {
+
+    var universitySelect = document.getElementById('setUniversity');
+    var subjectSelect = document.getElementById('setSubject');
+    var courseSelect = document.getElementById('setCourse');
+
+    if (pageType === 'edit') {
+        if (initialUniversityId) {
+            universitySelect.value = initialUniversityId;
+            fetchSubjectsForUniversity(initialUniversityId, initialSubjectId);
+        }
+    } else if (pageType === 'create') {
+        // Call to create the initial 5 cards
         for (let i = 0; i < 5; i++) {
             addCard();
         }
@@ -65,10 +74,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });   
 
     document.getElementById('addCardBtn').addEventListener('click', addCard);
-
-    var universitySelect = document.getElementById('setUniversity');
-    var subjectSelect = document.getElementById('setSubject');
-    var courseSelect = document.getElementById('setCourse');
 
     // Listens to the change event on the university input
     universitySelect.addEventListener('change', function() {
@@ -99,17 +104,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });  
     
-    function fetchSubjectsForUniversity(universityId) {
+    function fetchSubjectsForUniversity(universityId, selectedSubjectId) {
         fetch('./get-subjects.php?universityId=' + universityId)
-            .then(function(response) {
-                return response.json();
+            .then(response => response.json())
+            .then(subjects => {
+                updateSubjectOptions(subjects, selectedSubjectId);
+                if (selectedSubjectId) {
+                    fetchCoursesForSubject(selectedSubjectId, initialCourseId);
+                }
             })
-            .then(function(subjects) {
-                updateSubjectOptions(subjects);
-            })
-            .catch(function(error) {
-                console.error('Error fetching subjects:', error);
-            });
+            .catch(error => console.error('Error fetching subjects:', error));
     }
 
     function fetchCoursesForSubject(subjectId) {
@@ -121,6 +125,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.error) {
                     console.error('Error from server:', data.error);
                     alert('There was an error fetching courses: ' + data.error);
+                } else if (pageType === 'edit') {
+                    updateCourseOptions(data, initialCourseId);
                 } else if (Array.isArray(data)) {
                     updateCourseOptions(data);
                     console.log('Received courses based on Subject ID:', subjectId, data);
@@ -133,28 +139,46 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    function updateSubjectOptions(subjects) {
+    function updateSubjectOptions(subjects, selectedSubjectId) {
         var subjectSelect = document.getElementById('setSubject');
         subjectSelect.innerHTML = '<option value="">Select Subject</option>'; // Clear existing options
     
         subjects.forEach(function(subject) {
             var option = document.createElement('option');
-            option.value = subject.SubjectID; // Ensure this is the SubjectID
+            option.value = subject.SubjectID;
             option.textContent = subject.Name;
+            if (subject.SubjectID == selectedSubjectId) {
+                option.selected = true;
+            }
             subjectSelect.appendChild(option);
         });
+
+        if (selectedSubjectId) {
+            fetchCoursesForSubject(selectedSubjectId, initialCourseId);
+        }
     }
     
-    function updateCourseOptions(courses) {
+    function updateCourseOptions(courses, selectedCourseId) {
         var courseSelect = document.getElementById('setCourse');
-        courseSelect.innerHTML = '<option value="">Select Course</option>'; // Clear existing options
-    
+        courseSelect.innerHTML = '<option value="">Select Course</option>';
+
+        console.log('Selected Course ID:', selectedCourseId); // Debugging log
+
         courses.forEach(function(course) {
             var option = document.createElement('option');
-            option.value = course.CourseID; 
-            option.textContent = course.Abbreviation; 
+            option.value = course.CourseID;
+            option.textContent = course.Abbreviation; // or use course.Name
+
+            // Check for type mismatch issues by converting both to strings
+            if (String(course.CourseID) === String(selectedCourseId)) {
+                option.selected = true;
+                console.log('Setting selected course:', course); // Debugging log
+            }
+
             courseSelect.appendChild(option);
         });
+
+        console.log('Course options updated.');
     }
 
     // Listens to the change event on the course input
