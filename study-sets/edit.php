@@ -98,7 +98,7 @@ $cards = run_database($query, $values);
                         <!-- Hidden field for Course ID -->
                         <input type="hidden" name="courseId" id="courseId" value="<?= $set->CourseID; ?>">
 
-                        <input type="text" id="setTeacher" placeholder="Instructor" name="instructor" maxlength="65" required>
+                        <input type="text" id="setInstructor" placeholder="Instructor" name="instructor" maxlength="65" value="<?= htmlspecialchars($set->Instructor); ?>" required>
                     </div>
 
                 </div>

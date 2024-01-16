@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") create_study_set($_POST);
                         </select>
                         
                         <!-- Instructor Input -->
-                        <input type="text" id="setTeacher" placeholder="Instructor" name="instructor" maxlength="65" required>
+                        <input type="text" id="setInstructor" placeholder="Instructor" name="instructor" maxlength="65" required>
                     </div>
                 </div>
                 <div id="studyCards" class="studyCards create">
