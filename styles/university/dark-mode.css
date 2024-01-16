@@ -7,8 +7,8 @@ body {
 
     width: 100%;
     height: 100%;
-    background: rgb(255,255,255);
-background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 86%, rgba(255,241,229,1) 92%, rgba(255,234,216,1) 95%, rgba(255,219,189,1) 96%, rgba(255,206,165,1) 97%, rgba(255,187,130,1) 98%, rgba(255,173,104,1) 99%, rgba(253,119,2,1) 100%);
+    background: rgb(0,35,71);
+background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgba(0,63,125,1) 100%);
 }
 
 .margin {
@@ -20,10 +20,10 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    color:#181818;
+    color:#ededed;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     background: rgba(217, 214, 228, 0.12);
-    border: 1px solid #0070df;
+    border: 1px solid #f59c1a;
 }
 
 /* Styling for columns */
@@ -36,7 +36,7 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 
 .subject-selection-c {
     position:sticky;
     top:10px;
-    color:#181818;
+    color:#ededed;
     border-radius: 5px;
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -44,7 +44,7 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 
     margin-top: 15px;
     margin-right: 15px;
     background: rgba(217, 214, 228, 0.12);
-    border: 1px solid #0070df;
+    border: 1px solid #f59c1a;
 }
 
 .subject-selection-c ul {
@@ -60,12 +60,12 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 
 
 .subject-selection-c a {
     text-decoration: none;
-    color:#181818;
+    color:#ededed;
     font-weight: bold;
 }
 
 .subject-selection-c a:hover {
-    color: #003f7d;
+    color: #f59c1a;
 }
 
 /* Style for the search bar */
@@ -84,7 +84,7 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 
 
 .search-bar-csun button {
     background-color: #0078d4;
-    color:#181818;
+    color: #ededed;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
@@ -109,7 +109,7 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 
 /* Styling for individual posts */
 .post {
     display: block;
-    color:#181818;
+    color:#ededed;
     background: rgba(217, 214, 228, 0.12);
     border-radius: 5px;
     padding: 10px;
@@ -117,21 +117,21 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 
     color: inherit;
     margin-bottom: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    border: 1px solid #0070df;
+    border: 1px solid #f59c1a;
 }
 
 .post-account {
     font-size: 12px;
     margin-bottom: 0px;
     margin-top: 0px;
-    color:#181818;
+    color:#ededed;
 }
 
 .post-date {
     font-size: 10px;
     text-decoration: none;
     margin-top: 5px;
-    color:#181818;
+    color:#ededed;
 }
 
 .post-header {
@@ -151,7 +151,7 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 
 }
 
 .post-content, .post-title {
-    color:#181818;
+    color: #ededed;
 }
 
 .post-iconsp {
@@ -163,7 +163,7 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 
 .vote {
     display: flex;
     justify-content: flex-end;
-    color:#181818;
+    color:#ededed;
 }
 
 .post-profile-picture {
@@ -271,11 +271,11 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 
   }
   
   .input:checked + .slider {
-    background-color: #0070df;
+    background-color: #183153;
   }
   
   .input:focus + .slider {
-    box-shadow: 0 0 1px #0070df;
+    box-shadow: 0 0 1px #183153;
   }
   
   .input:checked + .slider:before {
@@ -283,7 +283,7 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 
 }
 
 .sort {
-    border: 1px solid #0070df;
+    border: 1px solid #f59c1a;
     justify-content: space-between;
     align-items: center;
     padding: 5px;
@@ -301,18 +301,17 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 
     }
 
     .post {
-        color:#181818;
+        color:#ededed;
         background: rgba(217, 214, 228, 0.12);
         border-radius: 5px;
         padding: 10px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         text-decoration: none;
         color: inherit;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         margin-bottom: 10px;
-        border: 1px solid #0070df;
     }
     .subject-selection-c {
-        color:#181818;
+        color:#ededed;
         background: rgba(217, 214, 228, 0.12);
         border-radius: 5px;
         padding: 20px;
@@ -321,7 +320,6 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 
         margin-top: 15px;
         margin-right: 15px;
         display: none;
-        border: 1px solid #0070df;
     }
 }
 
@@ -336,15 +334,13 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 
 
     .post {
         width: 47%;
-        color:#181818;
+        color:#ededed;
         background: rgba(217, 214, 228, 0.12);
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         border-radius: 5px;
         padding: 10px;
         text-decoration: none;
         color: inherit;
         margin-bottom: 10px;
-        border: 1px solid #0070df;
     }
 }
 
