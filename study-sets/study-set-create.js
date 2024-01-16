@@ -47,6 +47,7 @@ function autoExpandTextArea(event) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    var pageType = document.getElementById('pageIdentifier').dataset.pageType;
     element = document.querySelectorAll('.studySetContainer .create');
     
     // Call to create the initial 5 cards
@@ -151,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
         courses.forEach(function(course) {
             var option = document.createElement('option');
             option.value = course.CourseID; 
-            option.textContent = course.Name; 
+            option.textContent = course.Abbreviation; 
             courseSelect.appendChild(option);
         });
     }

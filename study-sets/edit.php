@@ -16,7 +16,9 @@ $query = "
     SELECT 
         SS.*,
         U.Name AS UniversityName,
+        U.UniversityID AS UniversityID,
         S.Name AS SubjectName,
+        S.SubjectID AS SubjectID,
         C.Name AS CourseName,
         C.Abbreviation AS CourseAbbreviation,
         USER_T.Username,
@@ -52,6 +54,7 @@ $cards = run_database($query, $values);
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
     </header>
     <main>
+        <div id="pageIdentifier" data-page-type="edit"></div>
         <div class="studySetContainer">
             <h2 class="header2"><?=isset($pageTitle) ? $pageTitle : "Create a Study Set" ?></h2>
             <form id="studySetForm" method="POST">
@@ -74,6 +77,7 @@ $cards = run_database($query, $values);
                                 </option>
                             <?php endforeach; ?>
                         </select>
+
                         <!-- Hidden field for University ID -->
                         <input type="hidden" name="universityId" id="universityId" value="<?= $set->UniversityID; ?>">
 

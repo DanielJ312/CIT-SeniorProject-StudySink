@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") create_study_set($_POST);
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
     </header>
     <main>
+        <div id="pageIdentifier" data-page-type="create"></div>
         <div class="studySetContainer">
             <h2 class="header2"><?=isset($pageTitle) ? $pageTitle : "Create a Study Set" ?></h2>
             <form id="studySetForm" method="POST">
