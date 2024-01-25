@@ -84,11 +84,8 @@ function create_study_set($data) {
 }
 
 function edit_study_set($setID, $data) {
-    echo "<script>console.log('Entered');</script>";
-    echo "Test";
-    $query = "DELETE FROM STUDY_CARD_T WHERE StudySetID = $setID;";
-    run_database($query);
-
+    error_log(print_r($data, true));
+    // Update the study set details
     $values = [
         ':StudySetID' => $setID,
         ':CourseID' => $data['course_id'],
@@ -111,18 +108,22 @@ function edit_study_set($setID, $data) {
 
     if (isset($data['cards'])) {
         $cards = json_decode($data['cards'], true);
-        $cardQuery = "INSERT INTO STUDY_CARD_T (StudySetID, Front, Back)
-                VALUES (:StudySetID, :Front, :Back)";
-        
+
+        // Loop through each card
         foreach ($cards as $card) {
-            $stmt = $pdo->prepare($cardQuery);
-            $stmt->execute([
-                ':StudySetID' => $setID,
-                ':Front' => $card['front'],
-                ':Back' => $card['back']
-            ]);
+            if ($card['edited']) {
+                // This card has been edited, update it in the database
+                $updateQuery = "UPDATE STUDY_CARD_T SET Front = :Front, Back = :Back WHERE CardID = :CardID";
+                $stmt = $pdo->prepare($updateQuery);
+                $stmt->execute([
+                    ':Front' => $card['front'],
+                    ':Back' => $card['back'],
+                    ':CardID' => $card['id']
+                ]);
+            }
         }
     }
+
     header("Location: /study-sets/{$setID}");
 }
 

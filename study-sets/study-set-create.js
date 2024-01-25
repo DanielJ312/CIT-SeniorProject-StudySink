@@ -73,6 +73,13 @@ document.addEventListener('DOMContentLoaded', function() {
         autoExpandTextArea({ target: textarea });
     });   
 
+    document.querySelectorAll('.studyCard textarea').forEach(textarea => {
+        textarea.addEventListener('input', function() {
+            let cardElement = this.closest('.studyCard');
+            cardElement.setAttribute('data-edited', 'true');
+        });
+    });    
+
     document.getElementById('addCardBtn').addEventListener('click', addCard);
 
     // Listens to the change event on the university input
@@ -219,21 +226,30 @@ document.addEventListener('DOMContentLoaded', function() {
         var cards = [];
         var cardElements = document.querySelectorAll('.studyCard');
         cardElements.forEach(function(card, index) {
+            var cardId = card.getAttribute('data-card-id');
+            var isEdited = card.getAttribute('data-edited') === 'true';
             var front = card.querySelector('.cardFront textarea').value;
             var back = card.querySelector('.cardBack textarea').value;
-            cards.push({ front: front, back: back });
+    
+            var cardData = { 
+                id: cardId, 
+                front: front, 
+                back: back, 
+                edited: isEdited // Include the edited status
+            };
+            cards.push(cardData);
         });
-
+    
         // Convert cards data to a JSON string
         var cardsJSON = JSON.stringify(cards);
-
+    
         // Add cards data to the form
         var cardsInput = document.createElement('input');
         cardsInput.type = 'hidden';
         cardsInput.name = 'cards';
         cardsInput.value = cardsJSON;
         e.target.appendChild(cardsInput);
-
+    
         // Now submit the form
         e.target.submit();
     }

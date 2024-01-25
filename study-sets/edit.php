@@ -105,19 +105,19 @@ $cards = run_database($query, $values);
                 <div id="studyCards" class="studyCards">
                     <!-- Study cards will be added here -->
                     <?php foreach ($cards as $card): ?>
-                        <div class="studyCards">
+                        <div class="studyCard" data-card-id="<?= $card->CardID; ?>" data-edited="false">
                             <div class="cardHeader">
-                                <div class=topOfCard>
+                                <div class="topOfCard">
                                     <button type="button" class="deleteCardBtn" aria-label="Delete this card">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
-                                <div class=frontAndBack>
+                                <div class="frontAndBack">
                                     <div class="cardFront">
-                                        <textarea class="card-textarea" id="cardFront${cardCount}" placeholder="Enter term" name="cardFront${cardCount}" maxlength="999" required><?= $card->Front; ?></textarea>
+                                        <textarea class="card-textarea" name="cards[<?= $card->CardID; ?>][front]" placeholder="Enter term" maxlength="999" required><?= htmlspecialchars($card->Front); ?></textarea>
                                     </div>
                                     <div class="cardBack">
-                                        <textarea class="card-textarea" id="cardBack${cardCount}" placeholder="Enter definition" name="cardBack${cardCount}" maxlength="999" required><?= $card->Back; ?></textarea>
+                                        <textarea class="card-textarea" name="cards[<?= $card->CardID; ?>][back]" placeholder="Enter definition" maxlength="999" required><?= htmlspecialchars($card->Back); ?></textarea>
                                     </div>
                                 </div>
                             </div>
