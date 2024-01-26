@@ -33,10 +33,14 @@ function initializeRating(studySetID, userRating) {
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             var params = 'studySetID=' + encodeURIComponent(studySetID) + '&rating=' + encodeURIComponent(rating);
             xhr.onload = function() {
-                console.log('Response:', this.responseText);
-            };
-            xhr.onerror = function() {
-                console.error('Error in AJAX request');
+                if (this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    if (response.avgRating) {
+                        document.querySelector('.averageRating p').textContent = 'Average Rating: ' + response.avgRating;
+                    }
+                } else {
+                    console.error('Error in AJAX request');
+                }
             };
             xhr.send(params);
 

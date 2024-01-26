@@ -50,7 +50,7 @@ $avgRatingQuery = "SELECT AVG(Rating) as AvgRating FROM STUDY_SET_RATINGS WHERE 
 $avgRatingResult = run_database($avgRatingQuery, ['StudySetID' => $setID]);
 
 if ($avgRatingResult) {
-    $averageRating = is_array($avgRatingResult[0]) ? round($avgRatingResult[0]['AvgRating'], 1) : round($avgRatingResult[0]->AvgRating, 1);
+    $averageRating = is_array($avgRatingResult[0]) ? round($avgRatingResult[0]['AvgRating'], 2) : round($avgRatingResult[0]->AvgRating, 2);
 } else {
     $averageRating = 'Not rated';
 }

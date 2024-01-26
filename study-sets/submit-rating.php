@@ -1,30 +1,28 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/study-set-functions.php");
 
-// Check if the user is logged in
+header('Content-Type: application/json');
+
 if (!check_login()) {
-    echo "User must be logged in to rate.";
+    echo json_encode(['error' => 'User must be logged in to rate.']);
     exit;
 }
 
 $studySetID = $_POST['studySetID'] ?? null;
 $rating = $_POST['rating'] ?? null;
-$userID = $_SESSION['USER']->UserID ?? null; // Added null coalescing for userID
+$userID = $_SESSION['USER']->UserID ?? null;
 
 if (!$studySetID || !$rating || !$userID) {
-    echo 'Error: Required data not received. Received studySetID: ' . $studySetID . ', rating: ' . $rating . ', userID: ' . $userID;
+    echo json_encode(['error' => 'Error: Required data not received.']);
     exit;
 }
 
-// Create a PDO connection
-$pdo = get_pdo_connection(); // Replace with your actual function to get the PDO connection
+$pdo = get_pdo_connection();
+addOrUpdateRating($pdo, $studySetID, $userID, $rating);
 
-if ($studySetID && $rating) {
-    // Call a function to handle the rating logic
-    addOrUpdateRating($pdo, $studySetID, $userID, $rating); // Pass the PDO object as the first argument
-    echo "Rating submitted successfully!";
-} else {
-    echo 'Received studySetID: ' . $studySetID . ', rating: ' . $rating;
-    exit("Error: Invalid data.");
-}
+$avgRatingQuery = "SELECT AVG(Rating) as AvgRating FROM STUDY_SET_RATINGS WHERE StudySetID = :StudySetID";
+$avgRatingResult = run_database($avgRatingQuery, ['StudySetID' => $studySetID]);
+$averageRating = $avgRatingResult ? round($avgRatingResult[0]->AvgRating, 2) : 'Not rated';
+
+echo json_encode(['avgRating' => $averageRating, 'message' => 'Rating submitted successfully!']);
 ?>
