@@ -138,9 +138,9 @@ $cards = run_database($query, $values);
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
     <script>
-    var initialUniversityId = <?= json_encode($set->UniversityID) ?>;
-    var initialSubjectId = <?= json_encode($set->SubjectID) ?>;
-    var initialCourseId = <?= json_encode($set->CourseID) ?>;
+        var initialUniversityId = <?= json_encode($set->UniversityID) ?>;
+        var initialSubjectId = <?= json_encode($set->SubjectID) ?>;
+        var initialCourseId = <?= json_encode($set->CourseID) ?>;
     </script>
     <script src="/study-sets/study-set-create.js"></script>
 </body>

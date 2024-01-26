@@ -140,4 +140,57 @@ function edit_study_set($setID, $data) {
     header("Location: /study-sets/{$setID}");
 }
 
+function delete_study_set($setID) {
+    // Ensure the user is logged in
+    if (!check_login()) {
+        // Handle not logged in case, redirect to login page
+        header("Location: /login.php");
+        exit;
+    }
+
+    $pdo = get_pdo_connection(); 
+
+    // Check if the current user owns the study set
+    $checkOwnershipQuery = "SELECT UserID FROM STUDY_SET_T WHERE StudySetID = :StudySetID";
+    $stmt = $pdo->prepare($checkOwnershipQuery);
+    $stmt->execute([':StudySetID' => $setID]);
+    $studySet = $stmt->fetch();
+
+    if (!$studySet || $studySet['UserID'] != $_SESSION['USER']->UserID) {
+        // User does not own the study set or study set does not exist
+        // Handle this case, redirect to an error page or display a message
+        header("Location: /unauthorized.php"); // Needs to be implemented
+        exit;
+    }
+
+    // Start a transaction
+    $pdo->beginTransaction();
+
+    try {
+        // First, delete all study cards associated with the study set
+        $deleteCardsQuery = "DELETE FROM STUDY_CARD_T WHERE StudySetID = :StudySetID";
+        $pdo->prepare($deleteCardsQuery)->execute([':StudySetID' => $setID]);
+
+        // Then, delete the study set itself
+        $deleteSetQuery = "DELETE FROM STUDY_SET_T WHERE StudySetID = :StudySetID";
+        $pdo->prepare($deleteSetQuery)->execute([':StudySetID' => $setID]);
+
+        // Commit the transaction
+        $pdo->commit();
+
+        // Redirect or inform the user of successful deletion
+        header("Location: /study-sets/");
+        exit;
+    } catch (PDOException $e) {
+        // Roll back the transaction in case of an error
+        $pdo->rollBack();
+
+        // Log and handle the error
+        error_log("Database error: " . $e->getMessage());
+        // Redirect or display a user-friendly error message
+        header("Location: /error.php");
+        exit;
+    }
+}
+
 ?>

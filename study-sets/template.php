@@ -47,6 +47,7 @@ $cards = run_database($query, $values);
             <h2><?= htmlspecialchars($set->Title) ?></h2>
             <?php if (check_login() && $set->Username == $_SESSION['USER']->Username) : ?>
                 <p><a href="/study-sets/edit.php?id=<?= $setID; ?>">Edit</a></p>
+                <p><a href="/study-sets/delete.php?id=<?= $setID; ?>" onclick="return confirm('Are you sure you want to delete this study set?');">Delete</a></p>
             <?php endif; ?>
             <div class="studySetDetails">
 
