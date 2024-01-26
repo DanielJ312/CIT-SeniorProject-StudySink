@@ -193,4 +193,29 @@ function delete_study_set($setID) {
     }
 }
 
+function addOrUpdateRating($pdo, $studySetID, $userID, $rating) {
+    // Check if the user has already rated this study set
+    $stmt = $pdo->prepare("SELECT RatingID FROM STUDY_SET_RATINGS WHERE StudySetID = :StudySetID AND UserID = :UserID");
+    $stmt->execute([':StudySetID' => $studySetID, ':UserID' => $userID]);
+    $existingRating = $stmt->fetch();
+
+    if ($existingRating) {
+        // Update existing rating
+        $updateStmt = $pdo->prepare("UPDATE STUDY_SET_RATINGS SET Rating = :Rating, RatedOn = NOW() WHERE RatingID = :RatingID");
+        $updateStmt->execute([':Rating' => $rating, ':RatingID' => $existingRating['RatingID']]);
+    } else {
+        // Insert new rating
+        $insertStmt = $pdo->prepare("INSERT INTO STUDY_SET_RATINGS (StudySetID, UserID, Rating) VALUES (:StudySetID, :UserID, :Rating)");
+        $insertStmt->execute([':StudySetID' => $studySetID, ':UserID' => $userID, ':Rating' => $rating]);
+    }
+}
+
+function getAverageRating($pdo, $studySetID) {
+    $stmt = $pdo->prepare("SELECT AVG(Rating) as AverageRating FROM STUDY_SET_RATINGS WHERE StudySetID = :StudySetID");
+    $stmt->execute([':StudySetID' => $studySetID]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $result ? round($result['AverageRating'], 1) : null; // Round to one decimal place
+}
+
 ?>

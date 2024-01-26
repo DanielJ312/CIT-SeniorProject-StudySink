@@ -36,6 +36,16 @@
     box-shadow: 0 0 8px rgba(0,0,0,0.1); 
 }
 
+.star {
+    color: gray; /* Default color */
+    cursor: pointer;
+}
+
+.star.hovered,
+.star.selected {
+    color: gold; /* Color for hovered and selected stars */
+}
+
 .studySetTemplateHeader {
     display: flex;
     flex-direction: row;

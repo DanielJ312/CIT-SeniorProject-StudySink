@@ -49,7 +49,14 @@ $cards = run_database($query, $values);
                 <p><a href="/study-sets/edit.php?id=<?= $setID; ?>">Edit</a></p>
                 <p><a href="/study-sets/delete.php?id=<?= $setID; ?>" onclick="return confirm('Are you sure you want to delete this study set?');">Delete</a></p>
             <?php endif; ?>
+
             <div class="studySetDetails">
+
+                <div class="rating">
+                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                            <i class="fa-regular fa-star star" data-value="<?= $i ?>"></i>
+                        <?php endfor; ?>
+                </div>
 
                 <div class="studySetTemplateHeader">
                     <img src="<?= htmlspecialchars($set->Avatar); ?>" alt="<?= htmlspecialchars($set->Username); ?>'s avatar" class="profile-picture"/>
@@ -90,5 +97,9 @@ $cards = run_database($query, $values);
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
+    <script src="/study-sets/ratings.js"></script>
+    <script>
+        initializeRating('<?= htmlspecialchars($setID) ?>');
+    </script>
 </body>
 </html>
