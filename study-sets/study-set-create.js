@@ -2,8 +2,9 @@ function addCard() {
     var cardContainer = document.getElementById("studyCards");
     var cardCount = cardContainer.children.length + 1;
     var card = document.createElement("div");
-    
     card.className = "studyCard";
+    card.setAttribute('data-new-card', 'true');
+    
     card.innerHTML = `
         <div class="cardHeader">
             <div class=topOfCard>
@@ -23,12 +24,20 @@ function addCard() {
     `;
     cardContainer.appendChild(card);
 
-    // Add event listener to delete button
+    // Existing event listener for the delete button
     card.querySelector('.deleteCardBtn').addEventListener('click', function() {
-        if (cardContainer.children.length > 1) {
-            cardContainer.removeChild(card);
+        var cardElement = this.closest('.studyCard');
+        if (cardElement.getAttribute('data-card-id')) {
+            // Mark the card for deletion
+            console.log('Card marked for deletion');
+            cardElement.setAttribute('data-deleted', 'true');
+            cardElement.style.display = 'none'; // Hide the card
+    
+            // Set the hidden delete flag to true
+            cardElement.querySelector('.delete-flag').value = 'true';
         } else {
-            alert("You cannot delete the last study card.");
+            // If the card is new (not saved in the database), remove it
+            cardElement.remove();
         }
     });
 
@@ -65,6 +74,30 @@ document.addEventListener('DOMContentLoaded', function() {
             addCard();
         }
     }
+
+    document.querySelectorAll('.deleteCardBtn').forEach(button => {
+        button.addEventListener('click', function() {
+            var cardElement = this.closest('.studyCard');
+            var totalCards = document.querySelectorAll('.studyCard').length;
+    
+            if (totalCards > 1) {
+                if (cardElement.getAttribute('data-card-id')) {
+                    console.log('Card marked for deletion');
+                    cardElement.setAttribute('data-deleted', 'true');
+                    cardElement.style.display = 'none'; // Hide the card
+    
+                    // Update the hidden delete flag
+                    cardElement.querySelector('.delete-flag').value = 'true';
+                } else {
+                    // If the card is new and not saved in the database, remove it
+                    cardElement.remove();
+                }
+            } else {
+                // Display a message if it's the last card
+                alert("Cannot delete the last study card in the Study Set");
+            }
+        });
+    });    
     
     // Attach this function to the 'input' event of all textareas
     document.querySelectorAll('.studySetContainer .card-textarea').forEach(textarea => {
@@ -225,30 +258,39 @@ document.addEventListener('DOMContentLoaded', function() {
         // Collect card data
         var cards = [];
         var cardElements = document.querySelectorAll('.studyCard');
-        cardElements.forEach(function(card, index) {
-            var cardId = card.getAttribute('data-card-id');
+        cardElements.forEach(function(card) {
             var isEdited = card.getAttribute('data-edited') === 'true';
+            var isNew = card.getAttribute('data-new-card') === 'true';
+            var isDeleted = card.getAttribute('data-deleted') === 'true';
+            var cardId = isNew ? null : card.getAttribute('data-card-id');
+        
             var front = card.querySelector('.cardFront textarea').value;
             var back = card.querySelector('.cardBack textarea').value;
-    
+        
             var cardData = { 
                 id: cardId, 
                 front: front, 
                 back: back, 
-                edited: isEdited // Include the edited status
+                edited: isEdited,
+                newCard: isNew,
+                deleted: isDeleted // Include the deleted flag
             };
             cards.push(cardData);
         });
-    
-        // Convert cards data to a JSON string
+
+        // Convert cards data to a JSON string and log it
         var cardsJSON = JSON.stringify(cards);
-    
+        console.log('Cards data before submission:', cardsJSON);
+
         // Add cards data to the form
         var cardsInput = document.createElement('input');
         cardsInput.type = 'hidden';
         cardsInput.name = 'cards';
         cardsInput.value = cardsJSON;
         e.target.appendChild(cardsInput);
+
+        var cardsJSON = JSON.stringify(cards);
+        console.log('Cards data before submission:', cardsJSON);
     
         // Now submit the form
         e.target.submit();

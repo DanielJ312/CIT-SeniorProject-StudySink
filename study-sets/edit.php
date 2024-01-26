@@ -121,6 +121,7 @@ $cards = run_database($query, $values);
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" name="cards[<?= $card->CardID; ?>][deleted]" value="false" class="delete-flag">
                         </div>
                     <?php endforeach; ?>
                 </div>

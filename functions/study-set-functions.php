@@ -111,7 +111,11 @@ function edit_study_set($setID, $data) {
 
         // Loop through each card
         foreach ($cards as $card) {
-            if ($card['edited']) {
+            if (isset($card['deleted']) && $card['deleted'] === true) { // Check for true explicitly
+                // Execute delete query for this card
+                $deleteQuery = "DELETE FROM STUDY_CARD_T WHERE CardID = :CardID";
+                $pdo->prepare($deleteQuery)->execute([':CardID' => $card['id']]);
+            } else if ($card['edited']) {
                 // This card has been edited, update it in the database
                 $updateQuery = "UPDATE STUDY_CARD_T SET Front = :Front, Back = :Back WHERE CardID = :CardID";
                 $stmt = $pdo->prepare($updateQuery);
@@ -120,7 +124,16 @@ function edit_study_set($setID, $data) {
                     ':Back' => $card['back'],
                     ':CardID' => $card['id']
                 ]);
-            }
+            } else if (isset($card['newCard']) && $card['newCard']) {
+                // This is a new card, insert it into the database
+                $insertQuery = "INSERT INTO STUDY_CARD_T (StudySetID, Front, Back) VALUES (:StudySetID, :Front, :Back)";
+                $stmt = $pdo->prepare($insertQuery);
+                $stmt->execute([
+                    ':StudySetID' => $setID,
+                    ':Front' => $card['front'],
+                    ':Back' => $card['back']
+                ]);
+            } 
         }
     }
 
