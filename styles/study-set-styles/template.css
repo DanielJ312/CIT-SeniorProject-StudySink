@@ -46,6 +46,10 @@
     color: gold; /* Color for hovered and selected stars */
 }
 
+.rating .fa-solid {
+    color: gold;
+}
+
 .studySetTemplateHeader {
     display: flex;
     flex-direction: row;

@@ -11,9 +11,6 @@ $studySetID = $_POST['studySetID'] ?? null;
 $rating = $_POST['rating'] ?? null;
 $userID = $_SESSION['USER']->UserID ?? null; // Added null coalescing for userID
 
-// Logging for debugging
-file_put_contents('debug.log', 'Received studySetID: ' . var_export($studySetID, true) . ', rating: ' . var_export($rating, true) . ', userID: ' . var_export($userID, true) . "\n", FILE_APPEND);
-
 if (!$studySetID || !$rating || !$userID) {
     echo 'Error: Required data not received. Received studySetID: ' . $studySetID . ', rating: ' . $rating . ', userID: ' . $userID;
     exit;

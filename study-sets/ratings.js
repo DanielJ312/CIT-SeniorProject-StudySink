@@ -1,4 +1,4 @@
-function initializeRating(studySetID) {
+function initializeRating(studySetID, userRating) {
     console.log('Initialized with studySetID:', studySetID);
 
     // Check if studySetID is valid
@@ -7,10 +7,19 @@ function initializeRating(studySetID) {
         return; // Stop the function if studySetID is not valid
     }
 
-    document.querySelectorAll('.star').forEach(function(star, index, stars) {
+    const stars = document.querySelectorAll('.star');
+
+    // Color in stars based on user's existing rating
+    if (userRating && userRating > 0) {
+        highlightStars(userRating);
+    }
+
+    document.querySelectorAll('.star').forEach(function(star, index) {
         star.addEventListener('click', function() {
             var rating = this.getAttribute('data-value');
             console.log('Sending rating:', rating, 'for studySetID:', studySetID);
+
+            highlightStars(rating);
 
             // Check if rating is valid
             if (!rating) {
@@ -51,11 +60,14 @@ function initializeRating(studySetID) {
 }
 
 function highlightStars(rating) {
-    document.querySelectorAll('.star').forEach(function(star, index) {
+    const stars = document.querySelectorAll('.star');
+    stars.forEach(function(star, index) {
         if (index < rating) {
-            star.classList.add('selected');
+            star.classList.remove('fa-regular');
+            star.classList.add('fa-solid');
         } else {
-            star.classList.remove('selected');
+            star.classList.remove('fa-solid');
+            star.classList.add('fa-regular');
         }
     });
 }
