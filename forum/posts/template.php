@@ -1,3 +1,6 @@
+
+
+
 <!-- Post Template - Displays post for given Post ID  -->
 <?php
 // require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
@@ -10,6 +13,32 @@ $post = get_post($postID);
 if (empty($post)) header("Location: /forum/index.php");
 $commentTotal = get_comments($postID);
 $commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
+
+
+// Code for capturing and storing the Post ID of the 5 most recent posts a user has viewed
+$urlPath = $_SERVER['REQUEST_URI']; // e.g., "/forum/posts/6969"
+$segments = explode('/', $urlPath);
+$postId = end($segments); // grab the end segement
+
+// Verify that the post ID is valid
+$post = get_post($postId);
+if ($post) {
+    // Check if cookie exists
+    if (isset($_COOKIE['viewed_posts'])) {
+        $viewedPosts = explode(',', $_COOKIE['viewed_posts']);   // Get array of viewed post IDs
+        // Check if post ID already exists in array
+        if (($key = array_search($postId, $viewedPosts)) !== false) {
+            unset($viewedPosts[$key]);    // Remove existing post ID from array
+        }
+        array_unshift($viewedPosts, $postId);     // Add new post ID to the start of the array
+        $viewedPosts = array_slice($viewedPosts, 0, 5);    // Limit array to last 5 post IDs
+    } else {
+        $viewedPosts = array($postId);    // Create new array with the post ID
+    }
+
+    // Update cookie
+    setcookie('viewed_posts', implode(',', $viewedPosts), time() + (86400 * 1), "/"); // Expires in 1 day
+}
 ?>
 
 <!DOCTYPE html>
@@ -95,3 +124,4 @@ $commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
     </footer>
 </body>
 </html>
+

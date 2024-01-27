@@ -123,4 +123,14 @@ function check_user_vote($userID, $commentID) {
         return $result[0]->VoteType;
     }
 }
+
+function get_study_set($StudySetID) {
+    $values['StudySetID'] = $StudySetID;
+    $query = <<<query
+    SELECT StudySetID, UserID, CourseID, Title, Description, Instructor
+    FROM STUDY_SET_T
+    WHERE StudySetID = :StudySetID;
+    query;
+    return run_database($query, $values)[0];
+}
 ?>
