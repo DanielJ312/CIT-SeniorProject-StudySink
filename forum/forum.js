@@ -192,3 +192,21 @@ function handleKeyPress(event) {
             AddComment();
         }
     }
+
+    // Character Counter for Post Title textarea and Post Content textarea
+function commentcountChar(commnetinput) {
+    const maxLength = 2500;
+    const currentLength = commentinput.value.length;
+    const remainingChars = Math.max(maxLength - currentLength, 0);
+
+    if (currentLength > maxLength) {
+      commentinput.value = commentinput.value.substring(0, maxLength);
+    }
+
+    if (currentLength == 0) {
+        document.getElementById('commentcharCount').innerText = ``;
+      }
+    else{
+    document.getElementById('commentcharCount').innerText = `${remainingChars}`;
+    }
+}

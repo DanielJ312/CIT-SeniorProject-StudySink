@@ -64,58 +64,60 @@ if ($studySet) {
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-        <link rel="stylesheet" href="../styles/study-set-styles/template.css">
-    </head>
-    <body class="studySetTemplateBody">
-        <header>
-            <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?> 
-        </header>
-        <main>
-            <div class="studySetTemplateContainer">
-                <h2><?= htmlspecialchars($set->Title) ?></h2>
-                <div class="studySetDetails">
+<head>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
+    <link rel="stylesheet" href="../styles/study-set-styles/template.css">
+</head>
+<body class="studySetTemplateBody">
+    <header>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?> 
+    </header>
+    <main>
+        <div class="studySetTemplateContainer">
+            <h2><?= htmlspecialchars($set->Title) ?></h2>
+            <?php if (check_login() && $set->Username == $_SESSION['USER']->Username) : ?>
+                <p><a href="/study-sets/edit.php?id=<?= $setID; ?>">Edit</a></p>
+            <?php endif; ?>
+            <div class="studySetDetails">
 
-                    <div class="studySetTemplateHeader">
-                        <img src="<?= htmlspecialchars($set->Avatar); ?>" alt="<?= htmlspecialchars($set->Username); ?>'s avatar" class="profile-picture"/>
-                        <div class="studySetHeaderInfo">
-                            <p><?= htmlspecialchars($set->Username); ?>
-                                <?= check_login(false) && $set->Username == $_SESSION['USER']->Username ? " (You)" : "" ?>
-                            </p>
-                            <p>Created on <?= display_time($set->SetCreated, "F j, Y"); ?></p>
-                            
-                        </div>
-                    </div>
-                    <div class="studySetDetailsBottom">
-                        <div class="studySetDetailsBottomLeft">
-                            <h3>Description:</h3>
-                            <p><?= htmlspecialchars($set->Description); ?></p>
-                        </div>
-                        <div class="studySetDetailsBottomRight">
-                            <p><?= htmlspecialchars($set->UniversityName); ?></p>
-                            <p><?= htmlspecialchars($set->SubjectName); ?></p>
-                            <p><?= htmlspecialchars($set->CourseAbbreviation); ?></p>
-                            <p>Professor/Teacher: <?= htmlspecialchars($set->Teacher); ?></p>
-                        </div>
-
+                <div class="studySetTemplateHeader">
+                    <img src="<?= htmlspecialchars($set->Avatar); ?>" alt="<?= htmlspecialchars($set->Username); ?>'s avatar" class="profile-picture"/>
+                    <div class="studySetHeaderInfo">
+                        <p><?= htmlspecialchars($set->Username); ?>
+                            <?= check_login(false) && $set->Username == $_SESSION['USER']->Username ? " (You)" : "" ?>
+                        </p>
+                        <p>Created on <?= display_time($set->SetCreated, "F j, Y"); ?></p>
                     </div>
                 </div>
-                <?php foreach ($cards as $card): ?>
-                    <div class="cardContainer">
-                        <!-- <div class="card-header">Card <?= htmlspecialchars($card->CardID); ?></div> NOTE: Need to create a way to number cards-->
-                        <div class="cardContainerFront"><?= htmlspecialchars($card->Front); ?></div>
-                        <div class="cardContainerBack"><?= htmlspecialchars($card->Back); ?></div>
+                <div class="studySetDetailsBottom">
+                    <div class="studySetDetailsBottomLeft">
+                        <h3>Description:</h3>
+                        <p><?= htmlspecialchars($set->Description); ?></p>
                     </div>
-                <?php endforeach; ?>
-                <div class="commentContainer">
-                    <div class="card-header">Comments</div>
-                    <div class="card-content">Comments are disabled for the time being.</div>
+                    <div class="studySetDetailsBottomRight">
+                        <p><?= htmlspecialchars($set->UniversityName); ?></p>
+                        <p><?= htmlspecialchars($set->SubjectName); ?></p>
+                        <p><?= htmlspecialchars($set->CourseAbbreviation); ?></p>
+                        <p>Professor/Teacher: <?= htmlspecialchars($set->Instructor); ?></p>
+                    </div>
+
                 </div>
             </div>
-        </main>
-        <footer>
-            <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
-        </footer>
-    </body>
+            <?php foreach ($cards as $card): ?>
+                <div class="cardContainer">
+                    <!-- <div class="card-header">Card <?= htmlspecialchars($card->CardID); ?></div> NOTE: Need to create a way to number cards-->
+                    <div class="cardContainerFront"><?= htmlspecialchars($card->Front); ?></div>
+                    <div class="cardContainerBack"><?= htmlspecialchars($card->Back); ?></div>
+                </div>
+            <?php endforeach; ?>
+            <div class="commentContainer">
+                <div class="card-header">Comments</div>
+                <div class="card-content">Comments are disabled for the time being.</div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
+    </footer>
+</body>
 </html>

@@ -59,10 +59,13 @@ function isValidDropdownSelection(inputElement, dropdownId) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-
+    element = document.querySelectorAll('.studySetContainer .create');
+    
     // Call to create the initial 5 cards
-    for (let i = 0; i < 5; i++) {
-        addCard();
+    if (element.length > 0) {
+        for (let i = 0; i < 5; i++) {
+            addCard();
+        }
     }
     
     // Attach this function to the 'input' event of all textareas
