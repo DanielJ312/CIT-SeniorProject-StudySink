@@ -11,10 +11,6 @@ body {
 background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgba(0,63,125,1) 100%);
 }
 
-.margin {
-    margin: 20px 15%;
-}
-
 /* Styling for university info */
 .university-info {
     border-radius: 5px;
@@ -26,11 +22,6 @@ background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgb
     border: 1px solid #f59c1a;
 }
 
-/* Styling for columns */
-.columns {
-    display: flex;
-    align-items: flex-start;
-}
 
 /* Styling for subject selection */
 .subject-selection-c {
@@ -47,17 +38,6 @@ background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgb
     border: 1px solid #f59c1a;
 }
 
-.subject-selection-c ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom:0px;
-    margin-top: 10px;
-}
-
-.subject-selection-c li {
-    margin: 10px 0;
-}
-
 .subject-selection-c a {
     text-decoration: none;
     color:#ededed;
@@ -68,11 +48,6 @@ background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgb
     color: #f59c1a;
 }
 
-/* Style for the search bar */
-.search-bar-csun {
-    text-align: left;
-    display: flex;
-}
 
 .search-bar-csun input {
     padding: 10px;
@@ -93,18 +68,6 @@ background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgb
     cursor: pointer;
 }
 
-/* Adjust styling for the search bar icon as needed */
-.search-bar-csun button i {
-    font-size: 20px;
-}
-
-/* Styling for posts */
-.posts {
-    display: flex;
-    margin-top: 15px;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
 
 /* Styling for individual posts */
 .post {
@@ -118,6 +81,14 @@ background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgb
     margin-bottom: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     border: 1px solid #f59c1a;
+}
+
+.header {
+  color:#ededed;
+  border: none;
+  box-shadow: none;
+  background: none;
+  font-size: 24px;
 }
 
 .post-account {
@@ -134,30 +105,9 @@ background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgb
     color:#ededed;
 }
 
-.post-header {
-    display: flex;
-    align-items: center;
-}
-
-.post-icons {
-    position: absolute;
-    position: absolute;
-    bottom: 8px;
-    right: 16px;
-}
-
-.post-content {
-    padding-bottom: 10px;
-}
 
 .post-content, .post-title {
     color: #ededed;
-}
-
-.post-iconsp {
-    bottom: 8px;
-    right: 16px;
-    padding-right: 5px;
 }
 
 .vote {
@@ -165,28 +115,6 @@ background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgb
     justify-content: flex-end;
     color:#ededed;
 }
-
-.post-profile-picture {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-right: 13px;
-}
-
-.switch {
-    font-size: 17px;
-    position: relative;
-    display: inline-block;
-    width: 64px;
-    height: 34px;
-  }
-  
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
   
   .slider {
     position: absolute;
@@ -213,15 +141,6 @@ background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgb
     transition: .4s;
   }
   
-  .sun svg {
-    position: absolute;
-    top: 6px;
-    left: 36px;
-    z-index: 1;
-    width: 24px;
-    height: 24px;
-  }
-  
   .moon svg {
     fill: #73C0FC;
     position: absolute;
@@ -232,9 +151,6 @@ background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgb
     height: 24px;
   }
   
-  /* .switch:hover */.sun svg {
-    animation: rotate 15s linear infinite;
-  }
   
   @keyframes rotate {
    
@@ -290,62 +206,3 @@ background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgb
     border-radius: 0.5em;
     cursor: pointer;
 }
-
-/* Media query for screens with a width of 375x667 */
-@media screen and (max-width: 435px) and (max-height: 669px) {
-
-    /* Remove margin for posts and change display property to grid */
-    .posts {
-        flex: auto;
-        margin-top: 15px;
-    }
-
-    .post {
-        color:#ededed;
-        background: rgba(217, 214, 228, 0.12);
-        border-radius: 5px;
-        padding: 10px;
-        text-decoration: none;
-        color: inherit;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        margin-bottom: 10px;
-    }
-    .subject-selection-c {
-        color:#ededed;
-        background: rgba(217, 214, 228, 0.12);
-        border-radius: 5px;
-        padding: 20px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        text-align: left;
-        margin-top: 15px;
-        margin-right: 15px;
-        display: none;
-    }
-}
-
-/* Media query for screens with a width of 375x667 */
-@media screen and (max-width: 1920px) and (max-height: 1080px) {
-
-    /* Remove margin for posts and change display property to grid */
-    .posts {
-        flex: auto;
-        margin-top: 15px;
-    }
-
-    .post {
-        width: 47%;
-        color:#ededed;
-        background: rgba(217, 214, 228, 0.12);
-        border-radius: 5px;
-        padding: 10px;
-        text-decoration: none;
-        color: inherit;
-        margin-bottom: 10px;
-    }
-}
-
-.subjects {
-    width: 100%;
-    height: 380px;
-    overflow: auto;
-  }

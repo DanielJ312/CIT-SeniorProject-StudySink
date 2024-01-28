@@ -31,6 +31,7 @@ $posts =  run_database($query);
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <link rel="stylesheet" href="/styles/university/index.css" id="light-theme"/>
     <link rel="stylesheet" href="/styles/university/dark-mode.css" id="dark-theme"/>
+    <link rel="stylesheet" href="/styles/university/university.css"/>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var gridItems = document.querySelectorAll('.post-content');
@@ -84,14 +85,6 @@ $posts =  run_database($query);
 </label>
             <div class="university-info">
                 <h2>California State University, Northridge</h2>
-                <form method="post">
-            <select class="sort" name="sorts">
-                <option value="post-oldest">Oldest</option>
-                <option value="post-newest">Newest</option>
-                <option value="post-popular">Popular</option>
-                <?= "<script>var postID = 0;</script>"; ?>
-            </select>
-        </form>
             </div>
             <div class="columns">
                 <div class="subject-selection-c" id="subject-selection">
@@ -108,6 +101,15 @@ $posts =  run_database($query);
                 </div>
                 
                 <div class="posts">
+                    <div class="post header">Posts</div>
+                    <form method="post">
+            <select class="sort" name="sorts">
+                <option value="post-oldest">Oldest</option>
+                <option value="post-newest">Newest</option>
+                <option value="post-popular">Popular</option>
+                <?= "<script>var postID = 0;</script>"; ?>
+            </select>
+        </form>
                 <?php foreach ($posts as $post) : ?>
                     <a href="post.html" class="post">
                         <div class="post-header">
@@ -136,3 +138,40 @@ $posts =  run_database($query);
     </footer>
 </body>
 </html>
+
+<div class= mobileuniversity>
+<div class="university-info">
+                <h2>California State University, Northridge</h2>
+            </div>
+            <div class="mobile-posts">
+                    <div class="post-header"><div class=title>Posts</div>
+                    <form method="post">
+            <select class="sort" name="sorts">
+                <option value="post-oldest">Oldest</option>
+                <option value="post-newest">Newest</option>
+                <option value="post-popular">Popular</option>
+                <?= "<script>var postID = 0;</script>"; ?>
+            </select>
+                    </form>
+                    </div>
+                <?php foreach ($posts as $post) : ?>
+                    <a href="post.html" class="post">
+                        <div class="post-header">
+                            <img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" />
+                            <div class="post-info">
+                                <p class="post-account"><?= $post->Username; ?></p>
+                                <p class="post-date"><?= display_time($post->PostCreated, "F j, Y"); ?></p>
+                            </div>
+                        </div>
+                        <h3 class="post-title">Temp Title</h3>
+                        <div class="post-content">This is the content of the first post.</div>
+                        <div class="vote">
+                            <div class="post-iconsp">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                            <div class="votes">(20)</div>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
+                </div>
+</div>

@@ -229,6 +229,8 @@
         border-top-color: black;
         border-top-width: 2px;
         border-top-style: solid;
+        display: flex;
+        justify-content: center;
     }
 
     .mag {
@@ -257,7 +259,7 @@
         padding-top: 3px;
         padding-bottom: 3px;
         padding-left: 12%;
-        width: 169px;
+        width: 85%;
     }
 
     .mobilenav {
@@ -267,7 +269,7 @@
         position: absolute;
         top: 50px;
         left: 0;
-        width: 200px;
+        width: 100%;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
     }
 
