@@ -81,3 +81,13 @@ table, th, td {
     border:1px solid white;
     text-align: center;
   }
+
+  .lni.lni-circle-plus, .lni.lni-home {
+    font-size: 35px; /* 3 times bigger */
+  }
+  
+  @media screen and (max-width: 600px) {
+    .subject-selection-c {
+        display: none;
+    }
+}
