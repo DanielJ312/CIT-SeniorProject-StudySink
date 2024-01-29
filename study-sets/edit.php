@@ -14,9 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") edit_study_set($setID, $_POST);
 $values['StudySetID'] = $setID;
 $query = "
     SELECT 
+        SS.CourseID AS CourseID,
         SS.*,
         U.Name AS UniversityName,
+        U.UniversityID AS UniversityID,
         S.Name AS SubjectName,
+        S.SubjectID AS SubjectID,
         C.Name AS CourseName,
         C.Abbreviation AS CourseAbbreviation,
         USER_T.Username,
@@ -52,6 +55,7 @@ $cards = run_database($query, $values);
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
     </header>
     <main>
+        <div id="pageIdentifier" data-page-type="edit"></div>
         <div class="studySetContainer">
             <h2 class="header2"><?=isset($pageTitle) ? $pageTitle : "Create a Study Set" ?></h2>
             <form id="studySetForm" method="POST">
@@ -64,51 +68,60 @@ $cards = run_database($query, $values);
                     </div>
                     
                     <div class="columnTags">
-                        <input list="universities" id="setUniversity" value="<?= $set->UniversityName; ?>" placeholder="University" name="setUniversity" required>
-                        <datalist id="universities">
+                        <!-- University Select -->
+                        <select id="setUniversity" name="setUniversity" required>
+                            <option value="">Select University</option>
                             <?php foreach($universities as $university): ?>
-                                <option value="<?= htmlspecialchars($university->Name) ?>" data-id="<?= $university->UniversityID ?>">
+                                <option value="<?= htmlspecialchars($university->UniversityID) ?>"
+                                        <?= $university->UniversityID == $set->UniversityID ? 'selected' : '' ?>>
                                     <?= htmlspecialchars($university->Name) ?>
                                 </option>
                             <?php endforeach; ?>
-                        </datalist>
-                        
-                        <input list="subjects" id="setSubject" value="<?= $set->SubjectName; ?>" placeholder="Subject" name="setSubject" required>
-                        <datalist id="subjects">
+                        </select>
+
+                        <!-- Hidden field for University ID -->
+                        <input type="hidden" name="universityId" id="universityId" value="<?= $set->UniversityID; ?>">
+
+                        <!-- Subject Select -->
+                        <select id="setSubject" name="setSubject" required>
+                            <option value="">Select Subject</option>
                             <!-- Options will be added here by JavaScript after selecting a university -->
-                        </datalist>
-                        
-                        <input list="courses" id="setCourse" placeholder="Course" value="<?= $set->CourseAbbreviation; ?>" name="setCourse" required>
-                            <datalist id="courses">
-                                <?php foreach ($courses as $course): ?>
-                                    <option value="<?php echo htmlspecialchars($course->Abbreviation); ?>" data-id="<?php echo htmlspecialchars($course->CourseID); ?>">
-                                        <?php echo htmlspecialchars($course->Name); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </datalist>
-                        
-                        <input type="text" id="setTeacher" value="<?= $set->Instructor; ?>" placeholder="Instructor" name="instructor" maxlength="65" required>
+                        </select>
+                        <!-- Hidden field for Subject ID -->
+                        <input type="hidden" name="subjectId" id="subjectId" value="<?= $set->SubjectID; ?>">
+
+                        <!-- Course Select -->
+                        <select id="setCourse" name="setCourse" required>
+                            <option value="">Select Course</option>
+                            <!-- Options will be added here by JavaScript after selecting a subject -->
+                        </select>
+                        <!-- Hidden field for Course ID -->
+                        <input type="hidden" name="courseId" id="courseId" value="<?= $set->CourseID; ?>">
+
+                        <input type="text" id="setInstructor" placeholder="Instructor" name="instructor" maxlength="65" value="<?= htmlspecialchars($set->Instructor); ?>" required>
                     </div>
+
                 </div>
                 <div id="studyCards" class="studyCards">
                     <!-- Study cards will be added here -->
                     <?php foreach ($cards as $card): ?>
-                        <div class="studyCards">
+                        <div class="studyCard" data-card-id="<?= $card->CardID; ?>" data-edited="false">
                             <div class="cardHeader">
-                                <div class=topOfCard>
+                                <div class="topOfCard">
                                     <button type="button" class="deleteCardBtn" aria-label="Delete this card">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
-                                <div class=frontAndBack>
+                                <div class="frontAndBack">
                                     <div class="cardFront">
-                                        <textarea class="card-textarea" id="cardFront${cardCount}" placeholder="Enter term" name="cardFront${cardCount}" maxlength="999" required><?= $card->Front; ?></textarea>
+                                        <textarea class="card-textarea" name="cards[<?= $card->CardID; ?>][front]" placeholder="Enter term" maxlength="999" required><?= htmlspecialchars($card->Front); ?></textarea>
                                     </div>
                                     <div class="cardBack">
-                                        <textarea class="card-textarea" id="cardBack${cardCount}" placeholder="Enter definition" name="cardBack${cardCount}" maxlength="999" required><?= $card->Back; ?></textarea>
+                                        <textarea class="card-textarea" name="cards[<?= $card->CardID; ?>][back]" placeholder="Enter definition" maxlength="999" required><?= htmlspecialchars($card->Back); ?></textarea>
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" name="cards[<?= $card->CardID; ?>][deleted]" value="false" class="delete-flag">
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -117,11 +130,18 @@ $cards = run_database($query, $values);
                     <button type="submit">Save Study Set</button>
                 </div>
             </form>
+            <!-- Unique hidden element to identify the edit page -->
+            <div id="editPageIdentifier" style="display: none;"></div>
         </div>
     </main>
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
+    <script>
+        var initialUniversityId = <?= json_encode($set->UniversityID) ?>;
+        var initialSubjectId = <?= json_encode($set->SubjectID) ?>;
+        var initialCourseId = <?= json_encode($set->CourseID) ?>;
+    </script>
     <script src="/study-sets/study-set-create.js"></script>
 </body>
 </html>

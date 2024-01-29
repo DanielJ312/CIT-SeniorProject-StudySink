@@ -11,6 +11,8 @@ function create_study_set($data) {
     // Assume the data from the form is in $_POST
     $title = $data['setTitle'] ?? null;
     $description = $data['setDescription'] ?? null;
+    $universityID = $data['universityId'] ?? null;
+    $subjectID = $data['subjectId'] ?? null;
     $courseID = $data['course_id'] ?? null;
     $instructor = $data['instructor'] ?? null;
     $userID = $_SESSION['USER']->UserID; // get the UserID from the session
@@ -82,11 +84,8 @@ function create_study_set($data) {
 }
 
 function edit_study_set($setID, $data) {
-    echo "<script>console.log('Entered');</script>";
-    echo "Test";
-    $query = "DELETE FROM STUDY_CARD_T WHERE StudySetID = $setID;";
-    run_database($query);
-
+    error_log(print_r($data, true));
+    // Update the study set details
     $values = [
         ':StudySetID' => $setID,
         ':CourseID' => $data['course_id'],
@@ -109,19 +108,114 @@ function edit_study_set($setID, $data) {
 
     if (isset($data['cards'])) {
         $cards = json_decode($data['cards'], true);
-        $cardQuery = "INSERT INTO STUDY_CARD_T (StudySetID, Front, Back)
-                VALUES (:StudySetID, :Front, :Back)";
-        
+
+        // Loop through each card
         foreach ($cards as $card) {
-            $stmt = $pdo->prepare($cardQuery);
-            $stmt->execute([
-                ':StudySetID' => $setID,
-                ':Front' => $card['front'],
-                ':Back' => $card['back']
-            ]);
+            if (isset($card['deleted']) && $card['deleted'] === true) { // Check for true explicitly
+                // Execute delete query for this card
+                $deleteQuery = "DELETE FROM STUDY_CARD_T WHERE CardID = :CardID";
+                $pdo->prepare($deleteQuery)->execute([':CardID' => $card['id']]);
+            } else if ($card['edited']) {
+                // This card has been edited, update it in the database
+                $updateQuery = "UPDATE STUDY_CARD_T SET Front = :Front, Back = :Back WHERE CardID = :CardID";
+                $stmt = $pdo->prepare($updateQuery);
+                $stmt->execute([
+                    ':Front' => $card['front'],
+                    ':Back' => $card['back'],
+                    ':CardID' => $card['id']
+                ]);
+            } else if (isset($card['newCard']) && $card['newCard']) {
+                // This is a new card, insert it into the database
+                $insertQuery = "INSERT INTO STUDY_CARD_T (StudySetID, Front, Back) VALUES (:StudySetID, :Front, :Back)";
+                $stmt = $pdo->prepare($insertQuery);
+                $stmt->execute([
+                    ':StudySetID' => $setID,
+                    ':Front' => $card['front'],
+                    ':Back' => $card['back']
+                ]);
+            } 
         }
     }
+
     header("Location: /study-sets/{$setID}");
+}
+
+function delete_study_set($setID) {
+    // Ensure the user is logged in
+    if (!check_login()) {
+        // Handle not logged in case, redirect to login page
+        header("Location: /login.php");
+        exit;
+    }
+
+    $pdo = get_pdo_connection(); 
+
+    // Check if the current user owns the study set
+    $checkOwnershipQuery = "SELECT UserID FROM STUDY_SET_T WHERE StudySetID = :StudySetID";
+    $stmt = $pdo->prepare($checkOwnershipQuery);
+    $stmt->execute([':StudySetID' => $setID]);
+    $studySet = $stmt->fetch();
+
+    if (!$studySet || $studySet['UserID'] != $_SESSION['USER']->UserID) {
+        // User does not own the study set or study set does not exist
+        // Handle this case, redirect to an error page or display a message
+        header("Location: /unauthorized.php"); // Needs to be implemented
+        exit;
+    }
+
+    // Start a transaction
+    $pdo->beginTransaction();
+
+    try {
+        // First, delete all study cards associated with the study set
+        $deleteCardsQuery = "DELETE FROM STUDY_CARD_T WHERE StudySetID = :StudySetID";
+        $pdo->prepare($deleteCardsQuery)->execute([':StudySetID' => $setID]);
+
+        // Then, delete the study set itself
+        $deleteSetQuery = "DELETE FROM STUDY_SET_T WHERE StudySetID = :StudySetID";
+        $pdo->prepare($deleteSetQuery)->execute([':StudySetID' => $setID]);
+
+        // Commit the transaction
+        $pdo->commit();
+
+        // Redirect or inform the user of successful deletion
+        header("Location: /study-sets/");
+        exit;
+    } catch (PDOException $e) {
+        // Roll back the transaction in case of an error
+        $pdo->rollBack();
+
+        // Log and handle the error
+        error_log("Database error: " . $e->getMessage());
+        // Redirect or display a user-friendly error message
+        header("Location: /error.php");
+        exit;
+    }
+}
+
+function addOrUpdateRating($pdo, $studySetID, $userID, $rating) {
+    // Check if the user has already rated this study set
+    $stmt = $pdo->prepare("SELECT RatingID FROM STUDY_SET_RATINGS WHERE StudySetID = :StudySetID AND UserID = :UserID");
+    $stmt->execute([':StudySetID' => $studySetID, ':UserID' => $userID]);
+    $existingRating = $stmt->fetch();
+
+    if ($existingRating) {
+        // Update existing rating
+        $updateStmt = $pdo->prepare("UPDATE STUDY_SET_RATINGS SET Rating = :Rating, RatedOn = NOW() WHERE RatingID = :RatingID");
+        $updateStmt->execute([':Rating' => $rating, ':RatingID' => $existingRating['RatingID']]);
+    } else {
+        // Insert new rating
+        $insertStmt = $pdo->prepare("INSERT INTO STUDY_SET_RATINGS (StudySetID, UserID, Rating) VALUES (:StudySetID, :UserID, :Rating)");
+        $insertStmt->execute([':StudySetID' => $studySetID, ':UserID' => $userID, ':Rating' => $rating]);
+    }
+}
+
+function getAverageRating($pdo, $studySetID) {
+    $stmt = $pdo->prepare("SELECT AVG(Rating) as AverageRating FROM STUDY_SET_RATINGS WHERE StudySetID = :StudySetID");
+    $stmt->execute([':StudySetID' => $studySetID]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $result ? round($result['AverageRating'], 1) : null; // Round to one decimal place
 }
 
 ?>
