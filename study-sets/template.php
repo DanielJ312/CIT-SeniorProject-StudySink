@@ -30,6 +30,31 @@ empty($set) ? header("Location: /study-sets/create.php") : null;
 
 $query = "SELECT * FROM STUDY_CARD_T WHERE StudySetID = :StudySetID ORDER BY CardID;";
 $cards = run_database($query, $values);
+
+$query = "SELECT * FROM STUDY_CARD_T WHERE StudySetID = :StudySetID ORDER BY CardID;";
+$cards = run_database($query, $values);
+
+// Fetch the current user's rating for this study set
+$userRatingQuery = "SELECT Rating FROM STUDY_SET_RATINGS WHERE StudySetID = :StudySetID AND UserID = :UserID";
+$userRatingValues = ['StudySetID' => $setID, 'UserID' => $_SESSION['USER']->UserID];
+$userRatingResult = run_database($userRatingQuery, $userRatingValues);
+
+if ($userRatingResult) {
+    $userRating = is_array($userRatingResult[0]) ? $userRatingResult[0]['Rating'] : $userRatingResult[0]->Rating;
+} else {
+    $userRating = 0;
+}
+
+// Calculate the average rating for the study set
+$avgRatingQuery = "SELECT AVG(Rating) as AvgRating FROM STUDY_SET_RATINGS WHERE StudySetID = :StudySetID";
+$avgRatingResult = run_database($avgRatingQuery, ['StudySetID' => $setID]);
+
+if ($avgRatingResult) {
+    $averageRating = is_array($avgRatingResult[0]) ? round($avgRatingResult[0]['AvgRating'], 2) : round($avgRatingResult[0]->AvgRating, 2);
+} else {
+    $averageRating = 'Not rated';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -47,8 +72,20 @@ $cards = run_database($query, $values);
             <h2><?= htmlspecialchars($set->Title) ?></h2>
             <?php if (check_login() && $set->Username == $_SESSION['USER']->Username) : ?>
                 <p><a href="/study-sets/edit.php?id=<?= $setID; ?>">Edit</a></p>
+                <p><a href="/study-sets/delete.php?id=<?= $setID; ?>" onclick="return confirm('Are you sure you want to delete this study set?');">Delete</a></p>
             <?php endif; ?>
+
             <div class="studySetDetails">
+
+                <div class="rating">
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <i class="fa-regular fa-star star" data-value="<?= $i ?>"></i>
+                    <?php endfor; ?>
+                </div>
+
+                <div class="averageRating">
+                    <p>Average Rating: <?= $averageRating ?></p>
+                </div>
 
                 <div class="studySetTemplateHeader">
                     <img src="<?= htmlspecialchars($set->Avatar); ?>" alt="<?= htmlspecialchars($set->Username); ?>'s avatar" class="profile-picture"/>
@@ -89,5 +126,10 @@ $cards = run_database($query, $values);
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
+    <script src="/study-sets/ratings.js"></script>
+    <script>
+        var userRating = <?= $userRating; ?>; 
+        initializeRating('<?= htmlspecialchars($setID) ?>', userRating); 
+    </script>
 </body>
 </html>

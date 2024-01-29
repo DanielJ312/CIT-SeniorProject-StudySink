@@ -2,8 +2,9 @@ function addCard() {
     var cardContainer = document.getElementById("studyCards");
     var cardCount = cardContainer.children.length + 1;
     var card = document.createElement("div");
-    
     card.className = "studyCard";
+    card.setAttribute('data-new-card', 'true');
+    
     card.innerHTML = `
         <div class="cardHeader">
             <div class=topOfCard>
@@ -23,12 +24,20 @@ function addCard() {
     `;
     cardContainer.appendChild(card);
 
-    // Add event listener to delete button
+    // Existing event listener for the delete button
     card.querySelector('.deleteCardBtn').addEventListener('click', function() {
-        if (cardContainer.children.length > 1) {
-            cardContainer.removeChild(card);
+        var cardElement = this.closest('.studyCard');
+        if (cardElement.getAttribute('data-card-id')) {
+            // Mark the card for deletion
+            console.log('Card marked for deletion');
+            cardElement.setAttribute('data-deleted', 'true');
+            cardElement.style.display = 'none'; // Hide the card
+    
+            // Set the hidden delete flag to true
+            cardElement.querySelector('.delete-flag').value = 'true';
         } else {
-            alert("You cannot delete the last study card.");
+            // If the card is new (not saved in the database), remove it
+            cardElement.remove();
         }
     });
 
@@ -46,27 +55,49 @@ function autoExpandTextArea(event) {
     event.target.style.height = event.target.scrollHeight + 'px'; // Set the height to scroll height
 }
 
-// Function to validate if the input value is in the dropdown options
-function isValidDropdownSelection(inputElement, dropdownId) {
-    var options = document.querySelectorAll(`#${dropdownId} option`);
-    var inputValue = inputElement.value.trim();
-    for (var option of options) {
-        if (option.value === inputValue) {
-            return true; // Input matches an option in the dropdown
-        }
-    }
-    return false; // No match found
-}
-
 document.addEventListener('DOMContentLoaded', function() {
+    var pageType = document.getElementById('pageIdentifier').dataset.pageType;
     element = document.querySelectorAll('.studySetContainer .create');
-    
-    // Call to create the initial 5 cards
-    if (element.length > 0) {
+
+    var universitySelect = document.getElementById('setUniversity');
+    var subjectSelect = document.getElementById('setSubject');
+    var courseSelect = document.getElementById('setCourse');
+
+    if (pageType === 'edit') {
+        if (initialUniversityId) {
+            universitySelect.value = initialUniversityId;
+            fetchSubjectsForUniversity(initialUniversityId, initialSubjectId);
+        }
+    } else if (pageType === 'create') {
+        // Call to create the initial 5 cards
         for (let i = 0; i < 5; i++) {
             addCard();
         }
     }
+
+    document.querySelectorAll('.deleteCardBtn').forEach(button => {
+        button.addEventListener('click', function() {
+            var cardElement = this.closest('.studyCard');
+            var totalCards = document.querySelectorAll('.studyCard').length;
+    
+            if (totalCards > 1) {
+                if (cardElement.getAttribute('data-card-id')) {
+                    console.log('Card marked for deletion');
+                    cardElement.setAttribute('data-deleted', 'true');
+                    cardElement.style.display = 'none'; // Hide the card
+    
+                    // Update the hidden delete flag
+                    cardElement.querySelector('.delete-flag').value = 'true';
+                } else {
+                    // If the card is new and not saved in the database, remove it
+                    cardElement.remove();
+                }
+            } else {
+                // Display a message if it's the last card
+                alert("Cannot delete the last study card in the Study Set");
+            }
+        });
+    });    
     
     // Attach this function to the 'input' event of all textareas
     document.querySelectorAll('.studySetContainer .card-textarea').forEach(textarea => {
@@ -75,73 +106,57 @@ document.addEventListener('DOMContentLoaded', function() {
         autoExpandTextArea({ target: textarea });
     });   
 
+    document.querySelectorAll('.studyCard textarea').forEach(textarea => {
+        textarea.addEventListener('input', function() {
+            let cardElement = this.closest('.studyCard');
+            cardElement.setAttribute('data-edited', 'true');
+        });
+    });    
+
     document.getElementById('addCardBtn').addEventListener('click', addCard);
 
-    var universityInput = document.getElementById('setUniversity');
-    var subjectInput = document.getElementById('setSubject');
-    var courseInput = document.getElementById('setCourse');
-
     // Listens to the change event on the university input
-    universityInput.addEventListener('change', function() {
-        var universityName = this.value.trim();
-        var options = document.querySelectorAll('#universities option');
-        var universityId;
-
-        for (let option of options) {
-            if (option.value === universityName) {
-                universityId = option.getAttribute('data-id');
-                console.log('University ID:', universityId);
-                break;
-            }
-        }
-
+    universitySelect.addEventListener('change', function() {
+        var universityId = this.value;
+    
         if (universityId) {
-            console.log("About to fetch Subjects for University");
+            console.log("Selected University ID:", universityId);
             fetchSubjectsForUniversity(universityId);
         } else {
-            console.log('University ID not found for the selected name:', universityName);
+            console.log('No University selected');
         }
-    });
+    
+        // Clear subject and course selects
+        subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+        courseSelect.innerHTML = '<option value="">Select Course</option>';
+    });   
 
     // Listens to the change event on the subject input
-    subjectInput.addEventListener('change', function() {
-        var subjectName = this.value.trim();
-        var options = document.querySelectorAll('#subjects option');
-        var subjectId;
-    
-        for (let option of options) {
-            if (option.value === subjectName) {
-                subjectId = option.getAttribute('data-id');
-                break;
-            }
-        }
-    
-        if (subjectId) {
-            console.log("Before the fetchCoursesForSubject function");
-            fetchCoursesForSubject(subjectId);
+    subjectSelect.addEventListener('change', function() {
+        var selectedSubjectId = this.value; // Get the selected SubjectID
+        
+        if (selectedSubjectId) {
+            console.log("Fetching Courses for Subject ID:", selectedSubjectId);
+            fetchCoursesForSubject(selectedSubjectId);
         } else {
-            console.log('Subject ID not found for the selected name:', subjectName);
+            console.log('No Subject selected');
+            courseSelect.innerHTML = '<option value="">Select Course</option>';
         }
-    });
+    });  
     
-    // Functions works correctly to retreive the correct courses based on the subject selected
-    function fetchSubjectsForUniversity(universityId) {
-        console.log('Fetching Subject for university ID:', universityId); // For debugging
+    function fetchSubjectsForUniversity(universityId, selectedSubjectId) {
         fetch('./get-subjects.php?universityId=' + universityId)
-            .then(function(response) {
-                return response.json();
+            .then(response => response.json())
+            .then(subjects => {
+                updateSubjectOptions(subjects, selectedSubjectId);
+                if (selectedSubjectId) {
+                    fetchCoursesForSubject(selectedSubjectId, initialCourseId);
+                }
             })
-            .then(function(subjects) {
-                updateSubjectOptions(subjects);
-            })
-            .catch(function(error) {
-                console.error('Error fetching subjects:', error);
-            });
+            .catch(error => console.error('Error fetching subjects:', error));
     }
 
-    // Function works correctly to retreive the correct courses based on the subject selected
     function fetchCoursesForSubject(subjectId) {
-        console.log('Fetching courses for subject ID:', subjectId); // For debugging
         fetch('./get-courses.php?subjectId=' + subjectId)
             .then(function(response) {
                 return response.json();
@@ -150,9 +165,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.error) {
                     console.error('Error from server:', data.error);
                     alert('There was an error fetching courses: ' + data.error);
+                } else if (pageType === 'edit') {
+                    updateCourseOptions(data, initialCourseId);
                 } else if (Array.isArray(data)) {
                     updateCourseOptions(data);
-                    console.log('Received courses based on Subject:', data);
+                    console.log('Received courses based on Subject ID:', subjectId, data);
                 } else {
                     console.error('Received data is not an array:', data);
                 }
@@ -160,73 +177,73 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(function(error) {
                 console.error('Error fetching courses:', error);
             });
-    }   
+    }
 
-    // Updating the event listeners for the dropdown inputs
-    document.getElementById('setUniversity').addEventListener('change', function() {
-        if (!isValidDropdownSelection(this, 'universities')) {
-            alert("Please select a valid University from the list.");
-            this.value = ''; // Clear the invalid input
-        }
-    });
-
-    document.getElementById('setSubject').addEventListener('change', function() {
-        if (!isValidDropdownSelection(this, 'subjects')) {
-            alert("Please select a valid Subject from the list.");
-            this.value = '';
-        }
-    });
-
-    document.getElementById('setCourse').addEventListener('change', function() {
-        if (!isValidDropdownSelection(this, 'courses')) {
-            alert("Please select a valid Course from the list.");
-            this.value = '';
-        }
-    });
-
-    function updateSubjectOptions(subjects) {
-        var subjectDatalist = document.getElementById('subjects');
-        subjectDatalist.innerHTML = '';  // Clear existing options
+    function updateSubjectOptions(subjects, selectedSubjectId) {
+        var subjectSelect = document.getElementById('setSubject');
+        subjectSelect.innerHTML = '<option value="">Select Subject</option>'; // Clear existing options
     
         subjects.forEach(function(subject) {
             var option = document.createElement('option');
-            option.value = subject.Name;
-            option.setAttribute('data-id', subject.SubjectID);
-            subjectDatalist.appendChild(option);
+            option.value = subject.SubjectID;
+            option.textContent = subject.Name;
+            if (subject.SubjectID == selectedSubjectId) {
+                option.selected = true;
+            }
+            subjectSelect.appendChild(option);
         });
+
+        if (selectedSubjectId) {
+            fetchCoursesForSubject(selectedSubjectId, initialCourseId);
+        }
     }
     
-    function updateCourseOptions(courses) {
-        var courseDatalist = document.getElementById('courses');
-        courseDatalist.innerHTML = '';  // Clear existing options
-    
+    function updateCourseOptions(courses, selectedCourseId) {
+        var courseSelect = document.getElementById('setCourse');
+        courseSelect.innerHTML = '<option value="">Select Course</option>';
+
+        console.log('Selected Course ID:', selectedCourseId); // Debugging log
+
         courses.forEach(function(course) {
             var option = document.createElement('option');
-            option.value = course.Abbreviation; // This can be changed to Abbreviation or Name
-            option.setAttribute('data-id', course.CourseID);
-            courseDatalist.appendChild(option);
+            option.value = course.CourseID;
+            option.textContent = course.Abbreviation; // or use course.Name
+
+            // Check for type mismatch issues by converting both to strings
+            if (String(course.CourseID) === String(selectedCourseId)) {
+                option.selected = true;
+                console.log('Setting selected course:', course); // Debugging log
+            }
+
+            courseSelect.appendChild(option);
         });
+
+        console.log('Course options updated.');
     }
+
+    // Listens to the change event on the course input
+    courseSelect.addEventListener('change', function() {
+        var selectedCourseId = this.value; // Get the selected CourseID
+
+        if (selectedCourseId) {
+            console.log("Selected Course ID:", selectedCourseId);
+            // You can perform additional actions here if needed
+        } else {
+            console.log('No Course selected');
+        }
+    });
 
     document.querySelector('#studySetForm').addEventListener('submit', handleFormSubmit);
 
     function handleFormSubmit(e) {
         e.preventDefault(); // Stop the form from submitting initially
 
-        // Get the displayed course abbreviation
-        var courseAbbreviation = courseInput.value.trim();
-        var courseID;
-
-        // Find the option element that has the matching abbreviation and get its CourseID
-        var options = document.querySelectorAll('#courses option');
-        for (var option of options) {
-            if (option.value === courseAbbreviation) {
-                courseID = option.getAttribute('data-id');
-                break;
-            }
-        }
+        // Get the selected course ID directly
+        var courseSelect = document.getElementById('setCourse');
+        var courseID = courseSelect.value.trim();
 
         if (courseID) {
+            console.log('Submitting Course ID:', courseID); // Log the CourseID being submitted
             // Create a hidden input to hold the actual CourseID value
             var hiddenInput = document.createElement('input');
             hiddenInput.type = 'hidden';
@@ -234,21 +251,36 @@ document.addEventListener('DOMContentLoaded', function() {
             hiddenInput.value = courseID;
             e.target.appendChild(hiddenInput);
         } else {
-            console.error('Selected course not found:', courseAbbreviation);
+            console.error('Course ID not found or selected:', courseID);
             // Optionally, show an error to the user
         }
 
         // Collect card data
         var cards = [];
         var cardElements = document.querySelectorAll('.studyCard');
-        cardElements.forEach(function(card, index) {
+        cardElements.forEach(function(card) {
+            var isEdited = card.getAttribute('data-edited') === 'true';
+            var isNew = card.getAttribute('data-new-card') === 'true';
+            var isDeleted = card.getAttribute('data-deleted') === 'true';
+            var cardId = isNew ? null : card.getAttribute('data-card-id');
+        
             var front = card.querySelector('.cardFront textarea').value;
             var back = card.querySelector('.cardBack textarea').value;
-            cards.push({ front: front, back: back });
+        
+            var cardData = { 
+                id: cardId, 
+                front: front, 
+                back: back, 
+                edited: isEdited,
+                newCard: isNew,
+                deleted: isDeleted // Include the deleted flag
+            };
+            cards.push(cardData);
         });
 
-        // Convert cards data to a JSON string
+        // Convert cards data to a JSON string and log it
         var cardsJSON = JSON.stringify(cards);
+        console.log('Cards data before submission:', cardsJSON);
 
         // Add cards data to the form
         var cardsInput = document.createElement('input');
@@ -257,6 +289,9 @@ document.addEventListener('DOMContentLoaded', function() {
         cardsInput.value = cardsJSON;
         e.target.appendChild(cardsInput);
 
+        var cardsJSON = JSON.stringify(cards);
+        console.log('Cards data before submission:', cardsJSON);
+    
         // Now submit the form
         e.target.submit();
     }
