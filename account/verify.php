@@ -8,7 +8,7 @@ update_session();
 $pageTitle = "Verify Account";
 
 if ($_SERVER['REQUEST_METHOD'] == "GET" && !check_verification()) $expiredCode = is_code_active("verify", $_SESSION['USER']->Email);
-if ($_SERVER['REQUEST_METHOD'] == "POST") $errors = verify_account();
+$errors = $_SERVER['REQUEST_METHOD'] == "POST" ? verify_account() : [];
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") $errors = verify_account();
     </header>
     <main>
         <div class="verify-container">    
-        <h4>Access when logged in</h4>
         <div>
             <div>
                 <?php display_errors($errors); ?>
