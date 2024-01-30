@@ -88,7 +88,7 @@ function get_post($postID) {
 function get_comments($postID) {
     $values['PostID'] = $postID;
     $query = <<<query
-    SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes
+    SELECT PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes, USER_T.UserID, Username, Avatar, COMMENT_T.CommentID
     FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
         INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
     WHERE PostID = :PostID
@@ -101,7 +101,7 @@ function get_comments($postID) {
 function get_comment($commentID) {
     $values['CommentID'] = $commentID;
     $query = <<<query
-    SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes
+    SELECT PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes, USER_T.UserID, Username, Avatar, COMMENT_T.CommentID
     FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
         INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
     WHERE COMMENT_T.CommentID = :CommentID
@@ -268,4 +268,5 @@ function update_vote() {
     $voteTotal = $voteTotal[0]->VoteCount;
     echo $voteTotal;
 }
+
 ?>

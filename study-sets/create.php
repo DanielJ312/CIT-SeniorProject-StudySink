@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") create_study_set($_POST);
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
     </header>
     <main>
+        <div id="pageIdentifier" data-page-type="create"></div>
         <div class="studySetContainer">
             <h2 class="header2"><?=isset($pageTitle) ? $pageTitle : "Create a Study Set" ?></h2>
             <form id="studySetForm" method="POST">
@@ -30,30 +31,30 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") create_study_set($_POST);
                     </div>
                     
                     <div class="columnTags">
-                        <input list="universities" id="setUniversity" placeholder="University" name="setUniversity" required>
-                        <datalist id="universities">
+                        <!-- University Select -->
+                        <select id="setUniversity" name="setUniversity" required>
+                            <option value="">Select University</option>
                             <?php foreach($universities as $university): ?>
-                                <option value="<?= htmlspecialchars($university->Name) ?>" data-id="<?= $university->UniversityID ?>">
+                                <option value="<?= htmlspecialchars($university->UniversityID) ?>">
                                     <?= htmlspecialchars($university->Name) ?>
                                 </option>
                             <?php endforeach; ?>
-                        </datalist>
+                        </select>
                         
-                        <input list="subjects" id="setSubject" placeholder="Subject" name="setSubject" required>
-                        <datalist id="subjects">
+                        <!-- Subject Select -->
+                        <select id="setSubject" name="setSubject" required>
+                            <option value="">Select Subject</option>
                             <!-- Options will be added here by JavaScript after selecting a university -->
-                        </datalist>
+                        </select>
                         
-                        <input list="courses" id="setCourse" placeholder="Course" name="setCourse" required>
-                            <datalist id="courses">
-                                <?php foreach ($courses as $course): ?>
-                                    <option value="<?php echo htmlspecialchars($course->Abbreviation); ?>" data-id="<?php echo htmlspecialchars($course->CourseID); ?>">
-                                        <?php echo htmlspecialchars($course->Name); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </datalist>
+                        <!-- Course Select -->
+                        <select id="setCourse" name="setCourse" required>
+                            <option value="">Select Course</option>
+                            <!-- Options will be added here by JavaScript after selecting a subject -->
+                        </select>
                         
-                        <input type="text" id="setTeacher" placeholder="Instructor" name="instructor" maxlength="65" required>
+                        <!-- Instructor Input -->
+                        <input type="text" id="setInstructor" placeholder="Instructor" name="instructor" maxlength="65" required>
                     </div>
                 </div>
                 <div id="studyCards" class="studyCards create">

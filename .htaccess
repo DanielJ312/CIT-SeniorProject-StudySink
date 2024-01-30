@@ -30,6 +30,9 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
+
+    # Rewrite URL from /university/universityname/subjectname to /university/subject/template.php?university=universityname&subject=subjectname
+    RewriteRule ^university/([^/]+)/([^/]+)$ university/subject/template.php?university=$1&subject=$2 [QSA,L]
     
     # Remove .php extension from URLs
     RewriteCond %{THE_REQUEST} /([^.]+)\.php [NC]
@@ -49,5 +52,7 @@
     # Post and Study Set Redirect
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(forum/posts|study-sets)/(.*)$ $1/template.php?url=$2 [QSA,L]
+    RewriteRule ^(forum/posts|study-sets|university)/(.*)$ $1/template.php?url=$2 [QSA,L]
+    
+    
 </IfModule>

@@ -1,0 +1,192 @@
+.margin {
+    margin: 20px 15%;
+}
+
+
+/* Styling for columns */
+.columns {
+    display: flex;
+    align-items: flex-start;
+}
+
+
+.subject-selection-c ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom:0px;
+    margin-top: 10px;
+}
+
+.subject-selection-c li {
+    margin: 10px 0;
+}
+
+/* Style for the search bar */
+.search-bar-csun {
+    text-align: left;
+    display: flex;
+}
+
+/* Adjust styling for the search bar icon as needed */
+.search-bar-csun button i {
+    font-size: 20px;
+}
+
+/* Styling for posts */
+.posts {
+    display: flex;
+    margin-top: 15px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+}
+
+.post-icons {
+    position: absolute;
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+}
+
+.post-content {
+    padding-bottom: 10px;
+}
+
+
+.post-iconsp {
+    bottom: 8px;
+    right: 16px;
+    padding-right: 5px;
+}
+
+
+.post-profile-picture {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 13px;
+}
+
+.switch {
+    font-size: 17px;
+    position: relative;
+    display: inline-block;
+    width: 64px;
+    height: 34px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .sun svg {
+    position: absolute;
+    top: 6px;
+    left: 36px;
+    z-index: 1;
+    width: 24px;
+    height: 24px;
+  }
+  
+  /* .switch:hover */.sun svg {
+    animation: rotate 15s linear infinite;
+  }
+  
+  @keyframes rotate {
+   
+    0% {
+      transform: rotate(0);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* .switch:hover */.moon svg {
+    animation: tilt 5s linear infinite;
+  }
+  
+  @keyframes tilt {
+   
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    25% {
+      transform: rotate(-10deg);
+    }
+  
+    75% {
+      transform: rotate(10deg);
+    }
+  
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+  
+  .input:checked + .slider:before {
+    transform: translateX(-30px);
+}
+
+
+
+.subjects {
+    width: 100%;
+    height: 380px;
+    overflow: auto;
+  }
+
+  .mobileuniversity {
+    display: none;
+}
+
+  @media only screen and (max-width: 850px) {
+
+    .mobileuniversity {
+        display: block;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
+    .margin {
+        display: none;
+    }
+
+    .mobile-posts {
+    display: block;
+    margin-top: 15px;
+    align-items: center;
+    }
+
+    .post-header {
+        display: flex;
+        flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    }
+
+    .sort, .title {
+        flex: 1;
+    }
+
+    .title {
+        color:#ededed;
+  border: none;
+  box-shadow: none;
+  background: none;
+  font-size: 24px;
+    }
+
+    .post {
+        width: auto;
+    }
+  }
