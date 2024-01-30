@@ -14,12 +14,10 @@ if (empty($post)) header("Location: /forum/index.php");
 $commentTotal = get_comments($postID);
 $commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
 
-
 // Code for capturing and storing the Post ID of the 5 most recent posts a user has viewed
 $urlPath = $_SERVER['REQUEST_URI']; // e.g., "/forum/posts/6969"
 $segments = explode('/', $urlPath);
 $postId = end($segments); // grab the end segement
-
 // Verify that the post ID is valid
 $post = get_post($postId);
 if ($post) {
@@ -35,10 +33,10 @@ if ($post) {
     } else {
         $viewedPosts = array($postId);    // Create new array with the post ID
     }
-
     // Update cookie
-    setcookie('viewed_posts', implode(',', $viewedPosts), time() + (86400 * 1), "/"); // Expires in 1 day
-}
+    setcookie('viewed_posts', implode(',', $viewedPosts), time() + (86400 * 3652.5), "/"); // Expires in 10 years
+    }
+
 ?>
 
 <!DOCTYPE html>

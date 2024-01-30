@@ -124,6 +124,7 @@ function check_user_vote($userID, $commentID) {
     }
 }
 
+//New function to get study set info from db.
 function get_study_set($StudySetID) {
     $values['StudySetID'] = $StudySetID;
     $query = <<<query

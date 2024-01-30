@@ -31,9 +31,6 @@ empty($set) ? header("Location: /study-sets/create.php") : null;
 $query = "SELECT * FROM STUDY_CARD_T WHERE StudySetID = :StudySetID ORDER BY CardID;";
 $cards = run_database($query, $values);
 
-
-
-
 // Code for capturing and storing the Study Set ID of the 5 most recent study sets a user has viewed
 $urlPath = $_SERVER['REQUEST_URI']; // e.g., "/study-sets/6969"
 $segments = explode('/', $urlPath);
@@ -56,8 +53,7 @@ if ($studySet) {
     }
 
     // Update cookie
-    setcookie('viewed_study_sets', implode(',', $viewedStudySets), time() + (86400 * 1), "/"); // Expires in 1 day
-    var_dump($_COOKIE['viewed_study_sets']);
+    setcookie('viewed_study_sets', implode(',', $viewedStudySets), time() + (86400 * 3652.5), "/"); // Expires in 10 years
 }
 ?>
 
