@@ -1,0 +1,98 @@
+.flashcardsBody {
+    background-color: #f5f5f5;
+    color: black;
+    font-family: 'Arial', sans-serif;
+}
+
+.flashcardsContainer {
+    max-width: 65%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    border: solid 1px #f59c1a;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.flashcardsContainer h2 {
+    text-align: center;
+    color: #333;
+}
+
+.cards {
+    display: block;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: solid 1px #ff0000;
+}
+
+.cards .active {
+    display: block; /* Show only the active card */
+}
+
+.cardContainer {
+    width: 300px; /* Adjust width as needed */
+    height: 400px; /* Adjust height as needed */
+    margin: 20px auto;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.cardFront, .cardBack {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    background-color: #ffffff;
+    border: solid 1px #f59c1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    color: black;
+    transition: transform 0.6s linear;
+}
+
+.cardFront {
+    transform: rotateY(0deg);
+}
+
+.cardBack {
+    transform: rotateY(180deg);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.cardContainer.is-flipped .cardFront {
+    transform: rotateY(-180deg);
+}
+
+.cardContainer.is-flipped .cardBack {
+    transform: rotateY(0deg);
+}
+
+.cardCounter {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+#backButton, #shuffleButton, #nextButton {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em; /* Adjust the size of the icons */
+}
+
+#backButton:hover, #shuffleButton:hover, #nextButton:hover {
+    background-color: #0056b3;
+}

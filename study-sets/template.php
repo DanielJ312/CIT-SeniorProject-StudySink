@@ -69,6 +69,7 @@ if ($avgRatingResult) {
     </header>
     <main>
         <div class="studySetTemplateContainer">
+            <p><a href="/study-sets/flashcards.php?setID=<?= htmlspecialchars($setID); ?>" class="viewFlashcardsButton">View Flashcards</a></p>
             <h2><?= htmlspecialchars($set->Title) ?></h2>
             <?php if (check_login() && $set->Username == $_SESSION['USER']->Username) : ?>
                 <p><a href="/study-sets/edit.php?id=<?= $setID; ?>">Edit</a></p>

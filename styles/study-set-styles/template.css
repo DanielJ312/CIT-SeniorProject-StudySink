@@ -178,3 +178,19 @@
 .card-content {
     font-size: 1em;
 }
+
+.viewFlashcardsButton {
+    display: inline-block;
+    margin: 10px 0; /* Adjust as needed */
+    padding: 10px 20px;
+    background-color: #007BFF; /* Primary button color */
+    color: white;
+    text-decoration: none; /* Removes underline from the link */
+    border-radius: 8px;
+    transition: background-color 0.2s ease-in-out;
+    text-align: center;
+}
+
+.viewFlashcardsButton:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
+}
