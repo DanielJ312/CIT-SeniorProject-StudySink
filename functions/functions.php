@@ -128,9 +128,9 @@ function check_user_vote($userID, $commentID) {
 function get_study_set($StudySetID) {
     $values['StudySetID'] = $StudySetID;
     $query = <<<query
-    SELECT StudySetID, UserID, CourseID, Title, Description, Instructor
-    FROM STUDY_SET_T
-    WHERE StudySetID = :StudySetID;
+    SELECT S.StudySetID, U.Username, S.CourseID, S.Title, S.Description, S.Instructor, S.Created, U.Avatar
+    FROM STUDY_SET_T S INNER JOIN USER_T U ON S.UserID = U.UserID
+    WHERE StudySetID = :StudySetID;S
     query;
     return run_database($query, $values)[0];
 }
