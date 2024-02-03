@@ -123,4 +123,15 @@ function check_user_vote($userID, $commentID) {
         return $result[0]->VoteType;
     }
 }
+
+//New function to get study set info from db.
+function get_study_set($StudySetID) {
+    $values['StudySetID'] = $StudySetID;
+    $query = <<<query
+    SELECT S.StudySetID, U.Username, S.CourseID, S.Title, S.Description, S.Instructor, S.Created, U.Avatar
+    FROM STUDY_SET_T S INNER JOIN USER_T U ON S.UserID = U.UserID
+    WHERE StudySetID = :StudySetID;S
+    query;
+    return run_database($query, $values)[0];
+}
 ?>

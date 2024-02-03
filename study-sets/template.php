@@ -31,6 +31,30 @@ empty($set) ? header("Location: /study-sets/create.php") : null;
 $query = "SELECT * FROM STUDY_CARD_T WHERE StudySetID = :StudySetID ORDER BY CardID;";
 $cards = run_database($query, $values);
 
+// Code for capturing and storing the Study Set ID of the 5 most recent study sets a user has viewed
+$urlPath = $_SERVER['REQUEST_URI']; // e.g., "/study-sets/6969"
+$segments = explode('/', $urlPath);
+$studySetId = end($segments); // grab the end segement
+
+// Verify that the study set ID is valid
+$studySet = get_study_set($studySetId);
+if ($studySet) {
+    // Check if cookie exists
+    if (isset($_COOKIE['viewed_study_sets'])) {
+        $viewedStudySets = explode(',', $_COOKIE['viewed_study_sets']);   // Get array of viewed study set IDs
+        // Check if Study Set ID already exists in array
+        if (($key = array_search($studySetId, $viewedStudySets)) !== false) {
+            unset($viewedStudySets[$key]);    // Remove existing Study Set ID from array
+        }
+        array_unshift($viewedStudySets, $studySetId);     // Add new study set ID to the start of the array
+        $viewedStudySets = array_slice($viewedStudySets, 0, 5);    // Limit array to last 5 Study Set IDs
+    } else {
+        $viewedStudySets = array($studySetId);    // Create new array with the study set ID
+    }
+
+    // Update cookie
+    setcookie('viewed_study_sets', implode(',', $viewedStudySets), time() + (86400 * 3652.5), "/"); // Expires in 10 years
+}
 $query = "SELECT * FROM STUDY_CARD_T WHERE StudySetID = :StudySetID ORDER BY CardID;";
 $cards = run_database($query, $values);
 
@@ -56,6 +80,7 @@ if ($avgRatingResult) {
 }
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

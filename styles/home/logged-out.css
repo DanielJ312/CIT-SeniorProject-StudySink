@@ -1,0 +1,217 @@
+.home-logout-body {
+    font-family: 'Comfortaa', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.home-logout-header {
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom: 0;
+}
+
+.home-logout-section {
+    padding: 8.5% 0;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+#section0 {
+    background: 
+        linear-gradient(to left, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.9) 70%), 
+        url('https://studysink.s3.amazonaws.com/assets/homepage-logout-pictures/studying-students.png');
+    background-repeat: no-repeat;
+}
+
+.top-logo-buttons {
+    margin-right: 50%;
+}
+
+.home-logout-content {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.home-logout-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.home-logout-text-container {
+    max-width: 600px;
+    text-align: left;
+    margin: 20px;
+    color: black;
+}
+
+/* Only for the Bottom section*/
+.home-logout-content-bottom {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.home-logout-text-container-bottom {
+    max-width: 60%;
+    text-align: left;
+    margin-right: 5%;
+    margin-left: 5%;
+    color: black;
+}
+
+.home-logout-text-container-bottom p{
+    width: 100%; 
+    font-size: 1.65em;
+}
+
+.home-logout-btn, .home-logout-btn-bottom {
+    font-family: 'Comfortaa', sans-serif;
+    background-color: #f59c1a;
+    color: black;
+    display: inline-block;
+    border-radius: 7px;
+    padding: 20px 40px;
+    border: none;
+    text-decoration: none;
+    transition: transform 0.3s ease-in-out;
+    margin: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
+    justify-content: center;
+}
+
+.bottom-btn-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 20%;
+}
+
+.home-logout-btn-bottom {
+    display: flex;
+    width: auto;
+    white-space: nowrap;
+}
+
+.home-logout-btn:hover, .home-logout-btn-bottom:hover {
+    transform: scale(1.1); 
+    cursor: pointer;
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.5);
+}
+
+.home-logout-btn:active, .home-logout-btn-bottom:active {
+    transform: scale(0.9); 
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.home-logout-footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* -- Mobile compatibility at 850px -- */
+@media only screen and (max-width: 850px) {
+    .home-logout-header,
+    .home-logout-section,
+    .home-logout-content,
+    .home-logout-text-container,
+    .home-logout-content-bottom,
+    .home-logout-text-container-bottom {
+        width: 100%; 
+        padding: 20px; 
+        box-sizing: border-box;
+    }
+
+    .home-logout-text-container, .home-logout-text-container-bottom{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .home-logout-text-container p{
+        text-align: center;
+    }
+
+    .home-logout-text-container-bottom{
+        width: 100%;
+    }
+
+    .home-logout-text-container-bottom p{
+        display: flex;
+        text-align: center;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        font-size: 1.0em;
+    }
+
+    .top-logo-buttons {
+        margin-right: 0;
+    }
+
+    .company-logo {
+        width: 90%;
+        height: auto;
+    }
+
+    .home-logout-content, .home-logout-content-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .home-logout-btn, .home-logout-btn-bottom {
+        font-size: 1em;
+        padding: 10px 20px;
+    }
+
+    .home-logout-content-bottom p{
+        width: 170%;
+    }
+
+    .bottom-btn-container{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-right: 0;
+    }
+
+    .home-logout-btn-bottom{
+        display: flex;
+        justify-content: center;
+        width: auto;
+        margin: 5%;
+    }
+
+    #section0 {
+        background:
+            linear-gradient(to left, rgba(255,255,255,0.05) 0%, rgba(255,255,255,2.0) 100%), 
+            url('https://studysink.s3.amazonaws.com/assets/homepage-logout-pictures/studying-students.png');
+        background-size: 200% 100%;
+        background-position: center;
+    }
+
+
+
+}
