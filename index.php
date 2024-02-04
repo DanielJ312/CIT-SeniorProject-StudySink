@@ -2,7 +2,8 @@
 <?php
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 update_session();
-$pageTitle = "Home";?>
+$pageTitle = "Home";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head> 
@@ -68,6 +69,7 @@ $pageTitle = "Home";?>
                     </div>
                 </section>
                 <script>
+                    //button to scroll to top functionality
                 function scrollToSection(sectionId) {
                     document.getElementById(sectionId).scrollIntoView({
                     behavior: 'smooth'
@@ -81,11 +83,9 @@ $pageTitle = "Home";?>
                 <!-- Left Container -->
                     <div class="left-container">
                         <div class="university-post-container">
-                        <h2 class="home-container-title">
-                            <u>Recent University Posts</u>
-                        </h2>
+                        <h2 class="home-container-title">My University</h2>
                         <div class="university-posts">
-                            <!--University Posts container goes here -->
+                            placeholder for tiles/set university button
                         </div>
                     </div>
                 </div>
@@ -93,9 +93,7 @@ $pageTitle = "Home";?>
                     <div class="right-container">
                         <!-- Inner Container 1 within Right Container -->
                         <div class="recent-posts-container">
-                        <h2 class="home-container-title">
-                            <u>Recently Viewed Posts</u>
-                        </h2>
+                        <h2 class="home-container-title">Recently Viewed Posts</h2>
                         <div class="post-tiles-container">
                             <?php
                                 if (isset($_COOKIE['viewed_posts'])) {
@@ -105,8 +103,7 @@ $pageTitle = "Home";?>
                                     foreach ($viewedPosts as $postId) {
                                         // Fetch the post data from the database
                                         $post = get_post($postId);
-                                        if ($post) { ?> <a href="/forum/posts/
-                                            <?= $post->PostID; ?>" class="post-tile">
+                                        if ($post) { ?> <a href="/forum/posts/<?= $post->PostID; ?>" class="post-tile">
                             <div class="post-header">
                                 <img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" />
                                 <div class="post-info">
@@ -132,18 +129,22 @@ $pageTitle = "Home";?>
                         </div>
                         <!-- Inner Container 2 within Right Container -->
                         <div class="recent-sets-container">
-                        <h2 class="home-container-title">
-                            <u>Recently Viewed Study Sets</u>
-                        </h2>
+                        <h2 class="home-container-title">Recently Viewed Study Sets</h2>
                         <div class="study-sets-tiles-container"> 
                             <?php
                                 if (isset($_COOKIE['viewed_study_sets'])) {
                                 // Get array of viewed study set IDs
                                 $viewedStudySets = explode(',', $_COOKIE['viewed_study_sets']);
-                                // Display study set IDs for now
                                 foreach ($viewedStudySets as $StudySetId) {
                                 // Fetch the study set data from the database
                                 $studySet = get_study_set($StudySetId);
+                                $avgRatingQuery = "SELECT AVG(Rating) as AvgRating FROM STUDY_SET_RATINGS WHERE StudySetID = :StudySetID";
+                                $avgRatingResult = run_database($avgRatingQuery, ['StudySetID' => $StudySetId]);
+                                if ($avgRatingResult) {
+                                    $averageRating = is_array($avgRatingResult[0]) ? round($avgRatingResult[0]['AvgRating'], 2) : round($avgRatingResult[0]->AvgRating, 2);
+                                } else {
+                                    $averageRating = 'Not rated';
+                                }
                                 if ($studySet) {
                             ?>      <a href="/study-sets/<?= $studySet->StudySetID; ?>" class="study-set-tile">
                                     <div class="study-set-header">
@@ -155,6 +156,7 @@ $pageTitle = "Home";?>
                                     </div>
                                     <h3 class="study-set-title"> <?= $studySet->Title; ?> </h3>
                                     <div class="study-set-description"> <?= $studySet->Description; ?> </div>
+                                    <div class="study-set-rating">★<?= $averageRating; ?></div>
                                     </a> 
                             <?php
                             }
@@ -162,11 +164,46 @@ $pageTitle = "Home";?>
                             } else {
                                     echo "No study sets viewed yet";
                             }
-                            ?> </div>
+                            ?> 
+                        </div>
                         </div>
                     </div>
                 </div>
             </div> 
+            <script>
+                // Select all post content
+                var contents = document.querySelectorAll('.post-content');
+                // Loop through each post content
+                contents.forEach(function(content) {
+                // Check if the content is longer than 50 characters
+                    if (content.textContent.length > 50) {
+                        // If it is, truncate it to 50 characters and add an ellipsis
+                        content.textContent = content.textContent.substring(0, 50) + '...';
+                    }
+                });
+
+                // Same for the 3 below
+                var postTitles = document.querySelectorAll('.post-title');
+                postTitles.forEach(function(title) {
+                    if (title.textContent.length > 80) {
+                        title.textContent = title.textContent.substring(0, 50) + '...';
+                    }
+                });
+
+                var descriptions = document.querySelectorAll('.study-set-description');
+                descriptions.forEach(function(description) {
+                    if (description.textContent.length > 50) {
+                        description.textContent = description.textContent.substring(0, 50) + '...';
+                    }
+                });
+
+                var titles = document.querySelectorAll('.study-set-title');
+                titles.forEach(function(title) {
+                    if (title.textContent.length > 80) {
+                        title.textContent = title.textContent.substring(0, 50) + '...';
+                    }
+                });
+            </script>
         <?php endif; ?> 
     </main>
     <footer> 

@@ -75,6 +75,20 @@
     margin-right: 0.5%;
 }
 
+.post-tile, .study-set-tile {
+    transition: transform 0.3s ease;
+}
+
+.post-tile:hover, .study-set-tile:hover {
+    transform: scale(1.05);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.post-tile:active, .study-set-tile:active {
+    transform: scale(0.95);
+    box-shadow: none;
+}
+
 .post-header, .study-set-header {
   display: flex;
   color:black;
@@ -110,19 +124,14 @@
     color:#181818;
 }
 
-.post-content {
+.post-content, .study-set-description {
     opacity: 0.5;
     font-size: 75%;
     margin-bottom: 0px;
     margin-top: 0px;
 }
 
-.study-set-description {
-    font-size: 85%;
-    margin-top: 2%;
-}
-
-.vote {
+.vote, .study-set-rating {
     display: flex;
     justify-content: flex-end;
     align-self: flex-end;
