@@ -459,12 +459,12 @@ align-items: center;
 
 }
 
-@media only screen and (min-width: 1629px) {
+@media (min-width: 1629px) {
   #contentset {
-    display: block;
+    display: block !important;
 }
 
 #contentpost {
-  display: block;
+  display: block!important;
 }
 }
