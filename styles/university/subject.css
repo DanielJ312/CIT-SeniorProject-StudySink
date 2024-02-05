@@ -61,7 +61,7 @@ h3 {
 }
 
 .posts {
-padding-left: 10px; 
+padding-left: 10px;
 }
 
 .study-set {
@@ -76,26 +76,32 @@ padding-left: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     border: 1px solid #f59c1a;
 margin-bottom: 10px;
-  margin-right: 5;
+  margin-right: 5px;
 }
 
 .post-account {
-    font-size: 12px;
+<<<<<<< Updated upstream
+  font-size: 1.1em;
+  margin-bottom: 0px;
+  color: #ffffff;
+=======
+    font-size: 1.1em;
     margin-bottom: 0px;
     margin-top: 0px;
     color:#ededed;
+>>>>>>> Stashed changes
 }
 
 .post-date {
-    font-size: 10px;
-    text-decoration: none;
-    margin-top: 5px;
-    color:#ededed;
+  font-size: 0.9em;
+  color: #ffffff;
+  margin-top: 5px;
 }
 
 .post-header {
-    display: flex;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .post-icons {
@@ -105,12 +111,14 @@ margin-bottom: 10px;
     right: 16px;
 }
 
-.post-content {
-    padding-bottom: 10px;
+.post-content, .post-title {
+  color: #ededed;
+  margin-top: 6px;
+  margin-bottom: 7px;
 }
 
-.post-content, .post-title {
-    color: #ededed;
+.post-title {
+margin-bottom: 10px;
 }
 
 .post-iconsp {
@@ -126,11 +134,18 @@ margin-bottom: 10px;
 }
 
 .post-profile-picture {
-    width: 45px;
-    height: 45px;
     border-radius: 50%;
     cursor: pointer;
     margin-right: 13px;
+    width: 50px;
+    height: 50px;
+    margin-left: 0px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #fff;
+    display: block;
 }
 
 .switch {
@@ -384,4 +399,79 @@ background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgb
   flex-wrap: wrap;
   justify-content: space-between;
 align-items: center;
+}
+
+
+@media only screen and (max-width: 850px) {
+
+  .posts {
+    padding-left: 0px;
+}
+  
+  h2 {
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+  .down {
+    border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    margin: 7px;
+  }
+
+  #contentset {
+    display: none;
+}
+
+#contentpost {
+  display: none;
+}
+
+  .scrollbar {
+    overflow: auto;
+    height: auto;
+}
+
+.column {
+  margin-top: 10px;
+  display: block;
+}
+
+.margin {
+  margin: 20px 2%;
+}
+
+.study-set {
+  padding-right: 0px;
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s ease;
+  color: #ededed;
+  background: rgba(217, 214, 228, 0.12);
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid #f59c1a;
+  margin-bottom: 10px;
+  margin-right: 0px;
+}
+
+}
+
+@media only screen and (min-width: 1629px) {
+  #contentset {
+    display: block;
+}
+
+#contentpost {
+  display: block;
+}
 }

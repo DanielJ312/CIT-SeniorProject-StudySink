@@ -90,22 +90,26 @@ body {
 }
 
 .post-account {
-    font-size: 12px;
-    margin-bottom: 0px;
-    margin-top: 0px;
+  font-size: 1.1em;
+  margin-bottom: 0px;
     color:#181818;
 }
 
 .post-date {
-    font-size: 10px;
-    text-decoration: none;
-    margin-top: 5px;
+  font-size: 0.9em;
+  margin-top: 5px;
     color:#181818;
 }
 
 
 .post-content, .post-title {
-    color:#181818;
+  color: #181818;
+  margin-top: 6px;
+  margin-bottom: 7px;
+}
+
+.post-title {
+margin-bottom: 10px;
 }
 
 

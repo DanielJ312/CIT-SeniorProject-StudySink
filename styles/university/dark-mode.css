@@ -92,22 +92,26 @@ background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgb
 }
 
 .post-account {
-    font-size: 12px;
-    margin-bottom: 0px;
-    margin-top: 0px;
+  font-size: 1.1em;
+  margin-bottom: 0px;
     color:#ededed;
 }
 
 .post-date {
-    font-size: 10px;
-    text-decoration: none;
-    margin-top: 5px;
+  font-size: 0.9em;
+  margin-top: 5px;
     color:#ededed;
 }
 
 
 .post-content, .post-title {
     color: #ededed;
+    margin-top: 6px;
+    margin-bottom: 7px;
+}
+
+.post-title {
+  margin-bottom: 10px;
 }
 
 .vote {

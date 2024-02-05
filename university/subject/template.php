@@ -36,7 +36,6 @@ $posts = run_database($query);
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <link rel="stylesheet" href="/styles/university/subject.css" />
@@ -52,16 +51,16 @@ $posts = run_database($query);
                 <h2><?= $subject->Name; ?></h2>
             </div>
             <div class="column">
-                <div class="study-set">
+                <div class="study-set" >
                     <div class="header">
-                        <h2>Study Sets</h2>
+                        <h2 id="toggleSet">Study Sets<i class="arrow down"></i></h2>
                         <select class="sort" name="sorts">
                             <option value="post-oldest">Oldest</option>
                             <option value="post-newest">Newest</option>
                             <option value="post-popular">Popular</option>
                         </select>
                     </div>
-                    <div class="scrollbar">
+                    <div class="scrollbar" id="contentset">
                         <div class="displayCardArea">
                         <?php foreach ($sets as $set) : ?>
                             <div class="cardContainer">
@@ -90,14 +89,14 @@ $posts = run_database($query);
                 </div>
                 <div class="posts">
                     <div class="header">
-                        <h2>Posts</h2>
+                        <h2 id="togglePost">Posts<i class="arrow down"></i></h2>
                         <select class="sort" name="sorts">
                             <option value="post-oldest">Oldest</option>
                             <option value="post-newest">Newest</option>
                             <option value="post-popular">Popular</option>
                         </select>
                     </div>
-                    <div class="scrollbar">
+                    <div class="scrollbar"id="contentpost">
                         <?php foreach ($posts as $post) : ?>
                             <div class="post">
                                 <a href="/forum/posts/<?= $post->PostID; ?>" class="">
@@ -124,7 +123,29 @@ $posts = run_database($query);
             </div>
         </div>
     </main>
+    <script>
+    document.getElementById('toggleSet').addEventListener('click', function() {
+        if (window.innerWidth <= 850) {
+            var contentDiv = document.getElementById('contentset');
+            if (contentDiv.style.display === 'none' || window.getComputedStyle(contentDiv).display === 'none') {
+                contentDiv.style.display = 'block'; // or any other desired display value
+            } else {
+                contentDiv.style.display = 'none';
+            }
+        }
+    });
 
+    document.getElementById('togglePost').addEventListener('click', function() {
+        if (window.innerWidth <= 850) {
+            var contentDiv = document.getElementById('contentpost');
+            if (contentDiv.style.display === 'none' || window.getComputedStyle(contentDiv).display === 'none') {
+                contentDiv.style.display = 'block'; // or any other desired display value
+            } else {
+                contentDiv.style.display = 'none';
+            }
+        }
+    });
+</script>
 </body>
 <footer>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>

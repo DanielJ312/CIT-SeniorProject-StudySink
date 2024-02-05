@@ -52,9 +52,6 @@
     right: 16px;
 }
 
-.post-content {
-    padding-bottom: 10px;
-}
 
 
 .post-iconsp {
@@ -65,11 +62,18 @@
 
 
 .post-profile-picture {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-right: 13px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 13px;
+  width: 50px;
+  height: 50px;
+  margin-left: 0px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: #fff;
+  display: block;
 }
 
 .switch {
