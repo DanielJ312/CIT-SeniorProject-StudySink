@@ -20,10 +20,11 @@
 }
 
 .cards {
-    display: block;
+    display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    border: solid 1px #ff0000;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .cards .active {
@@ -31,11 +32,14 @@
 }
 
 .cardContainer {
-    width: 300px; /* Adjust width as needed */
-    height: 400px; /* Adjust height as needed */
+    width: 85%; 
+    height: 400px;
     margin: 20px auto;
     perspective: 1000px;
     cursor: pointer;
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
 }
 
 .cardFront, .cardBack {
@@ -52,11 +56,14 @@
     justify-content: center;
     font-size: 1em;
     color: black;
-    transition: transform 0.6s linear;
+    transition: transform 0.2s linear;
+    padding: 15px;
+    box-sizing: border-box;
 }
 
 .cardFront {
     transform: rotateY(0deg);
+
 }
 
 .cardBack {
@@ -81,18 +88,26 @@
     color: #333;
 }
 
-#backButton, #shuffleButton, #nextButton {
-    display: block;
+.navigationContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 85%;
     margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.2em; /* Adjust the size of the icons */
+    margin-top: -10px;
+    padding: 5px;
 }
 
-#backButton:hover, #shuffleButton:hover, #nextButton:hover {
-    background-color: #0056b3;
+#backButton, #nextButton, #shuffleButton {
+    background-color: transparent;
+    border: none;
+    color: #f59c1a;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#backButton:hover, #nextButton:hover, #shuffleButton:hover {
+    color: #d47a00;
 }

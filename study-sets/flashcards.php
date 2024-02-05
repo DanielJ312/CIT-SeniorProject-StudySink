@@ -37,8 +37,10 @@ $cards = run_database($query, $values);
     </header>
     <main>
         <div class="flashcardsContainer">
+            <div class="cardCounter">
+                <span id="currentCardIndex">1</span>/<span id="totalCards"></span>
+            </div>
             <h2>Flashcards for <?= htmlspecialchars($studySetTitle); ?></h2>
-            <button id="shuffleButton"><i class="fa-solid fa-arrows-rotate"></i></button>
             <div class="cards">
 
                 <?php foreach ($cards as $card): ?>
@@ -48,11 +50,13 @@ $cards = run_database($query, $values);
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="cardCounter">
-                <span id="currentCardIndex">1</span>/<span id="totalCards"></span>
+            <div class="navigationContainer">
+                <div class="arrowButtons">
+                    <button id="backButton"><i class="fa-solid fa-circle-arrow-left"></i></button>
+                    <button id="nextButton"><i class="fa-solid fa-circle-arrow-right"></i></button>
+                </div>
+                <button id="shuffleButton" class="rightAlignedButton"><i class="fa-solid fa-arrows-rotate"></i></button>
             </div>
-            <button id="backButton"><i class="fa-solid fa-circle-arrow-left"></i></button>
-            <button id="nextButton"><i class="fa-solid fa-circle-arrow-right"></i></button>
         </div>
     </main>
     <footer>
