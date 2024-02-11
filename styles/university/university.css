@@ -76,6 +76,10 @@
   display: block;
 }
 
+.post-profile-picture:hover {
+border-color: #f59c1a;
+}
+
 .switch {
     font-size: 17px;
     position: relative;
@@ -165,6 +169,41 @@
         display: none;
     }
 
+    .subject {
+      display: block;
+      margin-top: 15px;
+      align-items: center;
+      }
+
+      .subject-container {
+        position: relative;
+        color: #181818;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+        text-align: left;
+        margin-top: 15px;
+        margin-right: 15px;
+      }
+      
+      .subject-container a {
+          text-decoration: none;
+          color:#181818;
+          font-weight: bold;
+      }
+      
+      .subject-container a:hover {
+          color: #f59c1a;
+      }
+
+      .subject-container ul {
+        padding: 0px;
+      }
+
+      .search-bar-csun input {
+        width: 100%
+    }
+
     .mobile-posts {
     display: block;
     margin-top: 15px;
@@ -174,7 +213,6 @@
     .post-header {
         display: flex;
         flex-wrap: wrap;
-    justify-content: space-between;
     margin-bottom: 10px;
     }
 
@@ -183,7 +221,7 @@
     }
 
     .title {
-        color:#ededed;
+        color:black;
   border: none;
   box-shadow: none;
   background: none;
