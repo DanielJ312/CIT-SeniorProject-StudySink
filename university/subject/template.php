@@ -38,6 +38,7 @@ $posts = run_database($query);
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     <link rel="stylesheet" href="/styles/university/subject.css" />
 </head>
 

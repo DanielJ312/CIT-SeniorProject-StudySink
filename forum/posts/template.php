@@ -22,6 +22,7 @@ $commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
     <main class="post-body">
         <div class="margin">

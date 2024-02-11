@@ -71,7 +71,7 @@ $subjects = run_database($query);
 
         function search_subject() {
     let input = document.getElementById('searchbar').value.toLowerCase();
-    let subjects = document.querySelectorAll('.subject-selection-c .subjects a');
+    let subjects = document.querySelectorAll('.subject-selection-c .subjects a, .subject-container');
 
     subjects.forEach(subject => {
         let subjectText = subject.textContent.toLowerCase();
@@ -95,6 +95,7 @@ $subjects = run_database($query);
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
     <main>
         <div class="margin">
@@ -167,15 +168,15 @@ $subjects = run_database($query);
             <div class="subject">
                 <div class=title>Subjects</div>
                     <div class=subject-container>
-                        <div class="search-bar-csun">
-                        <input type="text" placeholder="Search Subjects..." />
+                    <div class="search-bar-csun">
+                        <input id="searchbar" type="text" name="search" onkeyup="search_subject()" placeholder="Search Subjects..." />
                         <button><i class="fas fa-search"></i></button>
-                        </div>
-                        <div class="subjects">
+                    </div>
+                    <div class="subjects">
                         <?php foreach ($subjects as $subject) : ?>
-                            <ul><a href="/university/<?= $univeristyAbbr; ?>/<?= strtolower($subject->Abbreviation); ?>"><?= $subject->Name; ?></a></ul>
+                            <ul id='list'><a href="/university/<?= $univeristyAbbr; ?>/<?= strtolower($subject->Abbreviation); ?>"><?= $subject->Name; ?></a></ul>
                         <?php endforeach; ?>
-                        </div>
+                    </div>
                     </div>
             </div>
             <div class="mobile-posts">
