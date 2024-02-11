@@ -27,7 +27,6 @@ $subjects = run_database($query);
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <link rel="stylesheet" href="/styles/university/index.css" id="light-theme"/>
     <!--<link rel="stylesheet" href="/styles/university/dark-mode.css" id="dark-theme"/>-->
     <link rel="stylesheet" href="/styles/university/university.css"/>
     <script>
@@ -71,7 +70,7 @@ $subjects = run_database($query);
 
         function search_subject() {
     let input = document.getElementById('searchbar').value.toLowerCase();
-    let subjects = document.querySelectorAll('.subject-selection-c .subjects a, .subject-container');
+    let subjects = document.querySelectorAll('.subject-selection-c .subjects a');
 
     subjects.forEach(subject => {
         let subjectText = subject.textContent.toLowerCase();
@@ -80,7 +79,7 @@ $subjects = run_database($query);
         if (!subjectText.includes(input)) {
             subjectElement.style.display = "none";
         } else {
-            subjectElement.style.display = "block"; // Change to 'block' if needed
+            subjectElement.style.display = "block"; 
         }
 
         if (!input) {
@@ -88,6 +87,36 @@ $subjects = run_database($query);
         } 
     });
 }
+
+
+function search_subject_mobile() {
+    let input = document.getElementById('searchbar2').value.toLowerCase();
+    let subjects = document.querySelectorAll('.subject-selection-c .subjects a');
+
+    subjects.forEach(subject => {
+        let subjectText = subject.textContent.toLowerCase();
+        let subjectElement = subject.parentElement;
+
+        if (!subjectText.includes(input)) {
+            subjectElement.style.display = "none";
+        } else {
+            subjectElement.style.display = "block"; 
+        }
+
+        if (!input) {
+            subjectElement.style.display = "block";
+        } 
+    });
+}
+
+function toggleSubject() {
+        var contentSubject = document.getElementById('contentsubject');
+        if (contentSubject.style.display === 'none' || contentSubject.style.display === '') {
+            contentSubject.style.display = 'block';
+        } else {
+            contentSubject.style.display = 'none';
+        }
+    }
 
 
     </script>
@@ -109,15 +138,14 @@ $subjects = run_database($query);
                 <h2><?= $posts[0]->UniversityName;?></h2>
             </div>
             <div class="columns">
-                <div class="subject-selection-c" id="subject-selection">
-                    
+                <div class="subject-selection-c">
                     <div class="search-bar-csun">
                         <input id="searchbar" type="text" name="search" onkeyup="search_subject()" placeholder="Search Subjects..." />
                         <button><i class="fas fa-search"></i></button>
                     </div>
                     <div class="subjects">
                         <?php foreach ($subjects as $subject) : ?>
-                            <ul id='list'><a href="/university/<?= $univeristyAbbr; ?>/<?= strtolower($subject->Abbreviation); ?>"><?= $subject->Name; ?></a></ul>
+                            <ul><a href="/university/<?= $univeristyAbbr; ?>/<?= strtolower($subject->Abbreviation); ?>"><?= $subject->Name; ?></a></ul>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -166,18 +194,18 @@ $subjects = run_database($query);
                 <h2>California State University, Northridge</h2>
             </div>
             <div class="subject">
-                <div class=title>Subjects</div>
-                    <div class=subject-container>
+                <h2 id="toggleSubject" onclick="toggleSubject()">Subjects<i class="down"></i></h2>
+                <div class="subject-selection-c" id="contentsubject">
                     <div class="search-bar-csun">
-                        <input id="searchbar" type="text" name="search" onkeyup="search_subject()" placeholder="Search Subjects..." />
+                        <input id="searchbar2" type="text" name="search" onkeyup="search_subject_mobile()" placeholder="Search Subjects..." />
                         <button><i class="fas fa-search"></i></button>
                     </div>
                     <div class="subjects">
                         <?php foreach ($subjects as $subject) : ?>
-                            <ul id='list'><a href="/university/<?= $univeristyAbbr; ?>/<?= strtolower($subject->Abbreviation); ?>"><?= $subject->Name; ?></a></ul>
+                            <ul><a href="/university/<?= $univeristyAbbr; ?>/<?= strtolower($subject->Abbreviation); ?>"><?= $subject->Name; ?></a></ul>
                         <?php endforeach; ?>
                     </div>
-                    </div>
+                </div>
             </div>
             <div class="mobile-posts">
                     <div class="post-header"><div class=title>Posts</div>
