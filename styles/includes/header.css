@@ -11,11 +11,12 @@
 }
 
 .navbarMain {
-    background-color: #0078d4;
+    background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 11.5px 0px;
+    box-shadow: 0 0px 8px rgb(0 0 0 / 15%);
 }
 
 /*-- Logo --*/
@@ -33,8 +34,8 @@
     cursor: pointer;
     margin-left: 13px;
     margin-right: 35px;
-    color: black;
-    border-width: 2px;
+    color: #2776ff;
+    border-width: 1px;
     border-style: solid;
 }
 
@@ -52,16 +53,18 @@
 .navbar-center input {
     display: flex;
     align-items: center;
-    background-color: #C2D9FF;
+    background-color: white;
     padding: 8px;
     border-radius: 20px;
-    border: none;
+    border: solid #0000001a;
+    border-width: 0.5px;
     height: 25px;
     width: 95%;
     font-family: 'Comfortaa', sans-serif;
     text-decoration: none;
     color: black;
     font-size: 1.2em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .search-container {
@@ -102,8 +105,9 @@
 .fa-book,
 .fa-graduation-cap,
 .fa-id-card {
-    color: black;
+    color: #2778ff;
 }
+
 
 .fa-circle-plus:hover,
 .fa-house:hover,
@@ -120,7 +124,7 @@
 }
 
 .active {
-    color: #f59c1a;
+    color: #fcb54d;
 }
 
 /* -- Dropdown Contect for Create -- */

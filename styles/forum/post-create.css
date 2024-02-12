@@ -24,14 +24,15 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgb(245, 156, 26);
-    background: linear-gradient(343deg, rgba(245, 156, 26, 1) 6%, rgba(0, 120, 212, 1) 72%);
+    background: #f7f7f7;
     padding: 2% 4%;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
     width: 40%;
     max-height: 90vh;
     overflow-y: auto;
+    border-left: #0078d4;
+    border-right: #f59c1a;
 }
 
 /* Style for web browser scrollbar for pop up container */
@@ -100,7 +101,7 @@
 #titleinput,
 #contentinput {
     font-family: 'Comfortaa', sans-serif;
-    background-color: rgb(205, 230, 238);
+    background-color: #0060ff17;
     width: 90%;
     box-sizing: border-box;
     margin: 5px 0;
@@ -160,7 +161,7 @@
     transition: 300ms ease-in-out;
     margin-bottom: 20px;
     border-radius: 15px;
-    background-color: lightblue;
+    background-color: #0060ff17;
     color: black;
 }
 
@@ -217,11 +218,7 @@
     width: 100%;
     height: 100%;
     border-radius: 12px;
-    background: linear-gradient(to left,
-            hsl(19, 68%, 40%) 0%,
-            hsl(17, 73%, 51%) 8%,
-            hsl(22, 100%, 32%) 92%,
-            hsl(17, 96%, 37%)00%);
+    background: #f59c1a;
 }
 
 .front {
@@ -232,8 +229,8 @@
     font-size: 1.5em;
     font-family: 'Comfortaa', sans-serif;
     font-weight: 600;
-    color: black;
-    background: hsl(32, 69%, 47%);
+    color: white;
+    background: #2778ff;
     will-change: transform;
     transform: translateY(-4px);
     transition: transform 600ms cubic-bezier(.3, .7, .4, 1);

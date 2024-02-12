@@ -3,7 +3,7 @@
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background-color: #f7f7f7;
     color: black;
 }
 
@@ -14,12 +14,11 @@
 /* Styling for university info */
 .university-info {
     background-color: #ffffff;
-    border: 1px solid #f59c1a;
     border-radius: 5px;
     padding: 5px;
     margin: 20px 0px;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
 }
 
 .post-title {
@@ -47,13 +46,12 @@
     margin: 20px 0px;
     display: block;
     background-color: #ffffff;
-    border: 1px solid #f59c1a;
+    /* border: 1px solid #f59c1a; */
     border-radius: 5px;
     padding: 10px;
     text-decoration: none;
-    /* Remove underline from the link */
     color: inherit;
-    /* Inherit text color from the parent element */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
 }
 
 .post-header {
@@ -79,8 +77,8 @@
 
 .dropdown {
     margin-left: auto;
-    padding-right: 10px;
 }
+
 
 .dropdown-content {
     display: none;
@@ -101,9 +99,14 @@
 }
 
 .ellipsis-icon {
-    color: #f59c1a;
+    color: #2778ff;
     font-size: 20px;
     cursor: pointer;
+    padding-right: 10px;
+}
+
+.ellipsis-icon:hover{
+    color: #f59c1a;
 }
 
 .dropdown a:hover {
@@ -203,17 +206,16 @@
 }
 
 .addComment {
-    background-color: #f59c1a;
+    background-color: #2778ff;
     color: white;
     border: none;
     border-radius: 3px;
     padding: 8px 15px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 .addComment:hover {
-    background-color: #0078d4;
+    background-color: #f59c1a;
 }
 
 .container {
@@ -223,12 +225,13 @@
 }
 
 #sort {
-    border: 1px solid #f59c1a;
     justify-content: space-between;
     align-items: center;
     padding: 5px;
     border-radius: 0.5em;
     cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
+    border: none;
 }
 
 .vote {
@@ -255,18 +258,16 @@
 .comments {
     display: block;
     background-color: #ffffff;
-    border: 1px solid #f59c1a;
     border-radius: 5px;
     padding: 10px;
     text-decoration: none;
-    /* Remove underline from the link */
     color: inherit;
-    /* Inherit text color from the parent element */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
 }
 
 .fa-heart.fa-solid {
     cursor: pointer;
-    color: #f59c1a;
+    color: #2778ff;
 }
 
 .fa-heart.fa-regular:hover {
