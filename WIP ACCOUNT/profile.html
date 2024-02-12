@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="profile.css">
+    <script src="profile.js" defer></script>
+    <title>Profile Page</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="Account Info">
+        <h2>Profile Settings</h2>
+        <div>
+            <h4 id="account-info">Account Info </h4>
+            <div id="profile-picture-container">
+                <img id="profile-picture" src="https://studysink.s3.amazonaws.com/assets/DefaultAvatar.jpg" alt="Profile Picture">
+                <div id="upload-box" onclick="document.getElementById('file-input').click()">Upload</div>
+                <input type="file" id="file-input" accept="image/*" onchange="updateProfilePicture(this)">
+            </div>
+            <p>Username:</p>
+            <p>Email: </p>
+            <p>Account Created:</p>
+
+        </div>
+    </div>
+
+    <div class="spacer"></div>
+    
+    <div class="Account Settings">
+        <div>
+            <h4 id="settings">Settings </h4>
+            <p><a href="login.php">Change Email</a></p>
+            <p></p><a href="forgot.php">Reset Password</a></p>
+            <div class="toggle-switch">
+                <label for="private-account">Private Account:</label>
+                <input type="checkbox" id="private-account" name="private-account" onclick="confirmToggle()">
+                <div class="slider"></div>
+        </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="Personal">
+        <div>
+            <h4 id="Personal"> Personal </h4>
+            <p>Change Bio:</p>
+            <textarea id="Bio" name="Bio" rows="4" cols="50">Testers
+                 </textarea>
+    
+            <div class="input-group">
+            <p>Change Universities</p>
+                <select id="Universities" name="Universities">
+                    <option value="CSUN">CSUN</option>
+                    <option value="UCLA">UCLA</option>
+                    <option value="USI">USI</option>
+                     <!-- Add more options as needed -->
+                </select>
+            </div>
+            
+            <div class="input-group">
+            <p>Change Major</p>
+                <select id="Major" name="Major">
+                    <option value="CIT">CIT</option>
+                    <option value="Buisness">Buisness</option>
+                    <option value="CompSci">Comp Sci</option>
+                    <!-- Add more options as needed -->
+            </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="navbar">
+    <a href="#account-info">Account Info</a>
+    <a href="#settings">Settings</a>
+    <a href="#Personal">Personal</a>
+    <!-- Add more navigation links as needed -->
+</div>
+
+</body>
+</html>
