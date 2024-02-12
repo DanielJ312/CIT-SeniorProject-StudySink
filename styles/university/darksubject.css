@@ -1,0 +1,464 @@
+/* Reset default styles for body */
+body {
+  font-family: 'Comfortaa', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: black;
+  width: 100%;
+  height: 100%;
+  background: rgb(0,35,71);
+  background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgba(0,63,125,1) 100%);
+}
+
+.margin {
+  margin: 20px 15%;
+}
+
+/* Styling for university info */
+.university-info {
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+  color: #ededed;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  background: rgba(217, 214, 228, 0.12);
+  border: 1px solid #f59c1a;
+}
+
+.sort {
+  display: flex;
+  border: 1px solid #f59c1a;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  border-radius: 0.5em;
+  cursor: pointer;
+  height: 25px;
+}
+
+/* Styling for columns */
+.column {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Add space between the columns */
+}
+
+.study-set, .posts {
+  flex: 1; /* Each section takes up an equal amount of space */
+}
+
+h2 {
+  color: white;
+  text-align: center;
+}
+
+h3 {
+  color: white;
+}
+
+.posts {
+  padding-left: 10px;
+}
+
+.study-set {
+  padding-right: 5px;
+}
+
+/* Styling for individual posts */
+.post {
+  color: #ededed;
+  background: rgba(217, 214, 228, 0.12);
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid #f59c1a;
+  margin-bottom: 10px;
+  margin-right: 5px;
+}
+
+.post-account {
+  font-size: 1.1em;
+  margin-bottom: 0px;
+  color: #ffffff;
+}
+
+.post-date {
+  font-size: 0.9em;
+  color: #ffffff;
+  margin-top: 5px;
+}
+
+.post-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.post-icons {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
+
+.post-content,
+.post-title {
+  color: #ededed;
+  margin-top: 6px;
+  margin-bottom: 7px;
+}
+
+.post-title {
+  margin-bottom: 10px;
+}
+
+.post-iconsp {
+  bottom: 8px;
+  right: 16px;
+  padding-right: 5px;
+}
+
+.vote {
+  display: flex;
+  justify-content: flex-end;
+  color: #ededed;
+}
+
+.post-profile-picture {
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 13px;
+  width: 50px;
+  height: 50px;
+  margin-left: 0px;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: #fff;
+  display: block;
+}
+
+.switch {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 64px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #73C0FC;
+  transition: .4s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 30px;
+  width: 30px;
+  border-radius: 20px;
+  left: 2px;
+  bottom: 2px;
+  z-index: 2;
+  background-color: #e8e8e8;
+  transition: .4s;
+}
+
+.sun svg {
+  position: absolute;
+  top: 6px;
+  left: 36px;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+}
+
+.moon svg {
+  fill: #73C0FC;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+}
+
+/* .switch:hover */
+.sun svg {
+  animation: rotate 15s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+      transform: rotate(0);
+  }
+
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+/* .switch:hover */
+.moon svg {
+  animation: tilt 5s linear infinite;
+}
+
+@keyframes tilt {
+  0% {
+      transform: rotate(0deg);
+  }
+
+  25% {
+      transform: rotate(-10deg);
+  }
+
+  75% {
+      transform: rotate(10deg);
+  }
+
+  100% {
+      transform: rotate(0deg);
+  }
+}
+
+.input:checked + .slider {
+  background-color: #183153;
+}
+
+.input:focus + .slider {
+  box-shadow: 0 0 1px #183153;
+}
+
+.input:checked + .slider:before {
+  transform: translateX(-30px);
+}
+
+.subjects {
+  width: 100%;
+  height: 380px;
+  overflow: auto;
+}
+
+.studySetBrowsePageBody {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: black;
+}
+
+.studySetBrowsePageContainer {
+  max-width: 85%;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.displayCardArea {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s ease;
+  color: #ededed;
+  background: rgba(217, 214, 228, 0.12);
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid #f59c1a;
+  margin-bottom: 10px;
+  margin-right: 5px;
+}
+
+.cardHeaderTopLeft {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  align-items: flex-start;
+  border-bottom: 1px solid #eee;
+}
+
+.cardHeaderUsernameDate {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0px;
+  padding: 0px;
+}
+
+.cardHeaderUsernameDate > p {
+  margin: 0;
+  padding: 0px;
+  font-weight: bold; 
+}
+
+.cardHeaderUsernameDate > p:first-child {
+  font-size: 1.1em; 
+  margin-bottom: 0px;
+}
+
+.cardHeaderUsernameDate > p:last-child {
+  font-size: 0.9em; 
+  color: #ffffff; 
+  margin-top: 5px;
+}
+
+.cardContainer:hover {
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.cardContainer img.profile-picture {
+  width: 50px;
+  height: 50px;
+  margin-left: 0px;
+  margin-right: 0px;
+  border-radius: 50%; 
+  object-fit: cover;
+  border: 2px solid #fff; 
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+  background-color: #fff;
+  display: block;
+}
+
+.cardContainer h3 {
+  font-size: 1.2em;
+  margin: 0;
+  padding: 10px; 
+  text-align: center; 
+}
+
+.cardContainer p {
+  font-size: 0.9em;
+  color: #ffffff; 
+  margin: 5px 0;
+  padding: 0 10px; 
+  text-align: center;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: none;
+  scrollbar-color: #ffffff #0b1160;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 9px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgb(0,35,71);
+  background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgba(0,63,125,1) 100%);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgb(0,35,71);
+  background: linear-gradient(90deg, rgba(0,35,71,1) 0%, rgba(0,51,102,1) 50%, rgba(0,63,125,1) 100%);
+  border-radius: 9px;
+  border: 2px solid #f3c068;
+}
+
+:-webkit-scrollbar-thumb:hover {
+  background-color: #f3c068;
+}
+
+.scrollbar {
+  overflow: auto;
+  height: 1000px;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media only screen and (max-width: 850px) {
+  .posts {
+      padding-left: 0px;
+  }
+
+  h2 {
+      color: white;
+      text-align: center;
+      display: flex;
+      align-items: center;
+  }
+
+  .down {
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      margin: 7px;
+  }
+
+  #contentset {
+      display: none;
+  }
+
+  #contentpost {
+      display: none;
+  }
+
+  .scrollbar {
+      overflow: auto;
+      height: auto;
+  }
+
+  .column {
+      margin-top: 10px;
+      display: block;
+  }
+
+  .margin {
+      margin: 20px 2%;
+  }
+
+  .study-set {
+      padding-right: 0px;
+  }
+
+  .cardContainer {
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.3s ease;
+      color: #ededed;
+      background: rgba(217, 214, 228, 0.12);
+      border-radius: 5px;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      border: 1px solid #f59c1a;
+      margin-bottom: 10px;
+      margin-right: 0px;
+  }
+}
+
+@media (min-width: 1629px) {
+  #contentset {
+      display: block !important;
+  }
+
+  #contentpost {
+      display: block !important;
+  }
+}

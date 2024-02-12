@@ -1,29 +1,37 @@
+<?php
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
+$query = "SELECT * FROM UNIVERSITY_T;";
+$universitiesforum = get_universities_list();
+$postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']) ? create_post($_POST) : [];
+?>
+
 <!-- Header - Contains HTML injected into the header tag -->
-<!-- Primary Navbar -->
-<div class="body">
+<!-- Full Size Navbar -->
+<div class="Navbody">
     <div class="navbarMain">
         <div class="navbar-left">
             <a href="/index.php" id="Home"><img src="https://studysink.s3.amazonaws.com/assets/StudySinkBanner.png" alt="Company Logo" class="companyLogo" title="Home"></a>
         </div>
         <div class="navbar-center">
             <div class="search-container">
-                <a href="SearchResults"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #000000;"></i></a>
+                <a href="SearchResults"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a>
                 <input type="text" id="searchBar" placeholder="Search Study sets, Universities, Posts" style="padding-left: 35px;">
             </div>
         </div>
     <?php if (check_login()) : ?>
         <div class="navbar-right">
             <div class="dropdown" style="padding-top: 15px; padding-bottom: 15px;">
-                <i class="fa-solid fa-circle-plus fa-2xl" id="createIcon" title="Create" style="color: black;"></i>
+                <i class="fa-solid fa-circle-plus fa-2xl <?= check_active('/study-sets/create'); ?>" id="createIcon" title="Create"></i>
                 <div class="dropdown-content-create" id="createDropdown">
                     <a href="/study-sets/create.php">Create Study Set</a>
-                    <a href="/forum/create.php">Create Post</a>
+                    <a onclick="openPopup()">Create Post</a>
                 </div>
             </div>
-            <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl"></i></a>
-            <a href="UniversityPage" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-flip-horizontal fa-2xl"></i></a>
+            <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index', 'home'); ?>"></i></a>
+            <a href="/study-sets/index.php" id="Sets" title="Study Sets"><i class="fa-solid fa-book fa-2xl <?= check_active('/study-sets'); ?>"></i></a>
+            <a href="/university/index.php" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-flip-horizontal fa-2xl <?= check_active('/university'); ?>"></i></a>
             <div class="dropdown">
-            <img src="<?= $_SESSION['USER']->Avatar ?>" alt="Avatar" class="profile-picture" id="profilePicture" title="Avatar">
+                <img src="<?= $_SESSION['USER']->Avatar ?>" alt="Avatar" class="profile-picture <?= check_active('/account/profile'); ?>" id="profilePicture" title="Avatar">
                 <div class="dropdown-content-profile" id="profileDropdown">
                     <a href="/account/profile.php">Profile</a>
                     <a href="/account/settings.php">Settings</a>
@@ -32,20 +40,16 @@
                 </div>
             </div>
         </div>
-    <?php else: ?>
+    <?php else : ?>
         <div class="navbar-right">
-            <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl"></i></a>
-            <div class="dropdown">
-                <span>Login Or Register</span>
-                <img src="https://studysink.s3.amazonaws.com/assets/DefaultAvatar.jpg" alt="Pic" class="profile-picture" id="profilePicture" title="Profile">
-                <div class="dropdown-content-profile" id="profileDropdown">
-                    <a href="/account/login.php">Login</a>
-                    <a href="/account/register.php">Register</a>
-                </div>
-            </div>
+            <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index', 'home'); ?>"></i></a>
+            <a href="/study-sets/index.php" id="Sets" title="Study Sets"><i class="fa-solid fa-book fa-2xl <?= check_active('/study-sets'); ?>"></i></a>
+            <a href="/account/login.php" id="Login" title="Login or Register"><i class="fa-solid fa-id-card fa-2xl <?= check_active('/account'); ?>"></i></a>
         </div>
     <?php endif; ?>
     </div>
+
+    <!-- End of Full Size Nav bar and Beginning of Mobile Nav Bar -->
     <div class="navbarmobile">
         <header class="mobileheader" style="height: 20px;">
             <i class="fa-solid fa-bars fa-2xl" id="menuIcon" title="Menu Icon"></i>
@@ -59,13 +63,14 @@
                 </div>
                 <div class="nav-options">
                     <div class="navitem"><a href="/index.php" title="Home">Home</a></div>
+                    <div class="navitem"><a href="/study-sets/index.php" id="Sets" title="Study Sets">Study Sets</a><div></div>
                 <?php if (check_login()) : ?>
                     <div class="navitem"><a href="University" title="My University">My University</a></div>
                     <div class="dropdown">
                         <div class="navitem"><a href="#" title="Create">Create</a></div>
                         <div class="dropdown-content">
                             <div class="navitem"><a href="/study-sets/create.php" title="Create Study Set">Study Set</a></div>
-                            <div class="navitem"><a href="/forum/create.php" title="Create Post">Post</a></div>
+                            <div class="navitem"><a title="Create Post" onclick="openPopup()">Post</a></div>
                         </div>
                     </div>
                     <div class="dropdown">
@@ -77,9 +82,9 @@
                             <div class="navitem"><a href="/request/logout.php" style="border-bottom-color: black; border-bottom-width: 2px; border-bottom-style: solid;" title="Logout">Logout</a></div>
                         </div>
                     </div>
-                <?php else: ?>
-                    <div class="navitem"><a href="/login.php" title="Home">Login</a></div>
-                    <div class="navitem"><a href="/register.php" title="Home">Register</a></div>
+                <?php else : ?>
+                    <div class="navitem"><a href="/account/login.php" title="Home">Login</a></div>
+                    <div class="navitem"><a href="/account/register.php" title="Home">Register</a></div>
                 <?php endif; ?>
                 </div>
             </nav>
@@ -87,54 +92,105 @@
     </div>
 </div>
 
-<!-- Development Navbar For Easy Access -->
-<nav class="navbar">
-    <span>Development Navbar:</span>
-    <a class="<?php check_active_page('/index.php'); ?>" href="/index.php">Home</a>
-    <div class="dropdowndev">
-        <button class="dropbtn <?php check_active_dir('/request'); ?>">Request</button>
-        <div class="dropdowndev-content">
-            <a class="<?php check_active_page('/request/index.php'); ?>" href="/request/index.php">Submit</a>
-            <a class="<?php check_active_page(''); ?>" href="">Success</a>
-        </div>
-    </div>
-    <div class="dropdowndev">
-        <button class="dropbtn <?php check_active_dir('/forum'); ?>">Forum</button>
-        <div class="dropdowndev-content">
-            <a class="<?php check_active_page('/forum/index.php'); ?>" href="/forum/index.php">Posts</a>
-            <a class="<?php check_active_page('/forum/create.php'); ?>" href="/forum/create.php">Create</a>
-        </div>
-    </div>
-    <div class="dropdowndev">
-        <button class="dropbtn <?php check_active_dir('/study-sets'); ?>">Study Sets</button>
-        <div class="dropdowndev-content">
-            <a class="<?php check_active_page(''); ?>" href="">Study Sets</a>
-            <a class="<?php check_active_page('/study-sets/create.php'); ?>" href="/study-sets/create.php">Create</a>
-        </div>
-    </div>
-    <div class="dropdowndev">
-        <button class="dropbtn <?php check_active_dir('/account'); ?>">Account</button>
-        <div class="dropdowndev-content">
-            <a class="<?php check_active_page('/account/profile.php'); ?>" href="/account/profile.php">Profile</a>
-            <a class="<?php check_active_page('/account/register.php'); ?>" href="/account/register.php">Registration</a>
-            <a class="<?php check_active_page('/account/login.php'); ?>" href="/account/login.php">Login</a>
-            <a class="<?php check_active_page('/account/logout.php'); ?>" href="/account/logout.php">Logout</a>
-            <a class="<?php check_active_page('/account/forgot.php'); ?>" href="/account/forgot.php">Reset</a>
-        </div>
-    </div>
-    <div style="float:right;">
-        <?php if (!check_login()) : ?>
-            <a class="dropdowndev" href="/account/login.php">Login</a>
-        <?php else : ?>
-            <div class="dropdowndev">
-                <button class="dropbtn <?php check_active_page('/account/profile.php'); ?>"><?= $_SESSION['USER']->Username ?></button>
-                <div class="dropdowndev-content">
-                    <a class="<?php check_active_page('/account/profile.php'); ?>" href="/account/profile.php">Profile</a>
-                    <a href="">Settings</a>
-                    <a href="/account/logout.php">Logout</a>
+<!-- End of Mobile Nav Bar and Beginning of Create Forum Post Pop up Window -->
+<div id="forumBody">
+    <div id="overlay">
+        <form method="post">
+            <div id="popupContainer">
+                <i class="fa-regular fa-circle-xmark fa-2xl" id="closeButton" onclick="closePopup()"></i>
+                <div class="contentitem">
+                    <label for="universityforum" id="Unilabel">University</label>
+                    <input class="foruminput" list="universitiesforum" id="setUniversityforum" placeholder="Select from the dropdown" name="university" required>
+                    <datalist id="universitiesforum">
+                        <?php foreach ($universitiesforum as $universityforum) : ?>
+                            <option value="<?= htmlspecialchars($universityforum->Name) ?>" data-id="<?= $universityforum->UniversityID ?>">
+                                <?= htmlspecialchars($universityforum->Name) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </datalist>
                 </div>
+                <div class="contentitem">
+                    <label for="subjectforum" id="subjectlabel">Subject</label>
+                    <input class="foruminput" list="subjectsforum" id="setSubjectforum" placeholder="Select from the dropdown" name="subject">
+                    <datalist id="subjectsforum">
+                        <!-- Options will be added here by JavaScript after selecting a university -->
+                    </datalist>
+                </div>
+                <div class="contentitemtitle">
+                    <textarea name="title" type="text" id="titleinput" placeholder="Post Title" rows="2" style="resize: none;" oninput="titlecountChar(this)" required></textarea>
+                    <span id="titlecharCount"></span>
+                </div>
+                <div class="contentitempost">
+                    <textarea name="content" id="contentinput" rows="10" placeholder="What do you want to share?" style="resize: none;" onkeyup="contentcountChar(this)" required></textarea>
+                    <span id="contentcharCount"></span>
+                </div>
+                <button type="submit" onclick="closePopup()" class="submitpostbutton">
+                    <span class="shadow"></span>
+                    <span class="edge"></span>
+                    <span class="front text">Post</span>
+                </button>
             </div>
-        <?php endif; ?>
+        </form>
     </div>
-</nav>
-<h1>StudySink Backend Development</h1>
+</div>
+
+<!-- End of Create Forum Post Pop up Window and Beginning of Development Navbar For Easy Access -->
+<div class="dev-navbar" style="display: none">
+    <nav class="navbar">
+        <span>Development Navbar:</span>
+        <a class="<?php check_active('/', 'home'); ?>" href="/index.php">Home</a>
+        <div class="dropdowndev">
+            <button class="dropbtn <?php check_active('/request'); ?>">Request</button>
+            <div class="dropdowndev-content">
+                <a class="<?php check_active('/request/index'); ?>" href="/request/index.php">Submit</a>
+                <a class="<?php #check_active(''); ?>" href="">Success</a>
+            </div>
+        </div>
+        <div class="dropdowndev">
+            <button class="dropbtn <?php check_active('/forum'); ?>">Forum</button>
+            <div class="dropdowndev-content">
+                <a class="<?php check_active('/forum/index'); ?>" href="/forum/index.php">Posts</a>
+                <a class="<?php check_active('/forum/create'); ?>" href="/forum/create.php">Create</a>
+            </div>
+        </div>
+        <div class="dropdowndev">
+            <button class="dropbtn <?php check_active('/study-sets'); ?>">Study Sets</button>
+            <div class="dropdowndev-content">
+                <a class="<?php check_active('/study-sets/index'); ?>" href="/study-sets/index.php">Study Sets</a>
+                <a class="<?php check_active('/study-sets/create'); ?>" href="/study-sets/create.php">Create</a>
+            </div>
+        </div>
+        <div class="dropdowndev">
+            <button class="dropbtn <?php check_active('/university'); ?>">University</button>
+            <div class="dropdowndev-content">
+                <a class="<?php check_active('/university/index'); ?>" href="/university/index.php">Home</a>
+                <a class="<?php check_active('/university/csun'); ?>" href="/university/csun.php">CSUN</a>
+                <a class="<?php check_active('/university/ucla'); ?>" href="/university/ucla.php">UCLA</a>
+            </div>
+        </div>
+        <div class="dropdowndev">
+            <button class="dropbtn <?php check_active('/account'); ?>">Account</button>
+            <div class="dropdowndev-content">
+                <a class="<?php check_active('/account/profile'); ?>" href="/account/profile.php">Profile</a>
+                <a class="<?php check_active('/account/register'); ?>" href="/account/register.php">Registration</a>
+                <a class="<?php check_active('/account/login'); ?>" href="/account/login.php">Login</a>
+                <a class="<?php check_active('/account/logout'); ?>" href="/account/logout.php">Logout</a>
+                <a class="<?php check_active('/account/forgot'); ?>" href="/account/forgot.php">Reset</a>
+            </div>
+        </div>
+        <div style="float:right;">
+            <?php if (!check_login()) : ?>
+                <a class="dropdowndev" href="/account/login">Login</a>
+            <?php else : ?>
+                <div class="dropdowndev">
+                    <button class="dropbtn <?php check_active('/account/profile'); ?>"><?= $_SESSION['USER']->Username ?></button>
+                    <div class="dropdowndev-content">
+                        <a class="<?php check_active('/account/profile'); ?>" href="/account/profile.php">Profile</a>
+                        <a href="">Settings</a>
+                        <a href="/account/logout.php">Logout</a>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    </nav>
+</div>

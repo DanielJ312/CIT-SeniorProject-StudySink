@@ -1,7 +1,8 @@
 <!-- Register - User creates account by entering username, email, and password -->
 <?php 
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
-check_login() ? header("Location: /account/profile.php") : null;
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
+if (check_login()) header("Location: /account/profile.php"); 
 $pageTitle = "Create Account";
 
 $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = signup($_POST)) == 0) ? header("Location: login.php") : $errors) : [];
@@ -11,7 +12,7 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = signup($_PO
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <link rel="stylesheet" type="text/css" href="/account/register.css">
+    <link rel="stylesheet" type="text/css" href="/styles/account/register.css">
 </head>
 <body>
     <header>
@@ -38,40 +39,3 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = signup($_PO
     </footer>
 </body>
 </html>
-
-<?php 
-function signup($data) {
-    $errors = array();
-
-    // validate
-    if (!preg_match('/^[a-zA-Z0-9]+$/', $data['username'])) {
-        $errors[] = "Please enter a valid username.";
-    }
-    if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Please enter a valid email.";
-    }
-    if (strlen(trim($data['password'])) < 4) {
-        $errors[] = "Please enter a valid password.";
-    }
-    else if ($data['password'] != $data['password2']) {
-        $errors[] = "Passwords must match.";
-    }
-    $checkEmail = run_database("SELECT * FROM USER_T WHERE Email = :Email LIMIT 1;",['Email'=>$data['email']]);
-    if (is_array($checkEmail)) {
-        $errors[] = "Email already exists.";
-    }
-    
-    // save
-    if (count($errors) == 0) {
-        $values['UserID'] = generate_ID("USER");
-        $values['Username'] = $data['username'];
-        $values['Email'] = $data['email'];
-        $values['Password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-        $values['Created'] = get_local_time();
-        
-        $query = "INSERT INTO USER_T (UserID, Username, Email, Password, Created) VALUES (:UserID, :Username, :Email, :Password, :Created);";
-        run_database($query, $values);
-    }
-
-    return $errors;
-}

@@ -2,46 +2,42 @@
 # Functions - Contains functions that are used by multiple pages
 date_default_timezone_set('America/Los_Angeles');
 session_start();
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 
-function run_database($query, $values = array()) {;
-    $database = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");;
-    $dbhost = $database['db_host'];
-    $dbport = $database['db_port'];
-    $dbname = $database['db_name'];
-    $dbusername = $database['db_username'];
-    $dbpassword = $database['db_password'];
-    
-    $server = "mysql:host=$dbhost;port=$dbport;dbname=$dbname;";
-    $connection = new PDO($server, $dbusername, $dbpassword);
-
-    if (!$connection)  {
-        return false;
-    }
+function run_database($query, $values = array()) {
+    $connection = get_pdo_connection();
+    if (!$connection) return false;
 
     $statement = $connection->prepare($query);
     $check = $statement->execute($values);
 
     if ($check) {
         $data = $statement->fetchAll((PDO::FETCH_OBJ));
-        if (count($data) > 0) {
-            return $data;
-        }
+        if (count($data) > 0) return $data;
     }
-
     return false;
+}
+
+function get_pdo_connection() {
+    static $connection = null;
+    if ($connection === null) {
+        $database = read_config();
+        $server = "mysql:host={$database['db_host']};port={$database['db_port']};dbname={$database['db_name']};";
+        $connection = new PDO($server, $database['db_username'], $database['db_password']);
+    }
+    return $connection;
+}
+
+function read_config(){
+    return parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
 }
 
 function check_login() {
     $loggedIn = false;
-    if (isset($_SESSION['USER']) && isset($_SESSION['LOGGED_IN'])) {
-        $loggedIn = true;
-    }
+    if (isset($_SESSION['USER']) && isset($_SESSION['LOGGED_IN'])) $loggedIn = true;
     return $loggedIn;
 }
 
 function update_session() {
-    //finish
     if (isset($_SESSION['USER'])) {
         $values = array();
         $values['UserID'] = $_SESSION['USER']->UserID;
@@ -53,7 +49,6 @@ function update_session() {
         $_SESSION['USER'] = $result;
         $_SESSION['LOGGED_IN'] = true;
     }
-    
 }
 
 function check_verification() {
@@ -62,76 +57,14 @@ function check_verification() {
     $result = run_database($query);
     if (is_array($result)) {
         $result = $result[0];
-        if ($result->Verified == 1) {
-            return true;
-        }
+        if ($result->Verified == 1) return true;
     }
-
     return false;
 }
 
-function send_code($type, $recipient) {
-    $values['Code'] = rand(10000, 99999);
-    $values['Expires'] = (get_local_time() + (60 * 1));
-    $values['Email'] = $recipient;
-    $values['Type'] = "$type";
-
-    switch ($type) {
-        case 'verify':
-            $subject = "Verify Account";
-            $message = <<<message
-            <p>Hello <b>{$_SESSION['USER']->Username}</b>,</p>
-            Your account verification code is <b> {$values['Code']}</b>.
-            message;
-            break;
-        case 'reset':
-            $subject = "Password Reset";
-            $message = <<<message
-            <p>Hello, <b>{$_SESSION['USER']->Username}</b></p>
-            Your password reset verification code is  <b>{$values['Code']}</b>.
-            message;
-            break;
-        default:
-            break;
-    }
-    delete_code($type, $recipient);
-
-    $query = "INSERT INTO CODE_T (Code, Type, Email, Expires) values (:Code, :Type, :Email, :Expires);";
-    run_database($query, $values);
-    send_mail($recipient, $subject, $message);
-}
-
-function is_code_active($type, $email) {
-    $values['Type'] = $type;
-    $values['Email'] = $email;
-
-    $query = "SELECT * FROM CODE_T WHERE Type = :Type AND Email = :Email;";
-    $result = run_database($query, $values);
-
-    if (is_array($result) && get_local_time() < $result[0]->Expires) {
-        return true;
-    }
-    else {
-        send_code($type, $email);
-        return false;
-    }
-}
-
-function delete_code($type, $email) {
-    $query = "DELETE FROM CODE_T WHERE type = '$type' AND Email = '$email';";
-    run_database($query);
-}
-
-function check_active_page($currectPage) {
-    if ($currectPage == $_SERVER['REQUEST_URI']) {
-        echo "active";
-    }
-}
-
-function check_active_dir($dirToCheck) {
-    if (str_contains($_SERVER['REQUEST_URI'], $dirToCheck)) {
-        echo "active";
-    }
+function check_active($toCheck, $page = null) {
+    if (str_contains($_SERVER['REQUEST_URI'], $toCheck) && $page == null) echo "active";
+    else if ($_SERVER['REQUEST_URI'] == '/' && $page == 'home') echo "active";
 }
 
 function display_errors($errors) {
@@ -152,19 +85,25 @@ function display_time($time, $format) {
 
 function generate_ID($type) {
     do {
+        $createdID = '';
         switch ($type) {
             case 'USER':
                 $createdID = rand(101, 999);
+                $query = "SELECT * FROM USER_T WHERE UserID = :createdID limit 1";
+                break;
+            case 'STUDY_SET':
+                $createdID = get_local_time(); //+ mt_rand(1000, 9999)
+                $query = "SELECT * FROM STUDY_SET_T WHERE StudySetID = :createdID limit 1";
                 break;
             default:
-                # code...
+                throw new Exception("Invalid ID type specified.");
                 break;
         }
-        $query = "SELECT * FROM {$type}_T WHERE {$type}ID = '$createdID' limit 1";
-        $result = run_database($query);
-        $result = $result[0];
-    } while ($createdID == $result->UserID);
-    
+
+        $result = run_database($query, [':createdID' => $createdID]);
+        
+    } while (!empty($result));
+
     return $createdID;
 }
 
@@ -172,4 +111,27 @@ function check_set_title($pageTitle) {
     return isset($pageTitle) ? $pageTitle : "Page Header";
 }
 
+function get_universities_list() {
+    $query = "SELECT UniversityID, Name FROM UNIVERSITY_T ORDER BY Name ASC";
+    return run_database($query);
+}
+
+function check_user_vote($userID, $commentID) {
+    $query = "SELECT VoteType FROM CVOTE_T WHERE CommentID = $commentID AND UserID = $userID;";
+    $result = run_database($query);
+    if (is_array($result) && !$result[0]->VoteType == 0) {
+        return $result[0]->VoteType;
+    }
+}
+
+//New function to get study set info from db.
+function get_study_set($StudySetID) {
+    $values['StudySetID'] = $StudySetID;
+    $query = <<<query
+    SELECT S.StudySetID, U.Username, S.CourseID, S.Title, S.Description, S.Instructor, S.Created, U.Avatar
+    FROM STUDY_SET_T S INNER JOIN USER_T U ON S.UserID = U.UserID
+    WHERE StudySetID = :StudySetID;S
+    query;
+    return run_database($query, $values)[0];
+}
 ?>

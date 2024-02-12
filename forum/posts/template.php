@@ -1,27 +1,42 @@
+
+
+
 <!-- Post Template - Displays post for given Post ID  -->
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+// require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
+update_session();
 $pageTitle = "Forum";
 
 $postID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
-$values['PostID'] = $postID;
-$query = "SELECT *, POST_T.Created AS PostCreated FROM POST_T INNER JOIN USER_T ON POST_T.userid = USER_T.userid WHERE PostID = :PostID;";
-$post = run_database($query, $values)[0];
-if (empty($post)) {
-    header("Location: /forum/index.php");
-}
+$post = get_post($postID);
+if (empty($post)) header("Location: /forum/index.php");
+$commentTotal = get_comments($postID);
+$commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
 
-$query = "SELECT *, COMMENT_T.created AS CommentCreated FROM USER_T INNER JOIN COMMENT_T ON USER_T.userid = COMMENT_T.userid WHERE PostID = :PostID ORDER BY COMMENT_T.Created ASC;";
-$comments = run_database($query, $values);
+// Code for capturing and storing the Post ID of the 5 most recent posts a user has viewed
+$urlPath = $_SERVER['REQUEST_URI']; // e.g., "/forum/posts/6969"
+$segments = explode('/', $urlPath);
+$postId = end($segments); // grab the end segement
+// Verify that the post ID is valid
+$post = get_post($postId);
+if ($post) {
+    // Check if cookie exists
+    if (isset($_COOKIE['viewed_posts'])) {
+        $viewedPosts = explode(',', $_COOKIE['viewed_posts']);   // Get array of viewed post IDs
+        // Check if post ID already exists in array
+        if (($key = array_search($postId, $viewedPosts)) !== false) {
+            unset($viewedPosts[$key]);    // Remove existing post ID from array
+        }
+        array_unshift($viewedPosts, $postId);     // Add new post ID to the start of the array
+        $viewedPosts = array_slice($viewedPosts, 0, 5);    // Limit array to last 5 post IDs
+    } else {
+        $viewedPosts = array($postId);    // Create new array with the post ID
+    }
+    // Update cookie
+    setcookie('viewed_posts', implode(',', $viewedPosts), time() + (86400 * 3652.5), "/"); // Expires in 10 years
+    }
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    add_comment($_POST, $post->PostID);
-}
-
-if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action']) == "delete") {
-    delete_comment($_POST, $postID);
-    header("Location: {$post->PostID}.php"); // NOT WORKING - WORK ON A FIX
-}
 ?>
 
 <!DOCTYPE html>
@@ -29,47 +44,80 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action']) == "delete")
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <script async src="/forum/forum.js"></script>
+    <link rel="stylesheet" href="/styles/forum/post-template.css" />
 </head>
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-        <h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
-    <main>
-        <div>
-            <h3><?= $post->Title ?></h3>
-            <p><?= $post->Content; ?></p>
-            <p>Submitted: <?= display_time($post->PostCreated, "m/d/Y h:i:s A"); ?></p> 
-            <p>By: 
-                <?= $post->Username; ?>
-                <?= check_login(false) && $post->Username == $_SESSION['USER']->Username ? " (You)" : "" ?>
-            </p>
-        </div>
-        <?php if (check_login(false)): ?>
-        <div>
-            <h4>Add Comment</h4>
-            <form method="post">
-                <p>Content: <textarea name="content" rows="5" cols="40"></textarea></p>
-                <input type="submit" value="Submit">
-            </form>
-        </div>
-        <?php endif; ?>
-        <div>
-            <h4>Comments (<?= is_array($comments) ? count($comments) : "0"; ?>):</h4>
-            <?php if (is_array($comments)) : for ($i = 0; $i < count($comments); $i++) : ?>
-                <p class = "comment-<?= $comments[$i]->CommentID; ?>">
-                    <img width="25" src="<?= $comments[$i]->Avatar; ?>">
-                    <b><?= $comments[$i]->Username; ?>
-                    <?= $comments[$i]->Username == $post->Username ? " (OP)" : ""; ?>
-                    <?= check_login(false) && $comments[$i]->Username == $_SESSION['USER']->Username ? " (You)" : ""; ?></b>:
-                    <?= $comments[$i]->Content; ?>  
-                    <?= "(" . display_time($comments[$i]->CommentCreated, "m/d/Y h:i:s A") . ")"; ?>
-                <?php if (check_login(false) && $comments[$i]->Username == $_SESSION['USER']->Username): ?>
-                    <input type="submit" value="Delete" onclick="DeleteComment(<?= $comments[$i]->CommentID; ?>)">
+    <main class="post-body">
+        <div class="margin">
+            <div class="university-info">
+                <h2><?= $post->UniversityName; ?></h2>
+                <?php if (isset($post->SubjectName)) : ?>
+                    <h3><?= $post->SubjectName; ?></h3>
                 <?php endif; ?>
-                </p>
-            <?php endfor; endif;?>
-        </div>
+            </div>
+            <div class="posts">
+                <div class="post">
+                    <div class="post-header">
+                        <img src="<?= $post->Avatar; ?>" title="<?= $post->Username; ?>" alt="Place Holder" class="profile-picture" />
+                        <div class="post-info">
+                            <p class="post-account"><?= $post->Username; ?></p>
+                            <p class="post-date">Posted on <?= display_time($post->PostCreated, "F j, Y"); ?></p>
+                        </div>
+                        <?php if (check_login()) : ?>
+                            <div class="dropdown" onclick="toggleDropdown(this)">
+                                <i class="fa-solid fa-ellipsis-vertical ellipsis-icon"></i>
+                                <div class="dropdown-content">
+                                    <?php if ($_SESSION['USER']->UserID != $comment->UserID) : ?>
+                                        <a class="report" onclick="ReportComment(<?= $comment->CommentID; ?>)">Report</a>
+                                    <?php endif; ?>
+                                    <?php if ($comment->Username == $_SESSION['USER']->Username) : ?>
+                                        <a onclick="OpenCommentEditor(<?= $comment->CommentID; ?>)">Edit</a>
+                                        <a onclick="DeleteComment(<?= $comment->CommentID; ?>)">Delete</a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    <h3 class="post-title"><?= $post->Title; ?></h3>
+                    <p class="post-content"><?= $post->Content; ?></p>
+                    <div class="vote">
+                        <div class="post-iconsp">
+                        <i class="fa-regular fa-heart fa-lg"></i>
+                        </div>
+                        <div class="votes">WIP</div>
+                    </div>
+                </div>
+                <!-- Comments Section -->
+                <div class="comments">
+                    <div class="container">
+                        <h4>Comments (<span class="comment-total"><?= $commentTotal; ?></span>)</h4>
+                        <form id="sort-dropdown" method="">
+                            <?= "<script>var postID = $postID;</script>"; ?>
+                            <select id="sort" class="sort" name="sorts">
+                                <option value="comment-oldest">Oldest</option>
+                                <option value="comment-newest">Newest</option>
+                                <option value="comment-popular">Popular</option>
+                            </select>
+                        </form>
+                    </div>
+                    <?php if (check_login()) : ?>
+                        <div id="add-comment">
+                        <div class="comment-bar">
+                            <textarea style="resize: auto; height: 15px; width: 612px;" id="commentinput" oninput="commentcountChar(this)"type="text" class="commentInput" placeholder="Add a comment..." name="content" onkeypress="handleKeyPress(event)"></textarea>
+                            <span id="commentcharCount"></span>
+                            <button onclick="AddComment()" type="submit" value="Submit" class="addComment">Add</button>
+                        </div>
+                        </div>
+                    <?php endif; ?>
+                    <div class="sort-container">
+                        <!-- Comments will get inserted here -->
+                    </div>
+                </div>
+            </div>
     </main>
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
@@ -77,34 +125,3 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action']) == "delete")
 </body>
 </html>
 
-<?php
-function add_comment($data, $postID) {
-    $errors = array();
-
-    if(empty($data['content'])) {
-        $errors[] = "Please enter content for the comment.";
-    }
-
-    if (count($errors) == 0) {
-        $values['CommentID'] = rand(100, 999);
-        $values['PostID'] = $postID;
-        $values['Content'] = $data['content'];
-        $values['UserID'] = $_SESSION['USER']->UserID;
-        $values['Created'] = get_local_time();
-
-        $query = "INSERT INTO COMMENT_T (CommentID, PostID, Content, UserID, Created) VALUES (:CommentID, :PostID, :Content, :UserID, :Created)";
-        run_database($query, $values);
-
-        header("Location: $postID.php");
-    }
-
-    return $errors;
-}
-
-function delete_comment($data, $postID) {
-    $values['CommentID'] = $data['commentID'];
-
-    $query = "DELETE FROM COMMENT_T WHERE CommentID = :CommentID";
-    run_database($query, $values);
-}
-?>

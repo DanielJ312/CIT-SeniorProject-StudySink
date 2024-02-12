@@ -5,17 +5,18 @@
 }
 
 /* Reset default styles for body */
-.body {
+.Navbody {
     font-family: 'Comfortaa', sans-serif;
     margin: 0;
 }
 
 .navbarMain {
-    background-color: #0078d4;
+    background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 11.5px 0px;
+    box-shadow: 0 0px 8px rgb(0 0 0 / 15%);
 }
 
 /*-- Logo --*/
@@ -33,13 +34,13 @@
     cursor: pointer;
     margin-left: 13px;
     margin-right: 35px;
-    color: black;
-    border-width: 2px;
+    color: #2776ff;
+    border-width: 1px;
     border-style: solid;
 }
 
 .profile-picture:hover {
-    border-color: white;
+    border-color: #f59c1a;
 }
 
 /*-- Search bar --*/
@@ -52,16 +53,18 @@
 .navbar-center input {
     display: flex;
     align-items: center;
-    background-color: #C2D9FF;
+    background-color: white;
     padding: 8px;
     border-radius: 20px;
-    border: none;
+    border: solid #0000001a;
+    border-width: 0.5px;
     height: 25px;
     width: 95%;
     font-family: 'Comfortaa', sans-serif;
     text-decoration: none;
     color: black;
     font-size: 1.2em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .search-container {
@@ -77,6 +80,15 @@
     cursor: pointer;
 }
 
+.fa-magnifying-glass {
+    color: black;
+}
+
+.fa-magnifying-glass:hover {
+    color: #f59c1a;
+    cursor: pointer;
+}
+
 /*-- Right Icons --*/
 .navbar-right {
     display: flex;
@@ -88,27 +100,31 @@
     margin-right: 13px;
 }
 
-.fa-circle-plus:hover {
+.fa-circle-plus,
+.fa-house,
+.fa-book,
+.fa-graduation-cap,
+.fa-id-card {
+    color: #2778ff;
+}
+
+
+.fa-circle-plus:hover,
+.fa-house:hover,
+.fa-book:hover,
+.fa-graduation-cap:hover,
+.fa-id-card:hover {
     cursor: pointer;
-    color: white;
+    color: #f59c1a;
 }
 
-.fa-house {
-    color: black;
+.fa-id-card {
+    padding-right: 35px;
+    margin-top: 9px;
 }
 
-.fa-house:hover {
-    cursor: pointer;
-    color: white;
-}
-
-.fa-graduation-cap {
-    color: black;
-}
-
-.fa-graduation-cap:hover {
-    cursor: pointer;
-    color: white;
+.active {
+    color: #fcb54d;
 }
 
 /* -- Dropdown Contect for Create -- */
@@ -136,6 +152,7 @@
 
 .dropdown-content-create a:hover {
     background-color: #C2D9FF;
+    cursor: pointer;
 }
 
 /* -- Dropdown Contect for profile -- */
@@ -207,7 +224,7 @@
     }
 
     .fa-bars:hover {
-        color: white;
+        color: #f59c1a;
     }
 
     .searchform {
@@ -216,6 +233,8 @@
         border-top-color: black;
         border-top-width: 2px;
         border-top-style: solid;
+        display: flex;
+        justify-content: center;
     }
 
     .mag {
@@ -244,7 +263,7 @@
         padding-top: 3px;
         padding-bottom: 3px;
         padding-left: 12%;
-        width: 169px;
+        width: 85%;
     }
 
     .mobilenav {
@@ -254,7 +273,7 @@
         position: absolute;
         top: 50px;
         left: 0;
-        width: 200px;
+        width: 100%;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
     }
 

@@ -1,0 +1,236 @@
+.createStudySetBody {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    color: black;
+}
+
+.studySetContainer {
+    max-width: 65%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+}
+
+.studySetContainer input,
+.studySetContainer textarea {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: #ffffff;
+    color: black;
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
+}
+
+.studySetContainer input:focus,
+.studySetContainer textarea:focus {
+    outline: 1px solid #f59c1a;
+    outline-offset: 0px;
+}
+
+
+.studySetContainer input::placeholder,
+.studySetContainer textarea::placeholder {
+    color: #666;
+    opacity: 1;
+}
+
+.header2 {
+    font-size: 28px;
+    color: #333;
+    margin: 0;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.titleContainer {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 0px;
+}
+
+.titleContainer input {
+    margin: 0px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
+}
+
+.studySetTags {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.description {
+    display: flex;
+    justify-content: flex-start;
+    width: 50%;
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+}
+
+.description textarea {
+    width: 95%;
+    height: 95%;
+    padding: 10px;
+    margin: 0px;
+    resize: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
+}
+
+.columnTags {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+.studySetTags .columnTags select,
+.studySetTags .columnTags input {
+    width: 95%;
+    margin-left: auto;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    position: relative;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
+}
+
+.studySetTags .columnTags select:focus {
+    border: solid #f59c1a;
+    border-width: 1px;
+}
+
+.studyCards {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.cardHeader {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.topOfCard {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border-bottom: solid 2px #2778ff75;
+}
+
+.frontAndBack {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    align-items: flex-start;
+}
+
+.cardFront {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.cardHeader .cardBack textarea {
+    width: 95%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+    resize: none;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
+}
+
+.cardBack {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.cardHeader .cardBack textarea {
+    width: 95%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+    resize: none;
+    background-color: #ffffff;
+}
+
+.formButtons {
+    display: flex;
+    justify-content: flex;
+    padding-top: 20px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.formButtons input[type="submit"],
+.formButtons button {
+    padding: 10px 20px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007BFF;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.formButtons input[type="submit"]:hover,
+.formButtons button:hover {
+    background-color: #0056b3;
+}
+
+.deleteCardBtn {
+    background-color: transparent;
+    color: red;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    outline: none;
+}
+
+.deleteCardBtn i {
+    font-size: 1em;
+}

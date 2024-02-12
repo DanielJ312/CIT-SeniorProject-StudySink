@@ -1,1 +1,0 @@
-// Move study set creation javascript to this while, couldn't get working

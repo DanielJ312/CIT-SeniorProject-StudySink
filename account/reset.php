@@ -1,6 +1,8 @@
 <!-- Reset - User enters verification code and new password to change password -->
 <?php 
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 check_login() ? header("Location: /account/profile.php") : null;
 $pageTitle = "Reset Password";
 
@@ -11,7 +13,7 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = reset_passw
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <link rel="stylesheet" type="text/css" href="/account/reset.css">
+    <link rel="stylesheet" type="text/css" href="/styles/account/reset.css">
 </head>
 <body>
     <header>
@@ -36,43 +38,3 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = reset_passw
     </footer>
 </body>
 </html>
-
-<?php 
-function reset_password($data) {
-    $errors = array();
-
-    $values = array();
-    $values['Code'] = $data['code'];
-    $query = "SELECT * FROM CODE_T WHERE Code = :Code LIMIT 1;";
-    $result = run_database($query, $values);
-        
-    if (is_array($result)) {
-        if (get_local_time() > $result[0]->Expires) {
-            $errors[] = 'Your code has expired so a new one has been sent. Please enter the new one.';
-            is_code_active("reset", $result[0]->Email);
-        }
-        else if (strlen(trim($data['password'])) < 4) {
-            $errors[] = "Please enter a valid password.";
-        }
-        else if ($data['password'] != $data['password2']) {
-            $errors[] = "Passwords must match.";
-        }
-        if (count($errors) == 0) {
-            $result = $result[0];
-            $values = array();
-            $values['Email'] = $result->Email;
-            $values['Password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-            echo "$result->Email";
-            // die;
-            $query = "UPDATE USER_T SET Password = :Password WHERE Email = :Email";
-            run_database($query, $values);
-            delete_code("reset", $result->Email);
-        }
-    }
-    else {
-        $errors[] = "Verifcation code is incorrect.";
-    }
-
-    return $errors;
-}
-?>
