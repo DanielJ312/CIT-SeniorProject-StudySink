@@ -1,0 +1,148 @@
+.home-screen {
+    font-family: 'Comfortaa', sans-serif;
+    margin: 0;
+    display: flex;
+    height: 86.89vh;
+}
+
+/* Left Container */
+.left-container {
+    flex: 0 0 35%;
+    background-color: #fefefe;
+    padding: 20px;
+}
+
+/* Inner Container within Left Container */
+.university-post-container {
+    background-color: lightgrey;
+    padding: 20px;
+    height: auto;
+    border-radius: 15px;
+}
+
+/* Right Container */
+.right-container {
+    flex: 1;
+    background-color: #fefefe;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Inner Container 1 within Right Container */
+.recent-posts-container {
+    background-color: lightgrey;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+}
+
+/* Inner Container 2 within Right Container */
+.recent-sets-container {
+    background-color: lightgrey;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+/* Title styling */
+.home-container-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: black;
+}
+
+/* Post & Study Set tiles styling */
+.post-tiles-container, .study-sets-tiles-container {
+    display: flex;
+    flex-direction: row;
+    margin: 3% 0%;
+}
+
+.post-tile, .study-set-tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #181818;
+    background: lightgrey;
+    border-radius: 5px;
+    padding: 10px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid grey;
+    width: 33%;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+}
+
+.post-tile, .study-set-tile {
+    transition: transform 0.3s ease;
+}
+
+.post-tile:hover, .study-set-tile:hover {
+    transform: scale(1.05);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.post-tile:active, .study-set-tile:active {
+    transform: scale(0.95);
+    box-shadow: none;
+}
+
+.post-header, .study-set-header {
+  display: flex;
+  color:black;
+  border: none;
+  box-shadow: none;
+  background: none;
+  font-size: 24px;
+}
+
+.post-title, .study-set-title {
+    font-size: 20px;
+    margin-bottom: 0px;
+    margin-top: 4%;
+    color:#181818;
+    text-align: left;
+}
+
+.post-account, .study-set-account {
+    font-size: 12px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    color:#181818;
+}
+
+.post-date, .study-set-date {
+    font-size: 10px;
+    text-decoration: none;
+    margin-top: 5px;
+    color:#181818;
+}
+
+.post-content, .post-title, .study-set-description, .study-set-title {  
+    color:#181818;
+}
+
+.post-content, .study-set-description {
+    opacity: 0.5;
+    font-size: 75%;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.vote, .study-set-rating {
+    display: flex;
+    justify-content: flex-end;
+    align-self: flex-end;
+    color:#181818;
+}
+
+.post-profile-picture, .study-set-profile-picture
+{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 13px;
+}

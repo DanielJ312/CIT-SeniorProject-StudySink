@@ -1,0 +1,113 @@
+.flashcardsBody {
+    background-color: #f5f5f5;
+    color: black;
+    font-family: 'Arial', sans-serif;
+}
+
+.flashcardsContainer {
+    max-width: 65%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    border: solid 1px #f59c1a;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.flashcardsContainer h2 {
+    text-align: center;
+    color: #333;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.cards .active {
+    display: block; /* Show only the active card */
+}
+
+.cardContainer {
+    width: 85%; 
+    height: 400px;
+    margin: 20px auto;
+    perspective: 1000px;
+    cursor: pointer;
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+}
+
+.cardFront, .cardBack {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    background-color: #ffffff;
+    border: solid 1px #f59c1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    color: black;
+    transition: transform 0.2s linear;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.cardFront {
+    transform: rotateY(0deg);
+
+}
+
+.cardBack {
+    transform: rotateY(180deg);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.cardContainer.is-flipped .cardFront {
+    transform: rotateY(-180deg);
+}
+
+.cardContainer.is-flipped .cardBack {
+    transform: rotateY(0deg);
+}
+
+.cardCounter {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.navigationContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 85%;
+    margin: 20px auto;
+    margin-top: -10px;
+    padding: 5px;
+}
+
+#backButton, #nextButton, #shuffleButton {
+    background-color: transparent;
+    border: none;
+    color: #f59c1a;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#backButton:hover, #nextButton:hover, #shuffleButton:hover {
+    color: #d47a00;
+}
