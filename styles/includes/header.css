@@ -181,6 +181,10 @@
     background-color: #C2D9FF;
 }
 
+#overlay {
+    z-index: 1000;
+}
+
 /* -- Mobile compatibility at 850px -- */
 @media only screen and (max-width: 850px) {
     .navbarMain {
