@@ -164,9 +164,10 @@
     justify-content: center;
     align-items: center;
     width: 50%;
+    resize: none;
 }
 
-.cardHeader .cardBack textarea {
+.cardHeader .cardFront textarea {
     width: 95%;
     margin-top: 10px;
     margin-bottom: 10px;
