@@ -70,6 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
     searchForm.addEventListener("submit", function (event) {
         event.preventDefault();
         var query = document.getElementById("searchBar").value;
-        window.location.href = '/search-results.php?search=' + encodeURIComponent(query);
+        window.location.href = '/results.php?search=' + encodeURIComponent(query);
     });
 });

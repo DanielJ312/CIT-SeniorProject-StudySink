@@ -34,7 +34,7 @@ $posts = run_database($postsQuery, ['searchTerm' => "%$searchTerm%"]);
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <link rel="stylesheet" href="../styles/search-results/search-results.css" />
+    <link rel="stylesheet" href="../styles/results.css" />
 </head>
 <body>
     <header>
