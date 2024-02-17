@@ -1,0 +1,500 @@
+/* Reset default styles for body */
+body {
+    font-family: 'Comfortaa', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: black;
+    width: 100%;
+    height: 100%;
+    background: #f7f7f7;
+}
+
+.margin {
+    margin: 20px 15%;
+}
+
+/* Styling for university info */
+.university-info {
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    color: #ededed;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
+    background: rgb(255 255 255);
+}
+
+.sort {
+    display: flex;
+    border: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border-radius: 0.5em;
+    cursor: pointer;
+    height: 25px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
+}
+
+/* Styling for columns */
+.column {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Add space between the columns */
+}
+
+.study-set, .posts {
+    flex: 1; /* Each section takes up an equal amount of space */
+}
+
+h2 {
+    color: black;
+    text-align: center;
+}
+
+h3 {
+    color: black;
+}
+
+.posts {
+    padding-left: 10px;
+}
+
+.study-set {
+    padding-right: 5px;
+}
+
+/* Styling for individual posts */
+.post {
+    background: rgb(255 255 255);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
+    margin-bottom: 10px;
+    margin-right: 5px;
+    border: solid #00000029;
+    border-width: 0.5px;
+}
+
+.fa-heart:before {
+    color: #2778ff;
+}
+
+.post:hover {
+    border: 1px solid #f59c1a; 
+}
+
+.post-account {
+    font-size: 1.1em;
+    margin-bottom: 0px;
+    color: black;
+}
+
+.post-date {
+    font-size: 0.9em;
+    color: black;
+    margin-top: 5px;
+}
+
+.post-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.post-icons {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+}
+
+.post-content,
+.post-title {
+    color: black;
+    margin-top: 6px;
+    margin-bottom: 7px;
+}
+
+.post-title {
+    margin-bottom: 10px;
+}
+
+.post-iconsp {
+    bottom: 8px;
+    right: 16px;
+    padding-right: 5px;
+}
+
+.vote {
+    display: flex;
+    justify-content: flex-end;
+    color: black;
+}
+
+.post-profile-picture {
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 13px;
+    width: 50px;
+    height: 50px;
+    margin-left: 0px;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #fff;
+    display: block;
+}
+
+.post-profile-picture:hover {
+    border-color: #f59c1a;
+    }
+
+.switch {
+    font-size: 17px;
+    position: relative;
+    display: inline-block;
+    width: 64px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #73C0FC;
+    transition: .4s;
+    border-radius: 30px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+    left: 2px;
+    bottom: 2px;
+    z-index: 2;
+    background-color: #e8e8e8;
+    transition: .4s;
+}
+
+.sun svg {
+    position: absolute;
+    top: 6px;
+    left: 36px;
+    z-index: 1;
+    width: 24px;
+    height: 24px;
+}
+
+.moon svg {
+    fill: #73C0FC;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 1;
+    width: 24px;
+    height: 24px;
+}
+
+/* .switch:hover */
+.sun svg {
+    animation: rotate 15s linear infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* .switch:hover */
+.moon svg {
+    animation: tilt 5s linear infinite;
+}
+
+@keyframes tilt {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-10deg);
+    }
+
+    75% {
+        transform: rotate(10deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.input:checked + .slider {
+    background-color: #183153;
+}
+
+.input:focus + .slider {
+    box-shadow: 0 0 1px #183153;
+}
+
+.input:checked + .slider:before {
+    transform: translateX(-30px);
+}
+
+.subjects {
+    width: 100%;
+    height: 380px;
+    overflow: auto;
+}
+
+.studySetBrowsePageBody {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: black;
+}
+
+.studySetBrowsePageContainer {
+    max-width: 85%;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.displayCardArea {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.3s ease;
+    background: rgb(255 255 255);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
+    margin-bottom: 10px;
+    margin-right: 5px;
+    border: solid #00000029;
+    border-width: 0.5px;
+}
+
+.cardHeaderTopLeft {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    align-items: flex-start;
+    border-bottom: 1px solid #2778ff;
+}
+
+.cardHeaderUsernameDate {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0px;
+    padding: 0px;
+}
+
+.cardHeaderUsernameDate > p {
+    margin: 0;
+    padding: 0px;
+    font-weight: bold; 
+}
+
+.cardHeaderUsernameDate > p:first-child {
+    font-size: 1.1em; 
+    margin-bottom: 0px;
+}
+
+.cardHeaderUsernameDate > p:last-child {
+    font-size: 0.9em; 
+    color: black; 
+    margin-top: 5px;
+}
+
+.cardContainer:hover {
+    border:solid #f59c1a;
+    border-width: 1px;
+}
+
+.cardContainer img.profile-picture {
+    width: 50px;
+    height: 50px;
+    margin-left: 0px;
+    margin-right: 0px;
+    border-radius: 50%; 
+    object-fit: cover;
+    border: 2px solid #fff; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    background-color: #fff;
+    display: block;
+}
+
+.cardContainer img.profile-picture:hover {
+    border-color: #f59c1a;
+}
+
+.cardContainer h3 {
+    font-size: 1.2em;
+    margin: 0;
+    padding: 10px; 
+    text-align: center; 
+}
+
+.cardContainer p {
+    font-size: 0.9em;
+    color: black; 
+    margin: 5px 0;
+    padding: 0 10px; 
+    text-align: center;
+}
+
+.result-item {
+    background: rgb(255, 255, 255);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
+    margin-bottom: 10px;
+    border: solid #00000029;
+    border-width: 0.5px;
+}
+
+.result-item h4, .result-item p {
+    color: black;
+    margin: 6px 0;
+}
+
+.result-item:hover {
+    border: 1px solid #f59c1a;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+    scrollbar-width: none;
+    scrollbar-color: #ffffff #0b1160;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 9px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #f7f7f7;
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 9px;
+    border: 1px solid #2778ff;
+}
+
+:-webkit-scrollbar-thumb:hover {
+    background-color: #f3c068;
+}
+
+.scrollbar {
+    overflow: auto;
+    height: 1000px;
+}
+
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media only screen and (max-width: 850px) {
+    .posts {
+        padding-left: 0px;
+    }
+
+    h2 {
+        color: black;
+        text-align: center;
+        display: flex;
+        align-items: center;
+    }
+
+    .down {
+        border: solid black;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        margin: 7px;
+    }
+
+    #contentset {
+        display: none;
+    }
+
+    #contentpost {
+        display: none;
+    }
+
+    .scrollbar {
+        overflow: auto;
+        height: auto;
+    }
+
+    .column {
+        margin-top: 10px;
+        display: block;
+    }
+
+    .margin {
+        margin: 20px 2%;
+    }
+
+    .study-set {
+        padding-right: 0px;
+    }
+
+    .cardContainer {
+        display: flex;
+        flex-direction: column;
+        transition: box-shadow 0.3s ease;
+        background: rgb(255 255 255);
+        border-radius: 5px;
+        padding: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
+        margin-bottom: 10px;
+        margin-right: 5px;
+        border: solid #00000029;
+        border-width: 0.5px;
+    }
+}
+
+@media (min-width: 1629px) {
+    #contentset {
+        display: block !important;
+    }
+
+    #contentpost {
+        display: block !important;
+    }
+}
+
+a {
+    text-decoration: none;
+}

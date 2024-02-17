@@ -64,3 +64,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    var searchForm = document.getElementById("search-form");
+    searchForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var query = document.getElementById("searchBar").value;
+        window.location.href = '/search-results.php?search=' + encodeURIComponent(query);
+    });
+});
