@@ -19,6 +19,7 @@ $studySetsQuery = "SELECT DISTINCT STUDY_SET_T.*,
                    INNER JOIN USER_T ON STUDY_SET_T.UserID = USER_T.UserID
                    WHERE STUDY_SET_T.Title LIKE :searchTerm 
                      OR STUDY_SET_T.Description LIKE :searchTerm 
+                     OR STUDY_SET_T.Instructor LIKE :searchTerm
                      OR COURSE_T.Abbreviation LIKE :searchTerm 
                      OR SUBJECT_T.Name LIKE :searchTerm 
                      OR UNIVERSITY_T.Name LIKE :searchTerm 
@@ -28,10 +29,18 @@ $studySetsQuery = "SELECT DISTINCT STUDY_SET_T.*,
 $studySets = run_database($studySetsQuery, ['searchTerm' => "%$searchTerm%"]);
 
 // Search query for posts
-$postsQuery = "SELECT POST_T.*, USER_T.Username, USER_T.Avatar
+$postsQuery = "SELECT POST_T.*, USER_T.Username, USER_T.Avatar, 
+               UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation AS UniversityAbbreviation, 
+               SUBJECT_T.Name AS SubjectName
                FROM POST_T
                INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID
-               WHERE POST_T.Title LIKE :searchTerm OR POST_T.Content LIKE :searchTerm";
+               LEFT JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
+               LEFT JOIN SUBJECT_T ON POST_T.SubjectID = SUBJECT_T.SubjectID
+               WHERE POST_T.Title LIKE :searchTerm 
+               OR POST_T.Content LIKE :searchTerm
+               OR UNIVERSITY_T.Name LIKE :searchTerm
+               OR UNIVERSITY_T.Abbreviation LIKE :searchTerm
+               OR SUBJECT_T.Name LIKE :searchTerm";
 $posts = run_database($postsQuery, ['searchTerm' => "%$searchTerm%"]);
 ?>
 <!DOCTYPE html>
@@ -65,7 +74,7 @@ $posts = run_database($postsQuery, ['searchTerm' => "%$searchTerm%"]);
                                                 <img src="<?= htmlspecialchars($set->Avatar); ?>" alt="<?= htmlspecialchars($set->Username); ?>'s avatar" class="profile-picture" />
                                                 <div class="cardHeaderUsernameDate">
                                                     <p><?= isset($set->Username) ? htmlspecialchars($set->Username) : 'Unknown User'; ?></p>
-                                                    <p><?= isset($set->Created) ? date("F j, Y", strtotime($set->Created)) : 'Unknown Date'; ?></p>
+                                                    <p><?= isset($set->Created) ? display_time($set->Created, "F j, Y") : 'Unknown Date'; ?></p>
                                                 </div>
                                             </div>
                                             <div class="studySetDetailsBottom">
