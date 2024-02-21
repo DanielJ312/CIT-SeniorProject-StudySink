@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const cards = document.querySelectorAll('.cardContainer');
+    let cards = document.querySelectorAll('.cardContainer');
     let currentCardIndex = 0;
 
     // Initialize the counter
@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Initially hide all cards except the first one
     cards.forEach((card, index) => {
         card.style.display = index === 0 ? 'block' : 'none';
-        console.log(`Card ${index} display:`, card.style.display); // Debugging
     });
 
     // Add flipping functionality to each card
@@ -21,49 +20,56 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // Handle Back button click
-    const backButton = document.getElementById('backButton');
-    backButton.addEventListener('click', function() {
-        if (currentCardIndex > 0) {
-            cards[currentCardIndex].style.display = 'none'; // Hide current card
-            currentCardIndex--;
-            cards[currentCardIndex].style.display = 'block'; // Show previous card
-            cards[currentCardIndex].classList.remove('is-flipped'); // Reset flip state
-            currentCardIndexElement.textContent = currentCardIndex + 1;
-        }
-    });
-
-    // Handle Next button click
-    const nextButton = document.getElementById('nextButton');
-    nextButton.addEventListener('click', function() {
-        if (currentCardIndex < cards.length - 1) {
-            cards[currentCardIndex].style.display = 'none'; // Hide current card
-            currentCardIndex++;
-            cards[currentCardIndex].style.display = 'block'; // Show next card
-            cards[currentCardIndex].classList.remove('is-flipped'); // Reset flip state
-            currentCardIndexElement.textContent = currentCardIndex + 1;
-        }
-    });
+    // Handle Back and Next button clicks
+    handleNavigationButtons();
 
     // Handle shuffling
     const shuffleButton = document.getElementById('shuffleButton');
     shuffleButton.addEventListener('click', shuffleCards);
 
     function shuffleCards() {
-        // Reset current card index and flip state
-        cards[currentCardIndex].style.display = 'none';
-        cards[currentCardIndex].classList.remove('is-flipped');
-        currentCardIndex = 0;
-
-        // Shuffle logic
-        const cardsArray = Array.from(cards);
-        for (let i = cardsArray.length - 1; i > 0; i--) {
+        // Shuffle the cards array
+        for (let i = cards.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * (i + 1));
-            [cardsArray[i].style.order, cardsArray[j].style.order] = [cardsArray[j].style.order, cardsArray[i].style.order];
+            [cards[i], cards[j]] = [cards[j], cards[i]];
         }
 
-        // Ensure the first card is displayed after shuffling
-        cards[0].style.display = 'block';
-        currentCardIndexElement.textContent = 1;
+        // Append shuffled cards to the DOM
+        const cardsContainer = document.querySelector('.cards');
+        cardsContainer.innerHTML = ''; // Clear existing cards
+        Array.from(cards).forEach(card => {
+            cardsContainer.appendChild(card); // Append shuffled card
+            card.style.display = 'none'; // Hide all cards
+        });
+
+        // Reset current card index and display the first card
+        currentCardIndex = 0;
+        cards[currentCardIndex].style.display = 'block';
+        currentCardIndexElement.textContent = currentCardIndex + 1;
+    }
+
+    function handleNavigationButtons() {
+        const backButton = document.getElementById('backButton');
+        const nextButton = document.getElementById('nextButton');
+
+        backButton.addEventListener('click', function() {
+            if (currentCardIndex > 0) {
+                navigateToCard(-1);
+            }
+        });
+
+        nextButton.addEventListener('click', function() {
+            if (currentCardIndex < cards.length - 1) {
+                navigateToCard(1);
+            }
+        });
+    }
+
+    function navigateToCard(offset) {
+        cards[currentCardIndex].style.display = 'none'; // Hide current card
+        cards[currentCardIndex].classList.remove('is-flipped'); // Reset flip state
+        currentCardIndex += offset;
+        cards[currentCardIndex].style.display = 'block'; // Show new card
+        currentCardIndexElement.textContent = currentCardIndex + 1;
     }
 });
