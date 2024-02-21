@@ -130,8 +130,31 @@ function get_study_set($StudySetID) {
     $query = <<<query
     SELECT S.StudySetID, U.Username, S.CourseID, S.Title, S.Description, S.Instructor, S.Created, U.Avatar
     FROM STUDY_SET_T S INNER JOIN USER_T U ON S.UserID = U.UserID
-    WHERE StudySetID = :StudySetID;S
+    WHERE StudySetID = :StudySetID;
     query;
     return run_database($query, $values)[0];
+}
+
+//Get users main university ID given the users ID.
+function get_user_university() {
+    $values['UserID'] = $_SESSION['USER']->UserID;
+    $query = <<<query
+    SELECT UniversityID
+    FROM USER_T
+    WHERE UserID = :UserID;
+    query;
+    return run_database($query, $values)[0]->UniversityID;
+}
+
+//Get 5 most recently created University posts based on user's set university.
+function get_recent_university_post_IDs($universityID) {
+    $query = "SELECT PostID FROM POST_T WHERE UniversityID = :UniversityID ORDER BY Created DESC LIMIT 5";
+    $result = run_database($query, $values = ['UniversityID' => $universityID]);
+    $postIDs = [];
+    foreach ($result as $row) {
+        $postIDs[] = $row->PostID;
+    }
+
+    return $postIDs;
 }
 ?>
