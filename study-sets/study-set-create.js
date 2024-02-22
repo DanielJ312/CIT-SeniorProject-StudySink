@@ -189,6 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
             option.textContent = subject.Name;
             if (subject.SubjectID == selectedSubjectId) {
                 option.selected = true;
+                subjectSelect.classList.add('selected');
             }
             subjectSelect.appendChild(option);
         });
@@ -212,6 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Check for type mismatch issues by converting both to strings
             if (String(course.CourseID) === String(selectedCourseId)) {
                 option.selected = true;
+                courseSelect.classList.add('selected');
                 console.log('Setting selected course:', course); // Debugging log
             }
 
@@ -295,4 +297,25 @@ document.addEventListener('DOMContentLoaded', function() {
         // Now submit the form
         e.target.submit();
     }
+
+    document.querySelectorAll('.studySetContainer select').forEach(select => {
+        if (select.value) {
+            select.classList.add('selected');
+        }
+        select.addEventListener('change', function() {
+            if (this.value) {
+                this.classList.add('selected');
+            } else {
+                this.classList.remove('selected');
+            }
+        });
+    });
 });
+
+window.onload = function() {
+    document.querySelectorAll('.studySetContainer select').forEach(select => {
+        if (select.value) {
+            select.classList.add('selected');
+        }
+    });
+};

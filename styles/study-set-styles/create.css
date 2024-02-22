@@ -18,32 +18,75 @@
 }
 
 .studySetContainer input,
+.studySetContainer select,
 .studySetContainer textarea {
-    display: flex;
-    justify-content: flex-start;
+    display: block;
     width: 100%;
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 8px;
-    border: none;
+    border: 1px solid #ccc;
     background-color: #ffffff;
     color: black;
+    font-family: 'Arial', sans-serif;
     box-sizing: border-box;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
 }
 
-.studySetContainer input:focus,
-.studySetContainer textarea:focus {
-    outline: 1px solid #f59c1a;
-    outline-offset: 0px;
+.studySetContainer select::placeholder {
+    color: #666;
+    font-family: 'Comfortaa', sans-serif;
+    opacity: 1; /* Make sure the placeholder is fully visible */
 }
 
+.studySetContainer select.selected {
+    color: black; /* Darker color for selected option */
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.studySetContainer select option {
+    color: black; /* Darker color for options within the dropdown */
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.studySetContainer select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg ...>...</svg>'); /* Placeholder for custom arrow icon */
+    background-position: right 10px top 50%;
+    background-repeat: no-repeat;
+    background-size: 12px;
+    padding-right: 30px;
+}
+
+.studySetContainer input:focus,
+.studySetContainer select:focus,
+.studySetContainer textarea:focus {
+    outline: none;
+    border: 1px solid #f59c1a;
+}
 
 .studySetContainer input::placeholder,
 .studySetContainer textarea::placeholder {
+    font-family: 'Arial', sans-serif;
     color: #666;
     opacity: 1;
+}
+
+.studySetContainer select option[value=""][disabled] {
+    font-family: 'Arial', sans-serif;
+    color: #666;
+}
+
+.studySetTags select {
+    color: #666;
+    font-family: 'Arial', sans-serif;
+}
+
+.studySetTags select option {
+    color: black;
 }
 
 .header2 {
