@@ -51,8 +51,10 @@ function addCard() {
 }
 
 function autoExpandTextArea(event) {
-    event.target.style.height = 'auto'; // Reset the height
-    event.target.style.height = event.target.scrollHeight + 'px'; // Set the height to scroll height
+    var element = event.target;
+    element.style.overflowY = 'hidden'; // Prevent scrollbar
+    element.style.height = 'inherit'; // Reset the height
+    element.style.height = `${element.scrollHeight}px`; // Set the height based on content
 }
 
 document.addEventListener('DOMContentLoaded', function() {
