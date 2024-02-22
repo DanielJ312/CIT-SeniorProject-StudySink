@@ -72,12 +72,30 @@
     width: 100%;
 }
 
+.search-container input[type="text"] {
+    width: 100%;
+    padding: 10px 10px 10px 40px; /* Add padding to make space for the icon inside the bar */
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    outline: none;
+}
+
 .search-container a {
     position: absolute;
     left: 1%;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
+}
+
+.search-container i.fa-magnifying-glass {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ccc;
+    pointer-events: none;
 }
 
 .fa-magnifying-glass {
@@ -179,6 +197,10 @@
 
 .dropdown-content-profile a:hover {
     background-color: #C2D9FF;
+}
+
+#overlay {
+    z-index: 1000;
 }
 
 /* -- Mobile compatibility at 850px -- */

@@ -40,7 +40,7 @@ $sets = run_database($query);
     </header>
     <main>
         <div class="studySetBrowsePageContainer">
-            <h3>Study Sets</h3>
+            <h3>DISREGARD PAGE: THIS IS ONLY FOR TESTING. THIS PAGE WILL BE DELETED FOR THE FINAL VERSION - Alex</h3>
             <div class="displayCardArea">
                 <?php for ($i = 0; $i < count($sets); $i++): ?> 
                     <a href="/study-sets/<?= htmlspecialchars($sets[$i]->StudySetID); ?>.php" class="card-link">

@@ -14,8 +14,10 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
         </div>
         <div class="navbar-center">
             <div class="search-container">
-                <a href="SearchResults"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a>
-                <input type="text" id="searchBar" placeholder="Search Study sets, Universities, Posts" style="padding-left: 35px;">
+                <form action="../results.php" method="GET">
+                    <input type="text" id="searchBar" name="search" placeholder="Search Study sets, Universities, Posts">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </form>
             </div>
         </div>
     <?php if (check_login()) : ?>

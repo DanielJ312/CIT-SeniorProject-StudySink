@@ -1,7 +1,7 @@
 .flashcardsBody {
-    background-color: #f5f5f5;
-    color: black;
-    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    font-family: 'Comfortaa', sans-serif;
+    color: #181818;
 }
 
 .flashcardsContainer {
@@ -10,25 +10,20 @@
     padding: 20px;
     border-radius: 8px;
     background-color: #ffffff;
-    border: solid 1px #f59c1a;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+    border: solid 1px #cccccc;
 }
 
 .flashcardsContainer h2 {
     text-align: center;
     color: #333;
+    font-weight: bold;
 }
 
 .cards {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    max-width: 100%;
-    max-height: 100%;
-}
-
-.cards .active {
-    display: block; /* Show only the active card */
 }
 
 .cardContainer {
@@ -37,9 +32,6 @@
     margin: 20px auto;
     perspective: 1000px;
     cursor: pointer;
-    display: flex; 
-    justify-content: center;
-    align-items: center; 
 }
 
 .cardFront, .cardBack {
@@ -47,23 +39,22 @@
     height: 100%;
     position: absolute;
     backface-visibility: hidden;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.31);
     background-color: #ffffff;
-    border: solid 1px #f59c1a;
+    border: solid 1px #cccccc;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1em;
+    font-size: 1.2em;
     color: black;
-    transition: transform 0.2s linear;
+    transition: transform 0.6s;
     padding: 15px;
     box-sizing: border-box;
 }
 
 .cardFront {
     transform: rotateY(0deg);
-
 }
 
 .cardBack {
@@ -86,22 +77,21 @@
     margin: 10px 0;
     font-size: 1.2em;
     color: #333;
+    font-weight: bold;
 }
 
 .navigationContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 85%;
-    margin: 20px auto;
     margin-top: -10px;
-    padding: 5px;
+    padding: 10px;
 }
 
 #backButton, #nextButton, #shuffleButton {
     background-color: transparent;
     border: none;
-    color: #f59c1a;
+    color: #2778ff;
     font-size: 24px;
     padding: 10px;
     cursor: pointer;
@@ -109,5 +99,9 @@
 }
 
 #backButton:hover, #nextButton:hover, #shuffleButton:hover {
-    color: #d47a00;
+    color: #f59c1a; 
+}
+
+.fa-circle-arrow-left, .fa-circle-arrow-right, .fa-arrows-rotate {
+    /* Icon styles if needed */
 }
