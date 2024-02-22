@@ -6,7 +6,6 @@ $pageTitle = "Home";
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
 </head>
@@ -85,7 +84,7 @@ $pageTitle = "Home";
         <?php else : ?>
             <div>
                 <div class="home-screen">
-                    <!-- Left Container -->
+                    <!-- Left Container with My University Posts -->
                     <div class="left-container">
                         <div class="university-post-container">
                             <h2 class="home-container-title">My University</h2>
@@ -101,9 +100,9 @@ $pageTitle = "Home";
                                         $post = get_post($postId);
                                         //Display it if it is not empty
                                         if ($post) { ?>
-                                            <div class="university-post-tile" id="PostLinkTile">
+                                            <div class="university-post-tile PostLinkTile" data-id="<?= $post->PostID; ?>">
                                                 <div class="post-header">
-                                                <a href="account/profile.php"><img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" /></a>
+                                                    <a href="account/profile.php"><img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" /></a>
                                                     <div class="post-info">
                                                         <a href="account/profile.php" class="post-account"><?= $post->Username; ?></a>
                                                         <p class="post-date"> <?= display_time($post->PostCreated, "F j, Y"); ?> </p>
@@ -117,18 +116,19 @@ $pageTitle = "Home";
                                                     </div>
                                                     <div class="votes">20</div>
                                                 </div>
-                                        </div> <?php
-                                                }
-                                            }
-                                        } else {
-                                            echo "Primary University not set";
-                                        } ?>
+                                            </div>
+                                <?php
+                                        }
+                                    }
+                                } else {
+                                    echo "Primary University not set";
+                                } ?>
                             </div>
                         </div>
                     </div>
                     <!-- Right Container -->
                     <div class="right-container">
-                        <!-- Inner Container 1 within Right Container -->
+                        <!-- Recently Viewed Posts within Right Container -->
                         <div class="recent-posts-container">
                             <h2 class="home-container-title">Recently Viewed Posts</h2>
                             <div class="post-tiles-container">
@@ -140,11 +140,12 @@ $pageTitle = "Home";
                                     foreach ($viewedPosts as $postId) {
                                         // Fetch the post data from the database
                                         $post = get_post($postId);
-                                        if ($post) { ?> <a href="/forum/posts/<?= $post->PostID; ?>" class="post-tile">
+                                        if ($post) { ?>
+                                            <div class="post-tile PostLinkTile" data-id="<?= $post->PostID; ?>">
                                                 <div class="post-header">
-                                                    <img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" />
+                                                    <a href="account/profile.php"><img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" /></a>
                                                     <div class="post-info">
-                                                        <p class="post-account"> <?= $post->Username; ?> </p>
+                                                        <a href="account/profile.php" class="post-account"> <?= $post->Username; ?> </a>
                                                         <p class="post-date"> <?= display_time($post->PostCreated, "F j, Y"); ?> </p>
                                                     </div>
                                                 </div>
@@ -156,7 +157,7 @@ $pageTitle = "Home";
                                                     </div>
                                                     <div class="votes">20</div>
                                                 </div>
-                                            </a> <?php
+                                            </div> <?php
                                                 }
                                             }
                                         } else {
@@ -164,7 +165,7 @@ $pageTitle = "Home";
                                         } ?>
                             </div>
                         </div>
-                        <!-- Inner Container 2 within Right Container -->
+                        <!-- Recently Viewed Study Sets within Right Container -->
                         <div class="recent-sets-container">
                             <h2 class="home-container-title">Recently Viewed Study Sets</h2>
                             <div class="study-sets-tiles-container">
@@ -183,7 +184,7 @@ $pageTitle = "Home";
                                             $averageRating = 'Not rated';
                                         }
                                         if ($studySet) {
-                                ?> <div class="study-set-tile" id="StudySetLinkTile">
+                                ?> <div class="study-set-tile StudySetLinkTile" data-id="<?= $studySet->StudySetID; ?>">
                                                 <div class="study-set-header">
                                                     <a href="account/profile.php"><img src="<?= $studySet->Avatar; ?>" alt="Place Holder" class="study-set-profile-picture" /></a>
                                                     <div class="study-set-info">
@@ -194,7 +195,7 @@ $pageTitle = "Home";
                                                 <h3 class="study-set-title"> <?= $studySet->Title; ?> </h3>
                                                 <div class="study-set-description"> <?= $studySet->Description; ?> </div>
                                                 <div class="study-set-rating">★<?= $averageRating; ?></div>
-                                        </div>
+                                            </div>
                                 <?php
                                         }
                                     }
@@ -208,16 +209,23 @@ $pageTitle = "Home";
                 </div>
             </div>
             <script>
-                // Event listener to the post tiles when clicked navigates to the post page
-                document.getElementById('PostLinkTile').addEventListener('click', function() {
-                window.location.href = "/forum/posts/<?= $post->PostID; ?>";
+                // Event listener for the post tiles so it goes to the post page when clicking on the tile
+                let postTiles = document.querySelectorAll('.PostLinkTile');
+                postTiles.forEach(tile => {
+                    tile.addEventListener('click', function() {
+                        window.location.href = "/forum/posts/" + this.dataset.id;
+                    });
                 });
 
-                // Event listener to the Study Set tiles when clicked navigates to the Study Set page
-                document.getElementById('StudySetLinkTile').addEventListener('click', function() {
-                window.location.href = "/study-sets/<?= $studySet->StudySetID; ?>";
+                // Event listener for the Study Set tiles so it goes to the study set page when clicking on the tile
+                let studySetTiles = document.querySelectorAll('.StudySetLinkTile');
+                studySetTiles.forEach(tile => {
+                    tile.addEventListener('click', function() {
+                        window.location.href = "/study-sets/" + this.dataset.id;
+                    });
                 });
 
+                // Truncate the post content if it's too long
                 // Select all post content
                 var contents = document.querySelectorAll('.post-content');
                 // Loop through each post content
