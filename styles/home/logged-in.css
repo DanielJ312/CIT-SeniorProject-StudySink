@@ -26,7 +26,7 @@
 .recent-posts-container, 
 .recent-sets-container {
     height: 50%;
-    overflow-y: auto;
+    min-height: 363px;
 }
 
 .right-container {
@@ -51,8 +51,10 @@
     display: flex;
     flex-direction: row;
     margin: 0;
-    overflow-x: auto;
+    overflow-x: scroll;
     padding: 2%;
+    height: 228px;
+    min-height: 228px;
 }
 
 .post-tile, 
@@ -88,7 +90,9 @@
     gap: 2%;
     overflow: auto;
     padding: 3%;
-    max-width: fit-content;
+    width: 360px;
+    min-width: 360px;
+    margin: 0 12px;
 }
 
 .university-post-tile {
@@ -102,7 +106,7 @@
     color: inherit;
     box-shadow: 0 2px 5px rgba(0, 120, 212, 0.5);
     max-height: 150px;
-    min-width: 220px;
+    min-width: 300px;
     cursor: pointer;
 }
 
@@ -233,6 +237,7 @@
         margin: 0;
         flex-direction: row;
         padding: 3%;
+        width: auto;
     }
 
     .university-post-tile {
@@ -246,6 +251,7 @@
         width: 60%;
         margin: 0 2.5%;
         min-width: 160px;
+        min-height: 200px;
     }
     /* End of University */
 
