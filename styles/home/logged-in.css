@@ -53,8 +53,8 @@
     margin: 0;
     overflow-x: scroll;
     padding: 2%;
-    height: 228px;
-    min-height: 228px;
+    height: 231px;
+    min-height: 231px;
 }
 
 .post-tile, 
@@ -247,9 +247,8 @@
 
 /* University */
     .university-post-container {
-        display: flex;
-        overflow-x: auto;
-        width: auto;
+        display: block;
+        width: 99%;
         flex-direction: column;
         padding: 3% 0;
     }
