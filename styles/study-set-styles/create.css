@@ -240,6 +240,13 @@
     background-color: #ffffff;
 }
 
+.studySetContainer .card-textarea {
+    overflow-y: hidden; /* Hide the vertical scrollbar */
+    min-height: 50px; /* Minimum height for empty textarea */
+    height: auto; /* Enable automatic height */
+    resize: none; /* Disable manual resizing */
+}
+
 .formButtons {
     display: flex;
     justify-content: flex;
