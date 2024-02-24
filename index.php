@@ -208,7 +208,7 @@ $pageTitle = "Home";
                                                         <div class="comments-count"><?= $studySet->Comments; ?></div>
                                                     </div>
                                                     <div class="study-set-rating">
-                                                        <i class="fa-solid fa-star"></i>    
+                                                        <i class="fa-regular fa-star"></i>    
                                                         <div class="study-set-rating-count" style="margin-top: 1px;"><?= $averageRating; ?></div>
                                                     </div>
                                                 </div>
