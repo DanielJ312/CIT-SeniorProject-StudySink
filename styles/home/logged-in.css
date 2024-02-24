@@ -184,11 +184,33 @@
     z-index: 0;
 }
 
-.vote, .study-set-rating {
+.bottom-of-tile, .comment, .vote, .study-set-rating {
     display: flex;
+    color:#181818;
+}
+
+.bottom-of-tile {
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.comment {
+    justify-content: flex-start;
+    align-self: flex-start;
+}
+
+.vote, .study-set-rating {
     justify-content: flex-end;
     align-self: flex-end;
-    color:#181818;
+}
+
+.comment, .vote, .study-set-rating {
+    margin: 2px;
+}
+
+.comments-count, .votes-count, .study-set-ratings-count {
+    padding-left: 2px;
 }
 
 .post-profile-picture, 

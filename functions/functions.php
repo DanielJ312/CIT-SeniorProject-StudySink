@@ -128,9 +128,10 @@ function check_user_vote($userID, $commentID) {
 function get_study_set($StudySetID) {
     $values['StudySetID'] = $StudySetID;
     $query = <<<query
-    SELECT S.StudySetID, U.Username, S.CourseID, S.Title, S.Description, S.Instructor, S.Created, U.Avatar
+    SELECT S.StudySetID, U.Username, S.CourseID, S.Title, S.Description, S.Instructor, S.Created, U.Avatar, count(CommentID) as Comments
     FROM STUDY_SET_T S INNER JOIN USER_T U ON S.UserID = U.UserID
-    WHERE StudySetID = :StudySetID;
+    LEFT OUTER JOIN COMMENT_T C ON C.StudySetID = S.StudySetID
+    WHERE S.StudySetID = :StudySetID;
     query;
     return run_database($query, $values)[0];
 }

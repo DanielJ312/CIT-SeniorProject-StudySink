@@ -109,12 +109,16 @@ $pageTitle = "Home";
                                                     </div>
                                                 </div>
                                                 <h3 class="post-title"> <?= $post->Title; ?> </h3>
-                                                <div class="post-content"> <?= $post->Content; ?> </div>
-                                                <div class="vote">
-                                                    <div class="post-iconsp">
-                                                        <i class="fa-regular fa-heart"></i>
+                                                <div class="post-content" style="margin-top: 2px;"> <?= $post->Content; ?> </div>
+                                                <div class="bottom-of-tile">
+                                                    <div class="comment">
+                                                        <i class="fa-regular fa-comment"></i>
+                                                        <div class="comments-count"><?= $post->Comments; ?></div>
                                                     </div>
-                                                    <div class="votes">20</div>
+                                                    <div class="vote">
+                                                        <i class="fa-regular fa-heart"></i>
+                                                        <div class="votes-count">20</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                 <?php
@@ -151,11 +155,15 @@ $pageTitle = "Home";
                                                 </div>
                                                 <h3 class="post-title"> <?= $post->Title; ?> </h3>
                                                 <div class="post-content"> <?= $post->Content; ?> </div>
-                                                <div class="vote">
-                                                    <div class="post-iconsp">
-                                                        <i class="fa-regular fa-heart"></i>
+                                                <div class="bottom-of-tile">
+                                                    <div class="comment">
+                                                        <i class="fa-regular fa-comment"></i>
+                                                        <div class="comments-count"><?= $post->Comments; ?></div>
                                                     </div>
-                                                    <div class="votes">20</div>
+                                                    <div class="vote">
+                                                        <i class="fa-regular fa-heart"></i>
+                                                        <div class="votes-count">20</div>
+                                                    </div>
                                                 </div>
                                             </div> <?php
                                                 }
@@ -194,7 +202,16 @@ $pageTitle = "Home";
                                                 </div>
                                                 <h3 class="study-set-title"> <?= $studySet->Title; ?> </h3>
                                                 <div class="study-set-description"> <?= $studySet->Description; ?> </div>
-                                                <div class="study-set-rating">★<?= $averageRating; ?></div>
+                                                <div class="bottom-of-tile">
+                                                    <div class="comment">
+                                                        <i class="fa-regular fa-comment"></i>
+                                                        <div class="comments-count"><?= $studySet->Comments; ?></div>
+                                                    </div>
+                                                    <div class="study-set-rating">
+                                                        <i class="fa-solid fa-star"></i>    
+                                                        <div class="study-set-rating-count" style="margin-top: 1px;"><?= $averageRating; ?></div>
+                                                    </div>
+                                                </div>
                                             </div>
                                 <?php
                                         }
