@@ -17,7 +17,7 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = signup($_PO
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-        <h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
+        <div class="lheader"><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></div>
     </header>
     <main>
         <div class="register-container">
