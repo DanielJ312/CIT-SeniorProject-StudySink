@@ -3,12 +3,17 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
-if (!check_login()) header("Location: /account/login.php"); 
-update_session();
+if (check_verification()) header("Location: /account/profile.php"); 
+
+$expirationTime = update_session();
 $pageTitle = "Verify Account";
 
-if ($_SERVER['REQUEST_METHOD'] == "GET" && !check_verification()) $expiredCode = is_code_active("verify", $_SESSION['USER']->Email);
-$errors = $_SERVER['REQUEST_METHOD'] == "POST" ? verify_account() : [];
+
+$errors = $_SERVER['REQUEST_METHOD'] == "POST" ? verify_email($_POST) : [];
+
+// $query = "SELECT Expires FROM CODE_T WHERE Email = '{$_SESSION['USER']->Email}';";
+// $expirationTime = run_database($query)[0]->Expires; 
+// echo $expirationTime;
 ?>
 
 <!DOCTYPE html>
@@ -25,17 +30,11 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? verify_account() : [];
     <main>
         <div class="verify-container">    
         <div>
-            <div>
-                <?php display_errors($errors); ?>
-            </div>
-            <p>A verification code has been sent to your email. Enter the code below.</p>
+            <p>Your email must be verified before you will be allowed to continue using the website. A verifcation code has been sent to the email <?= $_SESSION['USER']->Email; ?>.</p>
+            <p>You have: <span class="countdown"></span>.</p>
             <form method="post">
-                <?php if ($expiredCode == true): ?>
-                    <p>Your previous verifcation code has expired. A new one has been sent.</p> 
-                <?php else: ?>
-                    <p>You currently have an active verifcation code.</p> 
-                <?php endif; ?>
                 <p>Code: <input type="text" name="code"></p>
+                <?= isset($errors['code']) ? "<p>" . $errors['code'] . "</p>": ""; ?>
                 <input type="submit" value="Verify">
             </form>
             </div>
@@ -45,4 +44,30 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? verify_account() : [];
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
 </body>
+<script>
+updateCountdown(<?= $expirationTime; ?>);
+
+function updateCountdown(endTimeUnix) {
+    var nowUnix = Math.floor(Date.now() / 1000);
+    var timeLeft = endTimeUnix - nowUnix;
+    if (timeLeft <= 0) {
+        $(".countdown").html("Expired");
+        clearInterval(timer);
+        return;
+    }
+
+    var days = Math.floor(timeLeft / 86400);
+    var hours = Math.floor((timeLeft % 86400) / 3600);
+    var minutes = Math.floor((timeLeft % 3600) / 60);
+    var seconds = timeLeft % 60;
+
+    // $(".countdown").html(days + " days " + hours + " hours " + minutes + " minutes " + seconds + " seconds");
+    $(".countdown").html(hours + " hours, " + minutes + " minutes, and " + seconds + " seconds remaining");
+}
+
+// Update the countdown every second
+var timer = setInterval(function() {
+    updateCountdown(<?= $expirationTime; ?>);
+}, 1000);
+</script>
 </html>

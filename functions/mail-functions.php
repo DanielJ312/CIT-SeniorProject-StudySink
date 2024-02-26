@@ -58,6 +58,26 @@ function send_code($type, $recipient) {
     send_mail($recipient, $subject, $message);
 }
 
+function send_verify_code($type, $recipient) { // new
+    $values['Code'] = rand(10000, 99999);
+    $values['Expires'] = (time() + (60 * 10));
+    $values['Email'] = $recipient;
+    $values['Type'] = "$type";
+    $expireTime = date('Y-m-d H:i:s', $values['Expires']);
+
+    $subject = "Verify Account";
+    $message = <<<message
+    <p>Hello <b>{$_SESSION['USER']->Username}</b>,</p>
+    Your account verification code is <b> {$values['Code']}</b>.
+    Please verify your account before $expireTime.
+    message;
+
+    delete_code($type, $recipient);
+    $query = "INSERT INTO CODE_T (Code, Type, Email, Expires) values (:Code, :Type, :Email, :Expires);";
+    run_database($query, $values);
+    send_mail($recipient, $subject, $message);
+}
+
 function is_code_active($type, $email) {
     $values['Type'] = $type;
     $values['Email'] = $email;

@@ -2,10 +2,14 @@
 <?php 
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 if (check_login()) header("Location: /account/profile.php"); 
 $pageTitle = "Create Account";
 
-$errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = signup($_POST)) == 0) ? header("Location: login.php") : $errors) : [];
+$errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = signup($_POST)) == 0) ? header("Location: verify.php") : $errors) : [];
+
+$query = "SELECT UniversityID, Name, Abbreviation FROM UNIVERSITY_T;";
+$universities = run_database($query);
 ?>
 
 <!DOCTYPE html>
@@ -17,20 +21,31 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = signup($_PO
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-        <h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
     </header>
     <main>
         <div class="register-container">
         <div>
-            <?php display_errors($errors);?>
+       
         </div>
         <form method="post">
-            <p>Username:&nbsp; &nbsp; <input type="text" name="username"></p>
-            <p>Email:&nbsp; &nbsp; <input type="email" name="email"></p>
-            <p>Password:&nbsp; <input type="password" name="password"></p>
-            <p>Confirm Password: <input type="password" name="password2"></p>
+            <p>Username *&nbsp; &nbsp; <input type="text" name="username"></p>
+            <?= isset($errors['username']) ? "<p>" . $errors['username'] . "</p>": ""; ?>
+            <p>Email *&nbsp; &nbsp; <input type="email" name="email"></p>
+            <?= isset($errors['email']) ? "<p>" . $errors['email'] . "</p>": ""; ?>
+            <p>Password *&nbsp; <input type="password" name="password"></p>
+            <?= isset($errors['password']) ? "<p>" . $errors['password'] . "</p>": ""; ?>
+            <p>Confirm Password * <input type="password" name="password2"></p>
+            <?= isset($errors['password2']) ? "<p>" . $errors['password2'] . "</p>": ""; ?>
+
+            <p>Select University &lpar;Optional&rpar;</p>
+            <select class="" name="useruni">
+                    <option value="0">None</option>
+                <?php foreach ($universities as $university):?>
+                    <option value="<?= $university->UniversityID?>"><?= $university->Name . " (" . $university->Abbreviation . ")";?></option>
+                <?php endforeach; ?>
+            </select>
             <input type="submit" formnovalidate value="Register">
-            <p>Already have an account? <a href="login.php">Sign in</a></p>
+            <p>Already have an account? <a href="login.php"> Sign in</a></p>
         </form>
         <div>
     </main>
