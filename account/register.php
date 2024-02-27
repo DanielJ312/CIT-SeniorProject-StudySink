@@ -21,6 +21,7 @@ $universities = run_database($query);
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+        <div class="lheader"><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></div>
     </header>
     <main>
         <div class="register-container">

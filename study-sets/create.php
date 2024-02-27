@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") create_study_set($_POST);
                     <div class="columnTags">
                         <!-- University Select -->
                         <select id="setUniversity" name="setUniversity" required>
-                            <option value="">Select University</option>
+                            <option value="" disabled selected>Select University</option>
                             <?php foreach($universities as $university): ?>
                                 <option value="<?= htmlspecialchars($university->UniversityID) ?>">
                                     <?= htmlspecialchars($university->Name) ?>

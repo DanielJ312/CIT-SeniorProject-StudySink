@@ -17,7 +17,8 @@ if (check_login()) header("Location: /account/profile.php");
 </head>
 <body>
     <header id="header">
-        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+        <div class="lheader"><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></div>
     </header>
     <main>
         <section id=login>
