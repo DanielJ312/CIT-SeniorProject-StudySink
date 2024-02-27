@@ -8,27 +8,20 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
 if (isset($_POST['function'])) {
     switch ($_POST['function']) {
         case "email":
-            email_code($_POST);
+            if (check_email($_POST) == true) {
+                send_verify_code("reset", $_POST['email']);
+                echo "true";
+            }
+            else {
+                echo "false";
+            }
             break;
         case "password":
-            update_password($_POST);
+            echo reset_password($_POST);
             break;
         default:
             break;
     }
 }
 
-function email_code($data) {
-    if (check_email($data) == true) {
-        send_verify_code("reset", $data['email']);
-        echo "true";
-    }
-    else {
-        echo "false";
-    }
-}
-
-function update_password($data) {
-    echo reset_password($data);
-}
-
+?>

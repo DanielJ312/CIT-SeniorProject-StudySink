@@ -172,9 +172,6 @@ function reset_password($data) {
                 'Email' => $result->Email,
                 'Password' => password_hash($data['password'], PASSWORD_DEFAULT)
             ];
-
-            
-            
             $query = "UPDATE USER_T SET Password = :Password WHERE Email = :Email";
             run_database($query, $values);
             delete_code("reset", $result->Email);
@@ -204,13 +201,9 @@ function verify_email($data) {
             $email = $result->Email;
             $query = "UPDATE USER_T SET Verified = 1 WHERE Email = '$email' LIMIT 1;";
             $result = run_database($query);
-
-            // echo "<script>console.log('$email', {$data['code']})</script>";
-            // exit;
             delete_code("verify", $email);
             update_user();
             header("Location: profile.php");
-            // die;
         } else {
             $errors['code'] = "This code has expired.";
         }

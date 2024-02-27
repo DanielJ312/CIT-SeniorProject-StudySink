@@ -27,38 +27,7 @@ function send_mail($recipient, $subject, $message) {
     $mail->Send();
 }
 
-// function send_code($type, $recipient) {
-//     $values['Code'] = rand(10000, 99999);
-//     $values['Expires'] = (get_local_time() + (60 * 1));
-//     $values['Email'] = $recipient;
-//     $values['Type'] = "$type";
-
-//     switch ($type) {
-//         case 'verify':
-//             $subject = "Verify Account";
-//             $message = <<<message
-//             <p>Hello <b>{$_SESSION['USER']->Username}</b>,</p>
-//             Your account verification code is <b> {$values['Code']}</b>.
-//             message;
-//             break;
-//         case 'reset':
-//             $subject = "Password Reset";
-//             $message = <<<message
-//             <p>Hello, <b>{$_SESSION['USER']->Username}</b></p>
-//             Your password reset verification code is  <b>{$values['Code']}</b>.
-//             message;
-//             break;
-//         default:
-//             break;
-//     }
-//     delete_code($type, $recipient);
-
-//     $query = "INSERT INTO CODE_T (Code, Type, Email, Expires) values (:Code, :Type, :Email, :Expires);";
-//     run_database($query, $values);
-//     send_mail($recipient, $subject, $message);
-// }
-
-function send_verify_code($type, $recipient) { // new
+function send_verify_code($type, $recipient) {
     $values['Code'] = rand(10000, 99999);
     $values['Expires'] = (time() + (60 * 10));
     $values['Email'] = $recipient;
