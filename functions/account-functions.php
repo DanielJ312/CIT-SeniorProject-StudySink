@@ -1,5 +1,5 @@
 <?php
-# Functions - Contains functions relating to AWS S3
+# Functions - Contains functions relating to user accounts
 require($_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php");
 
 use Aws\S3\S3Client;
@@ -137,26 +137,21 @@ function login($data) {
 }
 
 function check_email($data) {
-    $errors = array();
+    $valid = false;
 
     // validate
-    if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Please enter a valid email.";
+    $values['Email'] = $data['email'];
+    $query = "SELECT * FROM USER_T WHERE Email = :Email LIMIT 1;";
+    $result = run_database($query, $values);
+    if (is_array($result)) {
+        $valid = true;
     }
-    else {
-        $values['Email'] = $data['email'];
-        $query = "SELECT * FROM USER_T WHERE Email = :Email LIMIT 1;";
-        $result = run_database($query, $values);
-        if (!is_array($result)) {
-            $errors[] = "There is no account associated with the email entered.";
-        }
-    } 
     
-    return $errors;
+    return $valid;
 }
 
 function reset_password($data) {
-    $errors = array();
+    $status = "none";
 
     $values = array();
     $values['Code'] = $data['code'];
@@ -164,61 +159,33 @@ function reset_password($data) {
     $result = run_database($query, $values);
         
     if (is_array($result)) {
-        if (get_local_time() > $result[0]->Expires) {
-            $errors[] = 'Your code has expired so a new one has been sent. Please enter the new one.';
-            is_code_active("reset", $result[0]->Email);
+        $result = $result[0];
+        if (time() > $result->Expires) {
+            $status = "expired";
         }
         else if (strlen(trim($data['password'])) < 4) {
-            $errors[] = "Please enter a valid password.";
+            $status = "invalid";
         }
-        else if ($data['password'] != $data['password2']) {
-            $errors[] = "Passwords must match.";
-        }
-        if (count($errors) == 0) {
-            $result = $result[0];
+        if ($status == "none") {
             $values = array();
-            $values['Email'] = $result->Email;
-            $values['Password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-            echo "$result->Email";
-            // die;
+            $values = [
+                'Email' => $result->Email,
+                'Password' => password_hash($data['password'], PASSWORD_DEFAULT)
+            ];
+
+            
+            
             $query = "UPDATE USER_T SET Password = :Password WHERE Email = :Email";
             run_database($query, $values);
             delete_code("reset", $result->Email);
+            $status = "valid";
         }
     }
     else {
-        $errors[] = "Verifcation code is incorrect.";
+        $status = "wrong";
     }
 
-    return $errors;
-}
-
-function verify_account() {
-    $values = [
-        'Email' => $_SESSION['USER']->Email,
-        'Code' => $_POST['code']
-    ];
-
-    $query = "SELECT * FROM CODE_T where Email = :Email && Code = :Code;";
-    $result = run_database($query, $values);
-    if (is_array($result)) {
-        $result = $result[0];
-
-        if ($result->Expires > get_local_time()) {
-            $email = $result->Email;
-            $query = "UPDATE USER_T SET Verified = 1 WHERE Email = '$email' LIMIT 1;";
-            $result = run_database($query);
-            delete_code("verify", $email);
-            header("Location: profile.php");
-            die;
-        } else {
-            $errors[] = "Code expired";
-        }
-    } else {
-        $errors[] = "Wrong code.";
-    }
-
-    return $errors;
+    return $status;
 }
 
 function verify_email($data) {

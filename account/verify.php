@@ -4,16 +4,10 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 if (check_verification()) header("Location: /account/profile.php"); 
-
 $expirationTime = update_session();
 $pageTitle = "Verify Account";
 
-
 $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? verify_email($_POST) : [];
-
-// $query = "SELECT Expires FROM CODE_T WHERE Email = '{$_SESSION['USER']->Email}';";
-// $expirationTime = run_database($query)[0]->Expires; 
-// echo $expirationTime;
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +15,7 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? verify_email($_POST) : [];
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <link rel="stylesheet" type="text/css" href="/styles/account/verify.css">
+    <script desync src="/account/account.js"></script>
 </head>
 <body>
     <header>
@@ -46,24 +41,6 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? verify_email($_POST) : [];
 </body>
 <script>
 updateCountdown(<?= $expirationTime; ?>);
-
-function updateCountdown(endTimeUnix) {
-    var nowUnix = Math.floor(Date.now() / 1000);
-    var timeLeft = endTimeUnix - nowUnix;
-    if (timeLeft <= 0) {
-        $(".countdown").html("Expired");
-        clearInterval(timer);
-        return;
-    }
-
-    var days = Math.floor(timeLeft / 86400);
-    var hours = Math.floor((timeLeft % 86400) / 3600);
-    var minutes = Math.floor((timeLeft % 3600) / 60);
-    var seconds = timeLeft % 60;
-
-    // $(".countdown").html(days + " days " + hours + " hours " + minutes + " minutes " + seconds + " seconds");
-    $(".countdown").html(hours + " hours, " + minutes + " minutes, and " + seconds + " seconds remaining");
-}
 
 // Update the countdown every second
 var timer = setInterval(function() {
