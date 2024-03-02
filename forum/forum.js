@@ -121,12 +121,15 @@ function EditComment(commentID) {
 }
 
 function ReportComment(commentID) {
-    $(`#comment-${commentID} .report`).html("Reported!");
     $.ajax({
         url: '/functions/forum-functions',
         type: 'POST',
-        data: { function: "report", commentID: commentID},
+        data: { function: "report", commentID: commentID },
+        success: function (response) {
+            $(`#comment-${commentID} .report`).html("Reported!");
+        }
     });
+    console.log('Reached1');
 }
 
 function updateCommentVote(commentID, userID, voteType) {

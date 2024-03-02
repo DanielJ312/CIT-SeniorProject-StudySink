@@ -62,7 +62,7 @@ function create_post($data) {
             'Title' => $data['title'],
             'Content' => $data['content'],
             'UserID' => $_SESSION['USER']->UserID,
-            'Created' => get_local_time()
+            'Created' => time()
         ];
 
         $query = "INSERT INTO POST_T (PostID, UniversityID, SubjectID, Title, Content, UserID, Created) VALUES (:PostID, :UniversityID, :SubjectID, :Title, :Content, :UserID, :Created);";
@@ -117,7 +117,7 @@ function add_comment() {
         'PostID' => $_POST['postID'],
         'Content' => $_POST['content'],
         'UserID' => $_SESSION['USER']->UserID,
-        'Created' => get_local_time()
+        'Created' => time()
     ];
 
     $query = "INSERT INTO COMMENT_T (CommentID, PostID, Content, UserID, Created) VALUES (:CommentID, :PostID, :Content, :UserID, :Created)";
@@ -153,9 +153,9 @@ function edit_comment() {
 }
 
 function report_comment() {
-    // $commentID = $_POST['commentID'];
     $comment = get_comment($_POST['commentID']);
-    $commentDate = display_time($comment->CommentCreated, "F j, Y @ h:i:s A");
+    echo "<script>console.log('Reached')</script>";
+    $commentDate = time($comment->CommentCreated, "F j, Y @ h:i:s A");
     $userReporting = $_SESSION['USER'];
     $caseID = rand(10000, 99999);
     $recipient = "StudySinkLLC@gmail.com";

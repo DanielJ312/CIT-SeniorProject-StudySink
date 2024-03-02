@@ -104,7 +104,7 @@ if ($avgRatingResult) {
                             <p><?= htmlspecialchars($set->Username); ?>
                                 <?= check_login(false) && $set->Username == $_SESSION['USER']->Username ? " (You)" : "" ?>
                             </p>
-                            <p>Created on <?= display_time($set->SetCreated, "F j, Y"); ?></p>
+                            <p>Created on <?= date("F j, Y h:i:s", $set->SetCreated); ?></p>
                         </div>
                         <div class="ratingAndAverage">
                             <div class="rating">

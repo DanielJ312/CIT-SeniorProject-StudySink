@@ -166,7 +166,7 @@ function toggleSubject() {
                             <img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" />
                             <div class="post-info">
                                 <p class="post-account"><?= $post->Username; ?></p>
-                                <p class="post-date"><?= display_time($post->PostCreated, "F j, Y"); ?></p>
+                                <p class="post-date"><?= date("F j, Y", $post->PostCreated); ?></p>
                             </div>
                         </div>
                         <h3 class="post-title"><?= $post->Title; ?></h3>
@@ -224,7 +224,7 @@ function toggleSubject() {
                             <img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" />
                             <div class="post-info">
                                 <p class="post-account"><?= $post->Username; ?></p>
-                                <p class="post-date"><?= display_time($post->PostCreated, "F j, Y"); ?></p>
+                                <p class="post-date"><?= date("F j, Y", $post->PostCreated); ?></p>
                             </div>
                         </div>
                         <h3 class="post-title">Temp Title</h3>

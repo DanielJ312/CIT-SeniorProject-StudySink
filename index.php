@@ -105,7 +105,7 @@ $pageTitle = "Home";
                                                     <a href="account/profile.php"><img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" /></a>
                                                     <div class="post-info">
                                                         <a href="account/profile.php" class="post-account"><?= $post->Username; ?></a>
-                                                        <p class="post-date"> <?= display_time($post->PostCreated, "F j, Y"); ?> </p>
+                                                        <p class="post-date"> <?= date('F j, Y', $post->PostCreated); ?> </p>
                                                     </div>
                                                 </div>
                                                 <h3 class="post-title"> <?= $post->Title; ?> </h3>
@@ -150,7 +150,7 @@ $pageTitle = "Home";
                                                     <a href="account/profile.php"><img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" /></a>
                                                     <div class="post-info">
                                                         <a href="account/profile.php" class="post-account"> <?= $post->Username; ?> </a>
-                                                        <p class="post-date"> <?= display_time($post->PostCreated, "F j, Y"); ?> </p>
+                                                        <p class="post-date"> <?= date('F j, Y', $post->PostCreated); ?> </p>
                                                     </div>
                                                 </div>
                                                 <h3 class="post-title"> <?= $post->Title; ?> </h3>
@@ -197,7 +197,7 @@ $pageTitle = "Home";
                                                     <a href="account/profile.php"><img src="<?= $studySet->Avatar; ?>" alt="Place Holder" class="study-set-profile-picture" /></a>
                                                     <div class="study-set-info">
                                                         <a href="account/profile.php" class="study-set-account"> <?= $studySet->Username; ?></a>
-                                                        <p class="study-set-date"> <?= display_time($studySet->Created, "F j, Y"); ?> </p>
+                                                        <p class="study-set-date"> <?= date('F j, Y', $post->PostCreated); ?> </p>
                                                     </div>
                                                 </div>
                                                 <h3 class="study-set-title"> <?= $studySet->Title; ?> </h3>

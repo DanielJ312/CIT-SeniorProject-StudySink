@@ -50,7 +50,7 @@ $sets = run_database($query);
                             <img src="<?= htmlspecialchars($sets[$i]->Avatar); ?>" alt="<?= htmlspecialchars($sets[$i]->Username); ?>'s avatar" class="profile-picture"/>
                             <div class="cardHeaderUsernameDate">
                                 <p><?= htmlspecialchars($sets[$i]->Username); ?></p>
-                                <p>Posted on <?= display_time($sets[$i]->SetCreated, "F j, Y"); ?></p>
+                                <p>Posted on <?= date("F j, Y", $sets[$i]->SetCreated); ?></p>
                             </div>
                         </div>
                         <div class="studySetDetailsBottom">

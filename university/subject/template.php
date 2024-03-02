@@ -73,7 +73,7 @@ $posts = run_database($query);
                                         <img src="<?= htmlspecialchars($set->Avatar); ?>" alt="<?= htmlspecialchars($set->Username); ?>'s avatar" class="profile-picture" />
                                         <div class="cardHeaderUsernameDate">
                                             <p><?= $set->Username; ?></p>
-                                            <p><?= display_time($set->SetCreated, "F j, Y"); ?></p>
+                                            <p><?= date("F j, Y", $set->SetCreated); ?></p>
                                         </div>
                                     </div>
                                     <div class="studySetDetailsBottom">
@@ -112,7 +112,7 @@ $posts = run_database($query);
                                         <img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" />
                                         <div class="post-info">
                                             <p class="post-account"><?= $post->Username; ?></p>
-                                            <p class="post-date"><?= display_time($post->PostCreated, "F j, Y"); ?></p>
+                                            <p class="post-date"><?= date("F j, Y", $post->PostCreated); ?></p>
                                         </div>
                                     </div>
                                     <h3 class="post-title"><?= $post->Title; ?></h3>

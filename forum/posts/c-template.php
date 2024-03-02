@@ -3,7 +3,7 @@
         <img src="<?= $comment->Avatar; ?>" title="<?= $comment->Username; ?>" alt="<?= $comment->Username; ?>" class="profile-picture" />
         <div class="comment-info">
             <p class="comment-account"><?= $comment->Username; ?></p>
-            <p class="comment-date"><?= display_time($comment->CommentCreated, "F j, Y"); ?></p>
+            <p class="comment-date"><?= date("F j, Y", $comment->CommentCreated); ?></p>
         </div>
         <?php if (check_login()): ?>
         <div class="dropdown" onclick="toggleDropdown(this)">
@@ -22,10 +22,6 @@
     </div>
     <div id="comment-<?= $comment->CommentID; ?>-c" >
         <p class="comment-content"><?= $comment->Content; ?></p>
-        <!-- <div class="edit-bar">
-            <input type="text" id="commentInput" placeholder="Add a comment..." name="content"/>
-            <button onclick="" type="submit" id="addComment">Save</button>
-        </div> -->
     </div>
     <div class="vote">
         <div class="post-icons">

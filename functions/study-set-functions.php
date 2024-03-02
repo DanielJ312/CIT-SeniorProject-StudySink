@@ -38,7 +38,7 @@ function create_study_set($data) {
               VALUES (:StudySetID, :UserID, :CourseID, :Title, :Description, :Instructor, :Created, :Modified)";
 
         // Current time for Created and Modified fields
-        $currentTime = get_local_time();
+        $currentTime = time();
 
         // Array of values to bind to the query
         $values = [
@@ -64,7 +64,7 @@ function create_study_set($data) {
             $cardQuery = "INSERT INTO STUDY_CARD_T (StudySetID, Front, Back)
                     VALUES (:StudySetID, :Front, :Back)";
 
-            $currentTime = get_local_time();
+            $currentTime = time();
 
             foreach ($cards as $card) {
                 $stmt = $pdo->prepare($cardQuery);
@@ -92,7 +92,7 @@ function edit_study_set($setID, $data) {
         ':Title' => $data['setTitle'],
         ':Description' => $data['setDescription'],
         ':Instructor' => $data['instructor'],
-        ':Modified' => get_local_time()
+        ':Modified' => time()
     ];
 
     $query = "UPDATE STUDY_SET_T 

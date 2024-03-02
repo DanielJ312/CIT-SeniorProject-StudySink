@@ -65,7 +65,7 @@ if ($post) {
                         <img src="<?= $post->Avatar; ?>" title="<?= $post->Username; ?>" alt="Place Holder" class="profile-picture" />
                         <div class="post-info">
                             <p class="post-account"><?= $post->Username; ?></p>
-                            <p class="post-date">Posted on <?= display_time($post->PostCreated, "F j, Y"); ?></p>
+                            <p class="post-date">Posted on <?= date("F j, Y", $post->PostCreated); ?></p>
                         </div>
                         <?php if (check_login()) : ?>
                             <div class="dropdown" onclick="toggleDropdown(this)">
