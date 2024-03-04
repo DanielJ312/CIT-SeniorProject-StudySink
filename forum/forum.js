@@ -87,13 +87,18 @@ function OpenCommentEditor(commentID) {
         value: content,
         name: "content"
     });
-    var button = $("<button>").attr({
+    var cancel = $("<button>").attr({
+        type: "submit",
+        class: "addComment",
+        onclick: `CancelEdit(${commentID})`
+    }).text("Cancel");
+    var save = $("<button>").attr({
         type: "submit",
         class: "addComment",
         onclick: `EditComment(${commentID})`
     }).text("Save");
 
-    div.append(input, button);
+    div.append(input, cancel, save);
     $(`#comment-${commentID}-c`).append(div);
     $(`#comment-${commentID} .dropdown`).toggle();
 }   
@@ -112,12 +117,21 @@ function EditComment(commentID) {
                 $(`#comment-${commentID}-c .edit-bar`).remove();
                 $(`#comment-${commentID}-c p`).toggle();
                 $(`#comment-${commentID} .dropdown`).toggle();
+
+
+                $(`#comment-${commentID} .edited`).html("edited now");
             },
         });
     }
     else {
         console.log("empty comment");
     }
+}
+
+function CancelEdit(commentID) {
+    $(`#comment-${commentID}-c .edit-bar`).remove();
+    $(`#comment-${commentID}-c p`).toggle();
+    $(`#comment-${commentID} .dropdown`).toggle();
 }
 
 function ReportComment(commentID) {

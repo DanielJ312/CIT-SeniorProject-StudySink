@@ -3,7 +3,14 @@
         <img src="<?= $comment->Avatar; ?>" title="<?= $comment->Username; ?>" alt="<?= $comment->Username; ?>" class="profile-picture" />
         <div class="comment-info">
             <p class="comment-account"><?= $comment->Username; ?></p>
-            <p class="comment-date"><?= date("F j, Y", $comment->CommentCreated); ?></p>
+            <p class="comment-date">
+                <?php if (!isset($comment->Modified)): ?>
+                    <span class="posted"><?= date("F j, Y", $comment->CommentCreated); ?></span>
+                <?php else: ?>
+                    <span class="posted"><?= date("M j, Y", $comment->CommentCreated); ?><b> · </b></span>
+                    <span><i><span class="edited">edited on <?= date("M j, Y g:i A", $comment->Modified); ?></span></i></span>
+                <?php endif; ?>
+            </p>
         </div>
         <?php if (check_login()): ?>
         <div class="dropdown" onclick="toggleDropdown(this)">

@@ -145,9 +145,9 @@ function edit_comment() {
     $values = [
         'CommentID' => $_POST['commentID'],
         'Content' => $_POST['content'],
-        // 'Created' => get_local_time()
+        'Modified' => time()
     ];
-    $query = "UPDATE COMMENT_T SET Content = :Content WHERE CommentID = :CommentID;";
+    $query = "UPDATE COMMENT_T SET Content = :Content, Modified = :Modified WHERE CommentID = :CommentID;";
     run_database($query, $values);
     echo $values['Content'];
 }
@@ -155,7 +155,7 @@ function edit_comment() {
 function report_comment() {
     $comment = get_comment($_POST['commentID']);
     echo "<script>console.log('Reached')</script>";
-    $commentDate = time($comment->CommentCreated, "F j, Y @ h:i:s A");
+    $commentDate = date("F j, Y @ h:i:s A", $comment->CommentCreated);
     $userReporting = $_SESSION['USER'];
     $caseID = rand(10000, 99999);
     $recipient = "StudySinkLLC@gmail.com";
@@ -204,7 +204,7 @@ function create_sort_query($type, $postID) {
     }
     else if ($type[0] == "c") {
         $query = <<<query
-        SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes
+        SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, Modified, sum(VoteType) AS Votes
         FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
             INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
         WHERE PostID = $postID

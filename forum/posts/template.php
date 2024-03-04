@@ -1,6 +1,3 @@
-
-
-
 <!-- Post Template - Displays post for given Post ID  -->
 <?php
 // require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
@@ -65,7 +62,7 @@ if ($post) {
                         <img src="<?= $post->Avatar; ?>" title="<?= $post->Username; ?>" alt="Place Holder" class="profile-picture" />
                         <div class="post-info">
                             <p class="post-account"><?= $post->Username; ?></p>
-                            <p class="post-date">Posted on <?= date("F j, Y", $post->PostCreated); ?></p>
+                            <p class="post-date"><?= date("F j, Y  h:i A", $post->PostCreated); ?></p>
                         </div>
                         <?php if (check_login()) : ?>
                             <div class="dropdown" onclick="toggleDropdown(this)">
