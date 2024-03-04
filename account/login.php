@@ -18,15 +18,15 @@ if (check_login()) header("Location: /account/profile.php");
 <body>
     <header id="header">
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-        <div class="lheader"><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></div>
     </header>
     <main>
         <section id=login>
             <div class="login-container">
+            <div class="lheader"><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></div>
                 <form method="post">
-                    <p>Email or Username * <input type="text" name="logininput"></p>
+                    <p>Email or Username&nbsp;*&nbsp; <input type="text" name="logininput"></p>
                     <?= isset($errors['logintype']) ? "<p>" . $errors['logintype'] . "</p>": ""; ?>
-                    <p>Password * <input type="password" name="password"></p>
+                    <p>Password&nbsp;*&nbsp;<input type="password" name="password"></p>
                     <?= isset($errors['password']) ? "<p>" . $errors['password'] . "</p>": ""; ?>
                     <input type="submit" value="Login">
                     <p>Don't have an account? <a href="register.php">Sign up</a></p>

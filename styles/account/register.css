@@ -3,7 +3,7 @@
     background-color: white;
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 31%);
-    padding: 20px;
+    padding: 30px;
     width: 300px;
     text-align: center;
     margin-top: 20px;
@@ -67,5 +67,4 @@
     margin: 0;
     font-size: xx-large;
     font-weight: bold;
-    padding-top: 25px;
 }

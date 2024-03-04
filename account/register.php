@@ -21,21 +21,21 @@ $universities = run_database($query);
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-        <div class="lheader"><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></div>
     </header>
     <main>
         <div class="register-container">
+        <div class="lheader"><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></div>
         <div>
        
         </div>
         <form method="post">
-            <p>Username *&nbsp; &nbsp; <input type="text" name="username"></p>
+            <p>Username&nbsp;*&nbsp; &nbsp; <input type="text" name="username"></p>
             <?= isset($errors['username']) ? "<p>" . $errors['username'] . "</p>": ""; ?>
-            <p>Email *&nbsp; &nbsp; <input type="email" name="email"></p>
+            <p>Email&nbsp;*&nbsp; &nbsp; <input type="email" name="email"></p>
             <?= isset($errors['email']) ? "<p>" . $errors['email'] . "</p>": ""; ?>
-            <p>Password *&nbsp; <input type="password" name="password"></p>
+            <p>Password&nbsp;*&nbsp; <input type="password" name="password"></p>
             <?= isset($errors['password']) ? "<p>" . $errors['password'] . "</p>": ""; ?>
-            <p>Confirm Password * <input type="password" name="password2"></p>
+            <p>Confirm Password&nbsp;* <input type="password" name="password2"></p>
             <?= isset($errors['password2']) ? "<p>" . $errors['password2'] . "</p>": ""; ?>
 
             <p>Select University &lpar;Optional&rpar;</p>
