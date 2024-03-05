@@ -19,7 +19,7 @@ if (isset($_POST['function'])) {
             report_comment();
             break;
         case "sort": 
-            update_sort();
+            update_comment_sort();
             break;
         case "update-vote": 
             update_vote();
@@ -56,7 +56,7 @@ function create_post($data) {
 
     if (count($errors) == 0) {
         $values = [
-            'PostID' => rand(100, 99999),
+            'PostID' => generate_ID("POST"),
             'UniversityID' => $universityID,
             'SubjectID' => $subjectID,
             'Title' => $data['title'],
@@ -99,6 +99,18 @@ function get_comments($postID) {
     return run_database($query, $values);
 }
 
+function count_comments($parentID) {
+    if ($parentID[0] == 7) {
+        $values['PostID'] = $parentID;
+        $query = "SELECT COUNT(CommentID) AS Count FROM COMMENT_T WHERE PostID = :PostID;";
+    }
+    else if ($parentID[0] == 8) {
+        $values['StudySetID'] = $parentID;
+        $query = "SELECT COUNT(CommentID) AS Count FROM COMMENT_T WHERE StudySetID = :StudySetID;";
+    }
+    return run_database($query, $values)[0]->Count;
+}
+
 function get_comment($commentID) {
     $values['CommentID'] = $commentID;
     $query = <<<query
@@ -112,15 +124,22 @@ function get_comment($commentID) {
 
 # Comment Functions
 function add_comment() {
+    $parentID = $_POST['parentID'];
     $values = [
-        'CommentID' => $tempID = rand(100, 999),
-        'PostID' => $_POST['postID'],
+        'CommentID' => $tempID = generate_ID("COMMENT"),
         'Content' => $_POST['content'],
         'UserID' => $_SESSION['USER']->UserID,
         'Created' => time()
     ];
 
-    $query = "INSERT INTO COMMENT_T (CommentID, PostID, Content, UserID, Created) VALUES (:CommentID, :PostID, :Content, :UserID, :Created)";
+    if ($parentID[0] == 7) {
+        $values['PostID'] = $parentID;
+        $query = "INSERT INTO COMMENT_T (CommentID, PostID, Content, UserID, Created) VALUES (:CommentID, :PostID, :Content, :UserID, :Created)";
+    }
+    else if ($parentID[0] == 8) {
+        $values['StudySetID'] = $parentID;
+        $query = "INSERT INTO COMMENT_T (CommentID, StudySetID, Content, UserID, Created) VALUES (:CommentID, :StudySetID, :Content, :UserID, :Created)";
+    }
     run_database($query, $values);
     $query = "INSERT INTO CVOTE_T (CommentID, UserID, VoteType) VALUES ($tempID, {$_SESSION['USER']->UserID}, 1);";
     run_database($query);
@@ -171,58 +190,41 @@ function report_comment() {
 }
 
 # General Functions
-function update_sort() {
-    $type = $_POST['sortType'];
-    $postID = $_POST['postID'];
+function update_comment_sort() {
+    $sortType = $_POST['sortType'];
+    $parentID = $_POST['parentID'];
 
-    $query = create_sort_query($type, $postID);
+    $query = create_comment_sort($sortType, $parentID);
     $sorted = run_database($query);
-
-    $type = $type[0];
-    if ($type == "p") {
-        foreach ($sorted as $post) {
-            $currentPost = <<<currentPost
-            <a href="/forum/posts/{$post->PostID}.php">
-                <p>{$post->Title}</p>
-                <p>By: {$post->Username}</p>
-            </a>
-            currentPost;
-            echo $currentPost;
-        }
-    }
-    else if ($type == "c" && is_array($sorted) > 0) {
-        $postUsername = run_database("SELECT Username FROM USER_T INNER JOIN POST_T ON USER_T.UserID = POST_T.UserID WHERE POST_T.PostID = $postID")[0]->Username;
+    
+    if (is_array($sorted) > 0) {
         foreach ($sorted as $comment) {
             include($_SERVER['DOCUMENT_ROOT'] . "/forum/posts/c-template.php");
         }
     }
 }
 
-function create_sort_query($type, $postID) {
-    if ($type[0] == "p") { 
-        $query = "SELECT * FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID ";
-    }
-    else if ($type[0] == "c") {
+function create_comment_sort($sortType, $parentID) {
+    if ($parentID[0] == 7) {
         $query = <<<query
         SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, Modified, sum(VoteType) AS Votes
         FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
             INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
-        WHERE PostID = $postID
+        WHERE PostID = $parentID
+        GROUP BY CommentID 
+        query;
+    }
+    else if ($parentID[0] == 8) {
+        $query = <<<query
+        SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, Modified, sum(VoteType) AS Votes
+        FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
+            INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
+        WHERE StudySetID = $parentID
         GROUP BY CommentID 
         query;
     }
 
-    switch ($type) {
-        case 'post-oldest':
-            $query .= "ORDER BY POST_T.Created ASC;";
-            break;
-        case 'post-newest':
-            $query .= "ORDER BY POST_T.Created DESC;";
-            break;
-        case 'post-popular':
-            $query .= "SELECT * FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID ORDER BY POST_T.Created DESC;";
-            // NOT WORKING FOR THE TIME BEING, POST HAS NO VOTE FUNCTIONALITY
-            break;
+    switch ($sortType) {
         case 'comment-oldest':
             $query .= "ORDER BY COMMENT_T.Created ASC;";
             break;

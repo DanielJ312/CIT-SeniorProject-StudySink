@@ -6,8 +6,8 @@ $(document).ready(function () {
     if (currentPath.includes('/forum/post')) {
         $('.sort-container').html(updateSortedData("comment-oldest"));
     }
-    else if (currentPath.includes('/forum/')) {
-        $('.sort-container').html(updateSortedData("post-oldest"));
+    if (currentPath.includes('/study-sets/')) {
+        $('.sort-container').html(updateSortedData("comment-oldest"));
     }
 });
 
@@ -15,37 +15,28 @@ $(document).ready(function () {
 $('.sort').on('change', function () {
     var sortType = $(this).val();
     updateSortedData(sortType); 
-    console.log(sortType);
 });
 
 // Function to update the sorted data
 function updateSortedData(sortType) {
-    console.log(postID);
     $.ajax({
         url: '/functions/forum-functions',
         type: 'POST',
-        data: { function: "sort", postID: postID, sortType: sortType },
+        data: { function: "sort", parentID: parentID, sortType: sortType },
         success: function (response) {
             $('.sort-container').html(response);
         },
-        error: function (xhr, status, error) {
-            console.error(error);
-        }
     });
 }
 
 /*  Comment Functions */
 function AddComment() {
-    console.log(postID);
     content = $('.commentInput').val();
-    console.log(content);
-    
     if (content.length > 0) {
-        console.log("comment has content"); 
         $.ajax({
             url: '/functions/forum-functions',
             type: 'POST',
-            data: { function: "add", postID: postID, content: content },
+            data: { function: "add", parentID: parentID, content: content },
             success: function (response) {
                 $('.sort-container').append(response); 
                 $('.commentInput').val("");
@@ -58,9 +49,6 @@ function AddComment() {
                 $(`#${comment}`).css("background-color", "#FEFFB6");
             },
         });
-    }
-    else {
-        console.log("empty comment");
     }
 }
 
