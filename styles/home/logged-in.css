@@ -68,13 +68,25 @@
     padding: 10px;
     text-decoration: none;
     color: inherit;
-    box-shadow: 0 2px 5px rgba(0, 120, 212, 0.5);
     width: 33%;
     margin-left: 0.5%;
     margin-right: 0.5%;
     min-width: 160px;
     min-height: 200px;
     cursor: pointer;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+}
+
+.fa-comment:before {
+    color: #2778ff;
+  }
+  
+  .fa-heart:before {
+    color: #2778ff;
+  }
+
+  .fa-star:before {
+    color: #2778ff;
 }
 
 /* University */
@@ -104,7 +116,7 @@
     padding: 10px;
     text-decoration: none;
     color: inherit;
-    box-shadow: 0 2px 5px rgba(0, 120, 212, 0.5);
+    box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
     max-height: 150px;
     min-width: 300px;
     cursor: pointer;
@@ -121,8 +133,9 @@
 .post-tile:hover, 
 .study-set-tile:hover {
     transform: scale(1.05);
-    box-shadow: 5px 5px 15px rgba(0, 120, 212, 0.3);
+    border: 1px solid #f59c1a;
     transition: 0.3s;
+    box-shadow: none;
 }
 
 .university-post-tile:active,
@@ -218,14 +231,15 @@
   width: 45px;
   height: 45px;
   border-radius: 50%;
+  border: 1px solid #2778ff;
   cursor: pointer;
   margin-right: 13px;
 }
 
 .post-profile-picture:hover, 
 .study-set-profile-picture:hover {
-    transform: scale(1.05);
-    transition: 0.1s;
+    border-color: #f59c1a;
+    border-width: 2px;
 }
 
 /* -- Mobile compatibility at 850px -- */

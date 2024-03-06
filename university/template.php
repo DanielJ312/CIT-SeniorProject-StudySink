@@ -171,11 +171,19 @@ function toggleSubject() {
                         </div>
                         <h3 class="post-title"><?= $post->Title; ?></h3>
                         <div class="post-content"><?= $post->Content; ?></div>
-                        <div class="vote">
-                            <div class="post-iconsp">
-                                <i class="fa-regular fa-heart"></i>
+                        <div class="lower-header">
+                            <div class="comment">
+                                <div class="post-iconsp">
+                                <i class="fa-regular fa-comment"></i>
+                                </div>
+                                <div class="comments-count">0</div>
                             </div>
-                            <div class="votes">(20)</div>
+                            <div class="vote">
+                                <div class="post-iconsp">
+                                <i class="fa-regular fa-heart"></i>
+                                </div>
+                                <div class="votes">(20)</div>
+                            </div>
                         </div>
                     </a>
                 <?php endforeach; ?>
@@ -229,11 +237,19 @@ function toggleSubject() {
                         </div>
                         <h3 class="post-title">Temp Title</h3>
                         <div class="post-content">This is the content of the first post.</div>
-                        <div class="vote">
-                            <div class="post-iconsp">
-                                <i class="fa-regular fa-heart"></i>
+                        <div class="lower-header">
+                            <div class="comment">
+                                <div class="post-iconsp">
+                                <i class="fa-regular fa-comment"></i>
+                                </div>
+                                <div class="comments-count">0</div>
                             </div>
-                            <div class="votes">(20)</div>
+                            <div class="vote">
+                                <div class="post-iconsp">
+                                <i class="fa-regular fa-heart"></i>
+                                </div>
+                                <div class="votes">(20)</div>
+                            </div>
                         </div>
                     </a>
                 <?php endforeach; ?>

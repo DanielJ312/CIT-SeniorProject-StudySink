@@ -85,6 +85,20 @@ $posts = run_database($query);
                                             <p><?= $set->Course; ?></p>
                                         </div>
                                     </div>
+                                    <div class="lower-header">
+                            <div class="comment">
+                                <div class="post-iconsp">
+                                <i class="fa-regular fa-comment"></i>
+                                </div>
+                                <div class="comments-count">0</div>
+                            </div>
+                            <div class="vote">
+                                <div class="post-iconsp">
+                                <i class="fa-regular fa-star" aria-hidden="true"></i>
+                                </div>
+                                <div class="votes">5</div>
+                            </div>
+                        </div>
                                 </a>
                             </div>
                         <?php endforeach; ?>
@@ -117,12 +131,20 @@ $posts = run_database($query);
                                     </div>
                                     <h3 class="post-title"><?= $post->Title; ?></h3>
                                     <div class="post-content"><?= $post->Content; ?></div>
-                                    <div class="vote">
-                                        <div class="post-iconsp">
-                                            <i class="fa-regular fa-heart"></i>
-                                        </div>
-                                        <div class="votes">(20)</div>
-                                    </div>
+                                    <div class="lower-header">
+                            <div class="comment">
+                                <div class="post-iconsp">
+                                <i class="fa-regular fa-comment"></i>
+                                </div>
+                                <div class="comments-count">0</div>
+                            </div>
+                            <div class="vote">
+                                <div class="post-iconsp">
+                                <i class="fa-regular fa-heart"></i>
+                                </div>
+                                <div class="votes">(20)</div>
+                            </div>
+                        </div>
                                 </a>
                             </div>
                         <?php endforeach; ?>

@@ -120,10 +120,28 @@ body {
   margin-bottom: 10px;
 }
 
+.lower-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment {
+  display: flex;
+  color: #181818;
+}
+
 .vote {
   display: flex;
   justify-content: flex-end;
   color: #181818;
+}
+
+.fa-comment:before {
+  color: #2778ff;
+}
+
+.fa-heart:before {
+  color: #2778ff;
 }
 
 .slider {

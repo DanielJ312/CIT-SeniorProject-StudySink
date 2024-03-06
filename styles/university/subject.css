@@ -125,11 +125,21 @@ h3 {
     padding-right: 5px;
 }
 
-.vote {
+.lower-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .comment {
+    display: flex;
+    color: #181818;
+  }
+  
+  .vote {
     display: flex;
     justify-content: flex-end;
-    color: black;
-}
+    color: #181818;
+  }
 
 .post-profile-picture {
     border-radius: 50%;
@@ -139,7 +149,7 @@ h3 {
     height: 50px;
     margin-left: 0px;
     object-fit: cover;
-    border: 2px solid #fff;
+    border: 1px solid #2778ff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     background-color: #fff;
     display: block;
@@ -341,7 +351,7 @@ h3 {
     margin-right: 0px;
     border-radius: 50%; 
     object-fit: cover;
-    border: 2px solid #fff; 
+    border: 1px solid #2778ff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
     background-color: #fff;
     display: block;
@@ -405,6 +415,14 @@ h3 {
 
 .test {
     display: flex;
+}
+
+.fa-comment:before {
+    color: #2778ff;
+}
+
+.fa-star:before {
+    color: #2778ff;
 }
 
 @media only screen and (max-width: 850px) {
