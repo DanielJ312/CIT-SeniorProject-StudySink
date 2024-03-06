@@ -38,17 +38,33 @@ function check_login() {
 }
 
 function update_session() {
-    if (isset($_SESSION['USER'])) {
-        $values = array();
-        $values['UserID'] = $_SESSION['USER']->UserID;
-    
-        $query = "SELECT * FROM USER_T WHERE UserID = :UserID LIMIT 1;";
-        $result = run_database($query, $values);
-        $result = $result[0];
-    
-        $_SESSION['USER'] = $result;
-        $_SESSION['LOGGED_IN'] = true;
+    if (isset($_SESSION['USER']) && $_SESSION['USER']->Verified == 0) {
+        if (!($_SERVER['REQUEST_URI'] == "/account/verify")) {
+            header("Location: /account/verify.php");
+        }
+        $query = "SELECT Expires FROM CODE_T WHERE Email = '{$_SESSION['USER']->Email}';";
+        $expirationTime = run_database($query)[0]->Expires; 
+        if (time() > $expirationTime) {
+            $query = "DELETE FROM USER_T Where Email = '{$_SESSION['USER']->Email}';";
+            run_database($query);
+            header("Location: /account/logout.php");
+        }
+        return $expirationTime;
     }
+    else if (isset($_SESSION['USER'])) {
+        update_user();
+    }
+}
+
+function update_user() {
+    // $values = array();
+    // $values['UserID'] = $_SESSION['USER']->UserID;    
+    $query = "SELECT * FROM USER_T WHERE UserID = {$_SESSION['USER']->UserID} LIMIT 1;";
+    $result = run_database($query);
+    $result = $result[0];
+
+    $_SESSION['USER'] = $result;
+    $_SESSION['LOGGED_IN'] = true;
 }
 
 function check_verification() {
@@ -128,10 +144,34 @@ function check_user_vote($userID, $commentID) {
 function get_study_set($StudySetID) {
     $values['StudySetID'] = $StudySetID;
     $query = <<<query
-    SELECT S.StudySetID, U.Username, S.CourseID, S.Title, S.Description, S.Instructor, S.Created, U.Avatar
+    SELECT S.StudySetID, U.Username, S.CourseID, S.Title, S.Description, S.Instructor, S.Created, U.Avatar, count(CommentID) as Comments
     FROM STUDY_SET_T S INNER JOIN USER_T U ON S.UserID = U.UserID
-    WHERE StudySetID = :StudySetID;S
+    LEFT OUTER JOIN COMMENT_T C ON C.StudySetID = S.StudySetID
+    WHERE S.StudySetID = :StudySetID;
     query;
     return run_database($query, $values)[0];
+}
+
+//Get users main university ID given the users ID.
+function get_user_university() {
+    $values['UserID'] = $_SESSION['USER']->UserID;
+    $query = <<<query
+    SELECT UniversityID
+    FROM USER_T
+    WHERE UserID = :UserID;
+    query;
+    return run_database($query, $values)[0]->UniversityID;
+}
+
+//Get 10 most recently created University posts based on user's set university.
+function get_recent_university_post_IDs($universityID) {
+    $query = "SELECT PostID FROM POST_T WHERE UniversityID = :UniversityID ORDER BY Created DESC LIMIT 10";
+    $result = run_database($query, $values = ['UniversityID' => $universityID]);
+    $postIDs = [];
+    foreach ($result as $row) {
+        $postIDs[] = $row->PostID;
+    }
+
+    return $postIDs;
 }
 ?>

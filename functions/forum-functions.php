@@ -76,11 +76,12 @@ function create_post($data) {
 function get_post($postID) {
     $values['PostID'] = $postID;
     $query = <<<query
-    SELECT PostID, Title, Content, POST_T.Created AS PostCreated, Username, Avatar, UNIVERSITY_T.Name AS UniversityName, SUBJECT_T.Name AS SubjectName
+    SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, Username, Avatar, UNIVERSITY_T.Name AS UniversityName, SUBJECT_T.Name AS SubjectName, count(CommentID) AS Comments
     FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID 
         INNER JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
         INNER JOIN SUBJECT_T ON POST_T.SubjectID = SUBJECT_T.SubjectID
-    WHERE PostID = :PostID;
+        LEFT OUTER JOIN COMMENT_T ON COMMENT_T.PostID = POST_T.PostID
+        WHERE POST_T.PostID = :PostID;
     query;
     return run_database($query, $values)[0];
 }

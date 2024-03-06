@@ -139,7 +139,8 @@
         box-sizing: border-box;
     }
 
-    .home-logout-text-container, .home-logout-text-container-bottom{
+    .home-logout-text-container, 
+    .home-logout-text-container-bottom {
         display: flex;
         flex-direction: column;
         justify-content: center;

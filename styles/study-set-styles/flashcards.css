@@ -102,6 +102,26 @@
     color: #f59c1a; 
 }
 
-.fa-circle-arrow-left, .fa-circle-arrow-right, .fa-arrows-rotate {
+/*.fa-circle-arrow-left, .fa-circle-arrow-right, .fa-arrows-rotate {
     /* Icon styles if needed */
+
+
+@media only screen and (max-width: 850px) {
+    .flashcardsContainer {
+        max-width: 90%;
+        margin: 20px auto;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+        border: solid 1px #cccccc;
+    }
+
+    .cards {
+        display: block;
+    }
+
+    .cardContainer {
+        width: 100%;
+    }
 }

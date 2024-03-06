@@ -3,11 +3,9 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
-check_login() ? header("Location: /account/profile.php") : null;
+if (check_login()) header("Location: /account/profile.php"); 
 $pageTitle = "Reset Password";
 
-$displayRedirect = false;
-$errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = check_email($_POST)) == 0) ? (($displayRedirect = is_code_active("reset", $_POST['email']) === false) ? header("Location: reset.php") : []) : []) : [];
 ?>
 
 <!DOCTYPE html>
@@ -15,26 +13,30 @@ $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = check_email
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <link rel="stylesheet" type="text/css" href="/styles/account/forgot.css">
+    <script async src="/account/account.js"></script>
 </head>
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-        <h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
     </header>
     <main>
         <div class="forgot-container">
-        <div>
-            <?php display_errors($errors); ?>
-        </div>
-        <form method="post" novalidate>
-            <?php if ($displayRedirect): ?>
-                <p>A verification code for this email is already active. <a href="reset.php">Change your password.</a></p> 
-            <?php endif; ?>
-            <h3>Enter your email to reset your password</h3>
-            <p>Email:&nbsp; <input type="email" name="email"></p>
-            <input type="submit" value="Submit">
-        </form>
+            <div class="reset-form" novalidate>
+                <div class="email-container">
+                    <p>Enter your email to send a verification code to reset password.</p>
+                    <p class="email">Email <input class="email-input" type="email" name="email"></p>
+                    <input class="send-email" type="submit" value="Send Code">
+                </div>
+                <div class="password-container" style="display: none">
+                    <p>Enter the verification code you have been emailed in order to proceed.</p>
+                    <p class="code">Code <input class="code-input" type="text" name="code"></p> 
+                    <p class="password">Password <input class="password-input" type="password" name="password"></p>
+                    <p class="password">Confirm Password <input class="password2-input" type="password" name="password2"></p>
+                    <input class="submit-pass" type="submit" value="Reset Password">
+                </div>
+                <p class="error" style="display: none"></p>
             </div>
+        </div>
     </main>
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
