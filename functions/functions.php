@@ -147,6 +147,26 @@ function get_user_university() {
     return run_database($query, $values)[0]->UniversityID;
 }
 
+//Get users main university name given the users ID.
+function get_user_university_name() {
+    $values['UserID'] = $_SESSION['USER']->UserID;
+    $query = <<<query
+    SELECT UNI.Name
+    FROM UNIVERSITY_T UNI
+    INNER JOIN USER_T U ON U.UniversityID = UNI.UniversityID
+    WHERE U.UserID = :UserID;
+    query;
+    $result = run_database($query, $values);
+    if (is_array($result)) {
+        return $result[0]->Name;
+    }
+    else {
+        return "";
+    }
+ 
+
+}
+
 //Get 10 most recently created University posts based on user's set university.
 function get_recent_university_post_IDs($universityID) {
     $query = "SELECT PostID FROM POST_T WHERE UniversityID = :UniversityID ORDER BY Created DESC LIMIT 10";
