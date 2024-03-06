@@ -150,8 +150,8 @@ if ($avgRatingResult) {
 
             <?php foreach ($cards as $card): ?>
                 <div class="cardContainer">
-                    <div class="cardContainerFront"><?= htmlspecialchars($card->Front); ?></div>
-                    <div class="cardContainerBack"><?= htmlspecialchars($card->Back); ?></div>
+                    <div class="cardContainerFront"><?= nl2br(htmlspecialchars($card->Front)); ?></div>
+                    <div class="cardContainerBack"><?= nl2br(htmlspecialchars($card->Back)); ?></div>
                 </div>
             <?php endforeach; ?>
             <div class="commentContainer">
