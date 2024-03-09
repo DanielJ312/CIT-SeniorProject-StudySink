@@ -25,7 +25,8 @@ $studySetsQuery = "SELECT DISTINCT STUDY_SET_T.*,
                      OR UNIVERSITY_T.Name LIKE :searchTerm 
                      OR UNIVERSITY_T.Abbreviation LIKE :searchTerm
                      OR STUDY_CARD_T.Front LIKE :searchTerm
-                     OR STUDY_CARD_T.Back LIKE :searchTerm";
+                     OR STUDY_CARD_T.Back LIKE :searchTerm
+                     OR USER_T.Username LIKE :searchTerm";
 $studySets = run_database($studySetsQuery, ['searchTerm' => "%$searchTerm%"]);
 
 // Search query for posts
@@ -40,7 +41,8 @@ $postsQuery = "SELECT POST_T.*, USER_T.Username, USER_T.Avatar,
                OR POST_T.Content LIKE :searchTerm
                OR UNIVERSITY_T.Name LIKE :searchTerm
                OR UNIVERSITY_T.Abbreviation LIKE :searchTerm
-               OR SUBJECT_T.Name LIKE :searchTerm";
+               OR SUBJECT_T.Name LIKE :searchTerm
+               OR USER_T.Username LIKE :searchTerm";
 $posts = run_database($postsQuery, ['searchTerm' => "%$searchTerm%"]);
 ?>
 <!DOCTYPE html>

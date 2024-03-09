@@ -214,4 +214,58 @@ function verify_email($data) {
     return $errors;
 }
 
+function update_bio($data) {
+    $values = [
+        'UserID' => $_SESSION['USER']->UserID,
+        'Bio' => $data['bio']
+    ];
+    $query = "UPDATE USER_T SET Bio = :Bio WHERE UserID = :UserID";
+    run_database($query, $values);
+    update_session();
+}
+
+function update_password($data) {
+        $values = [
+            'UserID' => $_SESSION['USER']->UserID,
+            'Password' => password_hash($data['password'], PASSWORD_DEFAULT)
+        ];
+        $query = "UPDATE USER_T SET Password = :Password WHERE UserID = :UserID";
+        run_database($query, $values);
+        update_session();
+}
+
+function get_universities() {
+    $query = "SELECT Name FROM UNIVERSITY_T";
+    $result = run_database($query);
+    return $result;
+}
+
+function update_primary_university($data) {
+    // Fetch the UniversityID from the UNIVERSITY_T table
+    $values = ['UniversityName' => $data['updateUniversity']];
+    $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE Name = :UniversityName";
+    $result = run_database($query, $values);
+    $primaryUniversityID = $result[0]->UniversityID;
+
+    // Use the UniversityID to update the USER_T table
+    $values = [
+        'UserID' => $_SESSION['USER']->UserID,
+        'UniversityID' => $primaryUniversityID
+    ];
+    $query = "UPDATE USER_T SET UniversityID = :UniversityID WHERE UserID = :UserID";
+    run_database($query, $values);
+    update_session();
+}
+
+// function delete_account($data) {
+//     $values = [
+//         'UserID' => $_SESSION['USER']->UserID
+//     ];
+//     $query = "DELETE FROM USER_T WHERE UserID = :UserID";
+//     run_database($query, $values);
+//     session_destroy();
+//     header("Location: /");
+//     die;
+// }
+
 ?>
