@@ -115,7 +115,7 @@ function toggleSubject() {
                     </div>
                     <div class="tiles">
                         <?php foreach ($universitiesforum as $universityforum) : ?>
-                        <a class="names">
+                        <a class="names" href="/university/index.php">
                             <div class="word"><?= htmlspecialchars($universityforum->Name) ?></div>
                         </a>
                         <?php endforeach; ?>
