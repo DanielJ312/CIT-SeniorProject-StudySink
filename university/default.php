@@ -65,22 +65,22 @@
 
 
 
-function search_subject_mobile() {
+        function search_university_mobile() {
     let input = document.getElementById('searchbar2').value.toLowerCase();
-    let subjects = document.querySelectorAll('.subject-selection-c .subjects a');
+    let universities = document.querySelectorAll('.tiles a');
 
-    subjects.forEach(subject => {
-        let subjectText = subject.textContent.toLowerCase();
-        let subjectElement = subject.parentElement;
+    universities.forEach(university => {
+        let universityName = university.querySelector('.word').textContent.toLowerCase();
+        let universityElement = university;
 
-        if (!subjectText.includes(input)) {
-            subjectElement.style.display = "none";
+        if (!universityName.includes(input)) {
+            universityElement.style.display = "none";
         } else {
-            subjectElement.style.display = "block"; 
+            universityElement.style.display = "block"; 
         }
 
         if (!input) {
-            subjectElement.style.display = "block";
+            universityElement.style.display = "block";
         } 
     });
 }
@@ -128,3 +128,24 @@ function toggleSubject() {
     </footer>
 </body>
 </html>
+
+<div class= mobileuniversitydefault>
+<?php if (!check_login()) : ?>
+        <div class="mobilemargin">
+            <div class="university-info">
+                <h2>Universitys</h2>
+            </div>
+                <div class="outer-box">
+                    <div class="search-bar-university">
+                        <input id="searchbar2" type="text" name="search" onkeyup="search_university_mobile()" placeholder="Search Universitys..." />
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="tiles">
+                        <?php foreach ($universitiesforum as $universityforum) : ?>
+                        <a class="names" href="/university/index.php">
+                            <div class="word"><?= htmlspecialchars($universityforum->Name) ?></div>
+                        </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+        <?php endif; ?>

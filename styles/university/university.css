@@ -351,6 +351,11 @@ body {
 }
 
  /* Styling for default univeristy page */
+
+ .mobileuniversitydefault {
+  display: none;
+}
+
  .tiles {
   display: flex;
   justify-content: space-evenly;
@@ -414,6 +419,11 @@ body {
   color: #fcb54d;
 }
 
+.search-bar-university {
+  display: flex;
+  justify-content: center;
+}
+
 @media only screen and (max-width: 850px) {
 
   .mobileuniversity {
@@ -447,6 +457,7 @@ body {
     color: black;
     display: flex;
     align-items: center;
+    justify-content: center;
   }
 
   #contentsubject {
@@ -511,4 +522,52 @@ body {
   .post {
       width: auto;
   }
+
+  .mobileuniversitydefault {
+    display: block;
+}
+
+.mobilemargin {
+  margin: 20px 3%;
+}
+
+.search-bar-university input {
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%; 
+}
+
+.tiles {
+  display: block;
+}
+
+.names {
+  display: block;
+  color: #181818;
+  border-radius: 5px;
+  padding: 10px;
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 5px;
+  margin-top: 15px;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+  width: auto;
+  background-color: #f7f7f7;
+}
+
+.outer-box {
+  color: #181818;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+  text-align: left;
+  margin-top: 15px;
+  background-color: white;
+  display: block; 
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 }
