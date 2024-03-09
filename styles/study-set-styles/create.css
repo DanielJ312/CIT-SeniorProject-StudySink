@@ -285,3 +285,16 @@
 .deleteCardBtn i {
     font-size: 1em;
 }
+
+@media only screen and (max-width: 850px) {
+    .studySetContainer {
+        max-width: 95%;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 8px;
+        background-color: #ffffff;
+        box-sizing: border-box;
+        transition: box-shadow 0.3s ease;
+        box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+    }
+}

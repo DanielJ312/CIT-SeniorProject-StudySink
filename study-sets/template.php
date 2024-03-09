@@ -134,18 +134,24 @@ if ($avgRatingResult) {
             </div>
 
             <div class="actionButtonsContainer">
+                <!-- Edit button is only available to the owner, shown to the left if the user is the owner -->
                 <?php if (check_login() && $set->Username == $_SESSION['USER']->Username) : ?>
-                    <a href="/study-sets/edit.php?id=<?= $setID; ?>" class="actionButton editButton"><i class="fa-regular fa-pen-to-square"></i></a>
-                    <a href="/study-sets/flashcards.php?setID=<?= htmlspecialchars($setID); ?>" class="actionButton viewFlashcardsButton">View Flashcards</a>
-                    <a href="/study-sets/delete.php?id=<?= $setID; ?>" class="actionButton deleteButton" onclick="return confirm('Are you sure you want to delete this study set?');"><i class="fas fa-trash"></i></a>
+                    <a href="/study-sets/edit.php?id=<?= htmlspecialchars($setID); ?>" class="actionButton editButton" style="float: left;"><i class="fa-regular fa-pen-to-square"></i></a>
+                <?php endif; ?>
+
+                <!-- View Flashcards button is always available and centered -->
+                <a href="/study-sets/flashcards.php?setID=<?= htmlspecialchars($setID); ?>" class="actionButton viewFlashcardsButton" style="margin: auto; display: block; width: fit-content;">View Flashcards</a>
+
+                <!-- Delete button is only available to the owner, shown to the right if the user is the owner -->
+                <?php if (check_login() && $set->Username == $_SESSION['USER']->Username) : ?>
+                    <a href="/study-sets/delete.php?id=<?= htmlspecialchars($setID); ?>" class="actionButton deleteButton" style="float: right;" onclick="return confirm('Are you sure you want to delete this study set?');"><i class="fas fa-trash"></i></a>
                 <?php endif; ?>
             </div>
 
-
             <?php foreach ($cards as $card): ?>
                 <div class="cardContainer">
-                    <div class="cardContainerFront"><?= htmlspecialchars($card->Front); ?></div>
-                    <div class="cardContainerBack"><?= htmlspecialchars($card->Back); ?></div>
+                    <div class="cardContainerFront"><?= nl2br(htmlspecialchars($card->Front)); ?></div>
+                    <div class="cardContainerBack"><?= nl2br(htmlspecialchars($card->Back)); ?></div>
                 </div>
             <?php endforeach; ?>
             <div class="commentContainer">

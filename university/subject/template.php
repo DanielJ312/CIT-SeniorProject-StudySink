@@ -63,6 +63,9 @@ $posts = run_database($query);
                     </div>
                     <div class="scrollbar" id="contentset">
                         <div class="displayCardArea">
+                        <?php if (empty($sets)) : ?>
+            <h3>No Study Sets Made</h3>
+        <?php else : ?>
                         <?php foreach ($sets as $set) : ?>
                             <div class="cardContainer">
                                 <a href="/study-sets/<?= $set->StudySetID; ?>" class="">
@@ -85,6 +88,7 @@ $posts = run_database($query);
                                 </a>
                             </div>
                         <?php endforeach; ?>
+                        <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -98,6 +102,9 @@ $posts = run_database($query);
                         </select>
                     </div>
                     <div class="scrollbar"id="contentpost">
+                    <?php if (empty($posts)) : ?>
+                        <h3>No Posts Made</h3>
+                        <?php else : ?>
                         <?php foreach ($posts as $post) : ?>
                             <div class="post">
                                 <a href="/forum/posts/<?= $post->PostID; ?>" class="">
@@ -119,6 +126,7 @@ $posts = run_database($query);
                                 </a>
                             </div>
                         <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                 </div>  
             </div>

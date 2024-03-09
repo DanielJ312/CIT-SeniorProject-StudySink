@@ -1,5 +1,5 @@
 <?php
-# Functions - Contains functions relating to AWS S3
+# Functions - Contains functions relating to user accounts
 require($_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php");
 
 use Aws\S3\S3Client;
@@ -42,48 +42,55 @@ function upload_avatar($file) {
 }
 
 function signup($data) {
-    $errors = array();
-
     // validate
+    $errors = array();
     if (!preg_match('/^[a-zA-Z0-9]+$/', $data['username'])) {
-        $errors[] = "Please enter a valid username.";
+        $errors['username'] = "Please enter a valid username.";
     }
     if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Please enter a valid email.";
+        $errors['email'] = "Please enter a valid email.";
     }
     if (strlen(trim($data['password'])) < 4) {
-        $errors[] = "Please enter a valid password.";
+        $errors['password'] = "Please enter a valid password.";
     }
     else if ($data['password'] != $data['password2']) {
-        $errors[] = "Passwords must match.";
+        $errors['password'] = "Passwords must match.";
     }
     $checkEmail = run_database("SELECT * FROM USER_T WHERE Email = :Email LIMIT 1;",['Email'=>$data['email']]);
     if (is_array($checkEmail)) {
-        $errors[] = "Email already exists.";
+        $errors['email'] = "Email already exists.";
     }
     
     // save
     if (count($errors) == 0) {
         $values = [
             'UserID' => generate_ID("USER"),
+            'UniversityID' => $data['useruni'] == 0 ? null : $data['useruni'],
             'Username' => $data['username'],
             'Email' => $data['email'],
             'Password' => password_hash($data['password'], PASSWORD_DEFAULT),
-            'Created' => get_local_time()
+            'Created' => time()
         ];
         
-        $query = "INSERT INTO USER_T (UserID, Username, Email, Password, Created) VALUES (:UserID, :Username, :Email, :Password, :Created);";
+        $query = "INSERT INTO USER_T (UserID, UniversityID, Username, Email, Password, Created) VALUES (:UserID, :UniversityID, :Username, :Email, :Password, :Created);";
         run_database($query, $values);
+
+        $query = "SELECT * FROM USER_T WHERE Email = '{$values['Email']}' LIMIT 1;";
+        $result = run_database($query);
+        if (!empty($result)) {
+            $_SESSION['USER'] = $result[0];
+            $_SESSION['LOGGED_IN'] = true;
+        }
+        send_verify_code("verify", $values['Email']);
     }
 
     return $errors;
 }
 
-
 function login($data) {
-    $errors = array();
+    //validate
     $loginType = "Email";
-    
+    $errors = array();
     if (filter_var($data['logininput'], FILTER_VALIDATE_EMAIL)) {
         $loginType = "Email";
     }
@@ -91,10 +98,10 @@ function login($data) {
         $loginType = "Username";
     }
     else {
-        $errors[] = "Please enter a valid email or username.";
+        $errors['logintype'] = "Please enter a valid email or username.";
     }
     if (strlen(trim($data['password'])) < 4) {
-        $errors[] = "Please enter a valid password.";
+        $errors['password'] = "Please enter a valid password.";
     }
 
     // check
@@ -113,45 +120,38 @@ function login($data) {
 
         $query = "SELECT * FROM USER_T WHERE $loginType = :$loginType LIMIT 1;";
         $result = run_database($query, $values);
-        
 
         if (!empty($result)) {
             $result = $result[0];
             if (password_verify($password, $result->Password)) {
                 $_SESSION['USER'] = $result;
                 $_SESSION['LOGGED_IN'] = true;
-            } else {
-                $errors[] = "Incorrect password.";
+            } 
+            else {
+                $errors['password'] = "Incorrect password.";
             }
-        } else {
-            $errors[] = "An account associated with this email does not exist.";
-        }
+        } 
     }
 
     return $errors;
 }
 
 function check_email($data) {
-    $errors = array();
+    $valid = false;
 
     // validate
-    if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Please enter a valid email.";
+    $values['Email'] = $data['email'];
+    $query = "SELECT * FROM USER_T WHERE Email = :Email LIMIT 1;";
+    $result = run_database($query, $values);
+    if (is_array($result)) {
+        $valid = true;
     }
-    else {
-        $values['Email'] = $data['email'];
-        $query = "SELECT * FROM USER_T WHERE Email = :Email LIMIT 1;";
-        $result = run_database($query, $values);
-        if (!is_array($result)) {
-            $errors[] = "There is no account associated with the email entered.";
-        }
-    } 
     
-    return $errors;
+    return $valid;
 }
 
 function reset_password($data) {
-    $errors = array();
+    $status = "none";
 
     $values = array();
     $values['Code'] = $data['code'];
@@ -159,58 +159,56 @@ function reset_password($data) {
     $result = run_database($query, $values);
         
     if (is_array($result)) {
-        if (get_local_time() > $result[0]->Expires) {
-            $errors[] = 'Your code has expired so a new one has been sent. Please enter the new one.';
-            is_code_active("reset", $result[0]->Email);
+        $result = $result[0];
+        if (time() > $result->Expires) {
+            $status = "expired";
         }
         else if (strlen(trim($data['password'])) < 4) {
-            $errors[] = "Please enter a valid password.";
+            $status = "invalid";
         }
-        else if ($data['password'] != $data['password2']) {
-            $errors[] = "Passwords must match.";
-        }
-        if (count($errors) == 0) {
-            $result = $result[0];
+        if ($status == "none") {
             $values = array();
-            $values['Email'] = $result->Email;
-            $values['Password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-            echo "$result->Email";
-            // die;
+            $values = [
+                'Email' => $result->Email,
+                'Password' => password_hash($data['password'], PASSWORD_DEFAULT)
+            ];
             $query = "UPDATE USER_T SET Password = :Password WHERE Email = :Email";
             run_database($query, $values);
             delete_code("reset", $result->Email);
+            $status = "valid";
         }
     }
     else {
-        $errors[] = "Verifcation code is incorrect.";
+        $status = "wrong";
     }
 
-    return $errors;
+    return $status;
 }
 
-function verify_account() {
+function verify_email($data) {
     $values = [
         'Email' => $_SESSION['USER']->Email,
-        'Code' => $_POST['code']
+        'Code' => $data['code']
     ];
 
-    $query = "SELECT * FROM CODE_T where Email = :Email && Code = :Code;";
+    $query = "SELECT * FROM CODE_T WHERE Email = :Email && Code = :Code;";
     $result = run_database($query, $values);
     if (is_array($result)) {
         $result = $result[0];
+        
 
-        if ($result->Expires > get_local_time()) {
+        if ($result->Expires > time()) {
             $email = $result->Email;
             $query = "UPDATE USER_T SET Verified = 1 WHERE Email = '$email' LIMIT 1;";
             $result = run_database($query);
             delete_code("verify", $email);
+            update_user();
             header("Location: profile.php");
-            die;
         } else {
-            $errors[] = "Code expired";
+            $errors['code'] = "This code has expired.";
         }
     } else {
-        $errors[] = "Wrong code.";
+        $errors['code'] = "This code is incorrect.";
     }
 
     return $errors;

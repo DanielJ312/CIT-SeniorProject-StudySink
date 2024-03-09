@@ -1,7 +1,8 @@
 <!-- Study-Set Display Page - Lists all Study Sets in Database -->
 <?php 
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
-$pageTitle = "Forum";
+update_session();
+$pageTitle = "Study Sets";
 
 $query = "
     SELECT 

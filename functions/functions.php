@@ -38,17 +38,33 @@ function check_login() {
 }
 
 function update_session() {
-    if (isset($_SESSION['USER'])) {
-        $values = array();
-        $values['UserID'] = $_SESSION['USER']->UserID;
-    
-        $query = "SELECT * FROM USER_T WHERE UserID = :UserID LIMIT 1;";
-        $result = run_database($query, $values);
-        $result = $result[0];
-    
-        $_SESSION['USER'] = $result;
-        $_SESSION['LOGGED_IN'] = true;
+    if (isset($_SESSION['USER']) && $_SESSION['USER']->Verified == 0) {
+        if (!($_SERVER['REQUEST_URI'] == "/account/verify")) {
+            header("Location: /account/verify.php");
+        }
+        $query = "SELECT Expires FROM CODE_T WHERE Email = '{$_SESSION['USER']->Email}';";
+        $expirationTime = run_database($query)[0]->Expires; 
+        if (time() > $expirationTime) {
+            $query = "DELETE FROM USER_T Where Email = '{$_SESSION['USER']->Email}';";
+            run_database($query);
+            header("Location: /account/logout.php");
+        }
+        return $expirationTime;
     }
+    else if (isset($_SESSION['USER'])) {
+        update_user();
+    }
+}
+
+function update_user() {
+    // $values = array();
+    // $values['UserID'] = $_SESSION['USER']->UserID;    
+    $query = "SELECT * FROM USER_T WHERE UserID = {$_SESSION['USER']->UserID} LIMIT 1;";
+    $result = run_database($query);
+    $result = $result[0];
+
+    $_SESSION['USER'] = $result;
+    $_SESSION['LOGGED_IN'] = true;
 }
 
 function check_verification() {

@@ -24,8 +24,7 @@
     padding: 5px;
     color: black;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
-    border: solid 1px #cccccc;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
     background-color: #ffffff;
     margin-bottom: 5px;
     box-sizing: border-box;
@@ -63,7 +62,7 @@
     justify-content: space-between;
     padding: 10px;
     align-items: flex-start;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #2778ff;
 }
 
 .headerInfoAndRating {
@@ -232,7 +231,7 @@
     color: black;
     border-radius: 8px;
     background-color: #ffffff;
-    border: solid 1px #cccccc;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
     margin-bottom: 10px;
     box-sizing: border-box;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
@@ -244,7 +243,7 @@
     width: 35%;
     padding: 0px 10px 0px 0px;
     margin: 0;
-    border-right: solid 1px #2778ff75;
+    border-right: solid 1px #2778ff;
 }
 
 .cardContainerBack {
@@ -264,4 +263,54 @@
 }
 .card-content {
     font-size: 1em;
+}
+
+@media only screen and (max-width: 850px) {
+    .studySetTemplateContainer {
+        max-width: 90%;
+        margin: 20px auto;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .headerInfoAndRating {
+        display: block;
+    }
+
+    .ratingAndAverage {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .studySetDetailsBottom {
+        display: block;
+        flex-direction: row;
+        margin: 0px;
+        padding: 10px;
+        align-items: flex-start;
+        box-sizing: border-box;
+    }
+
+    .studySetDetailsBottomLeft {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 0px;
+        padding: 0px; 
+        width: 100%; 
+        box-sizing: border-box;
+    }
+
+    .studySetDetailsBottomRight {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 0px;
+        padding: 0px; 
+        background-color: #fff;
+        width: 100%; 
+        box-sizing: border-box;
+    }
 }

@@ -45,8 +45,8 @@ $cards = run_database($query, $values);
 
                 <?php foreach ($cards as $card): ?>
                     <div class="cardContainer">
-                        <div class="cardFront"><?= htmlspecialchars($card->Front); ?></div>
-                        <div class="cardBack"><?= htmlspecialchars($card->Back); ?></div>
+                        <div class="cardFront"><?= nl2br(htmlspecialchars($card->Front)); ?></div>
+                        <div class="cardBack"><?= nl2br(htmlspecialchars($card->Back)); ?></div>
                     </div>
                 <?php endforeach; ?>
             </div>

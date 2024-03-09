@@ -1,8 +1,8 @@
 .register-container {
     color: black;
-    background-color: #607C8E;
+    background-color: white;
     border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 31%);
     padding: 20px;
     width: 300px;
     text-align: center;
@@ -59,4 +59,13 @@
 
 .register-container input[type="submit"]:hover {
     background-color: #0056b3;
+}
+
+.lheader {
+    text-align: center;
+    color: black;
+    margin: 0;
+    font-size: xx-large;
+    font-weight: bold;
+    padding-top: 25px;
 }

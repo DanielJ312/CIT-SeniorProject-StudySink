@@ -1,7 +1,8 @@
 <?php 
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/study-set-functions.php");
-//$pageTitle = "Create Study Set";
+$pageTitle = "Create Study Set";
+update_session();
 $universities = get_universities_list();
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") create_study_set($_POST);
