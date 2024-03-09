@@ -43,27 +43,26 @@
         }
 
 
-        // JavaScript code
-
-        function search_subject() {
+        function search_university() {
     let input = document.getElementById('searchbar').value.toLowerCase();
-    let subjects = document.querySelectorAll('.subject-selection-c .subjects a');
+    let universities = document.querySelectorAll('.tiles a');
 
-    subjects.forEach(subject => {
-        let subjectText = subject.textContent.toLowerCase();
-        let subjectElement = subject.parentElement;
+    universities.forEach(university => {
+        let universityName = university.querySelector('.word').textContent.toLowerCase();
+        let universityElement = university;
 
-        if (!subjectText.includes(input)) {
-            subjectElement.style.display = "none";
+        if (!universityName.includes(input)) {
+            universityElement.style.display = "none";
         } else {
-            subjectElement.style.display = "block"; 
+            universityElement.style.display = "block"; 
         }
 
         if (!input) {
-            subjectElement.style.display = "block";
+            universityElement.style.display = "block";
         } 
     });
 }
+
 
 
 function search_subject_mobile() {
@@ -104,31 +103,25 @@ function toggleSubject() {
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
     <main>
+    <?php if (!check_login()) : ?>
         <div class="margin">
             <div class="university-info">
                 <h2>Universitys</h2>
             </div>
                 <div class="outer-box">
                     <div class="search-bar-university">
-                        <input id="searchbar" type="text" name="search" onkeyup="search_subject()" placeholder="Search Subjects..." />
+                        <input id="searchbar" type="text" name="search" onkeyup="search_university()" placeholder="Search Universitys..." />
                         <button><i class="fas fa-search"></i></button>
                     </div>
                     <div class="tiles">
-                    <a class="names">
-                    <div class="word">California Sate Univeristy of Northridge</div>
-                    </a>
-                    <a class="names">
-                    <div class="word">University of southern california</div>
-                    </a>
-                    <a class="names">
-                    <div class="word">university of california los angles</div>
-                    </a>
-                    <a class="names">
-                    <div class="word">university of california los angles</div>
-                    </a>
+                        <?php foreach ($universitiesforum as $universityforum) : ?>
+                        <a class="names">
+                            <div class="word"><?= htmlspecialchars($universityforum->Name) ?></div>
+                        </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
-        </div>
+        <?php endif; ?>
     </main>
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
