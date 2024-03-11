@@ -26,7 +26,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
                 <i class="fa-solid fa-circle-plus fa-2xl <?= check_active('/study-sets/create'); ?>" id="createIcon" title="Create"></i>
                 <div class="dropdown-content-create" id="createDropdown">
                     <a href="/study-sets/create.php">Create Study Set</a>
-                    <a onclick="openPopup()">Create Post</a>
+                    <a onclick="<?= $_SESSION['USER']->Verified == 1 ? "openPopup()" : ""?>">Create Post</a>
                 </div>
             </div>
             <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index', 'home'); ?>"></i></a>
