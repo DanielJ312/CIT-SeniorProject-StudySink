@@ -34,8 +34,8 @@
         <div class="post-icons">
         <?php if (check_login()) : ?>
             <span>
-                <?php $userVote = check_user_vote($_SESSION['USER']->UserID, $comment->CommentID); ?>
-                <i class="like <?= $userVote == 1 ? "fa-solid" : "fa-regular"; ?> fa-heart button fa-lg" onclick="updateVote(<?= $comment->CommentID; ?>, <?= $_SESSION['USER']->UserID; ?>)"></i>
+                <?php $userCVote = check_user_cvote($comment->CommentID); ?>
+                <i class="like <?= $userCVote == 1 ? "fa-solid" : "fa-regular"; ?> fa-heart button fa-lg" onclick="updateCommentLike(<?= $comment->CommentID; ?>)"></i>
             </span>
         <?php endif; ?>
         </div>

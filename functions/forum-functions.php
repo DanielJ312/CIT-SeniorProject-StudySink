@@ -21,12 +21,37 @@ if (isset($_POST['function'])) {
         case "sort": 
             update_comment_sort();
             break;
-        case "update-vote": 
-            update_vote();
+        case "post-like": 
+            update_post_like();
+            break;
+        case "comment-like": 
+            update_comment_like();
             break;
         default:
             break;
     }
+}
+
+### Sort Later
+function check_user_pvote($postID) {
+    $query = "SELECT VoteType FROM POST_LIKE_T WHERE PostID = $postID AND UserID = {$_SESSION['USER']->UserID};";
+    $result = run_database($query);
+    if (is_array($result) && !$result[0]->VoteType == 0) {
+        return $result[0]->VoteType;
+    }
+}
+
+function check_user_cvote($commentID) {
+    $query = "SELECT VoteType FROM COMMENT_LIKE_T WHERE CommentID = $commentID AND UserID = {$_SESSION['USER']->UserID};";
+    $result = run_database($query);
+    if (is_array($result) && !$result[0]->VoteType == 0) {
+        return $result[0]->VoteType;
+    }
+}
+
+function get_likes($postID) {
+    $query = "SELECT count(VoteType) as Likes FROM POST_LIKE_T WHERE PostID = $postID;";
+    return run_database($query)[0]->Likes;
 }
 
 # Post Functions
@@ -76,12 +101,13 @@ function create_post($data) {
 function get_post($postID) {
     $values['PostID'] = $postID;
     $query = <<<query
-    SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, Username, Avatar, UNIVERSITY_T.Name AS UniversityName, SUBJECT_T.Name AS SubjectName, count(CommentID) AS Comments
+    SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, Username, Avatar, UNIVERSITY_T.Name AS UniversityName, SUBJECT_T.Name AS SubjectName, count(DISTINCT CommentID) AS Comments, count( DISTINCT POST_LIKE_T.UserID) AS Likes
     FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID 
         INNER JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
         INNER JOIN SUBJECT_T ON POST_T.SubjectID = SUBJECT_T.SubjectID
         LEFT OUTER JOIN COMMENT_T ON COMMENT_T.PostID = POST_T.PostID
-        WHERE POST_T.PostID = :PostID;
+        LEFT OUTER JOIN POST_LIKE_T ON POST_LIKE_T.PostID = POST_T.PostID
+    WHERE POST_T.PostID = :PostID;
     query;
     return run_database($query, $values)[0];
 }
@@ -91,7 +117,7 @@ function get_comments($postID) {
     $query = <<<query
     SELECT PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes, USER_T.UserID, Username, Avatar, COMMENT_T.CommentID
     FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
-        INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
+        INNER JOIN COMMENT_LIKE_T ON COMMENT_T.CommentID = COMMENT_LIKE_T.CommentID
     WHERE PostID = :PostID
     GROUP BY CommentID
     ORDER BY COMMENT_T.Created ASC;
@@ -116,7 +142,7 @@ function get_comment($commentID) {
     $query = <<<query
     SELECT PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes, USER_T.UserID, Username, Avatar, COMMENT_T.CommentID
     FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
-        INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
+        INNER JOIN COMMENT_LIKE_T ON COMMENT_T.CommentID = COMMENT_LIKE_T.CommentID
     WHERE COMMENT_T.CommentID = :CommentID
     query;
     return run_database($query, $values)[0];
@@ -141,13 +167,13 @@ function add_comment() {
         $query = "INSERT INTO COMMENT_T (CommentID, StudySetID, Content, UserID, Created) VALUES (:CommentID, :StudySetID, :Content, :UserID, :Created)";
     }
     run_database($query, $values);
-    $query = "INSERT INTO CVOTE_T (CommentID, UserID, VoteType) VALUES ($tempID, {$_SESSION['USER']->UserID}, 1);";
+    $query = "INSERT INTO COMMENT_LIKE_T (CommentID, UserID, VoteType) VALUES ($tempID, {$_SESSION['USER']->UserID}, 1);";
     run_database($query);
     
     $query = <<<query
     SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, sum(VoteType) AS Votes
     FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
-        INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
+        INNER JOIN COMMENT_LIKE_T ON COMMENT_T.CommentID = COMMENT_LIKE_T.CommentID
     WHERE COMMENT_T.CommentID = {$values['CommentID']}
     query;
     $comment = run_database($query)[0];
@@ -209,7 +235,7 @@ function create_comment_sort($sortType, $parentID) {
         $query = <<<query
         SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, Modified, sum(VoteType) AS Votes
         FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
-            INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
+            INNER JOIN COMMENT_LIKE_T ON COMMENT_T.CommentID = COMMENT_LIKE_T.CommentID
         WHERE PostID = $parentID
         GROUP BY CommentID 
         query;
@@ -218,7 +244,7 @@ function create_comment_sort($sortType, $parentID) {
         $query = <<<query
         SELECT USER_T.UserID, Username, Avatar, COMMENT_T.CommentID, PostID, Content, COMMENT_T.Created AS CommentCreated, Modified, sum(VoteType) AS Votes
         FROM USER_T INNER JOIN COMMENT_T ON USER_T.UserID = COMMENT_T.UserID
-            INNER JOIN CVOTE_T ON COMMENT_T.CommentID = CVOTE_T.CommentID
+            INNER JOIN COMMENT_LIKE_T ON COMMENT_T.CommentID = COMMENT_LIKE_T.CommentID
         WHERE StudySetID = $parentID
         GROUP BY CommentID 
         query;
@@ -238,24 +264,36 @@ function create_comment_sort($sortType, $parentID) {
     return $query;
 }
 
-function update_vote() {
-    $commentID = $_POST['commentID'];
-    $userID = $_POST['userID'];
-    // $voteType = $_POST['voteType'];
+function update_post_like() {
+    $postID = $_POST['postID'];
+    $userID = $_SESSION['USER']->UserID;
     $voteType = 1;
 
-    // $query = <<<query
-    // INSERT INTO CVOTE_T (CommentID, UserID, VoteType)
-    // VALUES ($commentID, $userID, $voteType) 
-    // ON DUPLICATE KEY UPDATE
-    // VoteType = CASE
-    //     WHEN VoteType = 1 THEN -1
-    //     WHEN VoteType = -1 THEN 1
-    //     ELSE VoteType
-    // END;
-    // query;
     $query = <<<query
-    INSERT INTO CVOTE_T (CommentID, UserID, VoteType)
+    INSERT INTO POST_LIKE_T (PostID, UserID, VoteType)
+    VALUES ($postID, $userID, $voteType) 
+    ON DUPLICATE KEY UPDATE
+    VoteType = CASE
+        WHEN VoteType = 1 THEN 0
+        WHEN VoteType = 0 THEN 1
+        ELSE VoteType
+    END;
+    query;
+    run_database($query);
+
+    $query = "SELECT sum(VoteType) AS VoteCount FROM POST_LIKE_T WHERE PostID = $postID";
+    $voteTotal = run_database($query);
+    $voteTotal = $voteTotal[0]->VoteCount;
+    echo $voteTotal;
+}
+
+function update_comment_like() {
+    $commentID = $_POST['commentID'];
+    $userID = $_SESSION['USER']->UserID;
+    $voteType = 1;
+
+    $query = <<<query
+    INSERT INTO COMMENT_LIKE_T (CommentID, UserID, VoteType)
     VALUES ($commentID, $userID, $voteType) 
     ON DUPLICATE KEY UPDATE
     VoteType = CASE
@@ -266,7 +304,7 @@ function update_vote() {
     query;
     run_database($query);
 
-    $query = "SELECT sum(VoteType) AS VoteCount FROM CVOTE_T WHERE CommentID = $commentID";
+    $query = "SELECT sum(VoteType) AS VoteCount FROM COMMENT_LIKE_T WHERE CommentID = $commentID";
     $voteTotal = run_database($query);
     $voteTotal = $voteTotal[0]->VoteCount;
     echo $voteTotal;

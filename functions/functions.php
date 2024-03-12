@@ -147,13 +147,6 @@ function get_universities_list() {
     return run_database($query);
 }
 
-function check_user_vote($userID, $commentID) {
-    $query = "SELECT VoteType FROM CVOTE_T WHERE CommentID = $commentID AND UserID = $userID;";
-    $result = run_database($query);
-    if (is_array($result) && !$result[0]->VoteType == 0) {
-        return $result[0]->VoteType;
-    }
-}
 
 //New function to get study set info from db.
 function get_study_set($StudySetID) {

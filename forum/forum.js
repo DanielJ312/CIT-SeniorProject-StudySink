@@ -134,36 +134,27 @@ function ReportComment(commentID) {
     console.log('Reached1');
 }
 
-function updateCommentVote(commentID, userID, voteType) {
-    // console.log(commentID, userID, voteType);
+function updatePostLike() {
+    var check = $(".post .like").hasClass("fa-solid");
+    var postID = parentID;
     $.ajax({
         url: '/functions/forum-functions',
         type: 'POST',
-        data: { function: "update-vote", commentID: commentID, userID: userID, voteType: voteType },
+        data: { function: "post-like", postID: postID },
         success: function (response) {
-            $("#comment-" + commentID + "-v").html(response);
-
-            type = voteType == 1 ? "down" : "up";
-            // newButton = `<input id="comment-${commentID}-${type}vote" type="button" value="${type}vote" onclick="updateCommentVote(${commentID}, ${userID}, '${-voteType}')">`
-
-            newButton = `<a class="far fa-thumbs-${type}" id="comment-${commentID}-${type}vote" type="button" value="${type}vote" onclick="updateCommentVote(${commentID}, ${userID}, '${-voteType}')">`;
-
-            $("#comment-" + commentID + "-vb").html(newButton);
-        },
-        error: function (xhr, status, error) {
-            console.error(error);
+            $(".post-votes").html(response);
+            $(".post .like").removeClass(check ? "fa-solid" : "fa-regular").addClass(check ? "fa-regular" : "fa-solid");
         }
     });
+
 }
 
-function updateVote(commentID, userID) {
+function updateCommentLike(commentID) {
     var check = $(`#comment-${commentID} .like`).hasClass("fa-solid");
-    console.log(check);
-
     $.ajax({
         url: '/functions/forum-functions',
         type: 'POST',
-        data: { function: "update-vote", commentID: commentID, userID: userID },
+        data: { function: "comment-like", commentID: commentID },
         success: function (response) {
             $("#comment-" + commentID + "-v").html(response);
             $(`#comment-${commentID} .like`).removeClass(check ? "fa-solid" : "fa-regular").addClass(check ? "fa-regular" : "fa-solid");
