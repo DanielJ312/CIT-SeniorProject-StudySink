@@ -14,10 +14,10 @@ function addCard() {
             </div>
             <div class=frontAndBack>
                 <div class="cardFront">
-                    <textarea class="card-textarea" id="cardFront${cardCount}" placeholder="Enter term" name="cardFront${cardCount}" maxlength="999" required></textarea>
+                    <textarea class="card-textarea" id="cardFront${cardCount}" placeholder="Enter term" name="cardFront${cardCount}" maxlength="1250" required></textarea>
                 </div>
                 <div class="cardBack">
-                    <textarea class="card-textarea" id="cardBack${cardCount}" placeholder="Enter definition" name="cardBack${cardCount}" maxlength="999" required></textarea>
+                    <textarea class="card-textarea" id="cardBack${cardCount}" placeholder="Enter definition" name="cardBack${cardCount}" maxlength="1250" required></textarea>
                 </div>
             </div>
         </div>
