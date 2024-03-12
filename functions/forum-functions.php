@@ -50,7 +50,7 @@ function check_user_cvote($commentID) {
 }
 
 function get_likes($postID) {
-    $query = "SELECT count(VoteType) as Likes FROM POST_LIKE_T WHERE PostID = $postID;";
+    $query = "SELECT sum(VoteType) as Likes FROM POST_LIKE_T WHERE PostID = $postID;";
     return run_database($query)[0]->Likes;
 }
 
@@ -101,7 +101,7 @@ function create_post($data) {
 function get_post($postID) {
     $values['PostID'] = $postID;
     $query = <<<query
-    SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, Username, Avatar, UNIVERSITY_T.Name AS UniversityName, SUBJECT_T.Name AS SubjectName, count(DISTINCT CommentID) AS Comments, count( DISTINCT POST_LIKE_T.UserID) AS Likes
+    SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, Username, Avatar, UNIVERSITY_T.Name AS UniversityName, SUBJECT_T.Name AS SubjectName, count(DISTINCT CommentID) AS Comments, sum( DISTINCT VoteType) AS Likes
     FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID 
         INNER JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
         INNER JOIN SUBJECT_T ON POST_T.SubjectID = SUBJECT_T.SubjectID

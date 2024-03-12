@@ -86,7 +86,7 @@ if ($post) {
                             <?php $userPVote = check_user_pvote($postID); ?>
                             <i class="like <?= $userPVote == 1 ? "fa-solid" : "fa-regular"; ?> fa-heart button fa-lg" onclick="updatePostLike()"></i>
                         </div>
-                        <div class="post-votes votes">&lpar;<?= $likeTotal; ?>&rpar;</div>
+                        <div class="votes">&lpar;<span class="post-votes"><?= $likeTotal; ?></span>&rpar;</div>
                     </div>
                 </div>
                 <!-- Comments Section -->
