@@ -76,7 +76,7 @@ $posts = run_database($postsQuery, ['searchTerm' => "%$searchTerm%"]);
                                                 <img src="<?= htmlspecialchars($set->Avatar); ?>" alt="<?= htmlspecialchars($set->Username); ?>'s avatar" class="profile-picture" />
                                                 <div class="cardHeaderUsernameDate">
                                                     <p><?= isset($set->Username) ? htmlspecialchars($set->Username) : 'Unknown User'; ?></p>
-                                                    <p><?= isset($set->Created) ? display_time($set->Created, "F j, Y") : 'Unknown Date'; ?></p>
+                                                    <p><?= isset($set->Created) ? date('F j, Y', $set->Created) : 'Unknown Date'; ?></p>
                                                 </div>
                                             </div>
                                             <div class="studySetDetailsBottom">
