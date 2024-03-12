@@ -1,6 +1,3 @@
-
-
-
 <!-- Post Template - Displays post for given Post ID  -->
 <?php
 // require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
@@ -11,8 +8,8 @@ $pageTitle = "Forum";
 $postID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
 $post = get_post($postID);
 if (empty($post)) header("Location: /forum/index.php");
-$commentTotal = get_comments($postID);
-$commentTotal = is_array($commentTotal) ? count($commentTotal) : "0";
+$commentTotal = count_comments($postID);
+$likeTotal = get_likes($postID);
 
 // Code for capturing and storing the Post ID of the 5 most recent posts a user has viewed
 $urlPath = $_SERVER['REQUEST_URI']; // e.g., "/forum/posts/6969"
@@ -65,7 +62,7 @@ if ($post) {
                         <img src="<?= $post->Avatar; ?>" title="<?= $post->Username; ?>" alt="Place Holder" class="profile-picture" />
                         <div class="post-info">
                             <p class="post-account"><?= $post->Username; ?></p>
-                            <p class="post-date">Posted on <?= display_time($post->PostCreated, "F j, Y"); ?></p>
+                            <p class="post-date"><?= date("F j, Y  h:i A", $post->PostCreated); ?></p>
                         </div>
                         <?php if (check_login()) : ?>
                             <div class="dropdown" onclick="toggleDropdown(this)">
@@ -86,9 +83,10 @@ if ($post) {
                     <p class="post-content"><?= $post->Content; ?></p>
                     <div class="vote">
                         <div class="post-iconsp">
-                        <i class="fa-regular fa-heart fa-lg"></i>
+                            <?php $userPVote = check_user_pvote($postID); ?>
+                            <i class="like <?= $userPVote == 1 ? "fa-solid" : "fa-regular"; ?> fa-heart button fa-lg" onclick="updatePostLike()"></i>
                         </div>
-                        <div class="votes">WIP</div>
+                        <div class="post-votes votes">&lpar;<?= $likeTotal; ?>&rpar;</div>
                     </div>
                 </div>
                 <!-- Comments Section -->
@@ -96,7 +94,7 @@ if ($post) {
                     <div class="container">
                         <h4>Comments (<span class="comment-total"><?= $commentTotal; ?></span>)</h4>
                         <form id="sort-dropdown" method="">
-                            <?= "<script>var postID = $postID;</script>"; ?>
+                            <?= "<script>var parentID = $postID;</script>"; ?>
                             <select id="sort" class="sort" name="sorts">
                                 <option value="comment-oldest">Oldest</option>
                                 <option value="comment-newest">Newest</option>

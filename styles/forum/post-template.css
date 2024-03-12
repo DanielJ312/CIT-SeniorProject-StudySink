@@ -283,3 +283,10 @@
     opacity: 30%;
     margin-right: 6px;
   }
+
+  @media only screen and (max-width: 850px) {
+
+    .margin {
+        margin: 20px 2%;
+    }
+}

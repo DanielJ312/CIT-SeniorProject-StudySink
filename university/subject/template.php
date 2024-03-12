@@ -73,7 +73,7 @@ $posts = run_database($query);
                                         <img src="<?= htmlspecialchars($set->Avatar); ?>" alt="<?= htmlspecialchars($set->Username); ?>'s avatar" class="profile-picture" />
                                         <div class="cardHeaderUsernameDate">
                                             <p><?= $set->Username; ?></p>
-                                            <p><?= display_time($set->SetCreated, "F j, Y"); ?></p>
+                                            <p><?= date("F j, Y", $set->SetCreated); ?></p>
                                         </div>
                                     </div>
                                     <div class="studySetDetailsBottom">
@@ -85,6 +85,20 @@ $posts = run_database($query);
                                             <p><?= $set->Course; ?></p>
                                         </div>
                                     </div>
+                                    <div class="lower-header">
+                            <div class="comment">
+                                <div class="post-iconsp">
+                                <i class="fa-regular fa-comment"></i>
+                                </div>
+                                <div class="comments-count">0</div>
+                            </div>
+                            <div class="vote">
+                                <div class="post-iconsp">
+                                <i class="fa-regular fa-star" aria-hidden="true"></i>
+                                </div>
+                                <div class="votes">5</div>
+                            </div>
+                        </div>
                                 </a>
                             </div>
                         <?php endforeach; ?>
@@ -112,17 +126,25 @@ $posts = run_database($query);
                                         <img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" />
                                         <div class="post-info">
                                             <p class="post-account"><?= $post->Username; ?></p>
-                                            <p class="post-date"><?= display_time($post->PostCreated, "F j, Y"); ?></p>
+                                            <p class="post-date"><?= date("F j, Y", $post->PostCreated); ?></p>
                                         </div>
                                     </div>
                                     <h3 class="post-title"><?= $post->Title; ?></h3>
                                     <div class="post-content"><?= $post->Content; ?></div>
-                                    <div class="vote">
-                                        <div class="post-iconsp">
-                                            <i class="fa-regular fa-heart"></i>
-                                        </div>
-                                        <div class="votes">(20)</div>
-                                    </div>
+                                    <div class="lower-header">
+                            <div class="comment">
+                                <div class="post-iconsp">
+                                <i class="fa-regular fa-comment"></i>
+                                </div>
+                                <div class="comments-count">0</div>
+                            </div>
+                            <div class="vote">
+                                <div class="post-iconsp">
+                                <i class="fa-regular fa-heart"></i>
+                                </div>
+                                <div class="votes">(20)</div>
+                            </div>
+                        </div>
                                 </a>
                             </div>
                         <?php endforeach; ?>

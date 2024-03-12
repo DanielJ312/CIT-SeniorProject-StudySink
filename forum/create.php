@@ -35,31 +35,3 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
     </footer>
 </body>
 </html>
-
-<?php 
-// function create_post($data) {
-//     $errors = array();
-
-//     if(empty($data['title'])) {
-//         $errors[] = "Please enter a post title.";
-//     }
-//     if(empty($data['content'])) {
-//         $errors[] = "Please enter content for the post.";
-//     }
-
-//     if (count($errors) == 0) {
-//         $values['PostID'] = rand(100, 999);
-//         $values['Title'] = $data['title'];
-//         $values['Content'] = $data['content'];
-//         $values['UserID'] = $_SESSION['USER']->UserID;
-//         $values['Created'] = get_local_time();
-
-//         $query = "INSERT INTO POST_T (PostID, Title, Content, UserID, Created) VALUES (:PostID, :Title, :Content, :UserID, :Created);";
-//         run_database($query, $values);
-
-//         header("Location: posts/{$values['PostID']}.php");
-//     }
-
-//     return $errors;
-// }
-?>

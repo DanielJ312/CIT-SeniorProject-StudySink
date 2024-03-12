@@ -1,6 +1,6 @@
 <!-- Study Set Template - Displays Study Set for given Study Set ID  -->
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 $pageTitle = "Study Set";
 
 $setID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
@@ -31,6 +31,8 @@ empty($set) ? header("Location: /study-sets/create.php") : null;
 $query = "SELECT * FROM STUDY_CARD_T WHERE StudySetID = :StudySetID ORDER BY CardID;";
 $cards = run_database($query, $values);
 
+$commentTotal = count_comments($setID);
+
 // Code for capturing and storing the Study Set ID of the 5 most recent study sets a user has viewed
 $urlPath = $_SERVER['REQUEST_URI']; // e.g., "/study-sets/6969"
 $segments = explode('/', $urlPath);
@@ -55,6 +57,7 @@ if ($studySet) {
     // Update cookie
     setcookie('viewed_study_sets', implode(',', $viewedStudySets), time() + (86400 * 3652.5), "/"); // Expires in 10 years
 }
+
 $query = "SELECT * FROM STUDY_CARD_T WHERE StudySetID = :StudySetID ORDER BY CardID;";
 $cards = run_database($query, $values);
 
@@ -81,12 +84,13 @@ if ($avgRatingResult) {
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
+    <script async src="/forum/forum.js"></script>
     <link rel="stylesheet" href="../styles/study-set-styles/template.css">
+    <link rel="stylesheet" href="/styles/forum/post-template.css" />
 </head>
 <body class="studySetTemplateBody">
     <header>
@@ -104,7 +108,7 @@ if ($avgRatingResult) {
                             <p><?= htmlspecialchars($set->Username); ?>
                                 <?= check_login(false) && $set->Username == $_SESSION['USER']->Username ? " (You)" : "" ?>
                             </p>
-                            <p>Created on <?= display_time($set->SetCreated, "F j, Y"); ?></p>
+                            <p>Created on <?= date("F j, Y h:i:s", $set->SetCreated); ?></p>
                         </div>
                         <div class="ratingAndAverage">
                             <div class="rating">
@@ -155,8 +159,31 @@ if ($avgRatingResult) {
                 </div>
             <?php endforeach; ?>
             <div class="commentContainer">
-                <div class="card-header">Comments</div>
-                <div class="card-content">Comments are disabled for the time being.</div>
+            <div class="comments">
+                    <div class="container">
+                        <h4>Comments (<span class="comment-total"><?= $commentTotal; ?></span>)</h4>
+                        <form id="sort-dropdown" method="">
+                            <?= "<script>var parentID = $setID;</script>"; ?>
+                            <select id="sort" class="sort" name="sorts">
+                                <option value="comment-oldest">Oldest</option>
+                                <option value="comment-newest">Newest</option>
+                                <option value="comment-popular">Popular</option>
+                            </select>
+                        </form>
+                    </div>
+                    <?php if (check_login()) : ?>
+                        <div id="add-comment">
+                        <div class="comment-bar">
+                            <textarea style="resize: auto; height: 15px; width: 612px;" id="commentinput" oninput="commentcountChar(this)"type="text" class="commentInput" placeholder="Add a comment..." name="content" onkeypress="handleKeyPress(event)"></textarea>
+                            <span id="commentcharCount"></span>
+                            <button onclick="AddComment()" type="submit" value="Submit" class="addComment">Add</button>
+                        </div>
+                        </div>
+                    <?php endif; ?>
+                    <div class="sort-container">
+                        <!-- Comments will get inserted here -->
+                    </div>
+                </div>
             </div>
         </div>
     </main>

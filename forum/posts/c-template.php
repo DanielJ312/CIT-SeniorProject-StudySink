@@ -3,7 +3,14 @@
         <img src="<?= $comment->Avatar; ?>" title="<?= $comment->Username; ?>" alt="<?= $comment->Username; ?>" class="profile-picture" />
         <div class="comment-info">
             <p class="comment-account"><?= $comment->Username; ?></p>
-            <p class="comment-date"><?= display_time($comment->CommentCreated, "F j, Y"); ?></p>
+            <p class="comment-date">
+                <?php if (!isset($comment->Modified)): ?>
+                    <span class="posted"><?= date("F j, Y", $comment->CommentCreated); ?></span>
+                <?php else: ?>
+                    <span class="posted"><?= date("M j, Y", $comment->CommentCreated); ?><b> · </b></span>
+                    <span><i><span class="edited">edited on <?= date("M j, Y g:i A", $comment->Modified); ?></span></i></span>
+                <?php endif; ?>
+            </p>
         </div>
         <?php if (check_login()): ?>
         <div class="dropdown" onclick="toggleDropdown(this)">
@@ -22,17 +29,13 @@
     </div>
     <div id="comment-<?= $comment->CommentID; ?>-c" >
         <p class="comment-content"><?= $comment->Content; ?></p>
-        <!-- <div class="edit-bar">
-            <input type="text" id="commentInput" placeholder="Add a comment..." name="content"/>
-            <button onclick="" type="submit" id="addComment">Save</button>
-        </div> -->
     </div>
     <div class="vote">
         <div class="post-icons">
         <?php if (check_login()) : ?>
             <span>
-                <?php $userVote = check_user_vote($_SESSION['USER']->UserID, $comment->CommentID); ?>
-                <i class="like <?= $userVote == 1 ? "fa-solid" : "fa-regular"; ?> fa-heart button fa-lg" onclick="updateVote(<?= $comment->CommentID; ?>, <?= $_SESSION['USER']->UserID; ?>)"></i>
+                <?php $userCVote = check_user_cvote($comment->CommentID); ?>
+                <i class="like <?= $userCVote == 1 ? "fa-solid" : "fa-regular"; ?> fa-heart button fa-lg" onclick="updateCommentLike(<?= $comment->CommentID; ?>)"></i>
             </span>
         <?php endif; ?>
         </div>

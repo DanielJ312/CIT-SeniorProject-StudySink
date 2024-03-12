@@ -11,7 +11,7 @@
     background-color: white;
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 31%);
-    padding: 20px;
+    padding: 30px;
     width: 300px;
     text-align: center;
     margin-top: 20px; 
@@ -75,5 +75,20 @@ h2 {
     margin: 0;
     font-size: xx-large;
     font-weight: bold;
-    padding-top: 25px;
+}
+
+@media only screen and (max-width: 850px) {
+    .login-container {
+        color: black;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 31%);
+        padding: 30px;
+        width: 270px;
+        text-align: center;
+        margin-top: 60px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
 }

@@ -20,10 +20,10 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? verify_email($_POST) : [];
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-        <h2><?=isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
     </header>
     <main>
-        <div class="verify-container">    
+        <div class="verify-container">  
+        <div class="vheader"><?=isset($pageTitle) ? $pageTitle : "Page Header" ?></div>  
         <div>
             <p>Your email must be verified before you will be allowed to continue using the website. A verifcation code has been sent to the email <?= $_SESSION['USER']->Email; ?>.</p>
             <p>You have: <span class="countdown"></span>.</p>

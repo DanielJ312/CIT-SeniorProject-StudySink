@@ -101,15 +101,26 @@ function display_time($time, $format) {
 
 function generate_ID($type) {
     do {
-        $createdID = '';
+        // $createdID = '';
+        $createdID = rand(10000, 99999);
         switch ($type) {
             case 'USER':
-                $createdID = rand(101, 999);
+                // $createdID = rand(101, 999);
+                $createdID = prepend(9, $createdID);
                 $query = "SELECT * FROM USER_T WHERE UserID = :createdID limit 1";
                 break;
             case 'STUDY_SET':
-                $createdID = get_local_time(); //+ mt_rand(1000, 9999)
+                // $createdID = time(); //+ mt_rand(1000, 9999)
+                $createdID = prepend(8, $createdID);
                 $query = "SELECT * FROM STUDY_SET_T WHERE StudySetID = :createdID limit 1";
+                break;
+            case 'POST':
+                $createdID = prepend(7, $createdID);
+                $query = "SELECT * FROM POST_T WHERE PostID = :createdID limit 1";
+                break;
+            case 'COMMENT':
+                $createdID = prepend(6, $createdID);
+                $query = "SELECT * FROM COMMENT_T WHERE CommentID = :createdID limit 1";
                 break;
             default:
                 throw new Exception("Invalid ID type specified.");
@@ -123,6 +134,10 @@ function generate_ID($type) {
     return $createdID;
 }
 
+function prepend ($var1, $var2){ 
+    return $var1 . $var2;
+}
+
 function check_set_title($pageTitle) {
     return isset($pageTitle) ? $pageTitle : "Page Header";
 }
@@ -132,13 +147,6 @@ function get_universities_list() {
     return run_database($query);
 }
 
-function check_user_vote($userID, $commentID) {
-    $query = "SELECT VoteType FROM CVOTE_T WHERE CommentID = $commentID AND UserID = $userID;";
-    $result = run_database($query);
-    if (is_array($result) && !$result[0]->VoteType == 0) {
-        return $result[0]->VoteType;
-    }
-}
 
 //New function to get study set info from db.
 function get_study_set($StudySetID) {
