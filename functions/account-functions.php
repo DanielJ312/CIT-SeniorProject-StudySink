@@ -257,22 +257,26 @@ function update_primary_university($data) {
     update_session();
 }
 
-function delete_account($data) {
-    $values = [
-        'UserID' => $_SESSION['USER']->UserID
-    ];
-    // Posts created by the user will have there POST_T.UserID changed to DeletedUser's UserID
+function delete_account() {
+    $values = ['UserID' => $_SESSION['USER']->UserID];
+    //Posts created by the user will have there POST_T.UserID changed to DeletedUser's UserID
     //Post votes creted by the user will have there VOTE_T.UserID changed to DeletedUser's UserID
     //Study Sets created by the user will have there STUDY_SET_T.UserID changed to DeletedUser's UserID
     //Study Set Ratings created by the user will have there STUDY_SET_RATINGS.UserID changed to DeletedUser's UserID
     //Comments created by the user will have there COMMENT_T.UserID changed to DeletedUser's UserID
-    //Comment votes created by the user will have there CVOTE_T.UserID changed to DeletedUser's UserID
+    //Comment votes created by the user will have there COMMENT_LIKE_T.UserID changed to DeletedUser's UserID
     //The user will have there row deleted from USER_T WHERE USER_T.UserID = :UserID
-    $deleteScript = "DELETE FROM USER_T WHERE UserID = :UserID";
+    $deleteScript = "
+    UPDATE POST_T SET UserID = 1 WHERE UserID = :UserID;
+    UPDATE VOTE_T SET UserID = 1 WHERE UserID = :UserID;
+    UPDATE STUDY_SET_T SET UserID = 1 WHERE UserID = :UserID;
+    UPDATE STUDY_SET_RATINGS SET UserID = 1 WHERE UserID = :UserID;
+    UPDATE COMMENT_T SET UserID = 1 WHERE UserID = :UserID;
+    UPDATE COMMENT_LIKE_T SET UserID = 1 WHERE UserID = :UserID;
+    DELETE FROM USER_T WHERE UserID = :UserID;";
     run_database($deleteScript, $values);
     session_destroy();
     header("Location: /");
-    die;
 }
 
 ?>
