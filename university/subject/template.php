@@ -166,16 +166,23 @@ $posts = run_database($query);
         }
     });
 
+    document.addEventListener('DOMContentLoaded', function() {
+    var contentDiv = document.getElementById('contentpost');
+
+    // Initially show the content
+    contentDiv.style.display = 'block';
+
     document.getElementById('togglePost').addEventListener('click', function() {
         if (window.innerWidth <= 850) {
-            var contentDiv = document.getElementById('contentpost');
             if (contentDiv.style.display === 'none' || window.getComputedStyle(contentDiv).display === 'none') {
-                contentDiv.style.display = 'block'; // or any other desired display value
+                contentDiv.style.display = 'block';
             } else {
                 contentDiv.style.display = 'none';
             }
         }
     });
+});
+
 </script>
 </body>
 <footer>

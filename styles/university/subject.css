@@ -383,28 +383,23 @@ h3 {
 * {
     scrollbar-width: none;
     scrollbar-color: #ffffff #0b1160;
-    border-radius: 10px;
 }
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
     width: 9px;
-    border-radius: 10px;
 }
 
 *::-webkit-scrollbar-track {
     background: #f7f7f7;
-    border-radius: 10px;
 }
 
 *::-webkit-scrollbar-thumb {
-    border-radius: 10px;
     border: 1px solid #2778ff;
 }
 
 :-webkit-scrollbar-thumb:hover {
     background-color: #f3c068;
-    border-radius: 10px;
 }
 
 .scrollbar {
@@ -494,6 +489,7 @@ h3 {
         border: solid #00000029;
         border-width: 0.5px;
     }
+    
 }
 
 @media (min-width: 1629px) {
