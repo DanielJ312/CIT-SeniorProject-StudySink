@@ -1,6 +1,6 @@
 // Forum.js - Runs any javascript function for the forum
 
-/*  Sorting Functions */
+//////////* Sorting Functions *//////////
 $(document).ready(function () {
     var currentPath = window.location.pathname;
     if (currentPath.includes('/forum/post')) {
@@ -29,7 +29,23 @@ function updateSortedData(sortType) {
     });
 }
 
-/*  Comment Functions */
+//////////* Post Functions *//////////
+function updatePostLike() {
+    var check = $(".post .like").hasClass("fa-solid");
+    var postID = parentID;
+    $.ajax({
+        url: '/functions/forum-functions',
+        type: 'POST',
+        data: { function: "post-like", postID: postID },
+        success: function (response) {
+            $(".post-votes").html(response);
+            $(".post .like").removeClass(check ? "fa-solid" : "fa-regular").addClass(check ? "fa-regular" : "fa-solid");
+        }
+    });
+
+}
+
+//////////* Comment Functions *//////////
 function AddComment() {
     content = $('.commentInput').val();
     if (content.length > 0) {
@@ -134,20 +150,6 @@ function ReportComment(commentID) {
     console.log('Reached1');
 }
 
-function updatePostLike() {
-    var check = $(".post .like").hasClass("fa-solid");
-    var postID = parentID;
-    $.ajax({
-        url: '/functions/forum-functions',
-        type: 'POST',
-        data: { function: "post-like", postID: postID },
-        success: function (response) {
-            $(".post-votes").html(response);
-            $(".post .like").removeClass(check ? "fa-solid" : "fa-regular").addClass(check ? "fa-regular" : "fa-solid");
-        }
-    });
-
-}
 
 function updateCommentLike(commentID) {
     var check = $(`#comment-${commentID} .like`).hasClass("fa-solid");
@@ -162,7 +164,7 @@ function updateCommentLike(commentID) {
     });
 }
 
-//Dropdown Functions
+//////////* Dropdown Functions *//////////
 function toggleDropdown(dropdown) {
     dropdown.querySelector('.dropdown-content').classList.toggle('show');
 }
@@ -189,7 +191,8 @@ function handleKeyPress(event) {
         }
     }
 
-    // Character Counter for Post Title textarea and Post Content textarea
+//////////* Miscellaneous Functions *//////////
+// Character Counter for Post Title textarea and Post Content textarea
 function commentcountChar(commnetinput) {
     const maxLength = 2500;
     const currentLength = commentinput.value.length;

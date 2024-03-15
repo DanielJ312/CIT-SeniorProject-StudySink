@@ -37,6 +37,8 @@
                 <?php $userCVote = check_user_cvote($comment->CommentID); ?>
                 <i class="like <?= $userCVote == 1 ? "fa-solid" : "fa-regular"; ?> fa-heart button fa-lg" onclick="updateCommentLike(<?= $comment->CommentID; ?>)"></i>
             </span>
+            <?php else : ?>
+                <a href="/account/login.php" style="color: #2778ff;"><i class="like fa-regular fa-heart button fa-lg" onclick=""></i></a>
         <?php endif; ?>
         </div>
         <div class="votes">&lpar;<span id="comment-<?= $comment->CommentID; ?>-v"><?= $comment->Votes; ?></span>&rpar;</div>
