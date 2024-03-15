@@ -83,10 +83,15 @@ if ($post) {
                     <p class="post-content"><?= $post->Content; ?></p>
                     <div class="vote">
                         <div class="post-iconsp">
-                            <?php $userPVote = check_user_pvote($postID); ?>
-                            <i class="like <?= $userPVote == 1 ? "fa-solid" : "fa-regular"; ?> fa-heart button fa-lg" onclick="updatePostLike()"></i>
+                            <?php if (check_login()) : ?>
+                                <?php $userPVote = check_user_pvote($postID); ?>
+                                <i class="like <?= $userPVote == 1 ? "fa-solid" : "fa-regular"; ?> fa-heart button fa-lg" onclick="updatePostLike()"></i>
+                            <?php else : ?>
+                                <a href="/account/login.php" style="color: #2778ff;"><i class="like fa-regular fa-heart button fa-lg" onclick=""></i></a>
+                            <?php endif; ?>
                         </div>
-                        <div class="votes">&lpar;<span class="post-votes"><?= $likeTotal; ?></span>&rpar;</div>
+                        
+                        <div class="votes">&lpar;<span class="post-votes"><?= isset($likeTotal) ? $likeTotal : "0"; ?></span>&rpar;</div>
                     </div>
                 </div>
                 <!-- Comments Section -->

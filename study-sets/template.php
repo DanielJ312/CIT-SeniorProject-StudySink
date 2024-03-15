@@ -62,14 +62,15 @@ $query = "SELECT * FROM STUDY_CARD_T WHERE StudySetID = :StudySetID ORDER BY Car
 $cards = run_database($query, $values);
 
 // Fetch the current user's rating for this study set
-$userRatingQuery = "SELECT Rating FROM STUDY_SET_RATINGS WHERE StudySetID = :StudySetID AND UserID = :UserID";
-$userRatingValues = ['StudySetID' => $setID, 'UserID' => $_SESSION['USER']->UserID];
-$userRatingResult = run_database($userRatingQuery, $userRatingValues);
-
-if ($userRatingResult) {
-    $userRating = is_array($userRatingResult[0]) ? $userRatingResult[0]['Rating'] : $userRatingResult[0]->Rating;
-} else {
-    $userRating = 0;
+if (check_login()) {
+    $userRatingQuery = "SELECT Rating FROM STUDY_SET_RATINGS WHERE StudySetID = :StudySetID AND UserID = :UserID";
+    $userRatingValues = ['StudySetID' => $setID, 'UserID' => $_SESSION['USER']->UserID];
+    $userRatingResult = run_database($userRatingQuery, $userRatingValues);
+    if ($userRatingResult) {
+        $userRating = is_array($userRatingResult[0]) ? $userRatingResult[0]['Rating'] : $userRatingResult[0]->Rating;
+    } else {
+        $userRating = 0;
+    }
 }
 
 // Calculate the average rating for the study set

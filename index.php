@@ -117,7 +117,7 @@ $pageTitle = "Home";
                                                     </div>
                                                     <div class="vote">
                                                         <i class="fa-regular fa-heart"></i>
-                                                        <div class="votes-count">20</div>
+                                                        <div class="votes-count"><?= $post->Likes; ?></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,7 +162,7 @@ $pageTitle = "Home";
                                                     </div>
                                                     <div class="vote">
                                                         <i class="fa-regular fa-heart"></i>
-                                                        <div class="votes-count">20</div>
+                                                        <div class="votes-count"><?= $post->Likes; ?></div>
                                                     </div>
                                                 </div>
                                             </div> <?php
