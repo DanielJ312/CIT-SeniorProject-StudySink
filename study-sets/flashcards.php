@@ -1,14 +1,10 @@
 <?php
-// Connect to the database
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 
-// Get the StudySetID from URL or default
 $setID = isset($_GET['setID']) ? $_GET['setID'] : 'default';
 
-// Check if shuffle is requested
 $shuffle = isset($_GET['shuffle']) && $_GET['shuffle'] == 'true';
 
-// Prepare the query
 $query = "SELECT * FROM STUDY_CARD_T WHERE StudySetID = :StudySetID";
 if ($shuffle) {
     $query .= " ORDER BY RAND()";
