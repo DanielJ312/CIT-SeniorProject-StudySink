@@ -59,7 +59,8 @@ function update_session() {
 function update_user() {
     // $values = array();
     // $values['UserID'] = $_SESSION['USER']->UserID;    
-    $query = "SELECT * FROM USER_T WHERE UserID = {$_SESSION['USER']->UserID} LIMIT 1;";
+    $query = "SELECT USER_T.*, Abbreviation FROM USER_T LEFT OUTER JOIN UNIVERSITY_T ON USER_T.UniversityID = UNIVERSITY_T.UniversityID WHERE UserID = {$_SESSION['USER']->UserID} LIMIT 1;";
+    // $query = "SELECT * FROM USER_T WHERE UserID = {$_SESSION['USER']->UserID} LIMIT 1;";
     $result = run_database($query);
     $result = $result[0];
 
