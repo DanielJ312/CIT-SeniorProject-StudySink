@@ -63,10 +63,32 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function navigateToCard(offset) {
-        cards[currentCardIndex].style.display = 'none';
-        cards[currentCardIndex].classList.remove('is-flipped'); 
-        currentCardIndex += offset;
-        cards[currentCardIndex].style.display = 'block';
-        currentCardIndexElement.textContent = currentCardIndex + 1;
+        const oldCard = cards[currentCardIndex];
+        const newCardIndex = currentCardIndex + offset;
+        const newCard = cards[newCardIndex];
+
+        // Start the fade-out animation
+        oldCard.classList.add('fade-out');
+
+        // When the fade-out animation ends, hide the old card, update the index, and fade in the new card
+        oldCard.addEventListener('animationend', function handler() {
+            oldCard.style.display = 'none'; // Hide the old card
+            oldCard.classList.remove('fade-out', 'is-flipped'); // Clean up classes
+            
+            currentCardIndex = newCardIndex; // Update the index
+
+            // Prepare the new card for animation
+            newCard.style.display = 'block';
+            newCard.classList.add('fade-in'); // Start the fade-in animation
+            newCard.addEventListener('animationend', function fadeinHandler() {
+                newCard.classList.remove('fade-in'); // Clean up fade-in class
+                newCard.removeEventListener('animationend', fadeinHandler);
+            });
+
+            currentCardIndexElement.textContent = currentCardIndex + 1;
+
+            // Remove the event listener to prevent it from triggering more than once
+            oldCard.removeEventListener('animationend', handler);
+        });
     }
 });

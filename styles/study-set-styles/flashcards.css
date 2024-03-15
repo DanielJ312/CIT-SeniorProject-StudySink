@@ -105,6 +105,37 @@
 /*.fa-circle-arrow-left, .fa-circle-arrow-right, .fa-arrows-rotate {
     /* Icon styles if needed */
 
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Keyframes for fade-in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Classes to apply the animations */
+.fade-out {
+    animation-name: fadeOut;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards; /* Keeps the element in the final state of the animation */
+}
+
+.fade-in {
+    animation-name: fadeIn;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards;
+}
 
 @media only screen and (max-width: 850px) {
     .flashcardsContainer {

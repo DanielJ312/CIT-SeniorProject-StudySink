@@ -114,10 +114,10 @@ $cards = run_database($query, $values);
                                 </div>
                                 <div class="frontAndBack">
                                     <div class="cardFront">
-                                        <textarea class="card-textarea" name="cards[<?= $card->CardID; ?>][front]" placeholder="Enter term" maxlength="999" required><?= htmlspecialchars($card->Front); ?></textarea>
+                                        <textarea class="card-textarea" name="cards[<?= $card->CardID; ?>][front]" placeholder="Enter term" maxlength="1250" required><?= htmlspecialchars($card->Front); ?></textarea>
                                     </div>
                                     <div class="cardBack">
-                                        <textarea class="card-textarea" name="cards[<?= $card->CardID; ?>][back]" placeholder="Enter definition" maxlength="999" required><?= htmlspecialchars($card->Back); ?></textarea>
+                                        <textarea class="card-textarea" name="cards[<?= $card->CardID; ?>][back]" placeholder="Enter definition" maxlength="1250" required><?= htmlspecialchars($card->Back); ?></textarea>
                                     </div>
                                 </div>
                             </div>
