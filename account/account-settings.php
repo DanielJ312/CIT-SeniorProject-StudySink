@@ -14,12 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     } else if (isset($_FILES['image'])) {
         upload_avatar($_FILES);
     } else if (isset($_POST['delete-password'])) {
-            delete_account();
-        }
-     }
+        delete_account();
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <link rel="stylesheet" type="text/css" href="/styles/account/account-settings.css">
@@ -27,7 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kodchasan:wght@700&display=swap" rel="stylesheet">
 </head>
-    <body>
+
+<body>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
     <main class="account-settings">
         <div class="left-container">
@@ -37,13 +39,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <div class="pp-container">
                 <div class="pp-setting-label">Profile Picture</div>
                 <img src="<?= $_SESSION['USER']->Avatar ?>" alt="Avatar" class="settings-profile-picture <?= check_active('/account/profile'); ?>" id="settingsProfilePicture" title="Avatar">
-                <form method="post" enctype="multipart/form-data" class="pp-form">
-                    <label for="image" class="change-pp-btn">
-                        <p>Change Profile Picture</p>
-                    </label>
-                    <input type="file" name="image" id="image" accept="image/*" required onchange="readURL(this);">
-                    <button type="submit" class="pp-save-btn">Save</button>
-                </form>
+                <div class="pp-inner-container">
+                    <form method="post" enctype="multipart/form-data" class="pp-form" onsubmit="return validateFile()">
+                        <label for="image" class="change-pp-btn">
+                            <p>Change Profile Picture</p>
+                        </label>
+                        <input type="file" name="image" id="image" accept="image/*" required onchange="readURL(this);">
+                        <button type="submit" class="pp-save-btn">Save</button>
+                    </form>
+                    <div id="ppError" class="ppError"></div>
+                </div>
             </div>
             <div class="bio-container">
                 <div class="bio-setting-label">Bio</div>
@@ -106,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <p style="font-size: 1em;">If you are sure you want to delete your account, please enter "Delete me" in the field below and click the button to delete your account.</p>
                             <form method="post" class="delete-form">
                                 <div id="deleteMeError" class="deleteMeError"></div>
-                                <input  name="delete-password" class="delete-me-input" placeholder="Delete me" id="delete-me" required>
+                                <input name="delete-password" class="delete-me-input" placeholder="Delete me" id="delete-me" required>
                                 <button type="submit" class="delete-confirm-btn">Permanently Delete</button>
                             </form>
                         </div>
@@ -118,6 +123,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
 </body>
 <script>
+    //code for the profile picture file validation
+    function validateFile() {
+        var fileInput = document.getElementById('image');
+        var filePath = fileInput.value;
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+        if (!allowedExtensions.exec(filePath)) {
+            document.getElementById('ppError').textContent = ' Only JPEG, JPG, and PNG files are allowed';
+            fileInput.value = '';
+            return false;
+        }
+        else {
+            document.getElementById('ppError').textContent = '';
+            return true;
+        }
+}
+
     //code for displaying the profile picture preview
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -199,13 +220,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     document.querySelector('.delete-form').addEventListener('submit', function(event) {
         var deleteme = document.getElementById('delete-me').value;
         if (deleteme !== 'Delete me') {
-        document.getElementById('deleteMeError').textContent = 'Text does not match "Delete me"';
-        event.preventDefault(); // Prevent form from being submitted
-        }
-        else {
+            document.getElementById('deleteMeError').textContent = 'Text does not match "Delete me"';
+            event.preventDefault(); // Prevent form from being submitted
+        } else {
             document.getElementById('deleteMeError').textContent = '';
         }
     });
-    
 </script>
+
 </html>

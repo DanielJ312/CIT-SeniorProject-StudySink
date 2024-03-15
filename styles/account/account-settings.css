@@ -63,6 +63,19 @@
     align-self: flex-start;
 }
 
+.pp-inner-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.ppError {
+    color: red;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1em;
+    white-space: nowrap;
+    margin-top: 2%;
+}
+
 .pp-form {
     display: flex;
     flex-direction: row;
@@ -524,6 +537,10 @@ align-self: flex-start;
 
     .settings-profile-picture {
         margin: 0;
+    }
+
+    .ppError {
+        font-size: 0.8em;
     }
 
 /* ----- END OF ALL PROFILE PICTURE ----- */
