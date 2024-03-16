@@ -152,11 +152,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
     }
 
-    //code for letting the user know that the bio was successfully updated
-    document.getElementById('bioForm').addEventListener('submit', function(event) {
-        alert('Bio updated successfully!');
-    });
-
     //code for the character count in the bio textarea
     function biocountChar(contentinput) {
         const maxLength = 1000;

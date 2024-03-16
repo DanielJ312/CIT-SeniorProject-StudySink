@@ -137,11 +137,18 @@
     font-size: 1em;
     justify-content: center;
     white-space: nowrap;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
 }
 
 .setPUButton:hover {
     background-color: #f59c1a;
     transform: scale(1.05);
+    transition: 0.3s;
+    box-shadow: none;
+}
+
+.setPUButton:active {
+    transform: scale(0.95);
     transition: 0.3s;
     box-shadow: none;
 }
@@ -352,5 +359,10 @@
         transform: scale(0.95);
         transition: 0.3s;
         box-shadow: none;
+    }
+
+    .noUniContainer {
+        display: flex;
+        flex-direction: column;
     }
 }

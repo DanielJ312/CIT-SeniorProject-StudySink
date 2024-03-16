@@ -46,8 +46,10 @@ if (isset($_COOKIE['viewed_study_sets'])) {
                     </div>
                 <?php endforeach; ?>
                 <?php else : ?>
-                    <p>No Primary University Set</p>
-                    <button onclick="location.href='/account/settings.php#Primary-University';" class="setPUButton">Set a Primary University</button>
+                    <div class="noUniContainer">
+                        <p>No Primary University Set</p>
+                        <button onclick="location.href='/account/settings.php#Primary-University';" class="setPUButton">Set a Primary University</button>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>

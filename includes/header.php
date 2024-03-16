@@ -53,7 +53,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
     <div class="navbarmobile">
         <header class="mobileheader" style="height: 20px;">
             <i class="fa-solid fa-bars fa-2xl" id="menuIcon" title="Menu Icon"></i>
-            <img id="logo" src="https://studysink.s3.amazonaws.com/assets/StudySinkBanner.png" alt="Company Logo" title="Home" style="margin-top: -10px; margin-bottom: -10px;">
+            <a href="/index.php" id="Home"><img id="logo" src="https://studysink.s3.amazonaws.com/assets/StudySinkBanner.png" alt="Company Logo" title="Home" style="margin-top: -10px; margin-bottom: -10px;"></a>
             <nav class="mobilenav">
                 <div>
                     <form id="search-form" class="searchform">
@@ -123,11 +123,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
                     <textarea name="content" id="contentinput" rows="10" placeholder="What do you want to share?" style="resize: none;" onkeyup="contentcountChar(this)" required></textarea>
                     <span id="contentcharCount"></span>
                 </div>
-                <button type="submit" onclick="closePopup()" class="submitpostbutton">
-                    <span class="shadow"></span>
-                    <span class="edge"></span>
-                    <span class="front text">Post</span>
-                </button>
+                <button type="submit" onclick="closePopup()" class="submitpostbutton">Post</button>
             </div>
         </form>
     </div>
