@@ -203,4 +203,55 @@ function get_recent_university_post_IDs($universityID) {
 
     return $postIDs;
 }
+
+function save_to_cookie($type) {
+    $urlPath = $_SERVER['REQUEST_URI']; // e.g., "/forum/posts/6969"
+    $segments = explode('/', $urlPath);
+
+    switch ($type) {
+        case 'post':
+            $postId = end($segments); // grab the end segement
+            // Verify that the post ID is valid
+            $post = get_post($postId);
+            if ($post) {
+            // Check if cookie exists
+            if (isset($_COOKIE['viewed_posts'])) {
+                $viewedPosts = explode(',', $_COOKIE['viewed_posts']);   // Get array of viewed post IDs
+                // Check if post ID already exists in array
+                if (($key = array_search($postId, $viewedPosts)) !== false) {
+                    unset($viewedPosts[$key]);    // Remove existing post ID from array
+                }
+                array_unshift($viewedPosts, $postId);     // Add new post ID to the start of the array
+                $viewedPosts = array_slice($viewedPosts, 0, 5);    // Limit array to last 5 post IDs
+            } else {
+                $viewedPosts = array($postId);    // Create new array with the post ID
+            }
+            // Update cookie
+            setcookie('viewed_posts', implode(',', $viewedPosts), time() + (86400 * 3652.5), "/"); // Expires in 10 years
+            }
+            break;
+        case 'study-set':
+            $studySetId = end($segments); // grab the end segement
+            // Verify that the study set ID is valid
+            $studySet = get_study_set($studySetId);
+            if ($studySet) {
+                // Check if cookie exists
+                if (isset($_COOKIE['viewed_study_sets'])) {
+                    $viewedStudySets = explode(',', $_COOKIE['viewed_study_sets']);   // Get array of viewed study set IDs
+                    // Check if Study Set ID already exists in array
+                    if (($key = array_search($studySetId, $viewedStudySets)) !== false) {
+                        unset($viewedStudySets[$key]);    // Remove existing Study Set ID from array
+                    }
+                    array_unshift($viewedStudySets, $studySetId);     // Add new study set ID to the start of the array
+                    $viewedStudySets = array_slice($viewedStudySets, 0, 5);    // Limit array to last 5 Study Set IDs
+                } else {
+                    $viewedStudySets = array($studySetId);    // Create new array with the study set ID
+                }
+                // Update cookie
+                setcookie('viewed_study_sets', implode(',', $viewedStudySets), time() + (86400 * 3652.5), "/"); // Expires in 10 years
+            }
+            break;
+    }
+    
+}
 ?>

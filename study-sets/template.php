@@ -6,57 +6,19 @@ $pageTitle = "Study Set";
 $setID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
 $values['StudySetID'] = $setID;
 $query = "
-    SELECT 
-        SS.*,
-        U.Name AS UniversityName,
-        S.Name AS SubjectName,
-        C.Name AS CourseName,
-        C.Abbreviation AS CourseAbbreviation,
-        USER_T.Username,
-        USER_T.Avatar,
-        SS.Created AS SetCreated 
-    FROM 
-        STUDY_SET_T SS
+    SELECT SS.*, U.Name AS UniversityName, S.Name AS SubjectName, 
+        C.Name AS CourseName, C.Abbreviation AS CourseAbbreviation,
+        USER_T.Username, USER_T.Avatar, SS.Created AS SetCreated 
+    FROM STUDY_SET_T SS
         INNER JOIN USER_T ON SS.UserID = USER_T.UserID
         LEFT JOIN COURSE_T C ON SS.CourseID = C.CourseID
         LEFT JOIN SUBJECT_T S ON C.SubjectID = S.SubjectID
         LEFT JOIN UNIVERSITY_T U ON S.UniversityID = U.UniversityID
-    WHERE 
-        SS.StudySetID = :StudySetID;
+    WHERE SS.StudySetID = :StudySetID;
 ";
 
 $set = run_database($query, $values)[0];
 empty($set) ? header("Location: /study-sets/create.php") : null;
-
-$query = "SELECT * FROM STUDY_CARD_T WHERE StudySetID = :StudySetID ORDER BY CardID;";
-$cards = run_database($query, $values);
-
-$commentTotal = count_comments($setID);
-
-// Code for capturing and storing the Study Set ID of the 5 most recent study sets a user has viewed
-$urlPath = $_SERVER['REQUEST_URI']; // e.g., "/study-sets/6969"
-$segments = explode('/', $urlPath);
-$studySetId = end($segments); // grab the end segement
-
-// Verify that the study set ID is valid
-$studySet = get_study_set($studySetId);
-if ($studySet) {
-    // Check if cookie exists
-    if (isset($_COOKIE['viewed_study_sets'])) {
-        $viewedStudySets = explode(',', $_COOKIE['viewed_study_sets']);   // Get array of viewed study set IDs
-        // Check if Study Set ID already exists in array
-        if (($key = array_search($studySetId, $viewedStudySets)) !== false) {
-            unset($viewedStudySets[$key]);    // Remove existing Study Set ID from array
-        }
-        array_unshift($viewedStudySets, $studySetId);     // Add new study set ID to the start of the array
-        $viewedStudySets = array_slice($viewedStudySets, 0, 5);    // Limit array to last 5 Study Set IDs
-    } else {
-        $viewedStudySets = array($studySetId);    // Create new array with the study set ID
-    }
-
-    // Update cookie
-    setcookie('viewed_study_sets', implode(',', $viewedStudySets), time() + (86400 * 3652.5), "/"); // Expires in 10 years
-}
 
 $query = "SELECT * FROM STUDY_CARD_T WHERE StudySetID = :StudySetID ORDER BY CardID;";
 $cards = run_database($query, $values);
@@ -83,6 +45,9 @@ if ($avgRatingResult) {
     $averageRating = 'Not rated';
 }
 
+$commentTotal = count_comments($setID);
+
+save_to_cookie("study-set");
 ?>
 
 <!DOCTYPE html>
