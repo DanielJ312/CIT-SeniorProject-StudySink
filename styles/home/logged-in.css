@@ -123,18 +123,27 @@
 
 .setPUButton {
     display: flex;
-    justify-content: center;
     align-items: center;
     background-color: #2778ff;
+    font-family: 'Comfortaa', sans-serif;
     color: white;
     border: none;
     border-radius: 5px;
-    padding: 5px;
+    padding: 5px 10px;
     cursor: pointer;
     margin-top: 5px;
-    width: 100%;
+    width: fit-content;
     height: 30px;
     font-size: 1em;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.setPUButton:hover {
+    background-color: #f59c1a;
+    transform: scale(1.05);
+    transition: 0.3s;
+    box-shadow: none;
 }
 
 .university-posts-tiles-container,

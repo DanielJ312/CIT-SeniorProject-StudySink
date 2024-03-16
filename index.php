@@ -7,9 +7,11 @@ $pageTitle = "Home";
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
 </head>
+
 <body>
     <header id="home-logout-header">
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
@@ -121,12 +123,13 @@ $pageTitle = "Home";
                                                     </div>
                                                 </div>
                                             </div>
-                                <?php
+                                    <?php
                                         }
                                     }
-                                } else {
-                                    echo "Primary University not set";
-                                } ?>
+                                } else { ?>
+                                    <p>No Primary University Set</p>
+                                    <button onclick="location.href='/account/settings.php#Primary-University';" class="setPUButton">Set a Primary University</button>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -208,7 +211,7 @@ $pageTitle = "Home";
                                                         <div class="comments-count"><?= $studySet->Comments; ?></div>
                                                     </div>
                                                     <div class="study-set-rating">
-                                                        <i class="fa-regular fa-star"></i>    
+                                                        <i class="fa-regular fa-star"></i>
                                                         <div class="study-set-rating-count" style="margin-top: 1px;"><?= $averageRating; ?></div>
                                                     </div>
                                                 </div>
@@ -282,4 +285,5 @@ $pageTitle = "Home";
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
 </body>
+
 </html>

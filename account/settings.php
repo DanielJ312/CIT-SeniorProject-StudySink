@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 </form>
             </div>
             <div class="uni-container">
-                <div class="uni-setting-label">Primary University</div>
+                <div class="uni-setting-label" id="Primary-University">Primary University</div>
                 <div id="uniError" class="uniError"></div>
                 <div class="request-link">Dont see your school? Request a school by clicking <a href="/request">Here</a>.</div>
                 <div class="uniFormContainer">
@@ -132,12 +132,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             document.getElementById('ppError').textContent = ' Only JPEG, JPG, and PNG files are allowed';
             fileInput.value = '';
             return false;
-        }
-        else {
+        } else {
             document.getElementById('ppError').textContent = '';
             return true;
         }
-}
+    }
 
     //code for displaying the profile picture preview
     function readURL(input) {
