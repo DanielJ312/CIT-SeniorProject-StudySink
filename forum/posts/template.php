@@ -40,25 +40,32 @@ save_to_cookie("post");
                         <img src="<?= $post->Avatar; ?>" title="<?= $post->Username; ?>" alt="Place Holder" class="profile-picture" />
                         <div class="post-info">
                             <p class="post-account"><?= $post->Username; ?></p>
-                            <p class="post-date"><?= date("F j, Y  h:i A", $post->PostCreated); ?></p>
+                            <p class="post-date">
+                                <?php if (!isset($post->PostModified)): ?>
+                                    <span class="posted"><?= date("F j, Y  h:i A", $post->PostCreated); ?></span>
+                                <?php else: ?>
+                                    <span class="posted"><?= date("M j, Y", $post->PostCreated); ?><b> · </b></span>
+                                    <span><i><span class="edited">edited on <?= date("M j, Y g:i A", $post->PostModified); ?></span></i></span>
+                                <?php endif; ?>
+                            </p>
                         </div>
                         <?php if (check_login()) : ?>
                             <div class="dropdown" onclick="toggleDropdown(this)">
                                 <i class="fa-solid fa-ellipsis-vertical ellipsis-icon"></i>
                                 <div class="dropdown-content">
-                                    <?php if ($_SESSION['USER']->UserID != $comment->UserID) : ?>
-                                        <a class="report" onclick="ReportComment(<?= $comment->CommentID; ?>)">Report</a>
+                                    <?php if ($_SESSION['USER']->UserID != $post->UserID) : ?>
+                                        <a class="report" onclick="ReportComment(<?= $post->PostID; ?>)">Report</a>
                                     <?php endif; ?>
-                                    <?php if ($comment->Username == $_SESSION['USER']->Username) : ?>
-                                        <a onclick="OpenCommentEditor(<?= $comment->CommentID; ?>)">Edit</a>
-                                        <a onclick="DeleteComment(<?= $comment->CommentID; ?>)">Delete</a>
+                                    <?php if ($post->Username == $_SESSION['USER']->Username) : ?>
+                                        <a onclick="OpenPostEditor()">Edit</a>
+                                        <a onclick="DeleteComment()">Delete</a>
                                     <?php endif; ?>
                                 </div>
                             </div>
                         <?php endif; ?>
                     </div>
                     <h3 class="post-title"><?= $post->Title; ?></h3>
-                    <p class="post-content"><?= $post->Content; ?></p>
+                    <div class="post-content"><p class="content"><?= $post->Content; ?></p></div>
                     <div class="vote">
                         <div class="post-iconsp">
                             <?php if (check_login()) : ?>
@@ -88,7 +95,7 @@ save_to_cookie("post");
                     <?php if (check_login()) : ?>
                         <div id="add-comment">
                         <div class="comment-bar">
-                            <textarea style="resize: auto; height: 15px; width: 612px;" id="commentinput" oninput="commentcountChar(this)"type="text" class="commentInput" placeholder="Add a comment..." name="content" onkeypress="handleKeyPress(event)"></textarea>
+                            <textarea style="resize: auto; height: 15px; width: 612px;" id="commentinput" oninput="commentcountChar(this)"type="text" class="input-bar" placeholder="Add a comment..." name="content" onkeypress="handleKeyPress(event)"></textarea>
                             <span id="commentcharCount"></span>
                             <button onclick="AddComment()" type="submit" value="Submit" class="addComment">Add</button>
                         </div>

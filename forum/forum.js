@@ -22,7 +22,7 @@ function updateSortedData(sortType) {
     $.ajax({
         url: '/functions/forum-functions',
         type: 'POST',
-        data: { function: "sort", parentID: parentID, sortType: sortType },
+        data: { function: "comment-sort", parentID: parentID, sortType: sortType },
         success: function (response) {
             $('.sort-container').html(response);
         },
@@ -30,6 +30,63 @@ function updateSortedData(sortType) {
 }
 
 //////////* Post Functions *//////////
+function OpenPostEditor() {
+    content = $(`.content`).html();
+    console.log(content);
+    $(`.content`).toggle();
+    var div = $("<div>").addClass("edit-bar");
+    var input = $("<input>").attr({
+        type: "text",
+        class: "input-bar",
+        value: content,
+        name: "content"
+    });
+    var cancel = $("<button>").attr({
+        type: "submit",
+        class: "addComment",
+        onclick: `CancelPostEdit()`
+    }).text("Cancel");
+    var save = $("<button>").attr({
+        type: "submit",
+        class: "addComment",
+        onclick: `EditPost()`
+    }).text("Save");
+
+    div.append(input, cancel, save);
+    $(`.post-content`).append(div);
+    $(`.post .dropdown`).toggle();
+} 
+
+function EditPost() {
+    var postID = parentID;
+    content = $(`.post .input-bar`).val();
+    if (content.length > 0) {
+        console.log("comment has content"); 
+        $.ajax({
+            url: '/functions/forum-functions',
+            type: 'POST',
+            data: { function: "post-edit", postID: postID, content: content },
+            success: function (response) {
+                $(`.post-content p`).html(response);
+                $(`.post-content .edit-bar`).remove();
+                $(`.post-content p`).toggle();
+                $(`.post .dropdown`).toggle();
+
+                $(`.post .edited`).html("edited now");
+            },
+        });
+    }
+    else {
+        console.log("empty comment");
+    }
+}
+
+function CancelPostEdit(commentID) {
+    $(`.post-content .edit-bar`).remove();
+    $(`.post-content p`).toggle();
+    $(`.post .dropdown`).toggle();
+}
+
 function updatePostLike() {
     var check = $(".post .like").hasClass("fa-solid");
     var postID = parentID;
@@ -47,15 +104,15 @@ function updatePostLike() {
 
 //////////* Comment Functions *//////////
 function AddComment() {
-    content = $('.commentInput').val();
+    content = $('.input-bar').val();
     if (content.length > 0) {
         $.ajax({
             url: '/functions/forum-functions',
             type: 'POST',
-            data: { function: "add", parentID: parentID, content: content },
+            data: { function: "comment-add", parentID: parentID, content: content },
             success: function (response) {
                 $('.sort-container').append(response); 
-                $('.commentInput').val("");
+                $('.input-bar').val("");
                 var total = $(".comment-total");
                 total.text(Number(total.text()) + 1);
 
@@ -73,7 +130,7 @@ function DeleteComment(commentIDToDelete) {
         url: '/functions/forum-functions',
         type: "post",
         dataType: 'json',
-        data: { function: "delete", commentID: commentIDToDelete },
+        data: { function: "comment-delete", commentID: commentIDToDelete },
     });
     $("#comment-" + commentIDToDelete).remove();
     var total = $(".comment-total");
@@ -87,14 +144,14 @@ function OpenCommentEditor(commentID) {
     var div = $("<div>").addClass("edit-bar");
     var input = $("<input>").attr({
         type: "text",
-        class: "commentInput",
+        class: "input-bar",
         value: content,
         name: "content"
     });
     var cancel = $("<button>").attr({
         type: "submit",
         class: "addComment",
-        onclick: `CancelEdit(${commentID})`
+        onclick: `CancelCommentEdit(${commentID})`
     }).text("Cancel");
     var save = $("<button>").attr({
         type: "submit",
@@ -108,20 +165,19 @@ function OpenCommentEditor(commentID) {
 }   
 
 function EditComment(commentID) {
-    content = $(`#comment-${commentID}-c .commentInput`).val();
+    content = $(`#comment-${commentID}-c .input-bar`).val();
     
     if (content.length > 0) {
         console.log("comment has content"); 
         $.ajax({
             url: '/functions/forum-functions',
             type: 'POST',
-            data: { function: "edit", commentID: commentID, content: content },
+            data: { function: "comment-edit", commentID: commentID, content: content },
             success: function (response) {
                 $(`#comment-${commentID}-c p`).html(response);
                 $(`#comment-${commentID}-c .edit-bar`).remove();
                 $(`#comment-${commentID}-c p`).toggle();
                 $(`#comment-${commentID} .dropdown`).toggle();
-
 
                 $(`#comment-${commentID} .edited`).html("edited now");
             },
@@ -132,7 +188,7 @@ function EditComment(commentID) {
     }
 }
 
-function CancelEdit(commentID) {
+function CancelCommentEdit(commentID) {
     $(`#comment-${commentID}-c .edit-bar`).remove();
     $(`#comment-${commentID}-c p`).toggle();
     $(`#comment-${commentID} .dropdown`).toggle();

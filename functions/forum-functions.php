@@ -6,23 +6,28 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 //////////*  AJAX Functions Switch *//////////
 if (isset($_POST['function'])) {
     switch ($_POST['function']) {
-        case "add":
+        // Post Functions
+        case "post-edit":
+            edit_post(); 
+            break;
+        case "post-like": 
+            update_post_like();
+            break;
+        // Comment Functions
+        case "comment-add":
             add_comment();
             break;
-        case "delete":
+        case "comment-delete":
             delete_comment();
             break;
-        case "edit":
+        case "comment-edit":
             edit_comment();
             break;
         case "report":
             report_comment();
             break;
-        case "sort": 
+        case "comment-sort": 
             update_comment_sort();
-            break;
-        case "post-like": 
-            update_post_like();
             break;
         case "comment-like": 
             update_comment_like();
@@ -32,48 +37,10 @@ if (isset($_POST['function'])) {
     }
 }
 
-//////////* Post Functions *//////////
+//////////* Get Functions *//////////
 function get_posts() {
     $query = "SELECT * FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID ORDER BY POST_T.Created ASC;";
     return run_database($query);
-}
-
-function create_post($data) {
-    $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE Name = '{$data['university']}';";
-    $universityID = run_database($query)[0]->UniversityID;
-
-    $query = "SELECT SubjectID FROM SUBJECT_T WHERE Name = '{$data['subject']}';";
-    $subjectID = run_database($query)[0]->SubjectID ?? 0;
-
-    $errors = array();
-
-    if (empty($data['university'])) {
-        $errors[] = "Please select a Unviersity from the dropdown to associate your post with.";
-    }
-    if (empty($data['title'])) {
-        $errors[] = "Please enter a post title.";
-    }
-    if (empty($data['content'])) {
-        $errors[] = "Please enter content for the post.";
-    }
-
-    if (count($errors) == 0) {
-        $values = [
-            'PostID' => generate_ID("POST"),
-            'UniversityID' => $universityID,
-            'SubjectID' => $subjectID,
-            'Title' => $data['title'],
-            'Content' => $data['content'],
-            'UserID' => $_SESSION['USER']->UserID,
-            'Created' => time()
-        ];
-
-        $query = "INSERT INTO POST_T (PostID, UniversityID, SubjectID, Title, Content, UserID, Created) VALUES (:PostID, :UniversityID, :SubjectID, :Title, :Content, :UserID, :Created);";
-        run_database($query, $values);
-        header("Location: /forum/posts/{$values['PostID']}.php");
-    }
-
-    return $errors;
 }
 
 function get_post($postID) {
@@ -90,7 +57,7 @@ function get_post($postID) {
     // query;
     
     $query = <<<query
-    SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, Username, Avatar, UNIVERSITY_T.UniversityID, UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation, SUBJECT_T.Name AS SubjectName, COUNT(DISTINCT CommentID) AS Comments, COALESCE((SELECT COUNT(*) FROM POST_LIKE_T WHERE PostID = POST_T.PostID AND VoteType = 1), 0) AS Likes
+    SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, POST_T.Modified AS PostModified, USER_T.UserID, Username, Avatar, UNIVERSITY_T.UniversityID, UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation, SUBJECT_T.Name AS SubjectName, COUNT(DISTINCT CommentID) AS Comments, COALESCE((SELECT COUNT(*) FROM POST_LIKE_T WHERE PostID = POST_T.PostID AND VoteType = 1), 0) AS Likes
     FROM POST_T 
         INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID
         INNER JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
@@ -138,12 +105,62 @@ function get_comment($commentID) {
     return run_database($query, $values)[0];
 }
 
+//////////* Post Functions *//////////
+function create_post($data) {
+    $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE Name = '{$data['university']}';";
+    $universityID = run_database($query)[0]->UniversityID;
+
+    $query = "SELECT SubjectID FROM SUBJECT_T WHERE Name = '{$data['subject']}';";
+    $subjectID = run_database($query)[0]->SubjectID ?? 0;
+
+    $errors = array();
+
+    if (empty($data['university'])) {
+        $errors[] = "Please select a Unviersity from the dropdown to associate your post with.";
+    }
+    if (empty($data['title'])) {
+        $errors[] = "Please enter a post title.";
+    }
+    if (empty($data['content'])) {
+        $errors[] = "Please enter content for the post.";
+    }
+
+    if (count($errors) == 0) {
+        $values = [
+            'PostID' => generate_ID("POST"),
+            'UniversityID' => $universityID,
+            'SubjectID' => $subjectID,
+            'Title' => $data['title'],
+            'Content' => $data['content'],
+            'UserID' => $_SESSION['USER']->UserID,
+            'Created' => time()
+        ];
+
+        $query = "INSERT INTO POST_T (PostID, UniversityID, SubjectID, Title, Content, UserID, Created) VALUES (:PostID, :UniversityID, :SubjectID, :Title, :Content, :UserID, :Created);";
+        run_database($query, $values);
+        header("Location: /forum/posts/{$values['PostID']}.php");
+    }
+
+    return $errors;
+}
+
 function check_user_pvote($postID) {
     $query = "SELECT VoteType FROM POST_LIKE_T WHERE PostID = $postID AND UserID = {$_SESSION['USER']->UserID};";
     $result = run_database($query);
     if (is_array($result) && !$result[0]->VoteType == 0) {
         return $result[0]->VoteType;
     }
+}
+
+function edit_post() {
+    $values = [
+        'PostID' => $_POST['postID'],
+        'Content' => $_POST['content'],
+        'Modified' => time()
+    ];
+    $query = "UPDATE POST_T SET Content = :Content, Modified = :Modified WHERE PostID = :PostID;";
+    run_database($query, $values);
+    echo $values['Content'];
 }
 
 function update_post_like() {
