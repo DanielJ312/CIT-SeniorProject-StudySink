@@ -41,6 +41,6 @@
                 <a href="/account/login.php" style="color: #2778ff;"><i class="like fa-regular fa-heart button fa-lg" onclick=""></i></a>
         <?php endif; ?>
         </div>
-        <div class="votes">&lpar;<span id="comment-<?= $comment->CommentID; ?>-v"><?= $comment->Votes; ?></span>&rpar;</div>
+        <div class="votes"><span id="comment-<?= $comment->CommentID; ?>-v"><?= $comment->Votes; ?></span></div>
     </div>
 </div>

@@ -13,6 +13,9 @@ if (isset($_POST['function'])) {
         case "post-like": 
             update_post_like();
             break;
+        case "post-report":
+            report_post();
+            break;
         // Comment Functions
         case "comment-add":
             add_comment();
@@ -23,7 +26,7 @@ if (isset($_POST['function'])) {
         case "comment-edit":
             edit_comment();
             break;
-        case "report":
+        case "comment-report":
             report_comment();
             break;
         case "comment-sort": 
@@ -45,17 +48,6 @@ function get_posts() {
 
 function get_post($postID) {
     $values['PostID'] = $postID;
-    // $query = <<<query
-    // SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, Username, Avatar, UNIVERSITY_T.Name AS UniversityName, SUBJECT_T.Name AS SubjectName, count(DISTINCT CommentID) AS Comments, sum(DISTINCT VoteType) AS Likes
-    // FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID 
-    //     INNER JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
-    //     INNER JOIN SUBJECT_T ON POST_T.SubjectID = SUBJECT_T.SubjectID
-    //     LEFT OUTER JOIN COMMENT_T ON COMMENT_T.PostID = POST_T.PostID
-    //     LEFT OUTER JOIN POST_LIKE_T ON POST_LIKE_T.PostID = POST_T.PostID
-    // WHERE POST_T.PostID = :PostID
-    // GROUP BY POST_LIKE_T.PostID;
-    // query;
-    
     $query = <<<query
     SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, POST_T.Modified AS PostModified, USER_T.UserID, Username, Avatar, UNIVERSITY_T.UniversityID, UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation, SUBJECT_T.Name AS SubjectName, COUNT(DISTINCT CommentID) AS Comments, COALESCE((SELECT COUNT(*) FROM POST_LIKE_T WHERE PostID = POST_T.PostID AND VoteType = 1), 0) AS Likes
     FROM POST_T 
@@ -163,6 +155,24 @@ function edit_post() {
     echo $values['Content'];
 }
 
+function report_post() {
+    $post = get_post($_POST['postID']);
+    echo "<script>console.log('Reached')</script>";
+    $postDate = date("F j, Y @ h:i:s A", $post->PostCreated);
+    $userReporting = $_SESSION['USER'];
+    $caseID = rand(10000, 99999);
+    $recipient = "StudySinkLLC@gmail.com";
+
+    $subject = "Report Case ID: $caseID (Post)";
+    $message = <<<message
+    <p>The following post (<b>#{$post->PostID}</b>) submitted by <b>{$post->Username}</b> has been reported by <b>{$userReporting->Username}</b>. The post was submitted on <b>{$postDate}</b> and has a total of <b>{$post->Likes}</b> likes.</p>
+    <p style="padding-left: 40px;">{$post->Content}</p>
+    <p>Review the post and take appropiate actions.</p>
+    message;
+
+    send_mail($recipient, $subject, $message);
+}
+
 function update_post_like() {
     $postID = $_POST['postID'];
     $userID = $_SESSION['USER']->UserID;
@@ -190,7 +200,6 @@ function get_likes($postID) {
     $query = "SELECT sum(VoteType) as Likes FROM POST_LIKE_T WHERE PostID = $postID;";
     return run_database($query)[0]->Likes;
 }
-
 
 //////////*  Comment Functionms *//////////
 function add_comment() {

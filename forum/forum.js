@@ -87,6 +87,18 @@ function CancelPostEdit(commentID) {
     $(`.post .dropdown`).toggle();
 }
 
+function ReportPost() {
+    var postID = parentID;
+    $.ajax({
+        url: '/functions/forum-functions',
+        type: 'POST',
+        data: { function: "post-report", postID: postID },
+        success: function (response) {
+            $(`.post .report`).html("Reported!");
+        }
+    });
+}
+
 function updatePostLike() {
     var check = $(".post .like").hasClass("fa-solid");
     var postID = parentID;
@@ -198,14 +210,12 @@ function ReportComment(commentID) {
     $.ajax({
         url: '/functions/forum-functions',
         type: 'POST',
-        data: { function: "report", commentID: commentID },
+        data: { function: "comment-report", commentID: commentID },
         success: function (response) {
             $(`#comment-${commentID} .report`).html("Reported!");
         }
     });
-    console.log('Reached1');
 }
-
 
 function updateCommentLike(commentID) {
     var check = $(`#comment-${commentID} .like`).hasClass("fa-solid");

@@ -54,7 +54,7 @@ save_to_cookie("post");
                                 <i class="fa-solid fa-ellipsis-vertical ellipsis-icon"></i>
                                 <div class="dropdown-content">
                                     <?php if ($_SESSION['USER']->UserID != $post->UserID) : ?>
-                                        <a class="report" onclick="ReportComment(<?= $post->PostID; ?>)">Report</a>
+                                        <a class="report" onclick="ReportPost()">Report</a>
                                     <?php endif; ?>
                                     <?php if ($post->Username == $_SESSION['USER']->Username) : ?>
                                         <a onclick="OpenPostEditor()">Edit</a>
@@ -76,7 +76,7 @@ save_to_cookie("post");
                             <?php endif; ?>
                         </div>
                         
-                        <div class="votes">&lpar;<span class="post-votes"><?= isset($likeTotal) ? $likeTotal : "0"; ?></span>&rpar;</div>
+                        <div class="votes"><span class="post-votes"><?= isset($likeTotal) ? $likeTotal : "0"; ?></span></div>
                     </div>
                 </div>
                 <!-- Comments Section -->
