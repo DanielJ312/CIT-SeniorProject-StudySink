@@ -30,12 +30,12 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
                 </div>
             </div>
             <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index', 'home'); ?>"></i></a>
-            <a href="/university/default.php" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-flip-horizontal fa-2xl <?= check_active('/university'); ?>"></i></a>
+            <a href="/university/<?= isset($_SESSION['USER']->Abbreviation) ? $_SESSION['USER']->Abbreviation : "index"; ?>.php" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-flip-horizontal fa-2xl <?= check_active('/university'); ?>"></i></a>
             <div class="dropdown">
                 <img src="<?= $_SESSION['USER']->Avatar ?>" alt="Avatar" class="profile-picture <?= check_active('/account/profile'); ?>" id="profilePicture" title="Avatar">
                 <div class="dropdown-content-profile" id="profileDropdown">
                     <a href="/account/profile.php">Profile</a>
-                    <a href="/account/account-settings.php">Settings</a>
+                    <a href="/account/settings.php">Settings</a>
                     <a href="/request/index.php">Help/Request University</a>
                     <a href="/account/logout.php">Logout</a>
                 </div>
@@ -64,7 +64,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
                 <div class="nav-options">
                     <div class="navitem"><a href="/index.php" title="Home">Home</a></div>
                 <?php if (check_login()) : ?>
-                    <div class="navitem"><a href="University" title="My University">My University</a></div>
+                    <div class="navitem"><a href="/university/<?= isset($_SESSION['USER']->Abbreviation) ? $_SESSION['USER']->Abbreviation : "index"; ?>" title="My University">My University</a></div>
                     <div class="dropdown">
                         <div class="navitem"><a href="#" title="Create">Create</a></div>
                         <div class="dropdown-content">
@@ -76,7 +76,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
                         <div class="navitem"><a href="#" style="border-bottom-color: black; border-bottom-width: 2px; border-bottom-style: solid;" title="Profile">Profile</a></div>
                         <div class="dropdown-content">
                             <a href="/account/profile.php" style="border-top-width: 0px;" title="My Profile">My Profile</a>
-                            <div class="navitem"><a href="/account/account-settings.php" title="Settings">Settings</a></div>
+                            <div class="navitem"><a href="/account/settings.php" title="Settings">Settings</a></div>
                             <div class="navitem"><a href="/request/index.php" title="Help">Help/Request Uni</a></div>
                             <div class="navitem"><a href="/request/logout.php" style="border-bottom-color: black; border-bottom-width: 2px; border-bottom-style: solid;" title="Logout">Logout</a></div>
                         </div>

@@ -1,15 +1,15 @@
-<!-- Home - No current use other than for testing. -->
+<!-- Home -->
 <?php
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 update_session();
 $pageTitle = "Home";
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
 </head>
-
 <body>
     <header id="home-logout-header">
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
@@ -124,9 +124,9 @@ $pageTitle = "Home";
                                 <?php
                                         }
                                     }
-                                } else { ?>
-                                    <button href="/account/" class="setPUButton">Set Primary University</button>
-                          <?php } ?>
+                                } else {
+                                    echo "Primary University not set";
+                                } ?>
                             </div>
                         </div>
                     </div>
@@ -282,5 +282,4 @@ $pageTitle = "Home";
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
 </body>
-
 </html>

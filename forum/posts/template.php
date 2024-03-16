@@ -11,29 +11,7 @@ if (empty($post)) header("Location: /forum/index.php");
 $commentTotal = count_comments($postID);
 $likeTotal = get_likes($postID);
 
-// Code for capturing and storing the Post ID of the 5 most recent posts a user has viewed
-$urlPath = $_SERVER['REQUEST_URI']; // e.g., "/forum/posts/6969"
-$segments = explode('/', $urlPath);
-$postId = end($segments); // grab the end segement
-// Verify that the post ID is valid
-$post = get_post($postId);
-if ($post) {
-    // Check if cookie exists
-    if (isset($_COOKIE['viewed_posts'])) {
-        $viewedPosts = explode(',', $_COOKIE['viewed_posts']);   // Get array of viewed post IDs
-        // Check if post ID already exists in array
-        if (($key = array_search($postId, $viewedPosts)) !== false) {
-            unset($viewedPosts[$key]);    // Remove existing post ID from array
-        }
-        array_unshift($viewedPosts, $postId);     // Add new post ID to the start of the array
-        $viewedPosts = array_slice($viewedPosts, 0, 5);    // Limit array to last 5 post IDs
-    } else {
-        $viewedPosts = array($postId);    // Create new array with the post ID
-    }
-    // Update cookie
-    setcookie('viewed_posts', implode(',', $viewedPosts), time() + (86400 * 3652.5), "/"); // Expires in 10 years
-    }
-
+save_to_cookie("post");
 ?>
 
 <!DOCTYPE html>
@@ -83,10 +61,15 @@ if ($post) {
                     <p class="post-content"><?= $post->Content; ?></p>
                     <div class="vote">
                         <div class="post-iconsp">
-                            <?php $userPVote = check_user_pvote($postID); ?>
-                            <i class="like <?= $userPVote == 1 ? "fa-solid" : "fa-regular"; ?> fa-heart button fa-lg" onclick="updatePostLike()"></i>
+                            <?php if (check_login()) : ?>
+                                <?php $userPVote = check_user_pvote($postID); ?>
+                                <i class="like <?= $userPVote == 1 ? "fa-solid" : "fa-regular"; ?> fa-heart button fa-lg" onclick="updatePostLike()"></i>
+                            <?php else : ?>
+                                <a href="/account/login.php" style="color: #2778ff;"><i class="like fa-regular fa-heart button fa-lg" onclick=""></i></a>
+                            <?php endif; ?>
                         </div>
-                        <div class="votes">&lpar;<span class="post-votes"><?= $likeTotal; ?></span>&rpar;</div>
+                        
+                        <div class="votes">&lpar;<span class="post-votes"><?= isset($likeTotal) ? $likeTotal : "0"; ?></span>&rpar;</div>
                     </div>
                 </div>
                 <!-- Comments Section -->
