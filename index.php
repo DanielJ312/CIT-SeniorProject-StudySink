@@ -124,9 +124,9 @@ $pageTitle = "Home";
                                 <?php
                                         }
                                     }
-                                } else {
-                                    echo "Primary University not set";
-                                } ?>
+                                } else { ?>
+                                    <button href="/account/" class="setPUButton">Set Primary University</button>
+                          <?php } ?>
                             </div>
                         </div>
                     </div>

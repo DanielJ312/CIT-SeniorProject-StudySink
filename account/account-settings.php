@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <div class="uni-container">
                 <div class="uni-setting-label">Primary University</div>
                 <div id="uniError" class="uniError"></div>
-                <div class="request-link">Dont see your school? Add a school by clicking <a href="/request">Here</a>.</div>
+                <div class="request-link">Dont see your school? Request a school by clicking <a href="/request">Here</a>.</div>
                 <div class="uniFormContainer">
                     <form method="post" class="uni-form">
                         <input class="uniDropdown" list="universities" id="setUniversity" placeholder="Select from the dropdown" name="updateUniversity" value="<?= get_user_university_name() ?>" required>
