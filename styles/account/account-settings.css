@@ -7,7 +7,6 @@
 .left-container {
     display: flex;
     flex: 0 0 20%;
-    background-color: #f7f7f7;
 }
 
 .right-container {
@@ -17,7 +16,6 @@
     width: 80%;
     padding-left: 2%;
     padding-top: 4%;
-    background-color: #f7f7f7;
 }
 
 .main-title {

@@ -50,9 +50,9 @@ function upload_avatar($file) {
             update_session();
 
             // Delete the old avatar from the S3 bucket
-            if ($currentAvatar) {
+            if ($currentAvatar && $currentAvatar !== 'https://studysink.s3.amazonaws.com/assets/DefaultAvatar.jpg') {
                 $oldKey = str_replace("https://{$credentials['s3_bucket_name']}.s3.amazonaws.com/", '', $currentAvatar);
-                $deleteResult = $s3->deleteObject([
+                $s3->deleteObject([
                     'Bucket' => $credentials['s3_bucket_name'],
                     'Key' => $oldKey,
                 ]);
