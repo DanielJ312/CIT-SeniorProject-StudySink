@@ -30,6 +30,22 @@ function updateSortedData(sortType) {
 }
 
 //////////* Post Functions *//////////
+function DeletePost() {
+    var postID = parentID;
+    var uni;
+    $.ajax({
+        url: '/functions/forum-functions',
+        type: "post",
+        dataType: 'json',
+        data: { function: "post-delete", postID: postID },
+        complete: function (response) {
+            uni = response.responseText;
+            window.location.replace(uni === "none" ? "/index.php" : `/university/${uni}.php`);
+        },
+    });
+}
+
+
 function OpenPostEditor() {
     content = $(`.content`).html();
     console.log(content);

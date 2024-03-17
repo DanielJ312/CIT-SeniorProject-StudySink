@@ -3,13 +3,15 @@
 // require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 update_session();
-$pageTitle = "Forum";
-
 $postID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
 $post = get_post($postID);
-if (empty($post)) header("Location: /forum/index.php");
+if (empty($post)) {
+    header("Location: " . (isset($_SESSION['USER']->Abbreviation) ? "/university/{$_SESSION['USER']->Abbreviation}.php" : "/index.php"));
+}
+
 $commentTotal = count_comments($postID);
 $likeTotal = get_likes($postID);
+$pageTitle = "$post->Title";
 
 save_to_cookie("post");
 ?>
@@ -58,7 +60,7 @@ save_to_cookie("post");
                                     <?php endif; ?>
                                     <?php if ($post->Username == $_SESSION['USER']->Username) : ?>
                                         <a onclick="OpenPostEditor()">Edit</a>
-                                        <a onclick="DeleteComment()">Delete</a>
+                                        <a onclick="DeletePost()">Delete</a>
                                     <?php endif; ?>
                                 </div>
                             </div>

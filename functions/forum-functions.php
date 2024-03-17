@@ -7,14 +7,17 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 if (isset($_POST['function'])) {
     switch ($_POST['function']) {
         // Post Functions
+        case "post-delete":
+            delete_post(); 
+            break;
         case "post-edit":
             edit_post(); 
             break;
-        case "post-like": 
-            update_post_like();
-            break;
         case "post-report":
             report_post();
+            break;
+        case "post-like": 
+            update_post_like();
             break;
         // Comment Functions
         case "comment-add":
@@ -58,7 +61,10 @@ function get_post($postID) {
     WHERE POST_T.PostID = :PostID
     GROUP BY POST_T.PostID
     query;
-    return run_database($query, $values)[0];
+    $post = run_database($query, $values);
+    if (is_array($post)) {
+        return $post[0];
+    }
 }
 
 function get_comments($postID) {
@@ -142,6 +148,13 @@ function check_user_pvote($postID) {
     if (is_array($result) && !$result[0]->VoteType == 0) {
         return $result[0]->VoteType;
     }
+}
+
+function delete_post() {
+    $values['PostID'] = $_POST['postID'];
+    $query = "DELETE FROM POST_T WHERE PostID = :PostID";
+    run_database($query, $values);
+    echo isset($_SESSION['USER']->Abbreviation) ? $_SESSION['USER']->Abbreviation : "none";
 }
 
 function edit_post() {

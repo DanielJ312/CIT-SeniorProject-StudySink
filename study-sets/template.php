@@ -1,7 +1,7 @@
 <!-- Study Set Template - Displays Study Set for given Study Set ID  -->
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
-$pageTitle = "Study Set";
+
 
 $setID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
 $values['StudySetID'] = $setID;
@@ -46,7 +46,7 @@ if ($avgRatingResult) {
 }
 
 $commentTotal = count_comments($setID);
-
+$pageTitle = "$set->Title";
 save_to_cookie("study-set");
 ?>
 
