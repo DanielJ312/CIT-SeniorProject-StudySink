@@ -102,9 +102,35 @@
     color: #f59c1a; 
 }
 
-/*.fa-circle-arrow-left, .fa-circle-arrow-right, .fa-arrows-rotate {
-    /* Icon styles if needed */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-out {
+    animation-name: fadeOut;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards; 
+}
+
+.fade-in {
+    animation-name: fadeIn;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards;
+}
 
 @media only screen and (max-width: 850px) {
     .flashcardsContainer {

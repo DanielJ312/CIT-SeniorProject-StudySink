@@ -3,7 +3,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 
-// Switch for deciding which function to run in AJAX
+//////////*  AJAX Functions Switch *//////////
 if (isset($_POST['function'])) {
     switch ($_POST['function']) {
         case "add":
@@ -32,29 +32,7 @@ if (isset($_POST['function'])) {
     }
 }
 
-### Sort Later
-function check_user_pvote($postID) {
-    $query = "SELECT VoteType FROM POST_LIKE_T WHERE PostID = $postID AND UserID = {$_SESSION['USER']->UserID};";
-    $result = run_database($query);
-    if (is_array($result) && !$result[0]->VoteType == 0) {
-        return $result[0]->VoteType;
-    }
-}
-
-function check_user_cvote($commentID) {
-    $query = "SELECT VoteType FROM COMMENT_LIKE_T WHERE CommentID = $commentID AND UserID = {$_SESSION['USER']->UserID};";
-    $result = run_database($query);
-    if (is_array($result) && !$result[0]->VoteType == 0) {
-        return $result[0]->VoteType;
-    }
-}
-
-function get_likes($postID) {
-    $query = "SELECT sum(VoteType) as Likes FROM POST_LIKE_T WHERE PostID = $postID;";
-    return run_database($query)[0]->Likes;
-}
-
-# Post Functions
+//////////* Post Functions *//////////
 function get_posts() {
     $query = "SELECT * FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID ORDER BY POST_T.Created ASC;";
     return run_database($query);
@@ -100,14 +78,26 @@ function create_post($data) {
 
 function get_post($postID) {
     $values['PostID'] = $postID;
+    // $query = <<<query
+    // SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, Username, Avatar, UNIVERSITY_T.Name AS UniversityName, SUBJECT_T.Name AS SubjectName, count(DISTINCT CommentID) AS Comments, sum(DISTINCT VoteType) AS Likes
+    // FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID 
+    //     INNER JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
+    //     INNER JOIN SUBJECT_T ON POST_T.SubjectID = SUBJECT_T.SubjectID
+    //     LEFT OUTER JOIN COMMENT_T ON COMMENT_T.PostID = POST_T.PostID
+    //     LEFT OUTER JOIN POST_LIKE_T ON POST_LIKE_T.PostID = POST_T.PostID
+    // WHERE POST_T.PostID = :PostID
+    // GROUP BY POST_LIKE_T.PostID;
+    // query;
+    
     $query = <<<query
-    SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, Username, Avatar, UNIVERSITY_T.Name AS UniversityName, SUBJECT_T.Name AS SubjectName, count(DISTINCT CommentID) AS Comments, sum( DISTINCT VoteType) AS Likes
-    FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID 
+    SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, Username, Avatar, UNIVERSITY_T.UniversityID, UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation, SUBJECT_T.Name AS SubjectName, COUNT(DISTINCT CommentID) AS Comments, COALESCE((SELECT COUNT(*) FROM POST_LIKE_T WHERE PostID = POST_T.PostID AND VoteType = 1), 0) AS Likes
+    FROM POST_T 
+        INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID
         INNER JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
         INNER JOIN SUBJECT_T ON POST_T.SubjectID = SUBJECT_T.SubjectID
         LEFT OUTER JOIN COMMENT_T ON COMMENT_T.PostID = POST_T.PostID
-        LEFT OUTER JOIN POST_LIKE_T ON POST_LIKE_T.PostID = POST_T.PostID
-    WHERE POST_T.PostID = :PostID;
+    WHERE POST_T.PostID = :PostID
+    GROUP BY POST_T.PostID
     query;
     return run_database($query, $values)[0];
 }
@@ -148,7 +138,44 @@ function get_comment($commentID) {
     return run_database($query, $values)[0];
 }
 
-# Comment Functions
+function check_user_pvote($postID) {
+    $query = "SELECT VoteType FROM POST_LIKE_T WHERE PostID = $postID AND UserID = {$_SESSION['USER']->UserID};";
+    $result = run_database($query);
+    if (is_array($result) && !$result[0]->VoteType == 0) {
+        return $result[0]->VoteType;
+    }
+}
+
+function update_post_like() {
+    $postID = $_POST['postID'];
+    $userID = $_SESSION['USER']->UserID;
+    $voteType = 1;
+
+    $query = <<<query
+    INSERT INTO POST_LIKE_T (PostID, UserID, VoteType)
+    VALUES ($postID, $userID, $voteType) 
+    ON DUPLICATE KEY UPDATE
+    VoteType = CASE
+        WHEN VoteType = 1 THEN 0
+        WHEN VoteType = 0 THEN 1
+        ELSE VoteType
+    END;
+    query;
+    run_database($query);
+
+    $query = "SELECT sum(VoteType) AS VoteCount FROM POST_LIKE_T WHERE PostID = $postID";
+    $voteTotal = run_database($query);
+    $voteTotal = $voteTotal[0]->VoteCount;
+    echo $voteTotal;
+}
+
+function get_likes($postID) {
+    $query = "SELECT sum(VoteType) as Likes FROM POST_LIKE_T WHERE PostID = $postID;";
+    return run_database($query)[0]->Likes;
+}
+
+
+//////////*  Comment Functionms *//////////
 function add_comment() {
     $parentID = $_POST['parentID'];
     $values = [
@@ -215,7 +242,6 @@ function report_comment() {
     send_mail($recipient, $subject, $message);
 }
 
-# General Functions
 function update_comment_sort() {
     $sortType = $_POST['sortType'];
     $parentID = $_POST['parentID'];
@@ -264,27 +290,12 @@ function create_comment_sort($sortType, $parentID) {
     return $query;
 }
 
-function update_post_like() {
-    $postID = $_POST['postID'];
-    $userID = $_SESSION['USER']->UserID;
-    $voteType = 1;
-
-    $query = <<<query
-    INSERT INTO POST_LIKE_T (PostID, UserID, VoteType)
-    VALUES ($postID, $userID, $voteType) 
-    ON DUPLICATE KEY UPDATE
-    VoteType = CASE
-        WHEN VoteType = 1 THEN 0
-        WHEN VoteType = 0 THEN 1
-        ELSE VoteType
-    END;
-    query;
-    run_database($query);
-
-    $query = "SELECT sum(VoteType) AS VoteCount FROM POST_LIKE_T WHERE PostID = $postID";
-    $voteTotal = run_database($query);
-    $voteTotal = $voteTotal[0]->VoteCount;
-    echo $voteTotal;
+function check_user_cvote($commentID) {
+    $query = "SELECT VoteType FROM COMMENT_LIKE_T WHERE CommentID = $commentID AND UserID = {$_SESSION['USER']->UserID};";
+    $result = run_database($query);
+    if (is_array($result) && !$result[0]->VoteType == 0) {
+        return $result[0]->VoteType;
+    }
 }
 
 function update_comment_like() {

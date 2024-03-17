@@ -1,12 +1,10 @@
-<!-- FINISH LATER - No current use other than for testing. -->
+<!-- Subject Page Within University. -->
 <?php
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 update_session();
-$pageTitle = "Subject";
 
 $query = "SELECT * FROM UNIVERSITY_T WHERE Abbreviation = '{$_GET['university']}';";
 $university = run_database($query)[0];
-
 $query = "SELECT * FROM SUBJECT_T WHERE Abbreviation = '{$_GET['subject']}' && UniversityID = {$university->UniversityID};";
 $subject = run_database($query)[0];
 
@@ -20,18 +18,30 @@ $query = <<<query
     ORDER BY STUDY_SET_T.Created ASC;
 query;
 $sets = run_database($query);
-
+// $query = <<<query
+//     SELECT PostID, Title, Content, POST_T.Created AS PostCreated, Username, Avatar, UNIVERSITY_T.Name AS UniversityName
+//     FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID
+//         INNER JOIN UNIVERSITY_T ON UNIVERSITY_T.UniversityID = POST_T.UniversityID
+//         INNER JOIN SUBJECT_T ON SUBJECT_T.SubjectID = POST_T.SubjectID
+//     WHERE UNIVERSITY_T.UniversityID = $university->UniversityID
+//         AND POST_T.SubjectID = $subject->SubjectID
+//     ORDER BY POST_T.Created ASC;
+// query;
 $query = <<<query
-    SELECT PostID, Title, Content, POST_T.Created AS PostCreated, Username, Avatar, UNIVERSITY_T.Name AS UniversityName
-    FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID
-        INNER JOIN UNIVERSITY_T ON UNIVERSITY_T.UniversityID = POST_T.UniversityID
-        INNER JOIN SUBJECT_T ON SUBJECT_T.SubjectID = POST_T.SubjectID
+    SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, Username, Avatar, UNIVERSITY_T.UniversityID, UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation, SUBJECT_T.Name AS SubjectName, COUNT(DISTINCT CommentID) AS Comments, COALESCE((SELECT COUNT(*) FROM POST_LIKE_T WHERE PostID = POST_T.PostID AND VoteType = 1), 0) AS Likes
+    FROM POST_T 
+        INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID
+        INNER JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
+        INNER JOIN SUBJECT_T ON POST_T.SubjectID = SUBJECT_T.SubjectID
+        LEFT OUTER JOIN COMMENT_T ON COMMENT_T.PostID = POST_T.PostID
     WHERE UNIVERSITY_T.UniversityID = $university->UniversityID
         AND POST_T.SubjectID = $subject->SubjectID
+    GROUP BY POST_T.PostID
     ORDER BY POST_T.Created ASC;
-query;
+    query;
 $posts = run_database($query);
-// echo $posts[5]->Username;
+
+$pageTitle = "$university->Abbreviation $subject->Name";
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +51,6 @@ $posts = run_database($query);
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     <link rel="stylesheet" href="/styles/university/subject.css" />
 </head>
-
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
@@ -52,7 +61,7 @@ $posts = run_database($query);
                 <h2><?= $subject->Name; ?></h2>
             </div>
             <div class="column">
-                <div class="study-set" >
+                <div class="study-set">
                     <div class="header">
                         <h2 id="toggleSet">Study Sets<i class="arrow down"></i></h2>
                         <select class="sort" name="sorts">
@@ -63,46 +72,46 @@ $posts = run_database($query);
                     </div>
                     <div class="scrollbar" id="contentset">
                         <div class="displayCardArea">
-                        <?php if (empty($sets)) : ?>
-            <h3>No Study Sets Made</h3>
-        <?php else : ?>
-                        <?php foreach ($sets as $set) : ?>
-                            <div class="cardContainer">
-                                <a href="/study-sets/<?= $set->StudySetID; ?>" class="">
-                                    <div class="cardHeaderTopLeft">
-                                        <img src="<?= htmlspecialchars($set->Avatar); ?>" alt="<?= htmlspecialchars($set->Username); ?>'s avatar" class="profile-picture" />
-                                        <div class="cardHeaderUsernameDate">
-                                            <p><?= $set->Username; ?></p>
-                                            <p><?= date("F j, Y", $set->SetCreated); ?></p>
-                                        </div>
+                            <?php if (empty($sets)) : ?>
+                                <h3>No Study Sets Made</h3>
+                            <?php else : ?>
+                                <?php foreach ($sets as $set) : ?>
+                                    <div class="cardContainer">
+                                        <a href="/study-sets/<?= $set->StudySetID; ?>" class="">
+                                            <div class="cardHeaderTopLeft">
+                                                <img src="<?= htmlspecialchars($set->Avatar); ?>" alt="<?= htmlspecialchars($set->Username); ?>'s avatar" class="profile-picture" />
+                                                <div class="cardHeaderUsernameDate">
+                                                    <p><?= $set->Username; ?></p>
+                                                    <p><?= date("F j, Y", $set->SetCreated); ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="studySetDetailsBottom">
+                                                <div class="studySetDetailsBottomLeft">
+                                                    <h3><?= $set->Title; ?></h3>
+                                                </div>
+                                                <div class="studySetDetailsBottomRight">
+                                                    <p><?= $set->UniversityName; ?></p>
+                                                    <p><?= $set->Course; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="lower-header">
+                                                <div class="comment">
+                                                    <div class="post-iconsp">
+                                                        <i class="fa-regular fa-comment"></i>
+                                                    </div>
+                                                    <div class="comments-count">0</div>
+                                                </div>
+                                                <div class="vote">
+                                                    <div class="post-iconsp">
+                                                        <i class="fa-regular fa-star" aria-hidden="true"></i>
+                                                    </div>
+                                                    <div class="votes">5</div>
+                                                </div>
+                                            </div>
+                                        </a>
                                     </div>
-                                    <div class="studySetDetailsBottom">
-                                        <div class="studySetDetailsBottomLeft">
-                                            <h3><?= $set->Title; ?></h3>
-                                        </div>
-                                        <div class="studySetDetailsBottomRight">
-                                            <p><?= $set->UniversityName; ?></p>
-                                            <p><?= $set->Course; ?></p>
-                                        </div>
-                                    </div>
-                                    <div class="lower-header">
-                            <div class="comment">
-                                <div class="post-iconsp">
-                                <i class="fa-regular fa-comment"></i>
-                                </div>
-                                <div class="comments-count">0</div>
-                            </div>
-                            <div class="vote">
-                                <div class="post-iconsp">
-                                <i class="fa-regular fa-star" aria-hidden="true"></i>
-                                </div>
-                                <div class="votes">5</div>
-                            </div>
-                        </div>
-                                </a>
-                            </div>
-                        <?php endforeach; ?>
-                        <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -115,56 +124,56 @@ $posts = run_database($query);
                             <option value="post-popular">Popular</option>
                         </select>
                     </div>
-                    <div class="scrollbar"id="contentpost">
-                    <?php if (empty($posts)) : ?>
-                        <h3>No Posts Made</h3>
+                    <div class="scrollbar" id="contentpost">
+                        <?php if (empty($posts)) : ?>
+                            <h3>No Posts Made</h3>
                         <?php else : ?>
-                        <?php foreach ($posts as $post) : ?>
-                            <div class="post">
-                                <a href="/forum/posts/<?= $post->PostID; ?>" class="">
-                                    <div class="post-header">
-                                        <img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" />
-                                        <div class="post-info">
-                                            <p class="post-account"><?= $post->Username; ?></p>
-                                            <p class="post-date"><?= date("F j, Y", $post->PostCreated); ?></p>
+                            <?php foreach ($posts as $post) : ?>
+                                <div class="post">
+                                    <a href="/forum/posts/<?= $post->PostID; ?>" class="">
+                                        <div class="post-header">
+                                            <img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" />
+                                            <div class="post-info">
+                                                <p class="post-account"><?= $post->Username; ?></p>
+                                                <p class="post-date"><?= date("F j, Y", $post->PostCreated); ?></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <h3 class="post-title"><?= $post->Title; ?></h3>
-                                    <div class="post-content"><?= $post->Content; ?></div>
-                                    <div class="lower-header">
-                            <div class="comment">
-                                <div class="post-iconsp">
-                                <i class="fa-regular fa-comment"></i>
+                                        <h3 class="post-title"><?= $post->Title; ?></h3>
+                                        <div class="post-content"><?= $post->Content; ?></div>
+                                        <div class="lower-header">
+                                            <div class="comment">
+                                                <div class="post-iconsp">
+                                                    <i class="fa-regular fa-comment"></i>
+                                                </div>
+                                                <div class="comments-count"><?= $post->Comments; ?></div>
+                                            </div>
+                                            <div class="vote">
+                                                <div class="post-iconsp">
+                                                    <i class="fa-regular fa-heart"></i>
+                                                </div>
+                                                <div class="votes"><?= $post->Likes; ?></div>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="comments-count">0</div>
-                            </div>
-                            <div class="vote">
-                                <div class="post-iconsp">
-                                <i class="fa-regular fa-heart"></i>
-                                </div>
-                                <div class="votes">(20)</div>
-                            </div>
-                        </div>
-                                </a>
-                            </div>
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
                         <?php endif; ?>
                     </div>
-                </div>  
+                </div>
             </div>
         </div>
     </main>
     <script>
-    document.getElementById('toggleSet').addEventListener('click', function() {
-        if (window.innerWidth <= 850) {
-            var contentDiv = document.getElementById('contentset');
-            if (contentDiv.style.display === 'none' || window.getComputedStyle(contentDiv).display === 'none') {
-                contentDiv.style.display = 'block'; // or any other desired display value
-            } else {
-                contentDiv.style.display = 'none';
+        document.getElementById('toggleSet').addEventListener('click', function() {
+            if (window.innerWidth <= 850) {
+                var contentDiv = document.getElementById('contentset');
+                if (contentDiv.style.display === 'none' || window.getComputedStyle(contentDiv).display === 'none') {
+                    contentDiv.style.display = 'block'; // or any other desired display value
+                } else {
+                    contentDiv.style.display = 'none';
+                }
             }
-        }
-    });
+        });
 
     document.addEventListener('DOMContentLoaded', function() {
     var contentDiv = document.getElementById('contentpost');

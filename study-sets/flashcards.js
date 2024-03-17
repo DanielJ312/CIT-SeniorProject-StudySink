@@ -63,10 +63,28 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function navigateToCard(offset) {
-        cards[currentCardIndex].style.display = 'none';
-        cards[currentCardIndex].classList.remove('is-flipped'); 
-        currentCardIndex += offset;
-        cards[currentCardIndex].style.display = 'block';
-        currentCardIndexElement.textContent = currentCardIndex + 1;
+        const oldCard = cards[currentCardIndex];
+        const newCardIndex = currentCardIndex + offset;
+        const newCard = cards[newCardIndex];
+
+        oldCard.classList.add('fade-out');
+
+        oldCard.addEventListener('animationend', function handler() {
+            oldCard.style.display = 'none';
+            oldCard.classList.remove('fade-out', 'is-flipped');
+            
+            currentCardIndex = newCardIndex;
+
+            newCard.style.display = 'block';
+            newCard.classList.add('fade-in');
+            newCard.addEventListener('animationend', function fadeinHandler() {
+                newCard.classList.remove('fade-in');
+                newCard.removeEventListener('animationend', fadeinHandler);
+            });
+
+            currentCardIndexElement.textContent = currentCardIndex + 1;
+
+            oldCard.removeEventListener('animationend', handler);
+        });
     }
 });
