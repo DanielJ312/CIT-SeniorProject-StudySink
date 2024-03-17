@@ -1,7 +1,7 @@
 .createStudySetBody {
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Comfortaa', sans-serif;
     background-color: #f7f7f7;
     color: black;
 }
@@ -29,7 +29,7 @@
     border: 1px solid #ccc;
     background-color: #ffffff;
     color: black;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Comfortaa', sans-serif;
     box-sizing: border-box;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
 }
@@ -37,16 +37,16 @@
 .studySetContainer select::placeholder {
     color: #666;
     font-family: 'Comfortaa', sans-serif;
-    opacity: 1; /* Make sure the placeholder is fully visible */
+    opacity: 1;
 }
 
 .studySetContainer select.selected {
-    color: black; /* Darker color for selected option */
+    color: black; 
     font-family: 'Comfortaa', sans-serif;
 }
 
 .studySetContainer select option {
-    color: black; /* Darker color for options within the dropdown */
+    color: black;
     font-family: 'Comfortaa', sans-serif;
 }
 
@@ -54,7 +54,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: url('data:image/svg+xml;utf8,<svg ...>...</svg>'); /* Placeholder for custom arrow icon */
+    background-image: url('data:image/svg+xml;utf8,<svg ...>...</svg>');
     background-position: right 10px top 50%;
     background-repeat: no-repeat;
     background-size: 12px;
@@ -70,19 +70,19 @@
 
 .studySetContainer input::placeholder,
 .studySetContainer textarea::placeholder {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Comfortaa', sans-serif;
     color: #666;
     opacity: 1;
 }
 
 .studySetContainer select option[value=""][disabled] {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Comfortaa', sans-serif;
     color: #666;
 }
 
 .studySetTags select {
     color: #666;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Comfortaa', sans-serif;
 }
 
 .studySetTags select option {
@@ -241,10 +241,10 @@
 }
 
 .studySetContainer .card-textarea {
-    overflow-y: hidden; /* Hide the vertical scrollbar */
-    min-height: 50px; /* Minimum height for empty textarea */
-    height: auto; /* Enable automatic height */
-    resize: none; /* Disable manual resizing */
+    overflow-y: hidden;
+    min-height: 50px;
+    height: auto;
+    resize: none;
 }
 
 .formButtons {
