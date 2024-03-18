@@ -55,6 +55,12 @@ $cards = run_database($query, $values);
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
     </header>
     <main>
+        <div class="fixed-action-bar">
+            <div class="action-bar-buttons">
+                <a href="/study-sets/<?= urlencode($set->StudySetID) ?>" class="back-button">< Back to Set</a>
+                <button type="submit" form="studySetForm" class="save-button">Save Study Set</button>
+            </div>
+        </div>
         <div id="pageIdentifier" data-page-type="edit"></div>
         <div class="studySetContainer">
             <h2 class="header2"><?=isset($pageTitle) ? $pageTitle : "Create a Study Set" ?></h2>

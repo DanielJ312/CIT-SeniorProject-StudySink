@@ -6,9 +6,66 @@
     color: black;
 }
 
+.fixed-action-bar {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 10; 
+    background: #f7f7f7;
+    padding: 25px;
+}
+
+.action-bar-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 65%;
+    margin: auto;
+    /*adding: 0 20px;  maybe */
+}
+
+.back-button {
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+    color: #007BFF; 
+    padding: 8px 15px;
+    font-size: 16px; 
+    text-decoration: none; 
+    font-family: 'Comfortaa', sans-serif;
+    transition: color 0.3s ease-in-out;
+}
+
+.back-button:hover, 
+.back-button:focus {
+    color: #fcb54d;
+    text-decoration: none; 
+}
+
+/* Styles for the Save button */
+.save-button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    background-color: #2778ff;
+    color: #ffffff;
+    font-size: 16px; 
+    font-family: 'Comfortaa', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.save-button:hover,
+.save-button:focus {
+    background-color: #fcb54d;
+}
+
 .studySetContainer {
     max-width: 65%;
-    margin: 20px auto;
+    margin: 0px auto 20px auto;
     padding: 20px;
     border-radius: 8px;
     background-color: #ffffff;
@@ -297,4 +354,5 @@
         transition: box-shadow 0.3s ease;
         box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
     }
+
 }
