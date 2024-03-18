@@ -132,9 +132,7 @@ $cards = run_database($query, $values);
                     <?php endforeach; ?>
                 </div>
                 <button type="button" id="addCardBtn" class="bigAddCardButton">+ ADD CARD</button>
-                <div class="formButtons"> 
-                    <button type="submit">Save Study Set</button>
-                </div>
+
             </form>
             <!-- Unique hidden element to identify the edit page -->
             <div id="editPageIdentifier" style="display: none;"></div>
