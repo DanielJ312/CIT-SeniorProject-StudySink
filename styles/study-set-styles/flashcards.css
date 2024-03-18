@@ -20,6 +20,32 @@
     font-weight: bold;
 }
 
+.top-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+}
+
+.top-controls-spacer {
+    height: 1px;
+}
+
+.back-button {
+    display: inline-block;
+    margin: 0px;
+    padding: 8px 15px;
+    background-color: transparent;
+    color: #2778ff;
+    text-decoration: none;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.back-button:hover {
+    color: #fcb54d;
+    text-decoration: none;
+}
+
 .cards {
     display: flex;
     flex-wrap: wrap;
@@ -73,11 +99,11 @@
 }
 
 .cardCounter {
-    text-align: center;
-    margin: 10px 0;
-    font-size: 1.2em;
-    color: #333;
-    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-size: 20px;
 }
 
 .navigationContainer {

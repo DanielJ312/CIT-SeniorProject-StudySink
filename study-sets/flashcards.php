@@ -33,9 +33,15 @@ $cards = run_database($query, $values);
     </header>
     <main>
         <div class="flashcardsContainer">
-            <div class="cardCounter">
-                <span id="currentCardIndex">1</span>/<span id="totalCards"></span>
+                 
+            <div class="top-controls">
+                <a href="/study-sets/<?= urlencode($setID) ?>" class="back-button">< Back to Set</a>
+                <div class="cardCounter">
+                    <span id="currentCardIndex">1</span>/<span id="totalCards"></span>
+                </div>
+                <div class="top-controls-spacer"></div> <!-- Spacer to balance the layout -->
             </div>
+
             <h2>Flashcards for <?= htmlspecialchars($studySetTitle); ?></h2>
             <div class="cards">
 
