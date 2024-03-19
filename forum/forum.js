@@ -56,7 +56,7 @@ function OpenPostEditor() {
     });
     var cancel = $("<button>").attr({
         type: "submit",
-        class: "addComment",
+        class: "cancelComment",
         onclick: `CancelPostEdit()`
     }).text("Cancel");
     var save = $("<button>").attr({
@@ -176,7 +176,7 @@ function OpenCommentEditor(commentID) {
     var cancel = $("<button>").attr({
         type: "submit",
         class: "cancelComment",
-        onclick: `CancelEdit(${commentID})`
+        onclick: `CancelCommentEdit(${commentID})`
     }).text("Cancel");
     var save = $("<button>").attr({
         type: "submit",

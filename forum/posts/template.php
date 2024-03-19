@@ -108,6 +108,22 @@ save_to_cookie("post");
                     </div>
                 </div>
             </div>
+            <!-- Beginning of Create Forum Post Delete Pop up Window -->
+<div id="forumBody">
+    <div id="deletepopup">
+        <form method="post">
+            <div id="deletepopupContainer">
+                <div class="contentitem">
+                    <label for="universityforum" id="deletetitle">Are you sure you would like to DELETE post?</label>
+                    <div class="buttons">
+                    <button type="submit" onclick="closeDeletePopup()" class="canceldeletepostbutton">Cancel</button>
+                    <button type="submit" onclick="DeletePost()" class="deletepostbutton">Delete</button>
+                </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
     </main>
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>

@@ -30,7 +30,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
                 </div>
             </div>
             <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index', 'home'); ?>"></i></a>
-            <a href="/university/<?= isset($_SESSION['USER']->Abbreviation) ? $_SESSION['USER']->Abbreviation : "index"; ?>.php" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-flip-horizontal fa-2xl <?= check_active('/university'); ?>"></i></a>
+            <a href="/university/<?= isset($_SESSION['USER']->Abbreviation) ? $_SESSION['USER']->Abbreviation : "index"; ?>.php" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-2xl <?= check_active('/university'); ?>"></i></a>
             <div class="dropdown">
                 <img src="<?= $_SESSION['USER']->Avatar ?>" alt="Avatar" class="profile-picture <?= check_active('/account/profile'); ?>" id="profilePicture" title="Avatar">
                 <div class="dropdown-content-profile" id="profileDropdown">
@@ -91,22 +91,6 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
     </div>
 </div>
 
-<!-- Beginning of Create Forum Post Delete Pop up Window -->
-<div id="forumBody">
-    <div id="deletepopup">
-        <form method="post">
-            <div id="deletepopupContainer">
-                <div class="contentitem">
-                    <label for="universityforum" id="deletetitle">Are you sure you would like to DELETE post?</label>
-                    <div class="buttons">
-                <button type="submit" onclick="closeDeletePopup()" class="canceldeletepostbutton">Cancel</button>
-                <button type="submit" onclick="DeletePost()" class="deletepostbutton">Delete</button>
-                </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 
 <!-- End of Mobile Nav Bar and Beginning of Create Forum Post Pop up Window -->
 <div id="forumBody">
