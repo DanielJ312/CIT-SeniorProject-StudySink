@@ -80,7 +80,7 @@ body {
   width: 47%;
   background-color: white;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .post:hover {
