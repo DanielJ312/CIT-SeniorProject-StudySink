@@ -3,11 +3,8 @@
 //////////* Sorting Functions *//////////
 $(document).ready(function () {
     var currentPath = window.location.pathname;
-    if (currentPath.includes('/forum/post')) {
-        $('.sort-container').html(updateSortedData("comment-oldest"));
-    }
-    if (currentPath.includes('/study-sets/')) {
-        $('.sort-container').html(updateSortedData("comment-oldest"));
+    if (currentPath.includes('/forum/post') || currentPath.includes('/study-sets/')) {
+        $('.comment-sort-container').html(updateSortedData("comment-popular"));
     }
 });
 
@@ -24,7 +21,7 @@ function updateSortedData(sortType) {
         type: 'POST',
         data: { function: "comment-sort", parentID: parentID, sortType: sortType },
         success: function (response) {
-            $('.sort-container').html(response);
+            $('.comment-sort-container').html(response);
         },
     });
 }
@@ -139,12 +136,12 @@ function AddComment() {
             type: 'POST',
             data: { function: "comment-add", parentID: parentID, content: content },
             success: function (response) {
-                $('.sort-container').append(response); 
+                $('.comment-sort-container').append(response); 
                 $('.input-bar').val("");
                 var total = $(".comment-total");
                 total.text(Number(total.text()) + 1);
 
-                var comment = $('.sort-container .comment').last().attr('id');
+                var comment = $('.comment-sort-container .comment').last().attr('id');
                 console.log(comment);
                 $('html, body').scrollTop($(`#${comment}`).offset().top);
                 $(`#${comment}`).css("background-color", "#FEFFB6");

@@ -146,7 +146,7 @@ save_to_cookie("study-set");
                         </div>
                         </div>
                     <?php endif; ?>
-                    <div class="sort-container">
+                    <div class="comment-sort-container">
                         <!-- Comments will get inserted here -->
                     </div>
                 </div>

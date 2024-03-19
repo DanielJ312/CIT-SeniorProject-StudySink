@@ -88,9 +88,9 @@ save_to_cookie("post");
                         <form id="sort-dropdown" method="">
                             <?= "<script>var parentID = $postID;</script>"; ?>
                             <select id="sort" class="sort" name="sorts">
+                                <option value="comment-popular">Popular</option>
                                 <option value="comment-oldest">Oldest</option>
                                 <option value="comment-newest">Newest</option>
-                                <option value="comment-popular">Popular</option>
                             </select>
                         </form>
                     </div>
@@ -103,7 +103,7 @@ save_to_cookie("post");
                         </div>
                         </div>
                     <?php endif; ?>
-                    <div class="sort-container">
+                    <div class="comment-sort-container">
                         <!-- Comments will get inserted here -->
                     </div>
                 </div>
