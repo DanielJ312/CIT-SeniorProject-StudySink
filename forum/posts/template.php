@@ -60,7 +60,7 @@ save_to_cookie("post");
                                     <?php endif; ?>
                                     <?php if ($post->Username == $_SESSION['USER']->Username) : ?>
                                         <a onclick="OpenPostEditor()">Edit</a>
-                                        <a onclick="DeletePost()">Delete</a>
+                                        <a onclick="openDeletePopup()">Delete</a>
                                     <?php endif; ?>
                                 </div>
                             </div>

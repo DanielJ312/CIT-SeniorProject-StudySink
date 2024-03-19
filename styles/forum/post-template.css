@@ -288,6 +288,10 @@
     margin-right: 6px;
   }
 
+#deletepopup {
+    background-color: #2778ff;
+}
+
   @media only screen and (max-width: 850px) {
 
     .margin {
