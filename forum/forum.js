@@ -93,7 +93,7 @@ function OpenCommentEditor(commentID) {
     });
     var cancel = $("<button>").attr({
         type: "submit",
-        class: "addComment",
+        class: "cancelComment",
         onclick: `CancelEdit(${commentID})`
     }).text("Cancel");
     var save = $("<button>").attr({
