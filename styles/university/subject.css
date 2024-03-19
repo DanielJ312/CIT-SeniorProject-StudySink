@@ -383,28 +383,23 @@ h3 {
 * {
     scrollbar-width: none;
     scrollbar-color: #ffffff #0b1160;
-    border-radius: 10px;
 }
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
     width: 9px;
-    border-radius: 10px;
 }
 
 *::-webkit-scrollbar-track {
     background: #f7f7f7;
-    border-radius: 10px;
 }
 
 *::-webkit-scrollbar-thumb {
-    border-radius: 10px;
     border: 1px solid #2778ff;
 }
 
 :-webkit-scrollbar-thumb:hover {
     background-color: #f3c068;
-    border-radius: 10px;
 }
 
 .scrollbar {
@@ -443,6 +438,7 @@ h3 {
         text-align: center;
         display: flex;
         align-items: center;
+        justify-content: center;
     }
 
     .down {
@@ -453,6 +449,7 @@ h3 {
         transform: rotate(45deg);
         -webkit-transform: rotate(45deg);
         margin: 7px;
+        z-index: -1;
     }
 
     #contentset {
@@ -494,6 +491,7 @@ h3 {
         border: solid #00000029;
         border-width: 0.5px;
     }
+    
 }
 
 @media (min-width: 1629px) {

@@ -41,6 +41,8 @@
 
 .profile-picture:hover {
     border-color: #f59c1a;
+    transform: scale(1.05);
+    transition: 0.3s;    
 }
 
 /*-- Search bar --*/
@@ -134,6 +136,8 @@
 .fa-id-card:hover {
     cursor: pointer;
     color: #f59c1a;
+    transform: scale(1.05);
+    transition: 0.3s;
 }
 
 .fa-id-card {
@@ -298,6 +302,7 @@
         left: 0;
         width: 100%;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
+        z-index: 1;
     }
 
     .mobilenav a {

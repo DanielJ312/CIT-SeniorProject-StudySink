@@ -89,7 +89,6 @@
     color: #2778ff;
 }
 
-/* University */
 .university-post-container {
     height: 100%;
     padding: 3%;
@@ -120,6 +119,38 @@
     max-height: 150px;
     min-width: 300px;
     cursor: pointer;
+}
+
+.setPUButton {
+    display: flex;
+    align-items: center;
+    background-color: #2778ff;
+    font-family: 'Comfortaa', sans-serif;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 5px;
+    width: fit-content;
+    height: 30px;
+    font-size: 1em;
+    justify-content: center;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+}
+
+.setPUButton:hover {
+    background-color: #f59c1a;
+    transform: scale(1.05);
+    transition: 0.3s;
+    box-shadow: none;
+}
+
+.setPUButton:active {
+    transform: scale(0.95);
+    transition: 0.3s;
+    box-shadow: none;
 }
 
 .university-posts-tiles-container,
@@ -328,5 +359,10 @@
         transform: scale(0.95);
         transition: 0.3s;
         box-shadow: none;
+    }
+
+    .noUniContainer {
+        display: flex;
+        flex-direction: column;
     }
 }
