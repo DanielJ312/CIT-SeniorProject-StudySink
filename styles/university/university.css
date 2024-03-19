@@ -68,7 +68,7 @@ body {
 }
 
 /* Styling for individual posts */
-.post {
+.post{
   display: flex;
   color: #181818;
   border-radius: 5px;
@@ -268,11 +268,14 @@ body {
 }
 
 /* Styling for posts */
-.posts {
+.posts, .post-sort-container {
   display: flex;
-  margin-top: 15px;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.posts {
+    margin-top: 15px;
 }
 
 .post-header {
