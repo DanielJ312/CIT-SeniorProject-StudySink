@@ -6,9 +6,65 @@
     color: black;
 }
 
+.fixed-action-bar {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 10; 
+    background: #f7f7f7;
+    padding: 25px;
+}
+
+.action-bar-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 65%;
+    margin: auto;
+    /*adding: 0 20px;  maybe */
+}
+
+.back-button {
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+    color: #2778ff; 
+    padding: 8px 15px;
+    font-size: 16px; 
+    text-decoration: none; 
+    font-family: 'Comfortaa', sans-serif;
+    transition: color 0.3s ease-in-out;
+}
+
+.back-button:hover, 
+.back-button:focus {
+    color: #fcb54d;
+    text-decoration: none; 
+}
+
+.save-button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    background-color: #2778ff;
+    color: #ffffff;
+    font-size: 16px; 
+    font-family: 'Comfortaa', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.save-button:hover,
+.save-button:focus {
+    background-color: #fcb54d;
+}
+
 .studySetContainer {
     max-width: 65%;
-    margin: 20px auto;
+    margin: 0px auto 20px auto;
     padding: 20px;
     border-radius: 8px;
     background-color: #ffffff;
@@ -247,30 +303,28 @@
     resize: none;
 }
 
-.formButtons {
+.bigAddCardButton {
     display: flex;
-    justify-content: flex;
-    padding-top: 20px;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Comfortaa', sans-serif;
     width: 100%;
-    padding: 0;
-    margin: 0;
-}
-
-.formButtons input[type="submit"],
-.formButtons button {
-    padding: 10px 20px;
-    margin-left: 5px;
-    border: none;
+    border: solid 2px #2778ff75; 
     border-radius: 8px;
-    background-color: #007BFF;
-    color: #ffffff;
+    padding: 20px 0px 20px 0px;
+    background-color: transparent;
     cursor: pointer;
-    transition: background-color 0.2s;
+    font-size: 1.25rem;
+    margin-top: 15px;
+    position: relative;
+    outline: none;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
 }
 
-.formButtons input[type="submit"]:hover,
-.formButtons button:hover {
-    background-color: #0056b3;
+.bigAddCardButton:hover {
+    color: #fcb54d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.31);
 }
 
 .deleteCardBtn {
@@ -297,4 +351,5 @@
         transition: box-shadow 0.3s ease;
         box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
     }
+
 }

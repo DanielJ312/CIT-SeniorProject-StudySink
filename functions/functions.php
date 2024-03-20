@@ -92,14 +92,6 @@ function display_errors($errors) {
     }
 }
 
-function get_local_time() {
-    return (time() - (60*60*7));
-}
-
-function display_time($time, $format) {
-    return (new DateTime("@$time"))->format("$format");
-}
-
 function generate_ID($type) {
     do {
         // $createdID = '';
@@ -139,15 +131,10 @@ function prepend ($var1, $var2){
     return $var1 . $var2;
 }
 
-function check_set_title($pageTitle) {
-    return isset($pageTitle) ? $pageTitle : "Page Header";
-}
-
 function get_universities_list() {
     $query = "SELECT UniversityID, Name FROM UNIVERSITY_T ORDER BY Name ASC";
     return run_database($query);
 }
-
 
 //New function to get study set info from db.
 function get_study_set($StudySetID) {
@@ -188,8 +175,6 @@ function get_user_university_name() {
     else {
         return "";
     }
- 
-
 }
 
 //Get 10 most recently created University posts based on user's set university.
@@ -252,6 +237,5 @@ function save_to_cookie($type) {
             }
             break;
     }
-    
 }
 ?>

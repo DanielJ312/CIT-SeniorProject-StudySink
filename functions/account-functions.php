@@ -65,18 +65,21 @@ function upload_avatar($file) {
     }
 }
 
-function signup($data)
-{
+function signup($data) {
     // validate
     $errors = array();
+    $checkUsername = run_database("SELECT * FROM USER_T WHERE Username = :Username LIMIT 1;", ['Username' => $data['username']]);
+    if (is_array($checkUsername)) {
+        $errors['username'] = "Username already exists.";
+    }
     if (!preg_match('/^[a-zA-Z0-9]+$/', $data['username'])) {
-        $errors['username'] = "Please enter a valid username.";
+        $errors['username'] = "Enter a valid username.";
     }
     if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = "Please enter a valid email.";
+        $errors['email'] = "Enter a valid email.";
     }
     if (strlen(trim($data['password'])) < 4) {
-        $errors['password'] = "Please enter a valid password.";
+        $errors['password'] = "Enter a valid password.";
     } else if ($data['password'] != $data['password2']) {
         $errors['password'] = "Passwords must match.";
     }
@@ -111,8 +114,7 @@ function signup($data)
     return $errors;
 }
 
-function login($data)
-{
+function login($data) {
     //validate
     $loginType = "Email";
     $errors = array();
@@ -158,8 +160,7 @@ function login($data)
     return $errors;
 }
 
-function check_email($data)
-{
+function check_email($data) {
     $valid = false;
 
     // validate
@@ -173,10 +174,8 @@ function check_email($data)
     return $valid;
 }
 
-function reset_password($data)
-{
+function reset_password($data) {
     $status = "none";
-
     $values = array();
     $values['Code'] = $data['code'];
     $query = "SELECT * FROM CODE_T WHERE Code = :Code LIMIT 1;";
@@ -207,8 +206,7 @@ function reset_password($data)
     return $status;
 }
 
-function verify_email($data)
-{
+function verify_email($data) {
     $values = [
         'Email' => $_SESSION['USER']->Email,
         'Code' => $data['code']
@@ -218,8 +216,6 @@ function verify_email($data)
     $result = run_database($query, $values);
     if (is_array($result)) {
         $result = $result[0];
-
-
         if ($result->Expires > time()) {
             $email = $result->Email;
             $query = "UPDATE USER_T SET Verified = 1 WHERE Email = '$email' LIMIT 1;";
@@ -237,8 +233,7 @@ function verify_email($data)
     return $errors;
 }
 
-function update_bio($data)
-{
+function update_bio($data) {
     $values = [
         'UserID' => $_SESSION['USER']->UserID,
         'Bio' => $data['bio']
@@ -248,8 +243,7 @@ function update_bio($data)
     update_session();
 }
 
-function update_password($data)
-{
+function update_password($data) {
     $values = [
         'UserID' => $_SESSION['USER']->UserID,
         'Password' => password_hash($data['password'], PASSWORD_DEFAULT)
@@ -259,15 +253,13 @@ function update_password($data)
     update_session();
 }
 
-function get_universities()
-{
+function get_universities() {
     $query = "SELECT Name FROM UNIVERSITY_T";
     $result = run_database($query);
     return $result;
 }
 
-function update_primary_university($data)
-{
+function update_primary_university($data) {
     // Fetch the UniversityID from the UNIVERSITY_T table
     $values = ['UniversityName' => $data['updateUniversity']];
     $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE Name = :UniversityName";
@@ -284,8 +276,7 @@ function update_primary_university($data)
     update_session();
 }
 
-function delete_account()
-{
+function delete_account() {
     $values = ['UserID' => $_SESSION['USER']->UserID];
     //Posts created by the user will have there POST_T.UserID changed to DeletedUser's UserID
     //Post likes creted by the user will be removed from the POST_LIKE_T table WHERE POST_LIKE_T.UserID = :UserID

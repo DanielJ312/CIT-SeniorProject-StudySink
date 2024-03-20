@@ -197,7 +197,7 @@
     margin: 10px 0;
 }
 
-.commentInput {
+.input-bar {
     flex: 1;
     padding: 8px;
     border: 1px solid #cccccc;
@@ -205,7 +205,7 @@
     margin-right: 8px;
 }
 
-.addComment {
+.addComment, .cancelComment, .saveComment {
     background-color: #2778ff;
     color: white;
     border: none;
@@ -213,8 +213,12 @@
     padding: 8px 15px;
     cursor: pointer;
 }
+.cancelComment {
+    margin-right: 10px;
+    background-color:#e30000
+}
 
-.addComment:hover {
+.addComment:hover, .cancelComment:hover {
     background-color: #f59c1a;
 }
 
@@ -283,6 +287,10 @@
     opacity: 30%;
     margin-right: 6px;
   }
+
+#deletepopup {
+    background-color: #2778ff;
+}
 
   @media only screen and (max-width: 850px) {
 

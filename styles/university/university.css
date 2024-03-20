@@ -68,8 +68,8 @@ body {
 }
 
 /* Styling for individual posts */
-.post {
-  display: block;
+.post{
+  display: flex;
   color: #181818;
   border-radius: 5px;
   padding: 10px;
@@ -79,6 +79,8 @@ body {
   box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
   width: 47%;
   background-color: white;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .post:hover {
@@ -266,11 +268,14 @@ body {
 }
 
 /* Styling for posts */
-.posts {
+.posts, .post-sort-container {
   display: flex;
-  margin-top: 15px;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.posts {
+    margin-top: 15px;
 }
 
 .post-header {
