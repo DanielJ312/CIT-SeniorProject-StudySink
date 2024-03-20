@@ -120,7 +120,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </div>
         </div>
     </main>
-    <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
+    <footer>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
+    </footer>
 </body>
 <script>
     //code for the profile picture file validation
@@ -221,5 +223,4 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
     });
 </script>
-
 </html>

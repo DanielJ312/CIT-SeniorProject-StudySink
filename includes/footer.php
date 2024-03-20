@@ -3,11 +3,13 @@
     <link rel="stylesheet" type="text/css" href="/styles/includes/footer.css">
 </head>
 <ul>
-    <li><a href="about-us.html">About us</a></li>
-    <li><a href="https://github.com/your-repo">Source Code</a></li>
-    <li><a href="contact-support.html">Contact Support</a></li>
-    <li><a href="https://docs.google.com/document/d/your-document-id">Documentation</a></li>
-    <li><a href="copyright-notice.html">Copyright notice</a></li>
-    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+    <li><a href="/info/about.php">About Us</a></li>
+    <li><a href="/request/index.php">Contact Support</a></li>
+    <li><a href="/info/privacy-policy.php">Privacy Policy</a></li>
+    <li><a href="https://github.com/DanielJ312/CIT-SeniorProject-StudySink" target="_blank">Source Code</a></li>
+    <li><a href="https://drive.google.com/drive/u/1/folders/1Gh14NxpDOvP0vqdLpHWEM_Dt5Af4bod5" target="_blank">Project Documentation</a></li>
 </ul>
-<img src="logo.png" alt="Logo">
+<div class="footer-bottom-container">
+    <a href="/index.php" id="Home"><img src="https://studysink.s3.amazonaws.com/assets/StudySinkBanner.png" alt="Company Logo" class="companyLogo" title="Home"></a>
+    <p>&copy; 2024 StudySink</p>
+</div>
