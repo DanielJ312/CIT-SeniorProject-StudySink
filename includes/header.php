@@ -14,7 +14,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
         </div>
         <div class="navbar-center">
             <div class="search-container">
-                <form action="../results.php" method="GET">
+                <form action="/results.php" method="GET">
                     <input type="text" id="searchBar" name="search" placeholder="Search Study sets, Universities, Posts">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </form>
@@ -78,7 +78,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
                             <a href="/account/profile.php" style="border-top-width: 0px;" title="My Profile">My Profile</a>
                             <div class="navitem"><a href="/account/settings.php" title="Settings">Settings</a></div>
                             <div class="navitem"><a href="/request/index.php" title="Help">Help/Request Uni</a></div>
-                            <div class="navitem"><a href="/request/logout.php" style="border-bottom-color: black; border-bottom-width: 2px; border-bottom-style: solid;" title="Logout">Logout</a></div>
+                            <div class="navitem"><a href="/account/logout.php" style="border-bottom-color: black; border-bottom-width: 2px; border-bottom-style: solid;" title="Logout">Logout</a></div>
                         </div>
                     </div>
                 <?php else : ?>
