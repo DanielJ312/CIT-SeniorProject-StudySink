@@ -91,6 +91,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
     </div>
 </div>
 
+
 <!-- End of Mobile Nav Bar and Beginning of Create Forum Post Pop up Window -->
 <div id="forumBody">
     <div id="overlay">

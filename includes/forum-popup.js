@@ -20,6 +20,26 @@ document.getElementById("overlay").addEventListener("click", function (event) {
     }
 });
 
+function openDeletePopup() {
+    document.getElementById("deletepopup").style.display = "block";
+    document.getElementById("deletepopupContainer").style.display = "block";
+}
+
+function closeDeletePopup() {
+    document.getElementById("deletepopup").style.display = "none";
+    document.getElementById("deletepopupContainer").style.display = "none";
+}
+
+// Close window when cancel button is clicked
+document.getElementById("cancelButton").addEventListener("click", closeDeletePopup);
+
+// It will only close if the cancel button or the delete button is clicked.
+document.getElementById("deletepopup").addEventListener("click", function (event) {
+    if (event.target.id !== "cancelButton" && event.target.id !== "deleteButton") {
+        openDeletePopup();
+    }
+});
+
 
 // Character Counter for Post Title textarea and Post Content textarea
 function titlecountChar(titleinput) {

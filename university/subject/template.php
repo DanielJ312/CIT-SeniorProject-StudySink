@@ -175,17 +175,24 @@ $pageTitle = "$university->Abbreviation $subject->Name";
             }
         });
 
-        document.getElementById('togglePost').addEventListener('click', function() {
-            if (window.innerWidth <= 850) {
-                var contentDiv = document.getElementById('contentpost');
-                if (contentDiv.style.display === 'none' || window.getComputedStyle(contentDiv).display === 'none') {
-                    contentDiv.style.display = 'block'; // or any other desired display value
-                } else {
-                    contentDiv.style.display = 'none';
-                }
+    document.addEventListener('DOMContentLoaded', function() {
+    var contentDiv = document.getElementById('contentpost');
+
+    // Initially show the content
+    contentDiv.style.display = 'block';
+
+    document.getElementById('togglePost').addEventListener('click', function() {
+        if (window.innerWidth <= 850) {
+            if (contentDiv.style.display === 'none' || window.getComputedStyle(contentDiv).display === 'none') {
+                contentDiv.style.display = 'block';
+            } else {
+                contentDiv.style.display = 'none';
             }
-        });
-    </script>
+        }
+    });
+});
+
+</script>
 </body>
 <footer>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>

@@ -47,7 +47,6 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? upload_avatar($_FILES) : [];
             <p>Email: <?= $_SESSION['USER']->Email ?></p>
             <p>Password: <?= $_SESSION['USER']->Password ?></p>
             <p>Verified: <?= $_SESSION['USER']->Verified == 1 ? "Yes" : "No" ?></p>
-            <!-- <p>Account Created: <?= display_time($_SESSION['USER']->Created, "F j, Y @ h:i:s A"); ?></p> -->
             <p>Account Created: <?= date('F j, Y @ h:i:s A', $_SESSION['USER']->Created); ?></p>
             <p>Avatar: <?= $_SESSION['USER']->Avatar ?></p>
             <img src="<?= $_SESSION['USER']->Avatar ?>">

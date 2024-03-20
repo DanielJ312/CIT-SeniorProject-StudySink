@@ -62,7 +62,7 @@ if (isset($_COOKIE['viewed_study_sets'])) {
             <div class="post-tiles-container">
             <?php if (isset($_COOKIE['viewed_posts'])) : ?>
                 <?php foreach ($viewedPosts as $postId) : ?>
-                    <?php $post = get_post($postId); ?>
+                    <?php $post = get_post($postId); if ($post) : ?>
                     <div class="post-tile PostLinkTile" data-id="<?= $post->PostID; ?>">
                         <div class="post-header">
                             <a href="account/profile.php"><img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" /></a>
@@ -84,7 +84,7 @@ if (isset($_COOKIE['viewed_study_sets'])) {
                             </div>
                         </div>
                     </div>
-                <?php endforeach; ?>
+                <?php endif; endforeach; ?>
                 <?php else : ?>
                     <p>You have not viewed any posts yet.</p>
                 <?php endif; ?>
@@ -111,7 +111,7 @@ if (isset($_COOKIE['viewed_study_sets'])) {
                             <a href="account/profile.php"><img src="<?= $studySet->Avatar; ?>" alt="Place Holder" class="study-set-profile-picture" /></a>
                             <div class="study-set-info">
                                 <a href="account/profile.php" class="study-set-account"> <?= $studySet->Username; ?></a>
-                                <p class="study-set-date"> <?= date('F j, Y', $post->PostCreated); ?> </p>
+                                <p class="study-set-date"> <?= date('F j, Y', $studySet->Created); ?> </p>
                             </div>
                         </div>
                         <h3 class="study-set-title"> <?= $studySet->Title; ?> </h3>
