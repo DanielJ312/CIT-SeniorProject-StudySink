@@ -78,5 +78,5 @@ function updateCountdown(endTimeUnix) {
     var minutes = Math.floor((timeLeft % 3600) / 60);
     var seconds = timeLeft % 60;
 
-    $(".countdown").html(hours + " hours, " + minutes + " minutes, and " + seconds + " seconds remaining");
+    $(".countdown").html(minutes + " minutes, and " + seconds + " seconds remaining");
 }

@@ -44,6 +44,8 @@ $postsQuery = "SELECT POST_T.*, USER_T.Username, USER_T.Avatar,
                OR SUBJECT_T.Name LIKE :searchTerm
                OR USER_T.Username LIKE :searchTerm";
 $posts = run_database($postsQuery, ['searchTerm' => "%$searchTerm%"]);
+
+$pageTitle = "Results for " . '"' . $searchTerm . '"';
 ?>
 <!DOCTYPE html>
 <html lang="en">

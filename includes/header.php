@@ -1,3 +1,4 @@
+<!-- Header - Contains HTML injected into the header tag -->
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 $query = "SELECT * FROM UNIVERSITY_T;";
@@ -5,7 +6,6 @@ $universitiesforum = get_universities_list();
 $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']) ? create_post($_POST) : [];
 ?>
 
-<!-- Header - Contains HTML injected into the header tag -->
 <!-- Full Size Navbar -->
 <div class="Navbody">
     <div class="navbarMain">
@@ -14,7 +14,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
         </div>
         <div class="navbar-center">
             <div class="search-container">
-                <form action="../results.php" method="GET">
+                <form action="/results.php" method="GET">
                     <input type="text" id="searchBar" name="search" placeholder="Search Study sets, Universities, Posts">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </form>
@@ -44,6 +44,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
     <?php else : ?>
         <div class="navbar-right">
             <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index', 'home'); ?>"></i></a>
+            <a href="/university/index.php" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-flip-horizontal fa-2xl <?= check_active('/university'); ?>"></i></a>
             <a href="/account/login.php" id="Login" title="Login or Register"><i class="fa-solid fa-id-card fa-2xl <?= check_active('/account'); ?>"></i></a>
         </div>
     <?php endif; ?>
@@ -78,10 +79,11 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
                             <a href="/account/profile.php" style="border-top-width: 0px;" title="My Profile">My Profile</a>
                             <div class="navitem"><a href="/account/settings.php" title="Settings">Settings</a></div>
                             <div class="navitem"><a href="/request/index.php" title="Help">Help/Request Uni</a></div>
-                            <div class="navitem"><a href="/request/logout.php" style="border-bottom-color: black; border-bottom-width: 2px; border-bottom-style: solid;" title="Logout">Logout</a></div>
+                            <div class="navitem"><a href="/account/logout.php" style="border-bottom-color: black; border-bottom-width: 2px; border-bottom-style: solid;" title="Logout">Logout</a></div>
                         </div>
                     </div>
                 <?php else : ?>
+                    <div class="navitem"><a href="/university/index.php" title="Home">Universities</a></div>
                     <div class="navitem"><a href="/account/login.php" title="Home">Login</a></div>
                     <div class="navitem"><a href="/account/register.php" title="Home">Register</a></div>
                 <?php endif; ?>
@@ -128,65 +130,4 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
             </div>
         </form>
     </div>
-</div>
-
-<!-- End of Create Forum Post Pop up Window and Beginning of Development Navbar For Easy Access -->
-<div class="dev-navbar" style="display: none">
-    <nav class="navbar">
-        <span>Development Navbar:</span>
-        <a class="<?php check_active('/', 'home'); ?>" href="/index.php">Home</a>
-        <div class="dropdowndev">
-            <button class="dropbtn <?php check_active('/request'); ?>">Request</button>
-            <div class="dropdowndev-content">
-                <a class="<?php check_active('/request/index'); ?>" href="/request/index.php">Submit</a>
-                <a class="<?php #check_active(''); ?>" href="">Success</a>
-            </div>
-        </div>
-        <div class="dropdowndev">
-            <button class="dropbtn <?php check_active('/forum'); ?>">Forum</button>
-            <div class="dropdowndev-content">
-                <a class="<?php check_active('/forum/index'); ?>" href="/forum/index.php">Posts</a>
-                <a class="<?php check_active('/forum/create'); ?>" href="/forum/create.php">Create</a>
-            </div>
-        </div>
-        <div class="dropdowndev">
-            <button class="dropbtn <?php check_active('/study-sets'); ?>">Study Sets</button>
-            <div class="dropdowndev-content">
-                <a class="<?php check_active('/study-sets/index'); ?>" href="/study-sets/index.php">Study Sets</a>
-                <a class="<?php check_active('/study-sets/create'); ?>" href="/study-sets/create.php">Create</a>
-            </div>
-        </div>
-        <div class="dropdowndev">
-            <button class="dropbtn <?php check_active('/university'); ?>">University</button>
-            <div class="dropdowndev-content">
-                <a class="<?php check_active('/university/index'); ?>" href="/university/index.php">Home</a>
-                <a class="<?php check_active('/university/csun'); ?>" href="/university/csun.php">CSUN</a>
-                <a class="<?php check_active('/university/ucla'); ?>" href="/university/ucla.php">UCLA</a>
-            </div>
-        </div>
-        <div class="dropdowndev">
-            <button class="dropbtn <?php check_active('/account'); ?>">Account</button>
-            <div class="dropdowndev-content">
-                <a class="<?php check_active('/account/profile'); ?>" href="/account/profile.php">Profile</a>
-                <a class="<?php check_active('/account/register'); ?>" href="/account/register.php">Registration</a>
-                <a class="<?php check_active('/account/login'); ?>" href="/account/login.php">Login</a>
-                <a class="<?php check_active('/account/logout'); ?>" href="/account/logout.php">Logout</a>
-                <a class="<?php check_active('/account/forgot'); ?>" href="/account/forgot.php">Reset</a>
-            </div>
-        </div>
-        <div style="float:right;">
-            <?php if (!check_login()) : ?>
-                <a class="dropdowndev" href="/account/login">Login</a>
-            <?php else : ?>
-                <div class="dropdowndev">
-                    <button class="dropbtn <?php check_active('/account/profile'); ?>"><?= $_SESSION['USER']->Username ?></button>
-                    <div class="dropdowndev-content">
-                        <a class="<?php check_active('/account/profile'); ?>" href="/account/profile.php">Profile</a>
-                        <a href="">Settings</a>
-                        <a href="/account/logout.php">Logout</a>
-                    </div>
-                </div>
-            <?php endif; ?>
-        </div>
-    </nav>
 </div>
