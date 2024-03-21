@@ -23,8 +23,9 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? submit_form($_POST) : [];
 <header>
   <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
 </header>
-<main>
-  <body class="requestBody">
+
+<body class="requestBody" id="requestBody">
+  <main class="main-request">
     <div class="requestcontainer">
       <h1 class="requesttitle" id="pageTitle">Request Website Support</h1>
       <label class="switch-label">
@@ -65,11 +66,12 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? submit_form($_POST) : [];
         }
       }
     </script>
-  </body>
+  </main>
   <footer>
-    <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
+      <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
   </footer>
-</main>
+</body>
+
 </html>
 
 

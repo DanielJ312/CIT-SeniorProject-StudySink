@@ -283,7 +283,7 @@ function delete_account() {
     //Study Sets created by the user will have there STUDY_SET_T.UserID changed to DeletedUser's UserID
     //Study Set Ratings created by the user will have there STUDY_SET_RATINGS.UserID changed to DeletedUser's UserID
     //Comments created by the user will have there COMMENT_T.UserID changed to DeletedUser's UserID
-    //Comment votes created by the user will be removed from the COMMENT_LIKE_T table WHERE COMMENT_LIKE_T.UserID = :UserID
+    //Comment votes created by the user will have there COMMENT_LIKE_T.UserID changed to DeletedUser's UserID
     //The user will have there row deleted from USER_T WHERE USER_T.UserID = :UserID
     $deleteScript = "
     UPDATE POST_T SET UserID = 1 WHERE UserID = :UserID;
@@ -291,7 +291,7 @@ function delete_account() {
     UPDATE STUDY_SET_T SET UserID = 1 WHERE UserID = :UserID;
     UPDATE STUDY_SET_RATINGS SET UserID = 1 WHERE UserID = :UserID;
     UPDATE COMMENT_T SET UserID = 1 WHERE UserID = :UserID;
-    DELETE FROM COMMENT_LIKE_T WHERE UserID = :UserID;
+    UPDATE  COMMENT_LIKE_T SET UserID = 1 WHERE UserID = :UserID;
     DELETE FROM USER_T WHERE UserID = :UserID;";
     run_database($deleteScript, $values);
     session_destroy();
