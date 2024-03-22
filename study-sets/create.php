@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") create_study_set($_POST);
     <main>
         <div class="fixed-action-bar">
             <div class="action-bar-buttons">
-                <p> Back to Set</p>
+            <a href="javascript:history.back()" class="back-button">Cancel</a>
                 <button type="submit" form="studySetForm" class="save-button">Save Study Set</button>
             </div>
         </div>
