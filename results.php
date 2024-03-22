@@ -10,13 +10,16 @@ $studySetsQuery = "SELECT DISTINCT STUDY_SET_T.*,
                    UNIVERSITY_T.Name AS UniversityName, 
                    UNIVERSITY_T.Abbreviation AS UniversityAbbreviation,
                    USER_T.Username AS Username,
-                   USER_T.Avatar AS Avatar
+                   USER_T.Avatar AS Avatar,
+                   COUNT(DISTINCT CommentID) AS Comments,
+                   COALESCE((SELECT AVG(Rating) FROM STUDY_SET_RATINGS WHERE StudySetID = STUDY_SET_T.StudySetID), 0) AS Rating
                    FROM STUDY_SET_T
                    INNER JOIN COURSE_T ON STUDY_SET_T.CourseID = COURSE_T.CourseID
                    INNER JOIN SUBJECT_T ON COURSE_T.SubjectID = SUBJECT_T.SubjectID
                    INNER JOIN UNIVERSITY_T ON SUBJECT_T.UniversityID = UNIVERSITY_T.UniversityID
                    LEFT JOIN STUDY_CARD_T ON STUDY_SET_T.StudySetID = STUDY_CARD_T.StudySetID
                    INNER JOIN USER_T ON STUDY_SET_T.UserID = USER_T.UserID
+                   LEFT OUTER JOIN COMMENT_T ON COMMENT_T.StudySetID = STUDY_SET_T.StudySetID
                    WHERE STUDY_SET_T.Title LIKE :searchTerm 
                      OR STUDY_SET_T.Description LIKE :searchTerm 
                      OR STUDY_SET_T.Instructor LIKE :searchTerm
@@ -26,23 +29,27 @@ $studySetsQuery = "SELECT DISTINCT STUDY_SET_T.*,
                      OR UNIVERSITY_T.Abbreviation LIKE :searchTerm
                      OR STUDY_CARD_T.Front LIKE :searchTerm
                      OR STUDY_CARD_T.Back LIKE :searchTerm
-                     OR USER_T.Username LIKE :searchTerm";
+                     OR USER_T.Username LIKE :searchTerm
+                    GROUP BY STUDY_SET_T.StudySetID";
 $studySets = run_database($studySetsQuery, ['searchTerm' => "%$searchTerm%"]);
 
 // Search query for posts
 $postsQuery = "SELECT POST_T.*, USER_T.Username, USER_T.Avatar, 
                UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation AS UniversityAbbreviation, 
-               SUBJECT_T.Name AS SubjectName
+               SUBJECT_T.Name AS SubjectName,
+               COUNT(DISTINCT CommentID) AS Comments, COALESCE((SELECT COUNT(*) FROM POST_LIKE_T WHERE PostID = POST_T.PostID AND VoteType = 1), 0) AS Likes
                FROM POST_T
                INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID
                LEFT JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
                LEFT JOIN SUBJECT_T ON POST_T.SubjectID = SUBJECT_T.SubjectID
+               LEFT OUTER JOIN COMMENT_T ON COMMENT_T.PostID = POST_T.PostID
                WHERE POST_T.Title LIKE :searchTerm 
                OR POST_T.Content LIKE :searchTerm
                OR UNIVERSITY_T.Name LIKE :searchTerm
                OR UNIVERSITY_T.Abbreviation LIKE :searchTerm
                OR SUBJECT_T.Name LIKE :searchTerm
-               OR USER_T.Username LIKE :searchTerm";
+               OR USER_T.Username LIKE :searchTerm
+               GROUP BY POST_T.PostID";
 $posts = run_database($postsQuery, ['searchTerm' => "%$searchTerm%"]);
 
 $pageTitle = "Results for " . '"' . $searchTerm . '"';
@@ -89,6 +96,20 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
                                                     <p><?= htmlspecialchars($set->UniversityName); ?></p>
                                                     <p><?= htmlspecialchars($set->CourseAbbreviation); ?></p>
                                                 </div>
+                                                <div class="lower-header">
+                                                    <div class="comment">
+                                                        <div class="post-iconsp">
+                                                            <i class="fa-regular fa-comment"></i>
+                                                        </div>
+                                                        <div class="comments-count"><?= $set->Comments; ?></div>
+                                                    </div>
+                                                    <div class="vote">
+                                                        <div class="post-iconsp">
+                                                            <i class="fa-regular fa-star" aria-hidden="true"></i>
+                                                        </div>
+                                                        <div class="votes"><?= round($set->Rating, 1); ?></div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </a>
                                     </div>
@@ -118,11 +139,19 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
                                         </div>
                                         <h3 class="post-title"><?= htmlspecialchars($post->Title); ?></h3>
                                         <div class="post-content"><?= htmlspecialchars(substr($post->Content, 0, 100)) . '...'; ?></div>
-                                        <div class="vote">
-                                            <div class="post-iconsp">
-                                                <i class="fa-regular fa-heart"></i>
+                                        <div class="lower-header">
+                                            <div class="comment">
+                                                <div class="post-iconsp">
+                                                    <i class="fa-regular fa-comment"></i>
+                                                </div>
+                                                <div class="comments-count"><?= $post->Comments; ?></div>
                                             </div>
-                                            <div class="votes">(20)</div> <!-- Placeholder for like count -->
+                                            <div class="vote">
+                                                <div class="post-iconsp">
+                                                    <i class="fa-regular fa-heart"></i>
+                                                </div>
+                                                <div class="votes"><?= $post->Likes; ?></div>
+                                            </div>
                                         </div>
                                     </a>
                                 </div>
