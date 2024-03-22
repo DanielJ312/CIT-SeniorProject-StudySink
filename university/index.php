@@ -52,7 +52,7 @@ $universities = run_database($query);
     <?php if (!check_login()) : ?>
         <div class="mobilemargin">
             <div class="university-info">
-                <h2>Universitys</h2>
+                <h2>Universities</h2>
             </div>
             <div class="outer-box">
                 <div class="search-bar-university">
