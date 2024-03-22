@@ -1,15 +1,44 @@
 .home-screen {
+    display: flex;
     font-family: 'Comfortaa', sans-serif;
     color: black;
     margin: 0;
-    display: flex;
-    height: 86.89vh;
+    min-height: 100vh;
 }
 
 .left-container {
     flex: 0 0 20%;
     padding: 20px;
     padding-left: 5%;
+    height: auto;
+    max-height: 80vh;
+}
+
+.right-container {
+    flex: 1;
+    padding: 20px;
+    padding-right: 3.5%;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+}
+
+.university-post-container {
+    height: 99%;
+    padding: 3%;
+}
+
+.university-posts-tiles-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+    overflow: auto;
+    padding: 3%;
+    width: 360px;
+    min-width: 360px;
+    margin: 0 12px;
 }
 
 .university-post-container, 
@@ -26,15 +55,6 @@
 .recent-sets-container {
     height: 50%;
     min-height: 363px;
-}
-
-.right-container {
-    flex: 1;
-    padding: 20px;
-    padding-right: 3.5%;
-    display: flex;
-    flex-direction: column;
-    width: 50%;
 }
 
 .home-container-title {
@@ -75,33 +95,10 @@
     box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
 }
 
-.fa-comment:before {
+.fa-comment:before,
+.fa-heart:before,
+.fa-star:before {
     color: #2778ff;
-  }
-  
-  .fa-heart:before {
-    color: #2778ff;
-  }
-
-  .fa-star:before {
-    color: #2778ff;
-}
-
-.university-post-container {
-    height: 99%;
-    padding: 3%;
-}
-
-.university-posts-tiles-container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 2%;
-    overflow: auto;
-    padding: 3%;
-    width: 360px;
-    min-width: 360px;
-    margin: 0 12px;
 }
 
 .university-post-tile {
