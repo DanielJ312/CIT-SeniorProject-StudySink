@@ -11,6 +11,10 @@ body {
   background: #f7f7f7;
 }
 
+main {
+  flex-grow: 1;
+}
+
 .university-main {
   flex-grow: 1;
 }
@@ -442,6 +446,11 @@ body {
       display: block;
       margin-left: 8px;
       margin-right: 8px;
+      flex-grow: 1;
+  }
+
+  main {
+      display: none;
   }
 
   .margin {

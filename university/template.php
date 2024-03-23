@@ -64,13 +64,7 @@ $pageTitle = $university->Abbreviation;
             </div>
         </div>
     </main>
-    <footer>
-        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
-    </footer>
-</body>
-</html>
-
-<div class=mobileuniversity>
+    <div class=mobileuniversity>
     <div class="university-info">
         <h2><?= $university->Name; ?></h2>
     </div>
@@ -104,3 +98,8 @@ $pageTitle = $university->Abbreviation;
         </div>
     </div>
 </div>
+    <footer>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
+    </footer>
+</body>
+</html>

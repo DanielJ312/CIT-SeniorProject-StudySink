@@ -67,6 +67,9 @@ $pageTitle = "$university->Abbreviation $subject->Name";
             </div>
         </div>
     </main>
+    <footer>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
+    </footer>
     <script>
         document.getElementById('toggleSet').addEventListener('click', function() {
             if (window.innerWidth <= 850) {
@@ -96,8 +99,5 @@ $pageTitle = "$university->Abbreviation $subject->Name";
             });
         });
     </script>
-    <footer>
-        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
-    </footer>
 </body>
 </html>

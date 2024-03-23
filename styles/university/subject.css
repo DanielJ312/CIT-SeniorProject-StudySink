@@ -429,6 +429,16 @@ h3 {
 }
 
 @media only screen and (max-width: 850px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    main {
+        flex-grow: 1;
+    }
+
     .posts {
         padding-left: 0px;
     }
