@@ -192,6 +192,16 @@ $pageTitle = "$university->Abbreviation $subject->Name";
     });
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    var gridItems = document.querySelectorAll('.post-content');
+    gridItems.forEach(function(item) {
+        var text = item.textContent;
+        if (text.length > 50) {
+            item.textContent = text.substring(0, 50) + '...';
+        }
+    });
+});
+
 </script>
 </body>
 <footer>

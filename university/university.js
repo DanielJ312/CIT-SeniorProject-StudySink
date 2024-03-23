@@ -50,31 +50,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// Function to toggle dark mode
-function toggleDarkMode(event) {
-    event.preventDefault(); // Prevent the default action
-
-    const body = document.body;
-    body.classList.toggle('dark-mode');
-
-    // Save the current theme preference to localStorage
-    const isDarkMode = body.classList.contains('dark-mode');
-    localStorage.setItem('darkMode', isDarkMode);
-
-    // Toggle the active theme stylesheet
-    const lightTheme = document.getElementById('light-theme');
-    const darkTheme = document.getElementById('dark-theme');
-    lightTheme.disabled = isDarkMode;
-    darkTheme.disabled = !isDarkMode;
-}
-
-// Check the user's theme preference from localStorage
-const savedDarkMode = localStorage.getItem('darkMode');
-if (savedDarkMode === 'true') {
-    document.body.classList.add('dark-mode');
-    toggleDarkMode(); // Toggle the active theme stylesheet
-}
-
 
 // JavaScript code
 function search_subject() {
