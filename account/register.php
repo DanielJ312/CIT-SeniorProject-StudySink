@@ -53,12 +53,12 @@ $universities = run_database($query);
                     <?= isset($errors['password2']) ? "<p>" . $errors['password2'] . "</p>" : ""; ?>
                 </div>
                 <div class="register-password-confirm">
-                    <p style="white-space: nowrap;">Confirm Password:</p>
+                    <p>Confirm Password:</p>
                     <input type="password" name="password2">
                 </div>
                 <div class="register-primary-university">
                     <div style="display: flex; flex-direction: column;">
-                        <p style="margin-bottom: 0; white-space: nowrap;">Primary University:</p>
+                        <p style="margin-bottom: 0;">Primary University:</p>
                         <p style="margin: 0;">&lpar;optional&rpar;</p>
                     </div>
                     <select class="Uni-selection" name="useruni">
