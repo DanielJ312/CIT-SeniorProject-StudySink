@@ -1,14 +1,23 @@
+.register-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.register-main {
+    font-family: 'Comfortaa', sans-serif;
+    flex-grow: 1;
+}
+
 .register-container {
     color: black;
     background-color: white;
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 31%);
     padding: 30px;
-    width: 300px;
+    width: 400px;
     text-align: center;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 3% auto;
 }
 
 .register-container h2 {
@@ -17,17 +26,9 @@
     margin: 0;
 }
 
-.register-container form p {
-    display: flex;
-    align-items: center;
-    text-align: left;
-    margin-bottom: 10px;
-}
-
 .register-container form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
 .register-container form label {
@@ -36,9 +37,31 @@
     margin-right: 10px;
 }
 
+.register-username,
+.register-email,
+.register-password,
+.register-password-confirm {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.register-username p,
+.register-email p,
+.register-password p,
+.register-password-confirm p {
+    display: flex;
+    flex: 1;
+    text-align: left;
+    margin-right: 10px;
+}
+
 .register-container input[type="text"],
 .register-container input[type="email"],
 .register-container input[type="password"] {
+    font-family: 'Comfortaa', sans-serif;
     width: 200px;
     color: black;
     padding: 10px;
@@ -47,9 +70,14 @@
     border-radius: 5px;
 }
 
+
 .register-container input[type="submit"] {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1em;
     flex: 2;
-    padding: 10px;
+    padding: 10px 40px;
+    width: fit-content;
+    align-self: center;
     background-color: #007BFF;
     color: #fff;
     border: none;
@@ -57,30 +85,89 @@
     cursor: pointer;
 }
 
+.register-signin {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.register-signin a {
+    color: #007BFF;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.register-signin a:hover {
+    text-decoration: underline;
+}
+
 .register-container input[type="submit"]:hover {
     background-color: #0056b3;
+}
+
+.register-primary-university {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.register-primary-university p {
+    font-size: 1em;
+    text-align: left;
+    margin-right: 10px;
+}
+
+.Uni-selection {
+    width: 226px;
+    color: black;
+    padding: 10px;
+    margin: 5px 0;
+    border: 3px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.register-form-error {
+    color: red;
+    font-size: 1em;
+    margin: 0;
+    text-align: right;
+}
+
+.register-form-error p {
+    margin: 0;
+    margin-top: 5px;
 }
 
 .lheader {
     text-align: center;
     color: black;
-    margin: 0;
+    margin-bottom: 20px;
     font-size: xx-large;
     font-weight: bold;
 }
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 520px) {
     .register-container {
-        color: black;
-        background-color: white;
-        border-radius: 15px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 31%);
-        padding: 30px;
-        width: 270px;
-        text-align: center;
-        margin-top: 20px;
-        margin-left: auto;
-        margin-right: auto;
+        width: 80%;
+        padding: 20px;
+    }
+
+    .lheader {
+        font-size: x-large;
+    }
+
+    .register-username p,
+    .register-email p,
+    .register-password p,
+    .register-password-confirm p,
+    .register-primary-university p,
+    .register-form-error p {
+        font-size: 0.8em;
     }
 
 }
