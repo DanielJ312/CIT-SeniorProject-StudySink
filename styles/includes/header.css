@@ -240,18 +240,28 @@
         background-color: white;
         width: 100%;
         color: #fff;
-        padding: 15px;
+        padding: 25px 20px 20px 20px;
         justify-content: space-between;
         align-items: center;
         box-shadow: 0 0px 8px rgb(0 0 0 / 15%);
     }
 
     #logo {
+        align-self: center;
         margin-right: 3%;
         width: 140px;
         height: 45px;
         order: 2;
         cursor: pointer;
+    }
+
+    #logo:hover {
+        transform: scale(1.05);
+        transition: 0.3s;
+    }
+
+    #logo:active {
+        transform: scale(1.05);
     }
 
     .fa-bars {

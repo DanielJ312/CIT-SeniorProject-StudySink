@@ -636,6 +636,10 @@ align-self: flex-start;
 /* ----- END OF UNIVERSITY ----- */
 
 /* ----- DELETE ACCOUNT ----- */
+    .delete-container {
+        margin: 10% 0;
+    }
+
     .delete-popup {
         width: 70%;
         height: 40%;

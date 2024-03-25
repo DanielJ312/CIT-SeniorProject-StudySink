@@ -1,4 +1,12 @@
+.forgot-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
+.forgot-main {
+    flex: 1;
+}
 
 .container {
     display: flex;
@@ -7,14 +15,15 @@
 }
 
 .forgot-container {
+    font-family: 'Comfortaa', sans-serif;
     color: black;
     background-color: white;
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     padding: 20px;
-    width: 300px;
+    width: 400px;
     text-align: center;
-    margin-top: 20px; 
+    margin-top: 3%; 
     margin-left: auto; 
     margin-right: auto; 
 }
@@ -39,6 +48,7 @@ h3{
 
 .forgot-container input[type="email"],
 .forgot-container input[type="text"] {
+    font-family: 'Comfortaa', sans-serif;
     width: 200px;
     color: black;
     padding: 10px;
@@ -48,7 +58,8 @@ h3{
 }
 
 .forgot-container input[type="submit"] {
-    padding: 10px;
+    font-family: 'Comfortaa', sans-serif;
+    padding: 15px;
     background-color: #007BFF;
     color: #fff;
     border: none;
@@ -58,21 +69,63 @@ h3{
 
 .forgot-container input[type="submit"]:hover {
     background-color: #0056b3;
+    transform: scale(1.05);
+    transition: 0.3s;
 }
 
+.forgot-container input[type="submit"]:active {
+    transform: scale(.95);
+    transition: 0.3s;
+}
 
-@media only screen and (max-width: 850px) {
-    .forgot-container {
+.code-input,
+.password-input,
+.password2-input {
+    width: 200px;
     color: black;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    width: 300px;
-    text-align: center;
-    margin-top: 60px;
-    margin-left: auto;
-    margin-right: auto;
+    padding: 10px;
+    margin: 5px 0;
+    border: 3px solid #ccc;
+    border-radius: 5px;
 }
 
+.reset-code,
+.reset-password,
+.reset-password2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.reset-code p,
+.reset-password p,
+.reset-password2 p {
+    font-size: 0.9em;
+    margin-right: 5px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+
+
+@media only screen and (max-width: 475px) {
+    .forgot-container {
+        margin-top: 10%;
+        width: 300px;
+    }
+
+    .reset-code p,
+    .reset-password p,
+    .reset-password2 p {
+        font-size: 0.75em;
+    }
+
+    .code-input,
+    .password-input,
+    .password2-input {
+        width: 150px;
+        max-width: 150px;
+    }
 }

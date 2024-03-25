@@ -67,6 +67,9 @@ $pageTitle = "$university->Abbreviation $subject->Name";
             </div>
         </div>
     </main>
+    <footer>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
+    </footer>
     <script>
         document.getElementById('toggleSet').addEventListener('click', function() {
             if (window.innerWidth <= 850) {
@@ -85,19 +88,27 @@ $pageTitle = "$university->Abbreviation $subject->Name";
             // Initially show the content
             contentDiv.style.display = 'block';
 
-            document.getElementById('togglePost').addEventListener('click', function() {
-                if (window.innerWidth <= 850) {
-                    if (contentDiv.style.display === 'none' || window.getComputedStyle(contentDiv).display === 'none') {
-                        contentDiv.style.display = 'block';
-                    } else {
-                        contentDiv.style.display = 'none';
-                    }
-                }
-            });
-        });
-    </script>
-    <footer>
-        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
-    </footer>
+    document.getElementById('togglePost').addEventListener('click', function() {
+        if (window.innerWidth <= 850) {
+            if (contentDiv.style.display === 'none' || window.getComputedStyle(contentDiv).display === 'none') {
+                contentDiv.style.display = 'block';
+            } else {
+                contentDiv.style.display = 'none';
+            }
+        }
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    var gridItems = document.querySelectorAll('.post-content');
+    gridItems.forEach(function(item) {
+        var text = item.textContent;
+        if (text.length > 50) {
+            item.textContent = text.substring(0, 50) + '...';
+        }
+    });
+});
+
+</script>
 </body>
 </html>

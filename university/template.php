@@ -21,13 +21,16 @@ $pageTitle = $university->Abbreviation;
     <!--<link rel="stylesheet" href="/styles/university/dark-mode.css" id="dark-theme"/>-->
     <link rel="stylesheet" href="/styles/university/university.css" />
     <script async src="/university/university.js"></script>
-    <script>var universityID = <?=$university->UniversityID; ?>, subjectID = 0; </script>
+    <script>
+        var universityID = <?= $university->UniversityID; ?>,
+            subjectID = 0;
+    </script>
 </head>
 <body>
-<header>
-    <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-    <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
-</header>
+    <header>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
+    </header>
     <main>
         <div class="margin">
             <div class="university-info">
@@ -41,8 +44,8 @@ $pageTitle = $university->Abbreviation;
                     </div>
                     <div class="subjects">
                         <?php if (!empty($subjects)) : foreach ($subjects as $subject) : ?>
-                            <ul><a href="/university/<?= $university->Abbreviation; ?>/<?= $subject->Abbreviation; ?>"><?= $subject->Name; ?></a></ul>
-                        <?php endforeach; ?>
+                                <ul><a href="/university/<?= $university->Abbreviation; ?>/<?= $subject->Abbreviation; ?>"><?= $subject->Name; ?></a></ul>
+                            <?php endforeach; ?>
                         <?php else : ?>
                             <ul>This university has no subjects.</ul>
                         <?php endif; ?>
@@ -64,43 +67,42 @@ $pageTitle = $university->Abbreviation;
             </div>
         </div>
     </main>
+    <div class=mobileuniversity>
+        <div class="university-info">
+            <h2><?= $university->Name; ?></h2>
+        </div>
+        <div class="subject">
+            <h2 id="toggleSubject" onclick="toggleSubject()">Subjects<i class="down"></i></h2>
+            <div class="subject-selection-c" id="contentsubject">
+                <div class="search-bar-csun">
+                    <input id="searchbar2" type="text" name="search" onkeyup="search_subject_mobile()" placeholder="Search Subjects..." />
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="subjects">
+                    <?php foreach ($subjects as $subject) : ?>
+                        <ul><a href="/university/<?= $university->Abbreviation; ?>/<?= $subject->Abbreviation; ?>"><?= $subject->Name; ?></a></ul>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-posts">
+            <div class="post-header">
+                <div class=title>Posts</div>
+                <form method="post">
+                    <select class="sort" name="sorts">
+                        <option value="post-newest">Newest</option>
+                        <option value="post-oldest">Oldest</option>
+                        <option value="post-popular">Popular</option>
+                    </select>
+                </form>
+                <div class="post-sort-container">
+                    <!-- Posts will get inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
 </body>
 </html>
-
-<div class=mobileuniversity>
-    <div class="university-info">
-        <h2><?= $university->Name; ?></h2>
-    </div>
-    <div class="subject">
-        <h2 id="toggleSubject" onclick="toggleSubject()">Subjects<i class="down"></i></h2>
-        <div class="subject-selection-c" id="contentsubject">
-            <div class="search-bar-csun">
-                <input id="searchbar2" type="text" name="search" onkeyup="search_subject_mobile()" placeholder="Search Subjects..." />
-                <button><i class="fas fa-search"></i></button>
-            </div>
-            <div class="subjects">
-                <?php foreach ($subjects as $subject) : ?>
-                    <ul><a href="/university/<?= $university->Abbreviation; ?>/<?= $subject->Abbreviation; ?>"><?= $subject->Name; ?></a></ul>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </div>
-    <div class="mobile-posts">
-        <div class="post-header">
-            <div class=title>Posts</div>
-            <form method="post">
-                <select class="sort" name="sorts">
-                    <option value="post-newest">Newest</option>
-                    <option value="post-oldest">Oldest</option>
-                    <option value="post-popular">Popular</option>
-                </select>
-            </form>
-            <div class="post-sort-container">
-                <!-- Posts will get inserted here -->
-            </div>
-        </div>
-    </div>
-</div>
