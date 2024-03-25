@@ -16,6 +16,13 @@
 .fa-circle-xmark:hover {
     color: #f59c1a;
     cursor: pointer;
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.fa-circle-xmark:active {
+    transform: scale(0.95);
+    transition: 0.3s;
 }
 
 #popupContainer {
@@ -185,86 +192,82 @@
 
 /* POST button */
 .submitpostbutton {
-    margin-left: 80%;
-    padding: 6px 20px;
-    position: relative;
-    border: none;
-    background: transparent;
-    padding: 0;
-    cursor: pointer;
-    outline-offset: 4px;
-    transition: filter 250ms;
-    user-select: none;
-    touch-action: manipulation;
-}
-
-.shadow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-    background: hsl(0deg 0% 0% / 0.25);
-    will-change: transform;
-    transform: translateY(2px);
-    transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
-}
-
-.edge {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-    background: #f59c1a;
-}
-
-.front {
-    display: block;
-    position: relative;
-    padding: 12px 27px;
-    border-radius: 12px;
-    font-size: 1.5em;
     font-family: 'Comfortaa', sans-serif;
-    font-weight: 600;
+    background-color: #2778ff;
     color: white;
-    background: #2778ff;
-    will-change: transform;
-    transform: translateY(-4px);
-    transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
+    border: none;
+    border-radius: 5px;
+    margin-left: 86%;
+    padding: 10px 10px;
+    cursor: pointer;
+    width: fit-content;
+    height: fit-content;
+    font-size: 1.5em;
+    justify-content: center;
+    white-space: nowrap;
+    position: relative;
+    align-self: flex-end;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
 }
 
 .submitpostbutton:hover {
-    filter: brightness(110%);
+    background-color: #f59c1a;
+    transform: scale(1.05);
+    transition: 0.3s;
+    box-shadow: none;
 }
 
-.submitpostbutton:hover .front {
-    transform: translateY(-6px);
-    transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+.submitpostbutton:active {
+    transform: scale(0.95);
+    transition: 0.3s;
 }
 
-.submitpostbutton:active .front {
-    transform: translateY(-2px);
-    transition: transform 34ms;
+.deletepostbutton, .canceldeletepostbutton {
+    font-family: 'Comfortaa', sans-serif;
+    background-color: #2778ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 10px;
+    cursor: pointer;
+    font-size: 1.5em;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+    margin: 20px;
 }
 
-.submitpostbutton:hover .shadow {
-    transform: translateY(4px);
-    transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+.deletepostbutton {
+    background-color: #ef0000;
 }
 
-.submitpostbutton:active .shadow {
-    transform: translateY(1px);
-    transition: transform 34ms;
+.deletepostbutton:hover, .canceldeletepostbutton:hover {
+    background-color: #f59c1a;
 }
 
-.submitpostbutton:focus:not(:focus-visible) {
-    outline: none;
+.buttons {
+    display: flex;
 }
 
+#deletepopupContainer {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #f7f7f7;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    width: 20%;
+}
 
+#deletetitle {
+    padding: 10px;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.9em;
+    color: black;
+    text-align: center;
+}
 
 /* Mobile Compatability at 850px */
 @media (max-width: 850px) {
@@ -275,7 +278,7 @@
     }
 
     #popupContainer {
-        width: 70%;
+        width: 82%;
         max-height: 90vh;
     }
 
@@ -301,16 +304,11 @@
     }
 
     .submitpostbutton {
-        margin-left: 70%;
-        padding: 6px 20px;
+        font-size: 1.2em;
+        margin-left: 75%;
+        padding: 6px 10px;
         position: relative;
         border: none;
-        background: transparent;
-        padding: 0;
         cursor: pointer;
-        outline-offset: 4px;
-        transition: filter 250ms;
-        user-select: none;
-        touch-action: manipulation;
     }
 }

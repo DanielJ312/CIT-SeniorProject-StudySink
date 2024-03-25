@@ -1,11 +1,18 @@
 /* Reset default styles for body */
 body {
+  display: flex;
+  flex-direction: column;
   font-family: 'Comfortaa', sans-serif;
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
+  min-height: 100vh;
   background: #f7f7f7;
+}
+
+.university-main {
+  flex-grow: 1;
 }
 
 /* Styling for university info */
@@ -68,8 +75,8 @@ body {
 }
 
 /* Styling for individual posts */
-.post {
-  display: block;
+.post{
+  display: flex;
   color: #181818;
   border-radius: 5px;
   padding: 10px;
@@ -79,6 +86,8 @@ body {
   box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
   width: 47%;
   background-color: white;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .post:hover {
@@ -120,10 +129,28 @@ body {
   margin-bottom: 10px;
 }
 
+.lower-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment {
+  display: flex;
+  color: #181818;
+}
+
 .vote {
   display: flex;
   justify-content: flex-end;
   color: #181818;
+}
+
+.fa-comment:before {
+  color: #2778ff;
+}
+
+.fa-heart:before {
+  color: #2778ff;
 }
 
 .slider {
@@ -248,11 +275,14 @@ body {
 }
 
 /* Styling for posts */
-.posts {
+.posts, .post-sort-container {
   display: flex;
-  margin-top: 15px;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.posts {
+    margin-top: 15px;
 }
 
 .post-header {
@@ -316,41 +346,7 @@ body {
   height: 24px;
 }
 
-.sun svg {
-  animation: rotate 15s linear infinite;
-}
 
-@keyframes rotate {
-  0% {
-      transform: rotate(0);
-  }
-
-  100% {
-      transform: rotate(360deg);
-  }
-}
-
-.moon svg {
-  animation: tilt 5s linear infinite;
-}
-
-@keyframes tilt {
-  0% {
-      transform: rotate(0deg);
-  }
-
-  25% {
-      transform: rotate(-10deg);
-  }
-
-  75% {
-      transform: rotate(10deg);
-  }
-
-  100% {
-      transform: rotate(0deg);
-  }
-}
 
 .input:checked+.slider:before {
   transform: translateX(-30px);
@@ -364,6 +360,80 @@ body {
 
 .mobileuniversity {
   display: none;
+}
+
+ /* Styling for default univeristy page */
+
+ .mobileuniversitydefault {
+  display: none;
+}
+
+ .tiles {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.word {
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  text-align: center;
+}
+
+.names {
+  display: block;
+  color: #181818;
+  border-radius: 5px;
+  padding: 10px;
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 5px;
+  margin-top: 15px;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+  width: 40%;
+  background-color: #f7f7f7;
+}
+
+.outer-box {
+  color: #181818;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+  text-align: left;
+  margin-top: 15px;
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.search-bar-university input {
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 950px;
+}
+
+.search-bar-university button {
+  background-color: #2778ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.search-bar-university button:hover {
+  color: #fcb54d;
+}
+
+.search-bar-university {
+  display: flex;
+  justify-content: center;
 }
 
 @media only screen and (max-width: 850px) {
@@ -399,6 +469,7 @@ body {
     color: black;
     display: flex;
     align-items: center;
+    justify-content: center;
   }
 
   #contentsubject {
@@ -458,9 +529,58 @@ body {
       background: none;
       font-size: 24px;
       padding-top: 10px;
+      padding-bottom: 10px;
   }
 
   .post {
-      width: auto;
+    width: -webkit-fill-available;
   }
+
+  .mobileuniversitydefault {
+    display: block;
+}
+
+.mobilemargin {
+  margin: 20px 3%;
+}
+
+.search-bar-university input {
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%; 
+}
+
+.tiles {
+  display: block;
+}
+
+.names {
+  display: block;
+  color: #181818;
+  border-radius: 5px;
+  padding: 10px;
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 5px;
+  margin-top: 15px;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+  width: auto;
+  background-color: #f7f7f7;
+}
+
+.outer-box {
+  color: #181818;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+  text-align: left;
+  margin-top: 15px;
+  background-color: white;
+  display: block; 
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 }

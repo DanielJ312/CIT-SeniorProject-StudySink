@@ -55,6 +55,12 @@ $cards = run_database($query, $values);
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
     </header>
     <main>
+        <div class="fixed-action-bar">
+            <div class="action-bar-buttons">
+                <a href="/study-sets/<?= urlencode($set->StudySetID) ?>" class="back-button">< Back to Set</a>
+                <button type="submit" form="studySetForm" class="save-button">Save Study Set</button>
+            </div>
+        </div>
         <div id="pageIdentifier" data-page-type="edit"></div>
         <div class="studySetContainer">
             <h2 class="header2"><?=isset($pageTitle) ? $pageTitle : "Create a Study Set" ?></h2>
@@ -114,10 +120,10 @@ $cards = run_database($query, $values);
                                 </div>
                                 <div class="frontAndBack">
                                     <div class="cardFront">
-                                        <textarea class="card-textarea" name="cards[<?= $card->CardID; ?>][front]" placeholder="Enter term" maxlength="999" required><?= htmlspecialchars($card->Front); ?></textarea>
+                                        <textarea class="card-textarea" name="cards[<?= $card->CardID; ?>][front]" placeholder="Enter term" maxlength="1250" required><?= htmlspecialchars($card->Front); ?></textarea>
                                     </div>
                                     <div class="cardBack">
-                                        <textarea class="card-textarea" name="cards[<?= $card->CardID; ?>][back]" placeholder="Enter definition" maxlength="999" required><?= htmlspecialchars($card->Back); ?></textarea>
+                                        <textarea class="card-textarea" name="cards[<?= $card->CardID; ?>][back]" placeholder="Enter definition" maxlength="1250" required><?= htmlspecialchars($card->Back); ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -125,10 +131,8 @@ $cards = run_database($query, $values);
                         </div>
                     <?php endforeach; ?>
                 </div>
-                <div class="formButtons"> 
-                    <button type="button" id="addCardBtn">Add a Study Card</button>
-                    <button type="submit">Save Study Set</button>
-                </div>
+                <button type="button" id="addCardBtn" class="bigAddCardButton">+ ADD CARD</button>
+
             </form>
             <!-- Unique hidden element to identify the edit page -->
             <div id="editPageIdentifier" style="display: none;"></div>

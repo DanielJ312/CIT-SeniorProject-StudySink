@@ -1,7 +1,8 @@
 <!-- Study-Set Display Page - Lists all Study Sets in Database -->
 <?php 
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
-$pageTitle = "Forum";
+update_session();
+$pageTitle = "Study Sets";
 
 $query = "
     SELECT 
@@ -40,7 +41,7 @@ $sets = run_database($query);
     </header>
     <main>
         <div class="studySetBrowsePageContainer">
-            <h3>Study Sets</h3>
+            <h3>DISREGARD PAGE: THIS IS ONLY FOR TESTING. THIS PAGE WILL BE DELETED FOR THE FINAL VERSION - Alex</h3>
             <div class="displayCardArea">
                 <?php for ($i = 0; $i < count($sets); $i++): ?> 
                     <a href="/study-sets/<?= htmlspecialchars($sets[$i]->StudySetID); ?>.php" class="card-link">
@@ -49,7 +50,7 @@ $sets = run_database($query);
                             <img src="<?= htmlspecialchars($sets[$i]->Avatar); ?>" alt="<?= htmlspecialchars($sets[$i]->Username); ?>'s avatar" class="profile-picture"/>
                             <div class="cardHeaderUsernameDate">
                                 <p><?= htmlspecialchars($sets[$i]->Username); ?></p>
-                                <p>Posted on <?= display_time($sets[$i]->SetCreated, "F j, Y"); ?></p>
+                                <p>Posted on <?= date("F j, Y", $sets[$i]->SetCreated); ?></p>
                             </div>
                         </div>
                         <div class="studySetDetailsBottom">

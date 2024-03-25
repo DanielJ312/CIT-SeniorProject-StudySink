@@ -8,7 +8,7 @@
 
 .forgot-container {
     color: black;
-    background-color: #607C8E;
+    background-color: white;
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     padding: 20px;
@@ -58,4 +58,21 @@ h3{
 
 .forgot-container input[type="submit"]:hover {
     background-color: #0056b3;
+}
+
+
+@media only screen and (max-width: 850px) {
+    .forgot-container {
+    color: black;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    margin-top: 60px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 }

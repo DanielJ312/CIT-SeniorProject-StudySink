@@ -38,7 +38,7 @@ function create_study_set($data) {
               VALUES (:StudySetID, :UserID, :CourseID, :Title, :Description, :Instructor, :Created, :Modified)";
 
         // Current time for Created and Modified fields
-        $currentTime = get_local_time();
+        $currentTime = time();
 
         // Array of values to bind to the query
         $values = [
@@ -64,7 +64,7 @@ function create_study_set($data) {
             $cardQuery = "INSERT INTO STUDY_CARD_T (StudySetID, Front, Back)
                     VALUES (:StudySetID, :Front, :Back)";
 
-            $currentTime = get_local_time();
+            $currentTime = time();
 
             foreach ($cards as $card) {
                 $stmt = $pdo->prepare($cardQuery);
@@ -92,7 +92,7 @@ function edit_study_set($setID, $data) {
         ':Title' => $data['setTitle'],
         ':Description' => $data['setDescription'],
         ':Instructor' => $data['instructor'],
-        ':Modified' => get_local_time()
+        ':Modified' => time()
     ];
 
     $query = "UPDATE STUDY_SET_T 
@@ -167,11 +167,19 @@ function delete_study_set($setID) {
     $pdo->beginTransaction();
 
     try {
-        // First, delete all study cards associated with the study set
+        // 1) delete all comments associated with the study set
+        $deleteCommentsQuery = "DELETE FROM COMMENT_T WHERE StudySetID = :StudySetID";
+        $pdo->prepare($deleteCommentsQuery)->execute([':StudySetID' => $setID]);
+
+        // 2) Delete all ratings associated with the study set
+        $deleteRatingsQuery = "DELETE FROM STUDY_SET_RATINGS WHERE StudySetID = :StudySetID";
+        $pdo->prepare($deleteRatingsQuery)->execute([':StudySetID' => $setID]);
+
+        // 3) Delete all study cards associated with the study set
         $deleteCardsQuery = "DELETE FROM STUDY_CARD_T WHERE StudySetID = :StudySetID";
         $pdo->prepare($deleteCardsQuery)->execute([':StudySetID' => $setID]);
 
-        // Then, delete the study set itself
+        // 4) Delete the study set itself
         $deleteSetQuery = "DELETE FROM STUDY_SET_T WHERE StudySetID = :StudySetID";
         $pdo->prepare($deleteSetQuery)->execute([':StudySetID' => $setID]);
 
@@ -188,7 +196,7 @@ function delete_study_set($setID) {
         // Log and handle the error
         error_log("Database error: " . $e->getMessage());
         // Redirect or display a user-friendly error message
-        header("Location: /error.php");
+        header("Location: /error.php");  // Need to implement
         exit;
     }
 }

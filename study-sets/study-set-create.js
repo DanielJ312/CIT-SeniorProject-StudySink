@@ -14,10 +14,10 @@ function addCard() {
             </div>
             <div class=frontAndBack>
                 <div class="cardFront">
-                    <textarea class="card-textarea" id="cardFront${cardCount}" placeholder="Enter term" name="cardFront${cardCount}" maxlength="999" required></textarea>
+                    <textarea class="card-textarea" id="cardFront${cardCount}" placeholder="Enter term" name="cardFront${cardCount}" maxlength="1250" required></textarea>
                 </div>
                 <div class="cardBack">
-                    <textarea class="card-textarea" id="cardBack${cardCount}" placeholder="Enter definition" name="cardBack${cardCount}" maxlength="999" required></textarea>
+                    <textarea class="card-textarea" id="cardBack${cardCount}" placeholder="Enter definition" name="cardBack${cardCount}" maxlength="1250" required></textarea>
                 </div>
             </div>
         </div>
@@ -51,8 +51,10 @@ function addCard() {
 }
 
 function autoExpandTextArea(event) {
-    event.target.style.height = 'auto'; // Reset the height
-    event.target.style.height = event.target.scrollHeight + 'px'; // Set the height to scroll height
+    var element = event.target;
+    element.style.overflowY = 'hidden'; // Prevent scrollbar
+    element.style.height = 'inherit'; // Reset the height
+    element.style.height = `${element.scrollHeight}px`; // Set the height based on content
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -189,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
             option.textContent = subject.Name;
             if (subject.SubjectID == selectedSubjectId) {
                 option.selected = true;
+                subjectSelect.classList.add('selected');
             }
             subjectSelect.appendChild(option);
         });
@@ -212,6 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Check for type mismatch issues by converting both to strings
             if (String(course.CourseID) === String(selectedCourseId)) {
                 option.selected = true;
+                courseSelect.classList.add('selected');
                 console.log('Setting selected course:', course); // Debugging log
             }
 
@@ -295,4 +299,25 @@ document.addEventListener('DOMContentLoaded', function() {
         // Now submit the form
         e.target.submit();
     }
+
+    document.querySelectorAll('.studySetContainer select').forEach(select => {
+        if (select.value) {
+            select.classList.add('selected');
+        }
+        select.addEventListener('change', function() {
+            if (this.value) {
+                this.classList.add('selected');
+            } else {
+                this.classList.remove('selected');
+            }
+        });
+    });
 });
+
+window.onload = function() {
+    document.querySelectorAll('.studySetContainer select').forEach(select => {
+        if (select.value) {
+            select.classList.add('selected');
+        }
+    });
+};

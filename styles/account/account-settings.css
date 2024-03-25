@@ -1,0 +1,665 @@
+.account-settings {
+    display: flex;
+    width: auto;
+    padding: 0 2%;
+}
+
+.left-container {
+    display: flex;
+    flex: 0 0 20%;
+}
+
+.right-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 80%;
+    padding-left: 2%;
+    padding-top: 4%;
+}
+
+.main-title {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 2.5em;
+    font-weight: bolder;
+    padding-top: 10%;
+    margin: 1%;
+    color: black;
+    white-space: nowrap;
+}
+
+.pp-setting-label,
+.bio-setting-label,
+.info-setting-label,
+.password-setting-label,
+.uni-setting-label {
+    font-family: "Kodchasan", sans-serif;
+    font-size: 2em;
+    color: black;
+    white-space: nowrap;
+}
+
+.pp-container,
+.bio-container,
+.info-container,
+.password-container,
+.uni-container,
+.delete-container {
+    display: flex;
+    margin: 2% 0;
+}
+
+/* ----- Profile Picture ----- */
+.pp-container{
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 3%;
+}
+
+.pp-setting-label {
+    align-self: flex-start;
+}
+
+.pp-inner-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.ppError {
+    color: red;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1em;
+    white-space: nowrap;
+    margin-top: 2%;
+}
+
+.pp-form {
+    display: flex;
+    flex-direction: row;
+    align-items: space-between;
+}
+
+#image {
+    display: none;
+}
+
+.settings-profile-picture {
+    display: block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    color: black;
+    border-width: 1px;
+    border-style: solid;
+    margin: 0 5%;
+}
+/* ----- END OF PROFILE PICTURE ------ */
+
+/* ----- BIO ----- */
+.bio-container {
+    margin-top: 5%;
+}
+
+.bio-setting-label {
+    align-self: flex-start;
+    margin-right: 15%;
+}
+
+.bio-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.bio-textarea-container {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+}
+
+.bio-textarea {
+    display: flex;
+    width: auto;
+    height: 150px;
+    resize: none;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1em;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #c4c4c4;
+    margin: 6% 0 1% 0;
+}
+
+.bioCharCount {
+    font-family: 'Comfortaa', sans-serif;
+    display: flex;
+    color: black;
+    opacity: 60%;
+}
+/* ----- END OF BIO ----- */
+
+/* ----- INFO ----- */
+.info-container {
+    flex-direction: column;
+}
+.username-container,
+.email-container {
+    display: flex;
+    flex-direction: row;
+    margin: 2% 0;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.5em;
+    color: black;
+}
+
+.username-container{
+    margin-top: 5%;
+}
+
+.username-setting-label,
+.email-setting-label {
+    margin: 0 15% 0 19%;
+    width: 10%;
+}
+/* ----- END OF INFO ----- */
+
+/* ----- PASSWORD ----- */
+.password-setting-label {
+    align-self: flex-start;
+    white-space: nowrap;
+}
+
+.password-mismatch {
+    color: red;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.2em;
+}
+
+.password-form {
+    display: flex;
+    flex-direction: column;
+    margin: 4% 0 0 -2%;
+    width: 30%;
+    min-width: 322px;
+}
+
+.new-password-input,
+.confirm-password-input {
+    display: flex;
+    flex-direction: column;
+    margin: 4% 0;
+    width: auto;
+    min-width: 300px;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1em;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #c4c4c4;
+}
+
+.new-password-input {
+    margin-top: 10%;
+}
+/* ----- END OF PASSWORD ----- */
+
+/* ----- UNIVERSITY ----- */
+.uni-container {
+    flex-direction: column;
+    width: 100%;
+}
+
+.uniFormContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.uniError {
+    color: red;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.2em;
+    white-space: nowrap;
+    margin: 2% 0 0 19%;
+}
+
+.uni-form {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2%;
+    margin-left: 19%;
+    width: auto;
+}
+
+.uniDropdown {
+    display: flex;
+    flex-direction: column;
+    margin-right: 3%;
+    width: 460px;    
+    min-width: 300px;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1em;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #c4c4c4;
+    background-color: white;
+}
+
+.request-link {
+    margin: 2% 0 0 19%;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1em;
+    color: black;
+    text-decoration: none;
+    white-space: nowrap;
+}
+/* ----- END OF UNIVERSITY ----- */
+
+/* ----- DELETE ACCOUNT ----- */
+.delete-overlay {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+
+}
+
+.delete-popup {
+    display: none;
+    position: fixed;
+    width: 40%;
+    height: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    z-index: 1000;
+    border-radius: 10px;
+    padding: 2%;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    min-height: 420px;
+}
+
+.delete-container {
+    margin-top: 5%;
+}
+
+.delete-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.delete-content h1 {
+    font-family: "Kodchasan", sans-serif;
+    font-size: 2.5em;
+    color: black;
+    margin-bottom: 3%;
+    margin-top: 0;
+}
+
+.delete-content p {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.5em;
+    color: black;
+    margin: 3% 0;
+}
+
+.delete-me-input {
+    display: flex;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1em;
+    padding: 10px;
+    width: auto;
+    border-radius: 5px;
+    border: 1px solid #c4c4c4;
+}
+
+.deleteMeError {
+    color: red;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.2em;
+    white-space: nowrap;
+    margin-bottom: 2%;
+
+}
+
+.delete-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+/* ----- END OF DELETE ACCOUNT ----- */
+
+/* ------ ALL BUTTONS ------ */
+.pp-save-btn,
+.bio-save-btn,
+.password-save-btn,
+.uni-save-btn {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background-color: #0078d4;
+    width: 67px;
+    height: 38px;
+    max-width: 67px;
+    max-height: 38px;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.2em;
+    font-weight: bolder;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+}
+
+.change-pp-btn:hover,
+.pp-save-btn:hover,
+.bio-save-btn:hover,
+.password-save-btn:hover,
+.uni-save-btn:hover {
+    background-color: #005f8b;
+    transform: scale(1.025);
+    transition: 0.3s;
+}
+
+.change-pp-btn:active,
+.pp-save-btn:active,
+.bio-save-btn:active,
+.password-save-btn:active,
+.uni-save-btn:active {
+    transform: scale(0.95);
+}
+
+.change-pp-btn {
+    display: flex;
+    background-color: #0078d4;
+    color: white;
+    width: auto;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1em;
+    font-weight: bolder;
+    margin: 1%;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+}
+
+.pp-save-btn {
+    margin: 1% 1% 1% 10%;
+}
+
+.change-pp-btn p {
+    align-self: center;
+    margin: 0;
+}
+
+.bio-save-btn {
+    align-self: flex-end;
+}
+
+.password-save-btn {
+    align-self: flex-end;
+    width: 79px;
+}
+
+.delete-btn,
+.delete-confirm-btn {
+    display: flex;  
+    background-color: darkred;
+    color: white;
+    width: auto;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-family: "Kodchasan", sans-serif;
+    font-size: 1.5em;
+    font-weight: bolder;
+    margin: 1%;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+}
+
+.delete-btn {
+align-self: flex-start;
+}  
+
+.delete-confirm-btn {
+    align-self: center;
+    margin-bottom: 3%;
+}
+
+.delete-btn:hover,
+.delete-confirm-btn:hover {
+    background-color: red;
+    transform: scale(1.025);
+    transition: 0.3s;
+}
+
+.delete-btn:active,
+.delete-confirm-btn:active {
+    transform: scale(0.95);
+}
+/* ----- END OF ALL BUTTONS ----- */
+
+/* ------ MEDIA QUERIES ------ */
+@media (max-width: 1205px) {
+
+    .main-title {
+        font-size: 1.6em;
+    }
+
+    .settings-profile-picture {
+        margin: 0 .05% 0 2%;
+    }
+
+    .pp-save-btn {
+        margin: 1%;
+    }
+
+    .password-mismatch {
+        margin-top: 4%;
+    }
+
+    .delete-popup {
+        width: 50%;
+        height: 60%;
+    }
+
+    .delete-content h1 {
+        font-size: 2em;
+    }
+
+    .delete-content p {
+        font-size: 1em;
+    }
+
+}
+
+@media (max-width: 972px) {
+    .left-container {
+        justify-content: center;
+    }
+    .right-container {
+        width: 97%;
+    }
+
+    .account-settings {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .main-title {
+        font-size: 2em;
+        padding-top: 1%;
+        align-self: center;
+    }
+
+    .pp-container,
+    .bio-container,
+    .info-container,
+    .password-container,
+    .uni-container,
+    .delete-container {
+        flex-direction: column;
+        padding: 0 2%;
+    }
+
+
+    .pp-setting-label,
+    .bio-setting-label,
+    .info-setting-label,
+    .password-setting-label,
+    .uni-setting-label {
+        font-size: 1.5em;
+        padding-bottom: 3%;
+}
+
+/* ----- PROFILE PICTURE ----- */
+    .pp-form {
+        padding-top: 3%;
+    }
+
+    .settings-profile-picture {
+        margin: 0;
+    }
+
+    .ppError {
+        font-size: 0.8em;
+    }
+
+/* ----- END OF ALL PROFILE PICTURE ----- */
+
+/* ----- BIO ----- */
+    .bio-textarea-container {
+        width: 95%;
+    }
+
+    .bio-textarea {
+        width: auto;
+        margin-top: 2%;
+        font-size: 0.8em;
+    }
+
+    .bioCharCount {
+        margin: 1% 0 3% 0;
+    }
+/* ----- END OF BIO ----- */
+
+/* ----- INFO ----- */
+    .username-container,
+    .email-container {
+        margin: 3% 0 3% 3%;
+        flex-direction: column;
+    }
+
+    .username-setting-label,
+    .email-setting-label {
+        margin: 0;
+    }
+
+    .username-setting-label,
+    .email-setting-label,
+    .email-value,
+    .username-value {
+        font-size: 0.8em;
+    }
+
+    .email-value,
+    .username-value {
+        margin: 1% 0 1% 3%;
+    }
+/* ----- END OF INFO ----- */
+
+/* ----- PASSWORD ----- */
+    .password-form {
+        width: 95%;
+        margin: 0;
+        max-width: 300px;
+    }
+
+    .new-password-input,
+    .confirm-password-input {
+        width: 95%;
+        margin: 4% 0;
+        max-width: 300px;
+    }
+
+    .password-mismatch {
+        margin-top: 4%;
+    }
+/* ----- END OF PASSWORD ----- */
+
+/* ----- UNIVERSITY ----- */
+    .uni-container {
+        width: 95%;
+    }   
+    .uniError {
+        margin: 0;
+        white-space: wrap;
+        font-size: 0.8em;
+    }
+    .uni-form {
+        margin-left: 0;
+        width: 95%;
+    }
+
+    .uniDropdown {
+        width: 70%;
+        margin-right: 2%;
+        font-size: 0.8em;
+        min-width: 260px;
+        max-width: fit-content;
+    }
+
+    .request-link {
+        margin: 2% 0 0 0;
+        white-space: wrap;
+        font-size: 0.8em;
+    }
+/* ----- END OF UNIVERSITY ----- */
+
+/* ----- DELETE ACCOUNT ----- */
+    .delete-popup {
+        width: 70%;
+        height: 40%;
+        align-items: space-between;
+    }
+
+    .delete-content h1 {
+        font-size: 1.5em;
+    }
+
+    .deleteMeError {
+        margin-bottom: 2%;
+        font-size: 1em;
+    }
+
+    .delete-form {
+        width: 95%;
+    }
+
+    .delete-btn,
+    .delete-confirm-btn {
+        margin: 1% 0;
+        font-size: 1.2em;
+    }
+/* ----- END OF DELETE ACCOUNT ----- */
+}
+/* ----- END OF MEDIA QUERIES ----- */

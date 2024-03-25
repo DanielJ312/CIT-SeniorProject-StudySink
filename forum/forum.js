@@ -1,13 +1,10 @@
 // Forum.js - Runs any javascript function for the forum
 
-/*  Sorting Functions */
+//////////* Sorting Functions *//////////
 $(document).ready(function () {
     var currentPath = window.location.pathname;
-    if (currentPath.includes('/forum/post')) {
-        $('.sort-container').html(updateSortedData("comment-oldest"));
-    }
-    else if (currentPath.includes('/forum/')) {
-        $('.sort-container').html(updateSortedData("post-oldest"));
+    if (currentPath.includes('/forum/post') || currentPath.includes('/study-sets/')) {
+        $('.comment-sort-container').html(updateSortedData("comment-popular"));
     }
 });
 
@@ -15,47 +12,80 @@ $(document).ready(function () {
 $('.sort').on('change', function () {
     var sortType = $(this).val();
     updateSortedData(sortType); 
-    console.log(sortType);
 });
 
 // Function to update the sorted data
 function updateSortedData(sortType) {
-    console.log(postID);
     $.ajax({
         url: '/functions/forum-functions',
         type: 'POST',
-        data: { function: "sort", postID: postID, sortType: sortType },
+        data: { function: "comment-sort", parentID: parentID, sortType: sortType },
         success: function (response) {
-            $('.sort-container').html(response);
+            $('.comment-sort-container').html(response);
         },
-        error: function (xhr, status, error) {
-            console.error(error);
-        }
     });
 }
 
-/*  Comment Functions */
-function AddComment() {
-    console.log(postID);
-    content = $('.commentInput').val();
+//////////* Post Functions *//////////
+function DeletePost() {
+    var postID = parentID;
+    var uni;
+    $.ajax({
+        url: '/functions/forum-functions',
+        type: "post",
+        dataType: 'json',
+        data: { function: "post-delete", postID: postID },
+        complete: function (response) {
+            uni = response.responseText;
+            window.location.replace(uni === "none" ? "/index.php" : `/university/${uni}.php`);
+        },
+    });
+}
+
+
+function OpenPostEditor() {
+    content = $(`.content`).html();
     console.log(content);
-    
+    $(`.content`).toggle();
+    var div = $("<div>").addClass("edit-bar");
+    var input = $("<input>").attr({
+        type: "text",
+        class: "input-bar",
+        value: content,
+        name: "content"
+    });
+    var cancel = $("<button>").attr({
+        type: "submit",
+        class: "cancelComment",
+        onclick: `CancelPostEdit()`
+    }).text("Cancel");
+    var save = $("<button>").attr({
+        type: "submit",
+        class: "addComment",
+        onclick: `EditPost()`
+    }).text("Save");
+
+    div.append(input, cancel, save);
+    $(`.post-content`).append(div);
+    $(`.post .dropdown`).toggle();
+} 
+
+function EditPost() {
+    var postID = parentID;
+    content = $(`.post .input-bar`).val();
     if (content.length > 0) {
         console.log("comment has content"); 
         $.ajax({
             url: '/functions/forum-functions',
             type: 'POST',
-            data: { function: "add", postID: postID, content: content },
+            data: { function: "post-edit", postID: postID, content: content },
             success: function (response) {
-                $('.sort-container').append(response); 
-                $('.commentInput').val("");
-                var total = $(".comment-total");
-                total.text(Number(total.text()) + 1);
+                $(`.post-content p`).html(response);
+                $(`.post-content .edit-bar`).remove();
+                $(`.post-content p`).toggle();
+                $(`.post .dropdown`).toggle();
 
-                var comment = $('.sort-container .comment').last().attr('id');
-                console.log(comment);
-                $('html, body').scrollTop($(`#${comment}`).offset().top);
-                $(`#${comment}`).css("background-color", "#FEFFB6");
+                $(`.post .edited`).html("edited now");
             },
         });
     }
@@ -64,12 +94,68 @@ function AddComment() {
     }
 }
 
+function CancelPostEdit(commentID) {
+    $(`.post-content .edit-bar`).remove();
+    $(`.post-content p`).toggle();
+    $(`.post .dropdown`).toggle();
+}
+
+function ReportPost() {
+    var postID = parentID;
+    $.ajax({
+        url: '/functions/forum-functions',
+        type: 'POST',
+        data: { function: "post-report", postID: postID },
+        success: function (response) {
+            $(`.post .report`).html("Reported!");
+        }
+    });
+}
+
+function updatePostLike() {
+    var check = $(".post .like").hasClass("fa-solid");
+    var postID = parentID;
+    $.ajax({
+        url: '/functions/forum-functions',
+        type: 'POST',
+        data: { function: "post-like", postID: postID },
+        success: function (response) {
+            $(".post-votes").html(response);
+            $(".post .like").removeClass(check ? "fa-solid" : "fa-regular").addClass(check ? "fa-regular" : "fa-solid");
+        }
+    });
+
+}
+
+//////////* Comment Functions *//////////
+function AddComment() {
+    content = $('.input-bar').val();
+    if (content.length > 0) {
+        $.ajax({
+            url: '/functions/forum-functions',
+            type: 'POST',
+            data: { function: "comment-add", parentID: parentID, content: content },
+            success: function (response) {
+                $('.comment-sort-container').append(response); 
+                $('.input-bar').val("");
+                var total = $(".comment-total");
+                total.text(Number(total.text()) + 1);
+
+                var comment = $('.comment-sort-container .comment').last().attr('id');
+                console.log(comment);
+                $('html, body').scrollTop($(`#${comment}`).offset().top);
+                $(`#${comment}`).css("background-color", "#FEFFB6");
+            },
+        });
+    }
+}
+
 function DeleteComment(commentIDToDelete) {
     $.ajax({
         url: '/functions/forum-functions',
         type: "post",
         dataType: 'json',
-        data: { function: "delete", commentID: commentIDToDelete },
+        data: { function: "comment-delete", commentID: commentIDToDelete },
     });
     $("#comment-" + commentIDToDelete).remove();
     var total = $(".comment-total");
@@ -83,35 +169,42 @@ function OpenCommentEditor(commentID) {
     var div = $("<div>").addClass("edit-bar");
     var input = $("<input>").attr({
         type: "text",
-        class: "commentInput",
+        class: "input-bar",
         value: content,
         name: "content"
     });
-    var button = $("<button>").attr({
+    var cancel = $("<button>").attr({
+        type: "submit",
+        class: "cancelComment",
+        onclick: `CancelCommentEdit(${commentID})`
+    }).text("Cancel");
+    var save = $("<button>").attr({
         type: "submit",
         class: "addComment",
         onclick: `EditComment(${commentID})`
     }).text("Save");
 
-    div.append(input, button);
+    div.append(input, cancel, save);
     $(`#comment-${commentID}-c`).append(div);
     $(`#comment-${commentID} .dropdown`).toggle();
 }   
 
 function EditComment(commentID) {
-    content = $(`#comment-${commentID}-c .commentInput`).val();
+    content = $(`#comment-${commentID}-c .input-bar`).val();
     
     if (content.length > 0) {
         console.log("comment has content"); 
         $.ajax({
             url: '/functions/forum-functions',
             type: 'POST',
-            data: { function: "edit", commentID: commentID, content: content },
+            data: { function: "comment-edit", commentID: commentID, content: content },
             success: function (response) {
                 $(`#comment-${commentID}-c p`).html(response);
                 $(`#comment-${commentID}-c .edit-bar`).remove();
                 $(`#comment-${commentID}-c p`).toggle();
                 $(`#comment-${commentID} .dropdown`).toggle();
+
+                $(`#comment-${commentID} .edited`).html("edited now");
             },
         });
     }
@@ -120,45 +213,29 @@ function EditComment(commentID) {
     }
 }
 
-function ReportComment(commentID) {
-    $(`#comment-${commentID} .report`).html("Reported!");
-    $.ajax({
-        url: '/functions/forum-functions',
-        type: 'POST',
-        data: { function: "report", commentID: commentID},
-    });
+function CancelCommentEdit(commentID) {
+    $(`#comment-${commentID}-c .edit-bar`).remove();
+    $(`#comment-${commentID}-c p`).toggle();
+    $(`#comment-${commentID} .dropdown`).toggle();
 }
 
-function updateCommentVote(commentID, userID, voteType) {
-    // console.log(commentID, userID, voteType);
+function ReportComment(commentID) {
     $.ajax({
         url: '/functions/forum-functions',
         type: 'POST',
-        data: { function: "update-vote", commentID: commentID, userID: userID, voteType: voteType },
+        data: { function: "comment-report", commentID: commentID },
         success: function (response) {
-            $("#comment-" + commentID + "-v").html(response);
-
-            type = voteType == 1 ? "down" : "up";
-            // newButton = `<input id="comment-${commentID}-${type}vote" type="button" value="${type}vote" onclick="updateCommentVote(${commentID}, ${userID}, '${-voteType}')">`
-
-            newButton = `<a class="far fa-thumbs-${type}" id="comment-${commentID}-${type}vote" type="button" value="${type}vote" onclick="updateCommentVote(${commentID}, ${userID}, '${-voteType}')">`;
-
-            $("#comment-" + commentID + "-vb").html(newButton);
-        },
-        error: function (xhr, status, error) {
-            console.error(error);
+            $(`#comment-${commentID} .report`).html("Reported!");
         }
     });
 }
 
-function updateVote(commentID, userID) {
+function updateCommentLike(commentID) {
     var check = $(`#comment-${commentID} .like`).hasClass("fa-solid");
-    console.log(check);
-
     $.ajax({
         url: '/functions/forum-functions',
         type: 'POST',
-        data: { function: "update-vote", commentID: commentID, userID: userID },
+        data: { function: "comment-like", commentID: commentID },
         success: function (response) {
             $("#comment-" + commentID + "-v").html(response);
             $(`#comment-${commentID} .like`).removeClass(check ? "fa-solid" : "fa-regular").addClass(check ? "fa-regular" : "fa-solid");
@@ -166,7 +243,7 @@ function updateVote(commentID, userID) {
     });
 }
 
-//Dropdown Functions
+//////////* Dropdown Functions *//////////
 function toggleDropdown(dropdown) {
     dropdown.querySelector('.dropdown-content').classList.toggle('show');
 }
@@ -193,7 +270,8 @@ function handleKeyPress(event) {
         }
     }
 
-    // Character Counter for Post Title textarea and Post Content textarea
+//////////* Miscellaneous Functions *//////////
+// Character Counter for Post Title textarea and Post Content textarea
 function commentcountChar(commnetinput) {
     const maxLength = 2500;
     const currentLength = commentinput.value.length;

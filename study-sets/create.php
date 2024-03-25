@@ -1,7 +1,8 @@
 <?php 
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/study-set-functions.php");
-//$pageTitle = "Create Study Set";
+$pageTitle = "Create Study Set";
+update_session();
 $universities = get_universities_list();
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") create_study_set($_POST);
@@ -18,6 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") create_study_set($_POST);
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
     </header>
     <main>
+        <div class="fixed-action-bar">
+            <div class="action-bar-buttons">
+            <a href="javascript:history.back()" class="back-button">Cancel</a>
+                <button type="submit" form="studySetForm" class="save-button">Save Study Set</button>
+            </div>
+        </div>
         <div id="pageIdentifier" data-page-type="create"></div>
         <div class="studySetContainer">
             <h2 class="header2"><?=isset($pageTitle) ? $pageTitle : "Create a Study Set" ?></h2>
@@ -33,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") create_study_set($_POST);
                     <div class="columnTags">
                         <!-- University Select -->
                         <select id="setUniversity" name="setUniversity" required>
-                            <option value="">Select University</option>
+                            <option value="" disabled selected>Select University</option>
                             <?php foreach($universities as $university): ?>
                                 <option value="<?= htmlspecialchars($university->UniversityID) ?>">
                                     <?= htmlspecialchars($university->Name) ?>
@@ -60,10 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") create_study_set($_POST);
                 <div id="studyCards" class="studyCards create">
                     <!-- Study cards will be added here -->
                 </div>
-                <div class="formButtons"> 
-                    <button type="button" id="addCardBtn">Add a Study Card</button>
-                    <button type="submit">Save Study Set</button>
-                </div>
+                <button type="button" id="addCardBtn" class="bigAddCardButton">+ ADD CARD</button>
             </form>
         </div>
     </main>

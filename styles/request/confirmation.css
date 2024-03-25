@@ -1,47 +1,88 @@
 .confirmation-body {
-    background-color: #f5f5f5;
-  }
+  background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
+.confirmation-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.confirmation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Comfortaa', sans-serif;
+  max-width: 600px;
+  margin: 3% auto;
+  align-self: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.confirmation-message {
+  align-self: center;
+  font-size: 1.2em;
+  color: #007bff;
+  margin-bottom: 2%;
+}
+
+.confirmation-inner-container {
+  min-width: 60%;
+  text-align: left;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.confirmation-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: black;
+}
+
+.confirmation-value {
+  margin-bottom: 15px;
+  color: #f59c1a;
+}
+
+.confirmation-return-button {
+  background-color: #0078d4;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 1%;
+  display: inline-block;
+  transition: 0.3s;
+  white-space: nowrap;
+}
+
+.confirmation-return-button:hover {
+  background-color: #005f9e;
+  transform: scale(1.05);
+  transition: 0.3s;
+}
+
+.confirmation-return-button:active {
+  transform: scale(0.95);
+  transition: 0.3s;
+}
+
+/* Mobile Compatability */
+@media (max-width: 850px) {
   .confirmation-container {
-    font-family: 'Comfortaa', sans-serif;
-    max-width: 600px;
-    margin: auto;
-    margin-top: 3%;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin: 3% 5%;
   }
 
   .confirmation-message {
-    font-size: 24px;
-    color: #007bff;
-    margin-bottom: 20px;
+    text-align: center;
   }
-
-  .confirmation-container {
-    text-align: left;
-  }
-
-  .confirmation-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: black;
-  }
-
-  .confirmation-value {
-    margin-bottom: 15px;
-    color: #f59c1a;
-  }
-
-  .confirmation-return-button {
-    background-color: #0078d4;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-top: 20px;
-    margin-left: 30%;
-    display: inline-block;
-  }
+}

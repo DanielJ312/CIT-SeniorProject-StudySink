@@ -125,11 +125,21 @@ h3 {
     padding-right: 5px;
 }
 
-.vote {
+.lower-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .comment {
+    display: flex;
+    color: #181818;
+  }
+  
+  .vote {
     display: flex;
     justify-content: flex-end;
-    color: black;
-}
+    color: #181818;
+  }
 
 .post-profile-picture {
     border-radius: 50%;
@@ -139,7 +149,7 @@ h3 {
     height: 50px;
     margin-left: 0px;
     object-fit: cover;
-    border: 2px solid #fff;
+    border: 1px solid #2778ff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     background-color: #fff;
     display: block;
@@ -278,6 +288,8 @@ h3 {
 .displayCardArea {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
+    scrollbar-width: thin;
+    scrollbar-color: lightgrey #f7f7f7;
 }
 
 .cardContainer {
@@ -341,7 +353,7 @@ h3 {
     margin-right: 0px;
     border-radius: 50%; 
     object-fit: cover;
-    border: 2px solid #fff; 
+    border: 1px solid #2778ff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
     background-color: #fff;
     display: block;
@@ -383,7 +395,6 @@ h3 {
 }
 
 *::-webkit-scrollbar-thumb {
-    border-radius: 9px;
     border: 1px solid #2778ff;
 }
 
@@ -394,6 +405,8 @@ h3 {
 .scrollbar {
     overflow: auto;
     height: 1000px;
+    scrollbar-width: thin;
+    scrollbar-color: lightgrey #f7f7f7;
 }
 
 .header {
@@ -401,6 +414,18 @@ h3 {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+}
+
+.test {
+    display: flex;
+}
+
+.fa-comment:before {
+    color: #2778ff;
+}
+
+.fa-star:before {
+    color: #2778ff;
 }
 
 @media only screen and (max-width: 850px) {
@@ -413,6 +438,7 @@ h3 {
         text-align: center;
         display: flex;
         align-items: center;
+        justify-content: center;
     }
 
     .down {
@@ -423,6 +449,7 @@ h3 {
         transform: rotate(45deg);
         -webkit-transform: rotate(45deg);
         margin: 7px;
+        z-index: -1;
     }
 
     #contentset {
@@ -464,6 +491,7 @@ h3 {
         border: solid #00000029;
         border-width: 0.5px;
     }
+    
 }
 
 @media (min-width: 1629px) {

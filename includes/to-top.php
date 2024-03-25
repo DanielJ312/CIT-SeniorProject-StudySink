@@ -5,29 +5,44 @@
 <style>
 
 #myBtn {
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  right: 30px;
-  z-index: 99;
-  font-size: 15px;
-  border: none;
-  outline: none;
-  background-color: #2778ff;
-  color: white;
-  cursor: pointer;
-  padding: 15px;
-  border-radius: 50%;
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    background-color: #2778ff;
+    color: white;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    width: 55px;
 }
 
 #myBtn:hover {
   background-color:  #f59c1a;
 }
+
+.arrow {
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+
 </style>
 </head>
 <body>
 
-<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+<button onclick="topFunction()" id="myBtn" title="Go to top"><i class="arrow up"></i><br>Top</button>
 
 <script>
 // Get the button

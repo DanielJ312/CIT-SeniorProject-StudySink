@@ -1,22 +1,27 @@
 .requestBody {
+    display: flex;
+    flex-direction: column;
     font-family: 'Quicksand', sans-serif;
     margin: 0;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     background-color: #f5f5f5;
-  }
+}
+
+.main-request {
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
   
 .requestcontainer {
     text-align: center;
-    background-color: #277BC0; /* Blue */
+    background-color: white;
     padding: 20px;
     border-radius: 10px;
-    margin-left: 25%;
-    margin-right: 25%;
-    margin-top: 2%;
-    box-shadow: 0 0 15px #ff6f00;
+    margin: 1% 0;
     width: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
 }
   
 .requesttitle {
@@ -30,22 +35,22 @@
     font-size: 24px;
     font-weight: bold;
     color: black;
- }
+}
   
-.requestinput,
-.requesttextarea {
+.requestinput, .requesttextarea {
     width: 65%;
     padding: 8px;
     margin-top: 8px;
     margin-bottom: 20px;
-    border: 2px solid black;
+    border: 1px solid #d7d7d7;
     border-radius: 4px;
     box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
 }
   
 .requestbutton {
     align-items: center;
-    background-color: black;
+    background-color: #2776ff;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -56,7 +61,7 @@
 }
   
 .requestbutton:hover {
-    background-color: #ff6f00; /* Even Darker Orange */
+    background-color: #ffc36b; /* Even Darker Orange */
 }
   
 .switch-label {
@@ -115,7 +120,7 @@
 }
   
 .requestinput:checked + .slider {
-    background-color: #ff6f00;
+    background-color: #2776ff;
 }
   
 .requestinput:focus + .slider {
@@ -143,14 +148,19 @@
   .requestbutton {
      width: 100px;
   }
-        
- .requestcontainer {
-     text-align: center;
-     background-color: #277BC0; /* Blue */
-     padding: 20px;
-     margin: 5%;
-     border-radius: 10px;
-     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-     width: 80%;
-  }
+    
+  .requestcontainer {
+    text-align: center;
+    background-color: white;
+    align-self: center;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
+}
+
+.requestinput, .requesttextarea {
+    width: 100%;
+}
+
 }
