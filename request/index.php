@@ -3,7 +3,6 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 update_session();
-if (!check_login()) header("Location: /account/login.php");
 $pageTitle = "Request";
 
 $errors = array();
