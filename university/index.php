@@ -45,26 +45,24 @@ $universities = run_database($query);
             </div>
         </div>
         <div class=mobileuniversitydefault>
-            <?php if (!check_login()) : ?>
-                <div class="mobilemargin">
-                    <div class="university-info">
-                        <h2>Universities</h2>
+            <div class="mobilemargin">
+                <div class="university-info">
+                    <h2>Universities</h2>
+                </div>
+                <div class="outer-box">
+                    <div class="search-bar-university">
+                        <input id="searchbar2" type="text" name="search" onkeyup="search_university_mobile()" placeholder="Search Universities..." />
+                        <button><i class="fas fa-search"></i></button>
                     </div>
-                    <div class="outer-box">
-                        <div class="search-bar-university">
-                            <input id="searchbar2" type="text" name="search" onkeyup="search_university_mobile()" placeholder="Search Universitys..." />
-                            <button><i class="fas fa-search"></i></button>
-                        </div>
-                        <div class="tiles">
-                            <?php foreach ($universitiesforum as $universityforum) : ?>
-                                <a class="names" href="/university/index.php">
-                                    <div class="word"><?= htmlspecialchars($universityforum->Name) ?></div>
-                                </a>
-                            <?php endforeach; ?>
-                        </div>
+                    <div class="tiles">
+                        <?php foreach ($universitiesforum as $universityforum) : ?>
+                            <a class="names" href="/university/index.php">
+                                <div class="word"><?= htmlspecialchars($universityforum->Name) ?></div>
+                            </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
-            <?php endif; ?>
+            </div>
         </div>
     </main>
     <footer>
