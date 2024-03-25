@@ -114,8 +114,9 @@ save_to_cookie("study-set");
 
                 <!-- Delete button is only available to the owner, shown to the right if the user is the owner -->
                 <?php if (check_login() && $set->Username == $_SESSION['USER']->Username) : ?>
-                    <a href="/study-sets/delete.php?id=<?= htmlspecialchars($setID); ?>" class="actionButton deleteButton" style="float: right;" onclick="return confirm('Are you sure you want to delete this study set?');"><i class="fas fa-trash"></i></a>
+                    <a href="javascript:void(0);" class="actionButton deleteButton" style="float: right;" data-set-id="<?= htmlspecialchars($setID); ?>"><i class="fas fa-trash"></i></a>
                 <?php endif; ?>
+
             </div>
 
             <?php foreach ($cards as $card): ?>
@@ -153,6 +154,16 @@ save_to_cookie("study-set");
             </div>
         </div>
     </main>
+
+    <div id="deleteConfirmationModal" style="display:none;">
+        <div class="modal-content">
+            <p>Are you sure you want to DELETE this study set?</p>
+            <div class="buttons-container">
+                <button id="cancelDelete">Cancel</button>
+                <button id="confirmDelete">Yes, delete it</button>
+            </div>
+        </div>
+    </div>
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
