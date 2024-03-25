@@ -43,6 +43,7 @@
 .back-button:focus {
     color: #fcb54d;
     text-decoration: none; 
+    text-decoration: underline;
 }
 
 .save-button {

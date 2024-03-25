@@ -6,7 +6,6 @@ $pageTitle = "Universities";
 
 $query = "SELECT * FROM UNIVERSITY_T ORDER BY Name ASC;";
 $universities = run_database($query);
-
 ?>
 
 <!DOCTYPE html>

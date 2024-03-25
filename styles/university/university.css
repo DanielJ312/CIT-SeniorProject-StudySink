@@ -538,10 +538,11 @@ main {
       background: none;
       font-size: 24px;
       padding-top: 10px;
+      padding-bottom: 10px;
   }
 
   .post {
-      width: auto;
+    width: -webkit-fill-available;
   }
 
   .mobileuniversitydefault {
