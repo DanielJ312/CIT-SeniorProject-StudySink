@@ -15,11 +15,11 @@ if (check_login()) header("Location: /account/profile.php");
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <link rel="stylesheet" type="text/css" href="/styles/account/login.css">
 </head>
-<body>
+<body class="body-login">
     <header id="header">
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
     </header>
-    <main>
+    <main class="main-login">
         <section id=login>
             <div class="login-container">
             <div class="lheader"><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></div>

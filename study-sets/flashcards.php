@@ -23,9 +23,10 @@ $cards = run_database($query, $values);
 
 <!DOCTYPE html>
 <html lang="en">
+<title>Flashcards: <?= htmlspecialchars($studySetTitle); ?></title> 
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <link rel="stylesheet" href="/styles/study-set-styles/flashcards.css">
+    <link rel="stylesheet" href="/styles/study-set-styles/flashcards.css"> 
 </head>
 <body class="flashcardsBody">
     <header>

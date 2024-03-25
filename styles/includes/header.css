@@ -26,6 +26,11 @@
     height: 48.49999px;
 }
 
+.companyLogo:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
 /*-- Profile Picture --*/
 .profile-picture {
     width: 45px;
@@ -160,6 +165,7 @@
     border: 2px;
     right: 200px;
     top: 62px;
+    border-radius: 10px;
 }
 
 .dropdown-content-create a {
@@ -170,6 +176,7 @@
     display: block;
     text-align: center;
     font-family: 'Comfortaa', sans-serif;
+    border-radius: 10px;
 }
 
 .dropdown-content-create a:hover {
@@ -186,7 +193,8 @@
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
     z-index: 1;
     border: 2px;
-    right: 0.5%;
+    right: 0.1%;
+    border-radius: 10px;
 }
 
 .dropdown-content-profile a {
@@ -201,6 +209,7 @@
 
 .dropdown-content-profile a:hover {
     background-color: #C2D9FF;
+    border-radius: 10px;
 }
 
 #overlay {
@@ -225,17 +234,17 @@
         font-family: 'Comfortaa', sans-serif;
     }
 
-.mobileheader {
-    display: flex;
-    font-family: 'Comfortaa', sans-serif;
-    background-color: white;
-    width: 100%;
-    color: #fff;
-    padding: 15px;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 0px 8px rgb(0 0 0 / 15%);
-}
+    .mobileheader {
+        display: flex;
+        font-family: 'Comfortaa', sans-serif;
+        background-color: white;
+        width: 100%;
+        color: #fff;
+        padding: 15px;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 0px 8px rgb(0 0 0 / 15%);
+    }
 
     #logo {
         margin-right: 3%;
@@ -278,6 +287,7 @@
         transform: translateY(-50%);
         cursor: pointer;
         border-top-width: 0px;
+        z-index: 1;
     }
 
     .searchbar {
@@ -314,6 +324,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 1;
     }
 
     .mobilenav a:hover {
@@ -323,13 +334,16 @@
 
     .dropdown-content {
         display: none;
-        background-color: #43a9f7;
+        background-color: #f4f7f8;
+        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+        z-index: 1;
     }
 
     .dropdown-content a {
         font-family: 'Comfortaa', sans-serif;
         display: flex;
         align-items: center;
+        z-index: 1;
     }
 
     .dropdown.active a {

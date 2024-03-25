@@ -1,4 +1,12 @@
+.body-login {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
+.main-login {
+    flex-grow: 1;
+}
 
 .container {
     display: flex;
@@ -14,9 +22,10 @@
     padding: 30px;
     width: 300px;
     text-align: center;
-    margin-top: 20px; 
+    margin-top: 2%; 
     margin-left: auto; 
-    margin-right: auto; 
+    margin-right: auto;
+    margin-bottom: 2%;
 }
 
 h2 {

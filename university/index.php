@@ -6,7 +6,6 @@ $pageTitle = "Universities";
 
 $query = "SELECT * FROM UNIVERSITY_T ORDER BY Name ASC;";
 $universities = run_database($query);
-
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +21,7 @@ $universities = run_database($query);
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
-    <main>
+    <main class="university-main">
         <div class="margin">
             <div class="university-info">
                 <h2>Universities</h2>
@@ -49,24 +48,22 @@ $universities = run_database($query);
 </html>
 
 <div class=mobileuniversitydefault>
-    <?php if (!check_login()) : ?>
-        <div class="mobilemargin">
-            <div class="university-info">
-                <h2>Universitys</h2>
+    <div class="mobilemargin">
+        <div class="university-info">
+            <h2>Universities</h2>
+        </div>
+        <div class="outer-box">
+            <div class="search-bar-university">
+                <input id="searchbar2" type="text" name="search" onkeyup="search_university_mobile()" placeholder="Search Universitys..." />
+                <button><i class="fas fa-search"></i></button>
             </div>
-            <div class="outer-box">
-                <div class="search-bar-university">
-                    <input id="searchbar2" type="text" name="search" onkeyup="search_university_mobile()" placeholder="Search Universitys..." />
-                    <button><i class="fas fa-search"></i></button>
-                </div>
-                <div class="tiles">
-                    <?php foreach ($universitiesforum as $universityforum) : ?>
-                        <a class="names" href="/university/index.php">
-                            <div class="word"><?= htmlspecialchars($universityforum->Name) ?></div>
-                        </a>
-                    <?php endforeach; ?>
-                </div>
+            <div class="tiles">
+                <?php foreach ($universities as $university) : ?>
+                    <a class="names" href="/university/<?= $university->Abbreviation ?>.php">
+                        <div class="word"><?= htmlspecialchars($university->Name) ?></div>
+                    </a>
+                <?php endforeach; ?>
             </div>
         </div>
-    <?php endif; ?>
+    </div>
 </div>
