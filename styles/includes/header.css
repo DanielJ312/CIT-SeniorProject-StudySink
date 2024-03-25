@@ -161,7 +161,7 @@
     background-color: #0078d4;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
-    z-index: 1;
+    z-index: 1000;
     border: 2px;
     right: 200px;
     top: 62px;
@@ -191,7 +191,7 @@
     background-color: #0078d4;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
-    z-index: 1;
+    z-index: 1000;
     border: 2px;
     right: 0.1%;
     border-radius: 10px;
@@ -297,7 +297,7 @@
         transform: translateY(-50%);
         cursor: pointer;
         border-top-width: 0px;
-        z-index: 1;
+        z-index: 1000;
     }
 
     .searchbar {
@@ -322,7 +322,7 @@
         left: 0;
         width: 100%;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
-        z-index: 1;
+        z-index: 1000;
     }
 
     .mobilenav a {
@@ -334,7 +334,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        z-index: 1;
+        z-index: 1000;
     }
 
     .mobilenav a:hover {
@@ -346,14 +346,14 @@
         display: none;
         background-color: #f4f7f8;
         box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
-        z-index: 1;
+        z-index: 1000;
     }
 
     .dropdown-content a {
         font-family: 'Comfortaa', sans-serif;
         display: flex;
         align-items: center;
-        z-index: 1;
+        z-index: 1000;
     }
 
     .dropdown.active a {
