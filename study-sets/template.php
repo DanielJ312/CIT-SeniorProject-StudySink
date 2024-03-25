@@ -91,7 +91,7 @@ save_to_cookie("study-set");
                 <div class="studySetDetailsBottom">
                     <div class="studySetDetailsBottomLeft">
                         <h3>Description:</h3>
-                        <p><?= htmlspecialchars($set->Description); ?></p>
+                        <p><?= nl2br(htmlspecialchars($set->Description)); ?></p>
                     </div>
                     <div class="studySetDetailsBottomRight">
                         <p><?= htmlspecialchars($set->UniversityName); ?></p>
