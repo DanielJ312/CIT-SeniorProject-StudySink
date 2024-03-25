@@ -10,14 +10,12 @@ $universities = run_database($query);
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <!--<link rel="stylesheet" href="/styles/university/dark-mode.css" id="dark-theme"/>-->
     <link rel="stylesheet" href="/styles/university/university.css" />
     <script src="/university/university.js"></script>
 </head>
-
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
@@ -55,9 +53,9 @@ $universities = run_database($query);
                         <button><i class="fas fa-search"></i></button>
                     </div>
                     <div class="tiles">
-                        <?php foreach ($universitiesforum as $universityforum) : ?>
-                            <a class="names" href="/university/index.php">
-                                <div class="word"><?= htmlspecialchars($universityforum->Name) ?></div>
+                        <?php foreach ($universities as $university) : ?>
+                            <a class="names" href="/university/<?= $university->Abbreviation ?>.php">
+                                <div class="word"><?= htmlspecialchars($university->Name) ?></div>
                             </a>
                         <?php endforeach; ?>
                     </div>
@@ -69,5 +67,4 @@ $universities = run_database($query);
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
 </body>
-
 </html>
