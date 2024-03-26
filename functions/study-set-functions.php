@@ -187,7 +187,7 @@ function delete_study_set($setID) {
         $pdo->commit();
 
         // Redirect or inform the user of successful deletion
-        header("Location: /study-sets/");
+        header("Location: /index.php/");
         exit;
     } catch (PDOException $e) {
         // Roll back the transaction in case of an error
