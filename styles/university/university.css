@@ -393,10 +393,12 @@ main {
   text-decoration: none;
   color: inherit;
   margin-bottom: 5px;
-  margin-top: 15px;
+  margin-top: 10px;
   box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
   width: 40%;
   background-color: #f7f7f7;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .outer-box {

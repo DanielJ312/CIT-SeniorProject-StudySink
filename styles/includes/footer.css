@@ -3,6 +3,7 @@ footer {
     padding: 10px;
     text-align: center;
     box-shadow: 0 0px 8px rgb(0 0 0 / 15%);
+    margin-top: auto;
 }
 
 footer ul {

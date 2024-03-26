@@ -42,7 +42,8 @@ $universities = run_database($query);
                 </div>
             </div>
         </div>
-        <div class=mobileuniversitydefault>
+    </main>
+    <div class=mobileuniversitydefault>
             <div class="mobilemargin">
                 <div class="university-info">
                     <h2>Universities</h2>
@@ -62,9 +63,9 @@ $universities = run_database($query);
                 </div>
             </div>
         </div>
-    </main>
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
 </body>
 </html>
+
