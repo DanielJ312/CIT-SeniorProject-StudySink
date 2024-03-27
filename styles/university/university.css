@@ -419,7 +419,7 @@ main {
   border: 1px solid #cccccc;
   border-radius: 5px;
   font-size: 16px;
-  width: 950px;
+  width: 60%;
 }
 
 .search-bar-university button {
@@ -440,6 +440,7 @@ main {
 .search-bar-university {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 @media only screen and (max-width: 850px) {

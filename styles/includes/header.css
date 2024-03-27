@@ -80,7 +80,6 @@
 }
 
 .search-container input[type="text"] {
-    width: 100%;
     padding: 10px 10px 10px 40px; /* Add padding to make space for the icon inside the bar */
     border-radius: 20px;
     border: 1px solid #ccc;
