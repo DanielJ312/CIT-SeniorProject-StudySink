@@ -1,3 +1,4 @@
+// functions for profile picture menu
 document.addEventListener("DOMContentLoaded", function () {
     // Get profile picture and dropdown elements
     var profilePicture = document.getElementById("profilePicture");
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// functions for create icon menu
 document.addEventListener("DOMContentLoaded", function () {
     // Get profile picture and dropdown elements
     var createIcon = document.getElementById("createIcon");
@@ -88,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fetchSubjectsForPostUniversity(universityId);
         // Clear subject selects
         subjectPostSelect.innerHTML = '<option value=""></option>';
+        console.log(universityId);
     });
 
     // Fetches subjects based on University Selection
@@ -106,10 +109,10 @@ document.addEventListener('DOMContentLoaded', function () {
         var subjectSelect = document.getElementById('setPostSubject');
         subjectSelect.innerHTML = '<option value=""></option>'; // Clear existing options
 
-        subjects.forEach(function (subject) {
+        subjects.forEach(function (postSubject) {
             var option = document.createElement('option');
-            option.value = subject.SubjectID;
-            option.textContent = subject.Name;
+            option.value = postSubject.SubjectID;
+            option.textContent = postSubject.Name;
             subjectSelect.appendChild(option);
         });
     }

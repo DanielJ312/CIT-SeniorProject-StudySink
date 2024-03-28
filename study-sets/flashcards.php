@@ -32,7 +32,7 @@ $cards = run_database($query, $values);
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
     </header>
-    <main>
+    <main class="flashcardMain">
         <div class="flashcardsContainer">
                  
             <div class="top-controls">

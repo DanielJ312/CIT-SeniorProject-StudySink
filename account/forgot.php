@@ -24,21 +24,21 @@ $pageTitle = "Reset Password";
             <div class="reset-form" novalidate>
                 <div class="email-container">
                     <p>We will send a verification code to your email</p>
-                    <p class="email">Email: <input class="email-input" type="email" name="email"></p>
+                    <p class="email">Email <input class="email-input" type="email" name="email"></p>
                     <input class="send-email" type="submit" value="Send Code">
                 </div>
                 <div class="password-container" style="display: none">
                     <p>The code has been sent</p>
                     <div class="reset-code">
-                        <p class="code">Code:</p>
+                        <p class="code">Code</p>
                         <input class="code-input" type="text" name="code"> 
                     </div>
                     <div class="reset-password">
-                        <p class="password">New Password:</p>
+                        <p class="password">New Password</p>
                         <input class="password-input" type="password" name="password">
                     </div>
                     <div class="reset-password2">
-                        <p class="password">Confirm Password:</p>
+                        <p class="password">Confirm Password</p>
                         <input class="password2-input" type="password" name="password2">
                     </div>
                     <input class="submit-pass" type="submit" value="Reset Password">

@@ -50,6 +50,9 @@ function get_posts() {
 }
 
 function get_post($postID) {
+    //console log get post reached
+    echo "<script>console.log('get_post Reached')</script>";
+
     $values['PostID'] = $postID;
     $query = <<<query
     SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, POST_T.Modified AS PostModified, USER_T.UserID, Username, Avatar, UNIVERSITY_T.UniversityID, UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation, SUBJECT_T.Name AS SubjectName, COUNT(DISTINCT CommentID) AS Comments, COALESCE((SELECT COUNT(*) FROM POST_LIKE_T WHERE PostID = POST_T.PostID AND VoteType = 1), 0) AS Likes
@@ -105,15 +108,11 @@ function get_comment($commentID) {
 
 //////////* Post Functions *//////////
 function create_post($data) {
-    $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE Name = '{$data['university']}';";
-    $universityID = run_database($query)[0]->UniversityID;
-
-    $query = "SELECT SubjectID FROM SUBJECT_T WHERE Name = '{$data['subject']}';";
-    $subjectID = run_database($query)[0]->SubjectID ?? 0;
+    $subjectID = $data['setPostSubject'] == "0" ? "NULL" : $data['setPostSubject'];
 
     $errors = array();
 
-    if (empty($data['university'])) {
+    if (empty($data['setPostUniversity'])) {
         $errors[] = "Please select a Unviersity from the dropdown to associate your post with.";
     }
     if (empty($data['title'])) {
@@ -126,7 +125,7 @@ function create_post($data) {
     if (count($errors) == 0) {
         $values = [
             'PostID' => generate_ID("POST"),
-            'UniversityID' => $universityID,
+            'UniversityID' => $data['setPostUniversity'],
             'SubjectID' => $subjectID,
             'Title' => $data['title'],
             'Content' => $data['content'],

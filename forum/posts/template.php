@@ -23,7 +23,7 @@ save_to_cookie("post");
     <script async src="/forum/forum.js"></script>
     <link rel="stylesheet" href="/styles/forum/post-template.css" />
 </head>
-<body>
+<body class="post-template-body">
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>

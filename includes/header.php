@@ -3,7 +3,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 $query = "SELECT * FROM UNIVERSITY_T;";
 $postUniversities = get_universities_list();
-$postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']) ? create_post($_POST) : [];
+$postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['setPostUniversity']) ? create_post($_POST) : [];
 ?>
 
 <!-- Full Size Navbar -->
@@ -104,16 +104,16 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['university']
                     <label for="universityforum" id="Unilabel">University</label>
                     <select class="foruminput" id="setPostUniversity" name="setPostUniversity" required>
                         <option value="" disabled selected>Select University</option>
-                        <?php foreach ($postUniversities as $university) : ?>
-                            <option value="<?= htmlspecialchars($university->UniversityID) ?>">
-                                <?= htmlspecialchars($university->Name) ?>
+                        <?php foreach ($postUniversities as $postUniversity) : ?>
+                            <option value="<?= htmlspecialchars($postUniversity->UniversityID) ?>">
+                                <?= htmlspecialchars($postUniversity->Name) ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="contentitem">
                     <label for="subjectforum" id="subjectlabel">Subject</label>
-                    <select class="foruminput" list="subjectsforum" id="setPostSubject" placeholder="Select Subject" name="setSubject">
+                    <select class="foruminput" list="subjectsforum" id="setPostSubject" placeholder="Select Subject" name="setPostSubject">
                         <option value=""></option>
                         <!-- Options will be added here by JavaScript after selecting a university -->
                     </select>
