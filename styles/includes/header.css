@@ -61,10 +61,6 @@
     display: flex;
     align-items: center;
     background-color: white;
-    padding: 8px;
-    border-radius: 20px;
-    border: solid #0000001a;
-    border-width: 0.5px;
     height: 25px;
     width: 95%;
     font-family: 'Comfortaa', sans-serif;
@@ -102,15 +98,6 @@
     transform: translateY(-50%);
     color: #ccc;
     pointer-events: none;
-}
-
-.fa-magnifying-glass {
-    color: black;
-}
-
-.fa-magnifying-glass:hover {
-    color: #f59c1a;
-    cursor: pointer;
 }
 
 /*-- Right Icons --*/
@@ -245,10 +232,52 @@
         box-shadow: 0 0px 8px rgb(0 0 0 / 15%);
     }
 
+    .search-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 75%;
+    }
+
+    .searchbar-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin: 0 2%;
+    }
+
+    .searchbar-form input {
+        width: 100%;
+    }
+
+    .search-container input[type="text"] {
+        display: flex;
+        align-items: center;
+        background-color: white;
+        height: 15px;
+        width: 95%;
+        font-family: 'Comfortaa', sans-serif;
+        text-decoration: none;
+        color: black;
+        font-size: 1em;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .search-container i.fa-magnifying-glass {
+        margin-left: 10px;
+    }
+
+    .mobile-header-items {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
     #logo {
         align-self: center;
         margin-right: 3%;
-        width: 140px;
         height: 45px;
         order: 2;
         cursor: pointer;
@@ -272,44 +301,10 @@
         color: #f59c1a;
     }
 
-    .searchform {
-        padding: 15px 2px;
-        position: relative;
-        border-top-color: black;
-        border-top-width: 1px;
-        border-top-style: solid;
-        display: flex;
-        justify-content: center;
-    }
-
     .mag {
         padding: 0;
         cursor: pointer;
         padding-left: 1px;
-    }
-
-    .searchform a {
-        position: absolute;
-        font-family: 'Comfortaa', sans-serif;
-        left: 2%;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        border-top-width: 0px;
-        z-index: 1000;
-    }
-
-    .searchbar {
-        border-width: 1px;
-        display: flex;
-        align-items: center;
-        font-family: 'Comfortaa', sans-serif;
-        border-radius: 20px;
-        padding-top: 3px;
-        padding-bottom: 3px;
-        padding-left: 7%;
-        width: 91%;
-        font-size: 1em;
     }
 
     .mobilenav {
@@ -317,7 +312,7 @@
         flex-direction: column;
         background-color: white;
         position: absolute;
-        top: 50px;
+        top: 65px;
         left: 0;
         width: 100%;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);

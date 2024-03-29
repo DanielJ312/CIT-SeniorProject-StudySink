@@ -50,9 +50,6 @@ function get_posts() {
 }
 
 function get_post($postID) {
-    //console log get post reached
-    echo "<script>console.log('get_post Reached')</script>";
-
     $values['PostID'] = $postID;
     $query = <<<query
     SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, POST_T.Modified AS PostModified, USER_T.UserID, Username, Avatar, UNIVERSITY_T.UniversityID, UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation, SUBJECT_T.Name AS SubjectName, COUNT(DISTINCT CommentID) AS Comments, COALESCE((SELECT COUNT(*) FROM POST_LIKE_T WHERE PostID = POST_T.PostID AND VoteType = 1), 0) AS Likes

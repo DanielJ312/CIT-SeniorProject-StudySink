@@ -3,7 +3,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 $query = "SELECT * FROM UNIVERSITY_T;";
 $postUniversities = get_universities_list();
-$postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['setPostUniversity']) ? create_post($_POST) : [];
+$postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['setPostUniversity']) && $_POST['form_id'] == 'postForm' ? create_post($_POST) : [];
 ?>
 
 <!-- Full Size Navbar -->
@@ -53,15 +53,17 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['setPostUnive
     <!-- End of Full Size Nav bar and Beginning of Mobile Nav Bar -->
     <div class="navbarmobile">
         <header class="mobileheader" style="height: 20px;">
-            <i class="fa-solid fa-bars fa-2xl" id="menuIcon" title="Menu Icon"></i>
-            <a href="/index.php" id="Home"><img id="logo" src="https://studysink.s3.amazonaws.com/assets/StudySinkBanner.png" alt="Company Logo" title="Home" style="margin-top: -10px; margin-bottom: -10px;"></a>
-            <nav class="mobilenav">
-                <div>
-                    <form id="search-form" class="searchform">
-                        <a href="SearchResults" class="mag"><i class="fa-solid fa-magnifying-glass fa-sm" style="color: #000000; padding-left: 2px; margin-bottom: 3px"></i></a>
-                        <input type="text" id="search-input" placeholder="Search" class="searchbar" title="search">
+            <div class="mobile-header-items">
+                <a href="/index.php" id="Home"><img id="logo" src="https://studysink.s3.amazonaws.com/assets/StudySinkLogoOnly.png" alt="Company Logo" title="Home" style="margin-top: -10px; margin-bottom: -10px;"></a>
+                <div class="search-container">
+                    <form action="/results.php" method="GET" class="searchbar-form">
+                        <input type="text" id="searchBar" name="search" placeholder="Search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
                     </form>
                 </div>
+                <i class="fa-solid fa-bars fa-2xl" id="menuIcon" title="Menu Icon"></i>
+            </div>
+            <nav class="mobilenav">
                 <div class="nav-options">
                     <div class="navitem"><a href="/index.php" title="Home">Home</a></div>
                     <?php if (check_login()) : ?>
@@ -98,6 +100,8 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['setPostUnive
 <div id="forumBody">
     <div id="overlay">
         <form method="post">
+            <!-- This first input tag with type=hidden is just a jank way to identify which -->
+            <input type="hidden" name="form_id" value="postForm">
             <div id="popupContainer">
                 <i class="fa-regular fa-circle-xmark fa-2xl" id="closeButton" onclick="closePopup()"></i>
                 <div class="contentitem">
