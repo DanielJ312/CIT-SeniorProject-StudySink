@@ -439,81 +439,59 @@ h3 {
         flex-grow: 1;
     }
 
-    .posts {
-        padding-left: 0px;
+    .margin {
+        margin: 20px 5%;
     }
 
-    h2 {
-        color: black;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .down {
-        border: solid black;
-        border-width: 0 3px 3px 0;
-        display: inline-block;
-        padding: 3px;
-        transform: rotate(45deg);
-        -webkit-transform: rotate(45deg);
-        margin: 7px;
-        z-index: -1;
-    }
-
-    #contentset {
-        display: none;
-    }
-
-    #contentpost {
-        display: none;
-    }
-
-    .scrollbar {
-        overflow: auto;
-        height: auto;
-    }
-
-    .column {
-        margin-top: 10px;
+    .column, .columns {
         display: block;
     }
 
-    .margin {
-        margin: 20px 2%;
+    .study-set, .posts, .subject-selection-c {
+        padding-right: 0;
+        padding-left: 0;
     }
 
-    .study-set {
-        padding-right: 0px;
+    .cardContainer, .post, .subject, .mobile-posts {
+        margin-bottom: 20px;
     }
 
-    .cardContainer {
-        display: flex;
-        flex-direction: column;
-        transition: box-shadow 0.3s ease;
-        background: rgb(255 255 255);
-        border-radius: 5px;
-        padding: 10px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
-        margin-bottom: 10px;
-        margin-right: 5px;
-        border: solid #00000029;
-        border-width: 0.5px;
+    h2, h3, .post-account, .post-date, .cardHeaderUsernameDate > p {
+        font-size: calc(1em + 1vw);
     }
-    
+
+    .post-profile-picture, .cardContainer img.profile-picture {
+        width: 60px;
+        height: 60px;
+    }
+
+    .search-bar-csun input, .sort, button, .search-bar-csun button {
+        min-height: 44px;
+        font-size: 16px;
+    }
 }
 
-@media (min-width: 1629px) {
-    #contentset {
-        display: block !important;
+@media (min-width: 1200px) {
+    .margin {
+        margin: 20px 10%;
     }
 
-    #contentpost {
-        display: block !important;
+    .column, .columns {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .study-set, .posts {
+        flex: 1;
+        padding: 0 10px;
     }
 }
 
 a {
+    color: #2778ff;
+    text-decoration: underline;
+}
+
+a:hover {
     text-decoration: none;
 }
