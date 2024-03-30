@@ -165,7 +165,7 @@ function edit_post() {
     ];
     $query = "UPDATE POST_T SET Content = :Content, Modified = :Modified WHERE PostID = :PostID;";
     run_database($query, $values);
-    echo $values['Content'];
+    echo nl2br($values['Content']);
 }
 
 function report_post() {
@@ -260,7 +260,7 @@ function edit_comment() {
     ];
     $query = "UPDATE COMMENT_T SET Content = :Content, Modified = :Modified WHERE CommentID = :CommentID;";
     run_database($query, $values);
-    echo $values['Content'];
+    echo nl2br($values['Content']);
 }
 
 function report_comment() {
