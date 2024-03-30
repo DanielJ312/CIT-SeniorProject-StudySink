@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <div class="request-link">Dont see your school? Request a school by clicking <a href="/request">Here</a>.</div>
                 <div class="uniFormContainer">
                     <form method="post" class="uni-form">
-                        <input class="uniDropdown" list="universities" id="setUniversity" placeholder="Select from the dropdown" name="updateUniversity" value="<?= get_user_university_name() ?>" required>
+                        <input class="uniDropdown" list="universities" id="setUniversity" placeholder="Select from the dropdown" name="updateUniversity" value="<?= get_user_university_name() ?>">
                         <datalist id="universities">
                             <?php
                             $universities = get_universities();
@@ -189,6 +189,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         var university = document.getElementById('setUniversity').value;
         var universities = document.getElementById('universities').children;
         var found = false;
+
+        //If blank value is submitted, form will submit and set primary university to null
+        if (university === '') {
+        return;
+    }
         document.getElementById('uniError').textContent = '';
         for (var i = 0; i < universities.length; i++) {
             if (universities[i].value === university) {

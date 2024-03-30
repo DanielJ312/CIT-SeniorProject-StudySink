@@ -15,26 +15,35 @@ $pageTitle = "Reset Password";
     <link rel="stylesheet" type="text/css" href="/styles/account/forgot.css">
     <script async src="/account/account.js"></script>
 </head>
-<body>
+<body class="forgot-body">
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
     </header>
-    <main>
+    <main class="forgot-main">
         <div class="forgot-container">
             <div class="reset-form" novalidate>
                 <div class="email-container">
-                    <p>Enter your email to send a verification code to reset password.</p>
+                    <p>We will send a verification code to your email</p>
                     <p class="email">Email <input class="email-input" type="email" name="email"></p>
                     <input class="send-email" type="submit" value="Send Code">
                 </div>
                 <div class="password-container" style="display: none">
-                    <p>Enter the verification code you have been emailed in order to proceed.</p>
-                    <p class="code">Code <input class="code-input" type="text" name="code"></p> 
-                    <p class="password">Password <input class="password-input" type="password" name="password"></p>
-                    <p class="password">Confirm Password <input class="password2-input" type="password" name="password2"></p>
+                    <p>The code has been sent</p>
+                    <div class="reset-code">
+                        <p class="code">Code</p>
+                        <input class="code-input" type="text" name="code"> 
+                    </div>
+                    <div class="reset-password">
+                        <p class="password">New Password</p>
+                        <input class="password-input" type="password" name="password">
+                    </div>
+                    <div class="reset-password2">
+                        <p class="password">Confirm Password</p>
+                        <input class="password2-input" type="password" name="password2">
+                    </div>
                     <input class="submit-pass" type="submit" value="Reset Password">
                 </div>
-                <p class="error" style="display: none"></p>
+                <p class="error" style="display: none; color: red;"></p>
             </div>
         </div>
     </main>

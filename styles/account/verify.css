@@ -1,4 +1,15 @@
+.verify-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.verify-main {
+    flex: 1;
+}
+
 .verify-container {
+    font-family: 'Comfortaa', sans-serif;
     color: black;
     background-color: white;
     border-radius: 15px;
@@ -6,9 +17,7 @@
     padding: 30px;
     width: 300px;
     text-align: center;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 3% auto 3% auto;
 }
 
 .verify-container h2 {
@@ -17,11 +26,19 @@
     margin: 0;
 }
 
-.verify-container form p {
+.verify-code {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.verify-code p {
     display: flex;
     align-items: center;
     text-align: left;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    margin-right: 10px;
 }
 
 .verify-container form {
@@ -38,6 +55,7 @@
 
 .verify-container input[type="text"],
 .verify-container input[type="password"] {
+    font-family: 'Comfortaa', sans-serif;
     width: 200px;
     color: black;
     padding: 10px;
@@ -46,9 +64,19 @@
     border-radius: 5px;
 }
 
+.verify-container input[type="text"]:active,
+.verify-container input[type="password"]:active {
+    background: 3px solid #007BFF;
+}
+
 .verify-container input[type="submit"] {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1em;
+    display: flex;
+    align-self: center;
+    width: fit-content;
     flex: 2;
-    padding: 10px;
+    padding: 10px 20px;
     background-color: #007BFF;
     color: #fff;
     border: none;
@@ -58,6 +86,13 @@
 
 .verify-container input[type="submit"]:hover {
     background-color: #0056b3;
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.verify-container input[type="submit"]:active {
+    transform: scale(.95);
+    transition: 0.3s;
 }
 
 .vheader {
@@ -68,18 +103,28 @@
     font-weight: bold;
 }
 
-@media only screen and (max-width: 850px) {
+.verify-form-error {
+    color: red;
+    font-size: 0.9em;
+    margin: 0;
+}
+
+@media only screen and (max-width: 380px) {
     .verify-container {
-        color: black;
-        background-color: white;
-        border-radius: 15px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        padding: 30px;
-        width: 270px;
-        text-align: center;
-        margin-top: 60px;
-        margin-left: auto;
-        margin-right: auto;
+        width: 80%;
+        padding: 30px 10px;
+    }
+
+    .verify-container p {
+        font-size: 0.8em;
+    }
+
+    .vheader {
+        font-size: x-large;
+    }   
+
+    .verify-container input[type="text"] {
+        width: 50%;
     }
 
 }

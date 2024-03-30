@@ -75,3 +75,22 @@ function highlightStars(rating) {
         }
     });
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteButtons = document.querySelectorAll('.deleteButton');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const setID = this.getAttribute('data-set-id');
+            document.getElementById('deleteConfirmationModal').style.display = 'flex';
+
+            document.getElementById('confirmDelete').onclick = function() {
+                window.location.href = `/study-sets/delete.php?id=${setID}`;
+            };
+
+            document.getElementById('cancelDelete').onclick = function() {
+                document.getElementById('deleteConfirmationModal').style.display = 'none';
+            };
+        });
+    });
+});

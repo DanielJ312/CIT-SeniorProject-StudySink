@@ -5,7 +5,8 @@ $pageTitle = "Create Study Set";
 update_session();
 $universities = get_universities_list();
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") create_study_set($_POST);
+// Check if the form was submitted with id="studySetForm"
+if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['form_id'] == 'studySetForm') create_study_set($_POST);
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") create_study_set($_POST);
         <div class="studySetContainer">
             <h2 class="header2"><?=isset($pageTitle) ? $pageTitle : "Create a Study Set" ?></h2>
             <form id="studySetForm" method="POST">
+                <!-- This first input that has type=hidden is just a jank way to differentiate between forms being submitted -->
+                <input type="hidden" name="form_id" value="studySetForm">
                 <div class="titleContainer">
                     <input type="text" id="setTitle" placeholder="Enter Title Here: &quot;Computer Science 101 - Chapter 1&quot;" name="setTitle" maxlength="255" required>
                 </div>

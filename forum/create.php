@@ -18,7 +18,6 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? create_post($_POST) : [];
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
         <h2><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
-        <h3 style="color: red">THIS PAGE DOES NOT CURRENTLY WORK</h3>
     </header>
     <main>
         <div>
