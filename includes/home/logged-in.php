@@ -2,7 +2,8 @@
 // University Side Bar
 $userUniversity = get_user_university();
 if (isset($userUniversity)) {
-    $recentUniPostIDs = get_recent_university_post_IDs($userUniversity);
+    // $recentUniPostIDs = get_recent_university_post_IDs($userUniversity);
+    $recentPosts = get_recent_university_posts($userUniversity);
 }
 // Recent Posts
 if (isset($_COOKIE['viewed_posts'])) {
@@ -21,8 +22,7 @@ if (isset($_COOKIE['viewed_study_sets'])) {
             <h2 class="home-container-title">My University</h2>
             <div class="university-posts-tiles-container">
                 <?php if (isset($userUniversity)) : ?>
-                <?php foreach ($recentUniPostIDs as $postId) : ?>
-                    <?php $post = get_post($postId); ?>
+                <?php foreach ($recentPosts as $post) : ?>
                     <div class="university-post-tile PostLinkTile" data-id="<?= $post->PostID; ?>">
                         <div class="post-header">
                             <a href="account/profile.php"><img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" /></a>
@@ -63,27 +63,27 @@ if (isset($_COOKIE['viewed_study_sets'])) {
             <?php if (isset($_COOKIE['viewed_posts'])) : ?>
                 <?php foreach ($viewedPosts as $postId) : ?>
                     <?php $post = get_post($postId); if ($post) : ?>
-                    <div class="post-tile PostLinkTile" data-id="<?= $post->PostID; ?>">
-                        <div class="post-header">
-                            <a href="account/profile.php"><img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" /></a>
-                            <div class="post-info">
-                                <a href="account/profile.php" class="post-account"> <?= $post->Username; ?> </a>
-                                <p class="post-date"> <?= date('F j, Y', $post->PostCreated); ?> </p>
+                        <div class="post-tile PostLinkTile" data-id="<?= $post->PostID; ?>">
+                            <div class="post-header">
+                                <a href="account/profile.php"><img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" /></a>
+                                <div class="post-info">
+                                    <a href="account/profile.php" class="post-account"> <?= $post->Username; ?> </a>
+                                    <p class="post-date"> <?= date('F j, Y', $post->PostCreated); ?> </p>
+                                </div>
+                            </div>
+                            <h3 class="post-title"> <?= $post->Title; ?> </h3>
+                            <div class="post-content"> <?= $post->Content; ?> </div>
+                            <div class="bottom-of-tile">
+                                <div class="comment">
+                                    <i class="fa-regular fa-comment"></i>
+                                    <div class="comments-count"><?= $post->Comments; ?></div>
+                                </div>
+                                <div class="vote">
+                                    <i class="fa-regular fa-heart"></i>
+                                    <div class="votes-count"><?= $post->Likes; ?></div>
+                                </div>
                             </div>
                         </div>
-                        <h3 class="post-title"> <?= $post->Title; ?> </h3>
-                        <div class="post-content"> <?= $post->Content; ?> </div>
-                        <div class="bottom-of-tile">
-                            <div class="comment">
-                                <i class="fa-regular fa-comment"></i>
-                                <div class="comments-count"><?= $post->Comments; ?></div>
-                            </div>
-                            <div class="vote">
-                                <i class="fa-regular fa-heart"></i>
-                                <div class="votes-count"><?= $post->Likes; ?></div>
-                            </div>
-                        </div>
-                    </div>
                 <?php endif; endforeach; ?>
                 <?php else : ?>
                     <p>You have not viewed any posts yet.</p>
@@ -95,39 +95,31 @@ if (isset($_COOKIE['viewed_study_sets'])) {
             <h2 class="home-container-title">Recently Viewed Study Sets</h2>
             <div class="study-sets-tiles-container">
                 <?php if (isset($_COOKIE['viewed_study_sets'])) : ?>
-                <?php foreach ($viewedStudySets as $StudySetId) : ?>
-                    <?php 
-                        $studySet = get_study_set($StudySetId);
-                        $avgRatingQuery = "SELECT AVG(Rating) as AvgRating FROM STUDY_SET_RATINGS WHERE StudySetID = :StudySetID";
-                        $avgRatingResult = run_database($avgRatingQuery, ['StudySetID' => $StudySetId]);
-                        if ($avgRatingResult) {
-                            $averageRating = is_array($avgRatingResult[0]) ? round($avgRatingResult[0]['AvgRating'], 2) : round($avgRatingResult[0]->AvgRating, 2);
-                        } else {
-                            $averageRating = 'Not rated';
-                        }
-                    ?>
-                    <div class="study-set-tile StudySetLinkTile" data-id="<?= $studySet->StudySetID; ?>">
-                        <div class="study-set-header">
-                            <a href="account/profile.php"><img src="<?= $studySet->Avatar; ?>" alt="Place Holder" class="study-set-profile-picture" /></a>
-                            <div class="study-set-info">
-                                <a href="account/profile.php" class="study-set-account"> <?= $studySet->Username; ?></a>
-                                <p class="study-set-date"> <?= date('F j, Y', $studySet->Created); ?> </p>
+                    <?php foreach ($viewedStudySets as $StudySetId) : ?>
+                        <?php $studySet = get_study_set($StudySetId); if ($studySet) : ?>
+                            <div class="study-set-tile StudySetLinkTile" data-id="<?= $studySet->StudySetID; ?>">
+                                <div class="study-set-header">
+                                    <a href="account/profile.php"><img src="<?= $studySet->Avatar; ?>" alt="Place Holder" class="study-set-profile-picture" /></a>
+                                    <div class="study-set-info">
+                                        <a href="account/profile.php" class="study-set-account"> <?= $studySet->Username; ?></a>
+                                        <p class="study-set-date"> <?= date('F j, Y', $studySet->SetCreated); ?> </p>
+                                    </div>
+                                </div>
+                                <h3 class="study-set-title"> <?= $studySet->Title; ?> </h3>
+                                <div class="study-set-description"> <?= $studySet->Description; ?> </div>
+                                <div class="bottom-of-tile">
+                                    <div class="comment">
+                                        <i class="fa-regular fa-comment"></i>
+                                        <div class="comments-count"><?= $studySet->Comments; ?></div>
+                                    </div>
+                                    <div class="study-set-rating">
+                                        <i class="fa-regular fa-star"></i>
+                                        <div class="study-set-rating-count" style="margin-top: 1px;"><?= round($studySet->Rating, 1) ?></div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <h3 class="study-set-title"> <?= $studySet->Title; ?> </h3>
-                        <div class="study-set-description"> <?= $studySet->Description; ?> </div>
-                        <div class="bottom-of-tile">
-                            <div class="comment">
-                                <i class="fa-regular fa-comment"></i>
-                                <div class="comments-count"><?= $studySet->Comments; ?></div>
-                            </div>
-                            <div class="study-set-rating">
-                                <i class="fa-regular fa-star"></i>
-                                <div class="study-set-rating-count" style="margin-top: 1px;"><?= $averageRating; ?></div>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 <?php else : ?>
                     <p>You have not viewed any study sets yet.</p>
                 <?php endif; ?>

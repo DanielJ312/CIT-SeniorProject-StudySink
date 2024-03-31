@@ -136,18 +136,6 @@ function get_universities_list() {
     return run_database($query);
 }
 
-//New function to get study set info from db.
-function get_study_set($StudySetID) {
-    $values['StudySetID'] = $StudySetID;
-    $query = <<<query
-    SELECT S.StudySetID, U.Username, S.CourseID, S.Title, S.Description, S.Instructor, S.Created, U.Avatar, count(CommentID) as Comments
-    FROM STUDY_SET_T S INNER JOIN USER_T U ON S.UserID = U.UserID
-    LEFT OUTER JOIN COMMENT_T C ON C.StudySetID = S.StudySetID
-    WHERE S.StudySetID = :StudySetID;
-    query;
-    return run_database($query, $values)[0];
-}
-
 //Get users main university ID given the users ID.
 function get_user_university() {
     $values['UserID'] = $_SESSION['USER']->UserID;
@@ -187,6 +175,22 @@ function get_recent_university_post_IDs($universityID) {
     }
 
     return $postIDs;
+}
+
+function get_recent_university_posts($universityID) {
+    // $query = "SELECT * FROM POST_T WHERE UniversityID = :UniversityID ORDER BY Created DESC LIMIT 10";
+    $query = <<<query
+    SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, POST_T.Modified AS PostModified, USER_T.UserID, Username, Avatar, UNIVERSITY_T.UniversityID, UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation, SUBJECT_T.Name AS SubjectName, COUNT(DISTINCT CommentID) AS Comments, COALESCE((SELECT COUNT(*) FROM POST_LIKE_T WHERE PostID = POST_T.PostID AND VoteType = 1), 0) AS Likes
+    FROM POST_T 
+        INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID
+        INNER JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
+        INNER JOIN SUBJECT_T ON POST_T.SubjectID = SUBJECT_T.SubjectID
+        LEFT OUTER JOIN COMMENT_T ON COMMENT_T.PostID = POST_T.PostID
+    WHERE POST_T.UniversityID = :UniversityID
+    GROUP BY POST_T.PostID
+    ORDER BY POST_T.Created DESC LIMIT 10
+    query;
+    return run_database($query, $values = ['UniversityID' => $universityID]);
 }
 
 function save_to_cookie($type) {
