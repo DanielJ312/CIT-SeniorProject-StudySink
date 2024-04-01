@@ -20,7 +20,7 @@ save_to_cookie("post");
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <script async src="/forum/forum.js"></script>
+    <script async src="/posts/forum.js"></script>
     <link rel="stylesheet" href="/styles/forum/post-template.css" />
 </head>
 <body class="post-template-body">

@@ -32,7 +32,7 @@ $sets = run_database($query);
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <link rel="stylesheet" href="../styles/study-set-styles/index.css">
-    <!-- <script async src="/forum/forum.js"></script> -->
+    <!-- <script async src="/post/forum.js"></script> -->
 </head>
 <body class="studySetBrowsePageBody">
     <header>
