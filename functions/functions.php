@@ -242,4 +242,50 @@ function save_to_cookie($type) {
             break;
     }
 }
+
+function get_recent_posts($postIDs) {
+    for ($i = 0; $i < 5; $i++) { 
+        if (!isset($postIDs[$i])) {
+            $postIDs[$i] = 0;
+        }
+    }
+
+    $query = <<<query
+    SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, POST_T.Modified AS PostModified, USER_T.UserID, Username, Avatar, UNIVERSITY_T.UniversityID, UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation, SUBJECT_T.Name AS SubjectName, COUNT(DISTINCT CommentID) AS Comments, COALESCE((SELECT COUNT(*) FROM POST_LIKE_T WHERE PostID = POST_T.PostID AND VoteType = 1), 0) AS Likes
+    FROM POST_T 
+        INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID
+        INNER JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
+        INNER JOIN SUBJECT_T ON POST_T.SubjectID = SUBJECT_T.SubjectID
+        LEFT OUTER JOIN COMMENT_T ON COMMENT_T.PostID = POST_T.PostID
+    WHERE POST_T.PostID IN ({$postIDs[0]}, {$postIDs[1]}, {$postIDs[2]}, {$postIDs[3]}, {$postIDs[4]})
+    GROUP BY POST_T.PostID
+    ORDER BY FIELD(POST_T.PostID, {$postIDs[0]}, {$postIDs[1]}, {$postIDs[2]}, {$postIDs[3]}, {$postIDs[4]})
+    query;
+
+    return run_database($query);
+}
+
+function get_recent_study_sets($studySetIDs) {
+    for ($i = 0; $i < 5; $i++) { 
+        if (!isset($studySetIDs[$i])) {
+            $studySetIDs[$i] = 0;
+        }
+    }
+
+    $query = <<<query
+    SELECT STUDY_SET_T.StudySetID, Title, Description, STUDY_SET_T.Created AS SetCreated, Username, Avatar, UNIVERSITY_T.Name AS UniversityName, COURSE_T.Abbreviation AS Course, COUNT(DISTINCT CommentID) AS Comments,
+    COALESCE((SELECT AVG(Rating) FROM STUDY_SET_RATINGS WHERE StudySetID = STUDY_SET_T.StudySetID), 0) AS Rating
+    FROM STUDY_SET_T INNER JOIN USER_T ON STUDY_SET_T.UserID = USER_T.UserID
+        INNER JOIN COURSE_T ON COURSE_T.CourseID = STUDY_SET_T.CourseID
+        INNER JOIN SUBJECT_T ON SUBJECT_T.SubjectID = COURSE_T.SubjectID
+        INNER JOIN UNIVERSITY_T ON UNIVERSITY_T.UniversityID = SUBJECT_T.UniversityID
+        LEFT OUTER JOIN COMMENT_T ON COMMENT_T.StudySetID = STUDY_SET_T.StudySetID
+    WHERE STUDY_SET_T.StudySetID IN ({$studySetIDs[0]}, {$studySetIDs[1]}, {$studySetIDs[2]}, {$studySetIDs[3]}, {$studySetIDs[4]})
+    GROUP BY STUDY_SET_T.StudySetID 
+    ORDER BY FIELD(STUDY_SET_T.StudySetID, {$studySetIDs[0]}, {$studySetIDs[1]}, {$studySetIDs[2]}, {$studySetIDs[3]}, {$studySetIDs[4]})
+    query;
+
+    return run_database($query);
+}
+
 ?>

@@ -1,7 +1,7 @@
 <!-- Study Set Template - Displays Study Set for given Study Set ID  -->
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
-
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/study-set-functions.php");
 
 $setID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
 $values['StudySetID'] = $setID;

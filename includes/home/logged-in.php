@@ -7,11 +7,13 @@ if (isset($userUniversity)) {
 }
 // Recent Posts
 if (isset($_COOKIE['viewed_posts'])) {
-    $viewedPosts = explode(',', $_COOKIE['viewed_posts']);
+    $viewedPostIDs = explode(',', $_COOKIE['viewed_posts']);
+    $viewedPosts = get_recent_posts($viewedPostIDs);
 }
 // Recent Study Sets
 if (isset($_COOKIE['viewed_study_sets'])) {
-    $viewedStudySets = explode(',', $_COOKIE['viewed_study_sets']);
+    $viewedStudySetIDs = explode(',', $_COOKIE['viewed_study_sets']);
+    $viewedStudySets = get_recent_study_sets($viewedStudySetIDs);
 }
 ?>
 
@@ -61,8 +63,7 @@ if (isset($_COOKIE['viewed_study_sets'])) {
             <h2 class="home-container-title">Recently Viewed Posts</h2>
             <div class="post-tiles-container">
             <?php if (isset($_COOKIE['viewed_posts'])) : ?>
-                <?php foreach ($viewedPosts as $postId) : ?>
-                    <?php $post = get_post($postId); if ($post) : ?>
+                <?php foreach ($viewedPosts as $post) : ?>
                         <div class="post-tile PostLinkTile" data-id="<?= $post->PostID; ?>">
                             <div class="post-header">
                                 <a href="account/profile.php"><img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" /></a>
@@ -84,7 +85,7 @@ if (isset($_COOKIE['viewed_study_sets'])) {
                                 </div>
                             </div>
                         </div>
-                <?php endif; endforeach; ?>
+                <?php endforeach; ?>
                 <?php else : ?>
                     <p>You have not viewed any posts yet.</p>
                 <?php endif; ?>
@@ -95,8 +96,7 @@ if (isset($_COOKIE['viewed_study_sets'])) {
             <h2 class="home-container-title">Recently Viewed Study Sets</h2>
             <div class="study-sets-tiles-container">
                 <?php if (isset($_COOKIE['viewed_study_sets'])) : ?>
-                    <?php foreach ($viewedStudySets as $StudySetId) : ?>
-                        <?php $studySet = get_study_set($StudySetId); if ($studySet) : ?>
+                    <?php foreach ($viewedStudySets as $studySet) : ?>
                             <div class="study-set-tile StudySetLinkTile" data-id="<?= $studySet->StudySetID; ?>">
                                 <div class="study-set-header">
                                     <a href="account/profile.php"><img src="<?= $studySet->Avatar; ?>" alt="Place Holder" class="study-set-profile-picture" /></a>
@@ -118,7 +118,6 @@ if (isset($_COOKIE['viewed_study_sets'])) {
                                     </div>
                                 </div>
                             </div>
-                        <?php endif; ?>
                     <?php endforeach; ?>
                 <?php else : ?>
                     <p>You have not viewed any study sets yet.</p>
@@ -127,55 +126,3 @@ if (isset($_COOKIE['viewed_study_sets'])) {
         </div>
     </div>
 </div>
-
-<script>
-    // Event listener for the post tiles so it goes to the post page when clicking on the tile
-    let postTiles = document.querySelectorAll('.PostLinkTile');
-    postTiles.forEach(tile => {
-        tile.addEventListener('click', function() {
-            window.location.href = "/forum/posts/" + this.dataset.id;
-        });
-    });
-
-    // Event listener for the Study Set tiles so it goes to the study set page when clicking on the tile
-    let studySetTiles = document.querySelectorAll('.StudySetLinkTile');
-    studySetTiles.forEach(tile => {
-        tile.addEventListener('click', function() {
-            window.location.href = "/study-sets/" + this.dataset.id;
-        });
-    });
-
-    // Truncate the post content if it's too long
-    // Select all post content
-    var contents = document.querySelectorAll('.post-content');
-    // Loop through each post content
-    contents.forEach(function(content) {
-        // Check if the content is longer than 50 characters
-        if (content.textContent.length > 50) {
-            // If it is, truncate it to 50 characters and add an ellipsis
-            content.textContent = content.textContent.substring(0, 50) + '...';
-        }
-    });
-
-    // Same for the 3 below
-    var postTitles = document.querySelectorAll('.post-title');
-    postTitles.forEach(function(title) {
-        if (title.textContent.length > 80) {
-            title.textContent = title.textContent.substring(0, 50) + '...';
-        }
-    });
-
-    var descriptions = document.querySelectorAll('.study-set-description');
-    descriptions.forEach(function(description) {
-        if (description.textContent.length > 50) {
-            description.textContent = description.textContent.substring(0, 50) + '...';
-        }
-    });
-
-    var titles = document.querySelectorAll('.study-set-title');
-    titles.forEach(function(title) {
-        if (title.textContent.length > 80) {
-            title.textContent = title.textContent.substring(0, 50) + '...';
-        }
-    });
-</script>
