@@ -1,6 +1,5 @@
 <!-- Post Template - Displays post for given Post ID  -->
 <?php
-// require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 update_session();
 $postID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';

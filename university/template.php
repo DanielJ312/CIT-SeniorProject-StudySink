@@ -1,11 +1,9 @@
 <!-- Post Template - Displays post for given Post ID  -->
 <?php
-// require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 update_session();
 $univeristyAbbr = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
 
-// if (empty($posts)) header("Location: /university/index.php");
 $query = "SELECT * FROM UNIVERSITY_T WHERE Abbreviation ='$univeristyAbbr';";
 $university = run_database($query)[0];
 $query = "SELECT * FROM SUBJECT_T WHERE UniversityID = {$university->UniversityID} ORDER BY Name ASC;";
