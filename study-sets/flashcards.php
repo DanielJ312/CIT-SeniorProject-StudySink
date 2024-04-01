@@ -31,6 +31,7 @@ $cards = run_database($query, $values);
 <body class="flashcardsBody">
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
     <main class="flashcardMain">
         <div class="flashcardsContainer">
