@@ -28,7 +28,7 @@
         <?php endif; ?>
     </div>
     <div id="comment-<?= $comment->CommentID; ?>-c" >
-        <p class="comment-content"><?= $comment->Content; ?></p>
+        <p class="comment-content"><?= nl2br($comment->Content); ?></p>
     </div>
     <div class="vote">
         <div class="post-icons">

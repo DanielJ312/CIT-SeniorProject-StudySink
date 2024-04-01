@@ -1,6 +1,6 @@
 <!-- Home -->
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/study-set-functions.php");
 update_session();
 $pageTitle = "Home";
 ?>
@@ -17,6 +17,7 @@ $pageTitle = "Home";
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Concert+One&display=swap" rel="stylesheet">
+        <script async src="/home.js"></script>
     </header>
     <main>
     <?php if (!check_login()) : ?>

@@ -45,15 +45,18 @@ function DeletePost() {
 
 function OpenPostEditor() {
     content = $(`.content`).html();
-    console.log(content);
+    height = countLineBreaks(content) + 1;
+    height = (height > 2) ? height * 15 : 30;
+    content = convertBrToNewline(content);
+
     $(`.content`).toggle();
     var div = $("<div>").addClass("edit-bar");
-    var input = $("<input>").attr({
+    var textarea = $("<textarea>").attr({
         type: "text",
         class: "input-bar",
-        value: content,
-        name: "content"
-    });
+        name: "content",
+        style: `height: ${height}px;`
+    }).text(content);
     var cancel = $("<button>").attr({
         type: "submit",
         class: "cancelComment",
@@ -65,7 +68,7 @@ function OpenPostEditor() {
         onclick: `EditPost()`
     }).text("Save");
 
-    div.append(input, cancel, save);
+    div.append(textarea, cancel, save);
     $(`.post-content`).append(div);
     $(`.post .dropdown`).toggle();
 } 
@@ -164,15 +167,18 @@ function DeleteComment(commentIDToDelete) {
 
 function OpenCommentEditor(commentID) {
     content = $(`#comment-${commentID}-c p`).html();
-    console.log(content);
+    height = countLineBreaks(content) + 1;
+    height = (height > 2) ? height * 15 : 30;
+    content = convertBrToNewline(content);
+    
     $(`#comment-${commentID}-c p`).toggle();
     var div = $("<div>").addClass("edit-bar");
-    var input = $("<input>").attr({
+    var textarea = $("<textarea>").attr({
         type: "text",
         class: "input-bar",
-        value: content,
-        name: "content"
-    });
+        name: "content",
+        style: `height: ${height}px;`
+    }).text(content);
     var cancel = $("<button>").attr({
         type: "submit",
         class: "cancelComment",
@@ -184,7 +190,7 @@ function OpenCommentEditor(commentID) {
         onclick: `EditComment(${commentID})`
     }).text("Save");
 
-    div.append(input, cancel, save);
+    div.append(textarea, cancel, save);
     $(`#comment-${commentID}-c`).append(div);
     $(`#comment-${commentID} .dropdown`).toggle();
 }   
@@ -262,14 +268,6 @@ window.onclick = function (event) {
     }
 }
 
-function handleKeyPress(event) {
-        // Check if the pressed key is Enter (key code 13)
-        if (event.keyCode === 13) {
-            // Call the AddComment function
-            AddComment();
-        }
-    }
-
 //////////* Miscellaneous Functions *//////////
 // Character Counter for Post Title textarea and Post Content textarea
 function commentcountChar(commnetinput) {
@@ -287,4 +285,17 @@ function commentcountChar(commnetinput) {
     else{
     document.getElementById('commentcharCount').innerText = `${remainingChars}`;
     }
+}
+
+function convertBrToNewline(content) {
+    if (content) {
+        let step1 = content.replace(/<br\s*\/?>/g, '\n');
+        let step2 = step1.replace(/^\s*[\r\n]/gm, '');
+        return step2;
+    }
+}
+
+function countLineBreaks(text) {
+    var lines = text.split('<br>');
+    return lines.length;
 }

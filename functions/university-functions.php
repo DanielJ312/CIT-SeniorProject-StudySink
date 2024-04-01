@@ -92,7 +92,7 @@ function create_set_sort($sortType, $universityID, $subjectID) {
         INNER JOIN SUBJECT_T ON SUBJECT_T.SubjectID = COURSE_T.SubjectID
         INNER JOIN UNIVERSITY_T ON UNIVERSITY_T.UniversityID = SUBJECT_T.UniversityID
         LEFT OUTER JOIN COMMENT_T ON COMMENT_T.StudySetID = STUDY_SET_T.StudySetID
-    WHERE SUBJECT_T.SubjectID = '$subjectID' 
+    WHERE SUBJECT_T.SubjectID = '$subjectID' AND UNIVERSITY_T.UniversityID = '$universityID'
     GROUP BY STUDY_SET_T.StudySetID 
     query;
 
