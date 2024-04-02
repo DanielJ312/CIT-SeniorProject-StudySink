@@ -28,7 +28,7 @@
     # Post and Study Set Redirect
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(posts|study-sets|university)/(.*)$ $1/template.php?url=$2 [QSA,L]
+    RewriteRule ^(|account|posts|study-sets|university)/(.*)$ $1/template.php?url=$2 [QSA,L]
     
     
 </IfModule>
