@@ -8,7 +8,7 @@ $univeristyAbbr = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'defaul
 // if (empty($posts)) header("Location: /university/index.php");
 $query = "SELECT * FROM UNIVERSITY_T WHERE Abbreviation ='$univeristyAbbr';";
 $university = run_database($query)[0];
-$query = "SELECT * FROM SUBJECT_T WHERE UniversityID = {$university->UniversityID} ORDER BY Name ASC;";
+$query = "SELECT * FROM SUBJECT_T WHERE UniversityID = {$university->UniversityID} ORDER BY SUBJECT_T.Name ASC;";
 $subjects = run_database($query);
 
 $pageTitle = $university->Abbreviation;
