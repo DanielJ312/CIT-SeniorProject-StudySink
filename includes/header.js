@@ -1,3 +1,4 @@
+// functions for profile picture menu
 document.addEventListener("DOMContentLoaded", function () {
     // Get profile picture and dropdown elements
     var profilePicture = document.getElementById("profilePicture");
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// functions for create icon menu
 document.addEventListener("DOMContentLoaded", function () {
     // Get profile picture and dropdown elements
     var createIcon = document.getElementById("createIcon");
@@ -65,6 +67,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
+// Search bar functions
 document.addEventListener("DOMContentLoaded", function () {
     var searchForm = document.getElementById("search-form");
     searchForm.addEventListener("submit", function (event) {
@@ -72,4 +76,45 @@ document.addEventListener("DOMContentLoaded", function () {
         var query = document.getElementById("searchBar").value;
         window.location.href = '/results.php?search=' + encodeURIComponent(query);
     });
+});
+
+
+// Functions for Universty and Subject Dropdowns for create post pop-up
+document.addEventListener('DOMContentLoaded', function () {
+    var universityPostSelect = document.getElementById('setPostUniversity');
+    var subjectPostSelect = document.getElementById('setPostSubject');
+
+    // Listens to the change event on the university input
+    universityPostSelect.addEventListener('change', function () {
+        var universityId = this.value;
+        fetchSubjectsForPostUniversity(universityId);
+        // Clear subject selects
+        subjectPostSelect.innerHTML = '<option value=""></option>';
+        console.log(universityId);
+    });
+
+    // Fetches subjects based on University Selection
+    function fetchSubjectsForPostUniversity(universityId) {
+        fetch('/includes/get-subjects.php?universityId=' + universityId)
+            .then(response => response.json())
+            .then(subjects => {
+                // Update the subject options
+                updatePostSubjectOptions(subjects);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Updates the subject options
+    function updatePostSubjectOptions(subjects) {
+        var subjectSelect = document.getElementById('setPostSubject');
+        subjectSelect.innerHTML = '<option value=""></option>'; // Clear existing options
+
+        subjects.forEach(function (postSubject) {
+            var option = document.createElement('option');
+            option.value = postSubject.SubjectID;
+            option.textContent = postSubject.Name;
+            subjectSelect.appendChild(option);
+        });
+    }
+
 });

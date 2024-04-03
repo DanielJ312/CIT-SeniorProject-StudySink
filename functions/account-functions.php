@@ -5,7 +5,8 @@ require($_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php");
 use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
 
-function upload_avatar($file) {
+function upload_avatar($file)
+{
     $credentials = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
     $s3 = new S3Client([
         'version' => 'latest',
@@ -65,7 +66,8 @@ function upload_avatar($file) {
     }
 }
 
-function signup($data) {
+function signup($data)
+{
     // validate
     $errors = array();
     $checkUsername = run_database("SELECT * FROM USER_T WHERE Username = :Username LIMIT 1;", ['Username' => $data['username']]);
@@ -114,7 +116,8 @@ function signup($data) {
     return $errors;
 }
 
-function login($data) {
+function login($data)
+{
     //validate
     $loginType = "Email";
     $errors = array();
@@ -160,7 +163,8 @@ function login($data) {
     return $errors;
 }
 
-function check_email($data) {
+function check_email($data)
+{
     $valid = false;
 
     // validate
@@ -174,7 +178,8 @@ function check_email($data) {
     return $valid;
 }
 
-function reset_password($data) {
+function reset_password($data)
+{
     $status = "none";
     $values = array();
     $values['Code'] = $data['code'];
@@ -206,7 +211,8 @@ function reset_password($data) {
     return $status;
 }
 
-function verify_email($data) {
+function verify_email($data)
+{
     $values = [
         'Email' => $_SESSION['USER']->Email,
         'Code' => $data['code']
@@ -233,7 +239,8 @@ function verify_email($data) {
     return $errors;
 }
 
-function update_bio($data) {
+function update_bio($data)
+{
     $values = [
         'UserID' => $_SESSION['USER']->UserID,
         'Bio' => $data['bio']
@@ -243,7 +250,8 @@ function update_bio($data) {
     update_session();
 }
 
-function update_password($data) {
+function update_password($data)
+{
     $values = [
         'UserID' => $_SESSION['USER']->UserID,
         'Password' => password_hash($data['password'], PASSWORD_DEFAULT)
@@ -253,30 +261,37 @@ function update_password($data) {
     update_session();
 }
 
-function get_universities() {
+function get_universities()
+{
     $query = "SELECT Name FROM UNIVERSITY_T";
     $result = run_database($query);
     return $result;
 }
 
-function update_primary_university($data) {
-    // Fetch the UniversityID from the UNIVERSITY_T table
-    $values = ['UniversityName' => $data['updateUniversity']];
-    $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE Name = :UniversityName";
-    $result = run_database($query, $values);
-    $primaryUniversityID = $result[0]->UniversityID;
-
-    // Use the UniversityID to update the USER_T table
-    $values = [
-        'UserID' => $_SESSION['USER']->UserID,
-        'UniversityID' => $primaryUniversityID
-    ];
-    $query = "UPDATE USER_T SET UniversityID = :UniversityID WHERE UserID = :UserID";
-    run_database($query, $values);
-    update_session();
+function update_primary_university($data)
+{
+    // If the input is blank, set the primary university to null
+    if ($data['updateUniversity'] === '') {
+        $primaryUniversityID = null;
+    } else {
+        // Fetch the UniversityID from the UNIVERSITY_T table
+        $values = ['UniversityName' => $data['updateUniversity']];
+        $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE Name = :UniversityName";
+        $result = run_database($query, $values);
+        $primaryUniversityID = $result[0]->UniversityID;
+    }
+        // Use the UniversityID to update the USER_T table
+        $values = [
+            'UserID' => $_SESSION['USER']->UserID,
+            'UniversityID' => $primaryUniversityID
+        ];
+        $query = "UPDATE USER_T SET UniversityID = :UniversityID WHERE UserID = :UserID";
+        run_database($query, $values);
+        update_session();
 }
 
-function delete_account() {
+function delete_account()
+{
     $values = ['UserID' => $_SESSION['USER']->UserID];
     //Posts created by the user will have there POST_T.UserID changed to DeletedUser's UserID
     //Post likes creted by the user will be removed from the POST_LIKE_T table WHERE POST_LIKE_T.UserID = :UserID

@@ -1,5 +1,12 @@
 /* Reset default styles for body */
+.post-template-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .post-body {
+    flex: 1;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;

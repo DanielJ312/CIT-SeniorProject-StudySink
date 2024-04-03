@@ -187,7 +187,7 @@ function delete_study_set($setID) {
         $pdo->commit();
 
         // Redirect or inform the user of successful deletion
-        header("Location: /study-sets/");
+        header("Location: /index.php/");
         exit;
     } catch (PDOException $e) {
         // Roll back the transaction in case of an error
@@ -198,6 +198,25 @@ function delete_study_set($setID) {
         // Redirect or display a user-friendly error message
         header("Location: /error.php");  // Need to implement
         exit;
+    }
+}
+
+function get_study_set($StudySetID) {
+    $values['StudySetID'] = $StudySetID;
+    $query = <<<query
+    SELECT STUDY_SET_T.StudySetID, Title, Description, STUDY_SET_T.Created AS SetCreated, Username, Avatar, UNIVERSITY_T.Name AS UniversityName, COURSE_T.Abbreviation AS Course, COUNT(DISTINCT CommentID) AS Comments,
+    COALESCE((SELECT AVG(Rating) FROM STUDY_SET_RATINGS WHERE StudySetID = STUDY_SET_T.StudySetID), 0) AS Rating
+    FROM STUDY_SET_T INNER JOIN USER_T ON STUDY_SET_T.UserID = USER_T.UserID
+        INNER JOIN COURSE_T ON COURSE_T.CourseID = STUDY_SET_T.CourseID
+        INNER JOIN SUBJECT_T ON SUBJECT_T.SubjectID = COURSE_T.SubjectID
+        INNER JOIN UNIVERSITY_T ON UNIVERSITY_T.UniversityID = SUBJECT_T.UniversityID
+        LEFT OUTER JOIN COMMENT_T ON COMMENT_T.StudySetID = STUDY_SET_T.StudySetID
+    WHERE STUDY_SET_T.StudySetID = :StudySetID 
+    GROUP BY STUDY_SET_T.StudySetID 
+    query;
+    $studySet = run_database($query, $values);
+    if (is_array($studySet)) {
+        return $studySet[0];
     }
 }
 

@@ -13,8 +13,8 @@
     position: sticky;
     top: 0;
     z-index: 10; 
-    background: #f7f7f7;
     padding: 25px;
+    background-color: #f7f7f7;
 }
 
 .action-bar-buttons {

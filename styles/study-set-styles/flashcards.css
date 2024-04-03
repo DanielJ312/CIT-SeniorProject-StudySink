@@ -1,7 +1,14 @@
 .flashcardsBody {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     background-color: #f7f7f7;
     font-family: 'Comfortaa', sans-serif;
     color: #181818;
+}
+
+.flashcardMain {
+    flex: 1;
 }
 
 .flashcardsContainer {

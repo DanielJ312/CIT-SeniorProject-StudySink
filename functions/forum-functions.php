@@ -105,15 +105,11 @@ function get_comment($commentID) {
 
 //////////* Post Functions *//////////
 function create_post($data) {
-    $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE Name = '{$data['university']}';";
-    $universityID = run_database($query)[0]->UniversityID;
-
-    $query = "SELECT SubjectID FROM SUBJECT_T WHERE Name = '{$data['subject']}';";
-    $subjectID = run_database($query)[0]->SubjectID ?? 0;
+    $subjectID = $data['setPostSubject'] == "0" ? "NULL" : $data['setPostSubject'];
 
     $errors = array();
 
-    if (empty($data['university'])) {
+    if (empty($data['setPostUniversity'])) {
         $errors[] = "Please select a Unviersity from the dropdown to associate your post with.";
     }
     if (empty($data['title'])) {
@@ -126,7 +122,7 @@ function create_post($data) {
     if (count($errors) == 0) {
         $values = [
             'PostID' => generate_ID("POST"),
-            'UniversityID' => $universityID,
+            'UniversityID' => $data['setPostUniversity'],
             'SubjectID' => $subjectID,
             'Title' => $data['title'],
             'Content' => $data['content'],
@@ -165,7 +161,7 @@ function edit_post() {
     ];
     $query = "UPDATE POST_T SET Content = :Content, Modified = :Modified WHERE PostID = :PostID;";
     run_database($query, $values);
-    echo $values['Content'];
+    echo nl2br($values['Content']);
 }
 
 function report_post() {
@@ -260,7 +256,7 @@ function edit_comment() {
     ];
     $query = "UPDATE COMMENT_T SET Content = :Content, Modified = :Modified WHERE CommentID = :CommentID;";
     run_database($query, $values);
-    echo $values['Content'];
+    echo nl2br($values['Content']);
 }
 
 function report_comment() {

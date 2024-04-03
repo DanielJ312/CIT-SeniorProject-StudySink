@@ -11,6 +11,10 @@ body {
   background: #f7f7f7;
 }
 
+main {
+  flex-grow: 1;
+}
+
 .university-main {
   flex-grow: 1;
 }
@@ -279,6 +283,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  width: 100%;
 }
 
 .posts {
@@ -389,10 +394,12 @@ body {
   text-decoration: none;
   color: inherit;
   margin-bottom: 5px;
-  margin-top: 15px;
+  margin-top: 10px;
   box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
   width: 40%;
   background-color: #f7f7f7;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .outer-box {
@@ -413,7 +420,7 @@ body {
   border: 1px solid #cccccc;
   border-radius: 5px;
   font-size: 16px;
-  width: 950px;
+  width: 60%;
 }
 
 .search-bar-university button {
@@ -434,6 +441,7 @@ body {
 .search-bar-university {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 @media only screen and (max-width: 850px) {
@@ -442,6 +450,11 @@ body {
       display: block;
       margin-left: 8px;
       margin-right: 8px;
+      flex-grow: 1;
+  }
+
+  main {
+      display: none;
   }
 
   .margin {

@@ -428,17 +428,16 @@ h3 {
     color: #2778ff;
 }
 
-@media only screen and (max-width: 850px) {
-    .posts {
-        padding-left: 0px;
-    }
+a {
+    text-decoration: none !important;
+}
 
-    h2 {
-        color: black;
-        text-align: center;
+
+@media only screen and (max-width: 850px) {
+    body {
         display: flex;
-        align-items: center;
-        justify-content: center;
+        flex-direction: column;
+        min-height: 100vh;
     }
 
     .down {
@@ -449,61 +448,65 @@ h3 {
         transform: rotate(45deg);
         -webkit-transform: rotate(45deg);
         margin: 7px;
-        z-index: -1;
     }
 
-    #contentset {
-        display: none;
-    }
-
-    #contentpost {
-        display: none;
-    }
-
-    .scrollbar {
-        overflow: auto;
-        height: auto;
-    }
-
-    .column {
-        margin-top: 10px;
-        display: block;
+    main {
+        flex-grow: 1;
     }
 
     .margin {
-        margin: 20px 2%;
+        margin: 20px 5%;
     }
 
-    .study-set {
-        padding-right: 0px;
+    .column, .columns {
+        display: block;
     }
 
-    .cardContainer {
-        display: flex;
-        flex-direction: column;
-        transition: box-shadow 0.3s ease;
-        background: rgb(255 255 255);
-        border-radius: 5px;
-        padding: 10px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
-        margin-bottom: 10px;
-        margin-right: 5px;
-        border: solid #00000029;
-        border-width: 0.5px;
+    .study-set, .posts, .subject-selection-c {
+        padding-right: 0;
+        padding-left: 0;
     }
-    
+
+    .cardContainer, .post, .subject, .mobile-posts {
+        margin-bottom: 20px;
+    }
+
+    h2, h3, .post-account, .post-date, .cardHeaderUsernameDate > p {
+        font-size: calc(1em + 1vw);
+    }
+
+    .post-profile-picture, .cardContainer img.profile-picture {
+        width: 60px;
+        height: 60px;
+    }
+
+    .search-bar-csun input, .sort, button, .search-bar-csun button {
+        min-height: 44px;
+        font-size: 16px;
+    }
 }
 
-@media (min-width: 1629px) {
-    #contentset {
-        display: block !important;
+@media (min-width: 1200px) {
+    .margin {
+        margin: 20px 10%;
     }
 
-    #contentpost {
-        display: block !important;
+    .column, .columns {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .study-set, .posts {
+        flex: 1;
+        padding: 0 10px;
     }
 }
 
 a {
+    color: #2778ff;
+    text-decoration: underline;
+}
+
+a:hover {
     text-decoration: none;
 }

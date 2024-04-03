@@ -34,7 +34,7 @@ $pageTitle = "$university->Abbreviation $subject->Name";
             <div class="column">
                 <div class="study-set">
                     <div class="header">
-                        <h2 id="toggleSet">Study Sets<i class="arrow down"></i></h2>
+                        <h2 id="toggleSet">Study Sets<i class="down"></i></h2>
                         <select id="" class="study-set-sort sort" name="sorts">
                             <option value="study-set-popular">Popular</option>
                             <option value="study-set-newest">Newest</option>
@@ -51,7 +51,7 @@ $pageTitle = "$university->Abbreviation $subject->Name";
                 </div>
                 <div class="posts">
                     <div class="header">
-                        <h2 id="togglePost">Posts<i class="arrow down"></i></h2>
+                        <h2 id="togglePost">Posts<i class="down"></i></h2>
                         <select class="post-sort sort" name="sorts">
                             <option value="post-popular">Popular</option>
                             <option value="post-newest">Newest</option>
@@ -67,6 +67,9 @@ $pageTitle = "$university->Abbreviation $subject->Name";
             </div>
         </div>
     </main>
+    <footer>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
+    </footer>
     <script>
         document.getElementById('toggleSet').addEventListener('click', function() {
             if (window.innerWidth <= 850) {

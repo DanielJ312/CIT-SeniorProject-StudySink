@@ -61,31 +61,37 @@
     display: flex;
     align-items: center;
     background-color: white;
-    padding: 8px;
-    border-radius: 20px;
-    border: solid #0000001a;
-    border-width: 0.5px;
     height: 25px;
-    width: 95%;
+    width: 80%;
     font-family: 'Comfortaa', sans-serif;
     text-decoration: none;
     color: black;
     font-size: 1.2em;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .search-container {
-    position: relative;
+    display: flex;
     width: 100%;
+    height: 80%;
+    padding: 0;
+    border-radius: 20px;
 }
 
 .search-container input[type="text"] {
-    width: 100%;
-    padding: 10px 10px 10px 40px; /* Add padding to make space for the icon inside the bar */
-    border-radius: 20px;
+    padding: 10px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
     border: 1px solid #ccc;
     font-size: 1em;
     outline: none;
+    height: 100%;
+    width: calc(100% - 40px);
+}
+
+.search-container input[type="text"], .search-button {
+    box-sizing: border-box;
+    height: 40px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .search-container a {
@@ -94,24 +100,34 @@
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
+    height: 100%;
 }
 
-.search-container i.fa-magnifying-glass {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #ccc;
-    pointer-events: none;
+.search-bar-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 0;
 }
 
-.fa-magnifying-glass {
-    color: black;
+.search-button {
+    width: 9%;
+    height: auto;
+    border: solid 1px #ccc;
+    border-left: none;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+    background-color: #f7f7f7;
 }
 
-.fa-magnifying-glass:hover {
-    color: #f59c1a;
+.search-button:hover {
+    background-color: #fcb54d;
     cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
 }
 
 /*-- Right Icons --*/
@@ -161,7 +177,7 @@
     background-color: #0078d4;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
-    z-index: 1;
+    z-index: 1000;
     border: 2px;
     right: 200px;
     top: 62px;
@@ -191,7 +207,7 @@
     background-color: #0078d4;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
-    z-index: 1;
+    z-index: 1000;
     border: 2px;
     right: 0.1%;
     border-radius: 10px;
@@ -240,18 +256,82 @@
         background-color: white;
         width: 100%;
         color: #fff;
-        padding: 15px;
+        padding: 25px 20px 20px 20px;
         justify-content: space-between;
         align-items: center;
         box-shadow: 0 0px 8px rgb(0 0 0 / 15%);
     }
 
+    .search-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .search-bar-container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+    }
+
+    .search-container input[type="text"] {
+        flex-grow: 1;
+        padding: 10px;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        border: 1px solid #ccc; 
+        border-right: none;
+        font-size: 1em; 
+        outline: none;
+        height: auto;
+        margin-right: -1px;
+        background-color: white;
+        color: black;
+        font-family: 'Comfortaa', sans-serif;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .search-button {
+        border: 1px solid #ccc;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1em;
+        background-color: #f7f7f7;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .search-button:hover {
+        background-color: #fcb54d;
+    }
+
+    .mobile-header-items {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
     #logo {
+        align-self: center;
         margin-right: 3%;
-        width: 140px;
         height: 45px;
         order: 2;
         cursor: pointer;
+    }
+
+    #logo:hover {
+        transform: scale(1.05);
+        transition: 0.3s;
+    }
+
+    #logo:active {
+        transform: scale(1.05);
     }
 
     .fa-bars {
@@ -263,44 +343,10 @@
         color: #f59c1a;
     }
 
-    .searchform {
-        padding: 15px 2px;
-        position: relative;
-        border-top-color: black;
-        border-top-width: 1px;
-        border-top-style: solid;
-        display: flex;
-        justify-content: center;
-    }
-
     .mag {
         padding: 0;
         cursor: pointer;
         padding-left: 1px;
-    }
-
-    .searchform a {
-        position: absolute;
-        font-family: 'Comfortaa', sans-serif;
-        left: 2%;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        border-top-width: 0px;
-        z-index: 1;
-    }
-
-    .searchbar {
-        border-width: 1px;
-        display: flex;
-        align-items: center;
-        font-family: 'Comfortaa', sans-serif;
-        border-radius: 20px;
-        padding-top: 3px;
-        padding-bottom: 3px;
-        padding-left: 7%;
-        width: 91%;
-        font-size: 1em;
     }
 
     .mobilenav {
@@ -308,11 +354,11 @@
         flex-direction: column;
         background-color: white;
         position: absolute;
-        top: 50px;
+        top: 65px;
         left: 0;
         width: 100%;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
-        z-index: 1;
+        z-index: 1000;
     }
 
     .mobilenav a {
@@ -324,7 +370,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        z-index: 1;
+        z-index: 1000;
     }
 
     .mobilenav a:hover {
@@ -336,14 +382,14 @@
         display: none;
         background-color: #f4f7f8;
         box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
-        z-index: 1;
+        z-index: 1000;
     }
 
     .dropdown-content a {
         font-family: 'Comfortaa', sans-serif;
         display: flex;
         align-items: center;
-        z-index: 1;
+        z-index: 1000;
     }
 
     .dropdown.active a {

@@ -15,17 +15,21 @@
 }
 
 .login-container {
+    display: flex;
+    flex-direction: column;
     color: black;
     background-color: white;
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 31%);
     padding: 30px;
-    width: 300px;
+    width: 404px;
+    height: 406px;
+    max-width: 501px;
+    max-height: 417px; 
+    min-width: 398px;
+    min-height: 405px;
     text-align: center;
-    margin-top: 2%; 
-    margin-left: auto; 
-    margin-right: auto;
-    margin-bottom: 2%;
+    margin: 2% auto 2% auto;
 }
 
 h2 {
@@ -35,16 +39,40 @@ h2 {
 }
 
 .login-container form p {
+    font-family: 'Comfortaa', sans-serif;
     display: flex;
-    align-items: center;
-    text-align: left;
-    margin-bottom: 10px;
+}
+
+.login-container form p a {
+    color: #007BFF;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.login-container form p a:hover {
+    text-decoration: underline;
 }
 
 .login-container form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    /* gap: 10px; */
+}
+
+.login-email-container,
+.login-password-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* .login-email-container {
+    padding-top: 25px;
+} */
+
+.login-password-container {
+    padding: 10px 0px 25px 0px;
 }
 
 .login-container form label {
@@ -53,32 +81,68 @@ h2 {
     margin-right: 10px;
 }
 
+.login-form-error {
+    display: flex;
+    justify-content: end;
+}
+
+.login-form-error p {
+    color: red;
+    font-size: 0.8em;
+    margin: 0;
+    margin-bottom: 0;
+}
+
 .login-container input[type="text"],
 .login-container input[type="password"] {
+    font-family: 'Comfortaa', sans-serif;
     width: 200px;
+    max-width: 230px;
     color: black;
     padding: 10px;
-    margin: 5px 0;
     border: 3px solid #ccc;
+    margin-top: 10px;
     border-radius: 5px;
     background-color: #f7f7f7;
+    margin-bottom: 10px;
+    margin-left: 2%;
+}
+
+.login-container input[type="text"] {
+    margin: 20px 0 20px 2%;
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+    border: 3px solid #007BFF;
 }
 
 .login-container input[type="submit"] {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1em;
+    align-self: center;
     flex: 2;
-    padding: 10px;
+    padding: 3% 20%;
     background-color: #007BFF;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: fit-content;
 }
 
 .login-container input[type="submit"]:hover {
-    background-color: #0056b3;
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.login-container input[type="submit"]:active {
+    transform: scale(0.9);
+    transition: 0.3s;
 }
 
 .lheader {
+    font-family: 'Comfortaa', sans-serif;
     text-align: center;
     color: black;
     margin: 0;
@@ -86,18 +150,54 @@ h2 {
     font-weight: bold;
 }
 
-@media only screen and (max-width: 850px) {
+.login-dontforgot {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: space-between;
+    margin-top: 6%;
+}
+
+.login-dont-forgot p {
+    margin: 3% 0;
+    font-size: 0.8em;
+}
+
+@media only screen and (max-width: 545px) {
     .login-container {
-        color: black;
-        background-color: white;
-        border-radius: 15px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 31%);
-        padding: 30px;
-        width: 270px;
-        text-align: center;
-        margin-top: 60px;
-        margin-left: auto;
-        margin-right: auto;
+        width: 70%;
+        height: 50%;
+        min-width: 230px;
+        min-height:  200px;
+        padding: 20px 12px;
+        margin-top: 10%;
+    }
+
+    .lheader {
+        font-size: x-large;
+    }
+
+    .login-container p {
+        font-size: 0.8em;
+    }
+
+    .login-email-container p {
+        font-size: 0.7em;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+        width: 60%;
+        min-width: auto;
+        height: 10px;
+    }
+
+    .login-container input[type="submit"] {
+        padding: 3% 10%;
+    }
+
+    .login-form-error p {
+        font-size: 0.65em;
     }
 
 }
