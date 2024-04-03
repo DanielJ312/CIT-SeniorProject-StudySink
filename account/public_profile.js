@@ -4,6 +4,10 @@ const postsData = [
     { text: "Excited to join this community!", url: "post2.html" },
     { text: "Learning new things every day.", url: "post3.html" },
     { text: "View More", url: "post3.html" },
+    { text: "View More", url: "post3.html" },
+    { text: "View More", url: "post3.html" },
+    { text: "View More", url: "post3.html" },
+    
 ];
 
 // Function to dynamically add posts to the list
