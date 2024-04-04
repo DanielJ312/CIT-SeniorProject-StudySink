@@ -20,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <link rel="stylesheet" type="text/css" href="/styles/account/account-settings.css">
@@ -28,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kodchasan:wght@700&display=swap" rel="stylesheet">
 </head>
-
 <body>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
     <main class="account-settings">

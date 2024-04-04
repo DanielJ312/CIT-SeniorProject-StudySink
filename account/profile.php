@@ -3,57 +3,76 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
 update_session();
-if (!check_login()) header("Location: /account/login.php"); 
+if (!check_login()) header("Location: /account/login.php");
 $pageTitle = "Profile";
-
 $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? upload_avatar($_FILES) : [];
+// get user info by passing in a user id
+$userInfo = get_user_info('771');
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/styles/account/profile.css">
+    <script defer src="/account/profile.js"></script>
+    <title>User Profile</title>
 </head>
-<body>
-    <header>
-        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-        <h2><?=isset($pageTitle) ? $pageTitle : "Page Header" ?></h2>
-    </header>
-    <main>
-        <div>
-            <p><?= check_login() ? "Hello <b>" . $_SESSION['USER']->Username . "</b>. You are logged in." : "" ?></p>
-        </div>
-        <div>
-            <h4>Account Verification</h4>
-            <?php if (check_verification() == false) : ?>
-                <p>Your account is not verified, press the button below to verify it.</p>
-                <a href="verify.php"><button>Verify Profile</button></a>
-            <?php else: ?>
-                <p>Your account is verified.</p>    
-            <?php endif; ?>
-        </div>
-        <div>
-            <h4>Upload Avatar</h4>
-            <form method="post" enctype="multipart/form-data">
-                <label for="image">Select Image:</label>
-                <input type="file" name="image" id="image" accept="image/*" required="">
-                <button type="submit">Upload</button>
-            </form>
-        </div>
-        <div>
-            <h4>Account Information</h4>
-            <p>UserID: <?= $_SESSION['USER']->UserID ?></p>
-            <p>Username: <?= $_SESSION['USER']->Username ?></p>
-            <p>Email: <?= $_SESSION['USER']->Email ?></p>
-            <p>Password: <?= $_SESSION['USER']->Password ?></p>
-            <p>Verified: <?= $_SESSION['USER']->Verified == 1 ? "Yes" : "No" ?></p>
-            <p>Account Created: <?= date('F j, Y @ h:i:s A', $_SESSION['USER']->Created); ?></p>
-            <p>Avatar: <?= $_SESSION['USER']->Avatar ?></p>
-            <img src="<?= $_SESSION['USER']->Avatar ?>">
+
+<body class="profile-body">
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+    <main class="profile-main">
+        <div class="profile-outer-container">
+            <!-- First profile container -->
+            <div class="profile-container">
+                <div class="profile-info">
+                <img src="<?= $userInfo[0]->Avatar?>" alt="Avatar" class="profile-pp profile-pp-left" id="settingsProfilePicture" title="Avatar">
+                    <h2 class="username"><?= $userInfo[0]->Username ?></h2>
+                </div>
+                <div class="info-container">
+                    <p class="university"><b>School:</b><?= get_user_university_name() ?></p>
+                    <p class="university"><b>Bio:</b><?= $userInfo[0]->Bio ?></p>
+                    <p class="profile-bio"></p>
+                </div>
+            </div>
+            <!-- Second profile container for study set containers -->
+            <div class="profile-container2">
+                <div class="content-container">
+                    <h3><?= $userInfo[0]->Username ?>'s Study Sets</h3>
+                    <div class="posts-container">
+                        <ul id="post-list">
+                            <!-- Posts will be added here using JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 3rd profile container with for posts containers -->
+            <div class="profile-container2">
+                <div class="content-container">
+                    <h3><?= $userInfo[0]->Username ?>'s Posts</h3>
+                    <div class="posts-container">
+
+                        <ul id="post-list">
+                            <!-- Posts will be added here using JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-container">
+                    <h3><?= $userInfo[0]->Username ?>'s Liked Posts</h3>
+                    <div class="posts-container">
+                        <ul id="post-list">
+                            <!-- Liked posts will be dynamically added here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
 </body>
+
 </html>

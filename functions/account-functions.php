@@ -290,6 +290,15 @@ function update_primary_university($data)
         update_session();
 }
 
+// This function is used to populate all the information on the profile page fwhen a user clicks on another users profile
+function get_user_info($UserID)
+{
+    $values = ['UserID' => $UserID];
+    $query = "SELECT * FROM USER_T WHERE UserID = :UserID";
+    $result = run_database($query, $values);
+    return $result;
+}
+
 function delete_account()
 {
     $values = ['UserID' => $_SESSION['USER']->UserID];
