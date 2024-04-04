@@ -21,10 +21,10 @@ $universities = run_database($query);
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
-    <main>
+    <main id="hide">
         <div class="university-main">
             <div class="margin">
-                <div class="university-info">
+                <div class="university-info" id="default">
                     <h2>Universities</h2>
                 </div>
                 <div class="outer-box">
