@@ -14,6 +14,7 @@ $universities = run_database($query);
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <!--<link rel="stylesheet" href="/styles/university/dark-mode.css" id="dark-theme"/>-->
     <link rel="stylesheet" href="/styles/university/university.css" />
+    <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
     <script src="/university/university.js"></script>
 </head>
 <body>

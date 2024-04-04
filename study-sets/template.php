@@ -1,7 +1,7 @@
 <!-- Study Set Template - Displays Study Set for given Study Set ID  -->
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
-
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/study-set-functions.php");
 
 $setID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
 $values['StudySetID'] = $setID;
@@ -141,7 +141,7 @@ save_to_cookie("study-set");
                     <?php if (check_login()) : ?>
                         <div id="add-comment">
                         <div class="comment-bar">
-                            <textarea style="resize: auto; height: 15px; width: 612px;" id="commentinput" oninput="commentcountChar(this)"type="text" class="input-bar" placeholder="Add a comment..." name="content" onkeypress="handleKeyPress(event)"></textarea>
+                            <textarea style="resize: auto; height: 30px; width: 612px;" id="commentinput" oninput="commentcountChar(this)"type="text" class="input-bar" placeholder="Add a comment..." name="content"></textarea>
                             <span id="commentcharCount"></span>
                             <button onclick="AddComment()" type="submit" value="Submit" class="addComment">Add</button>
                         </div>

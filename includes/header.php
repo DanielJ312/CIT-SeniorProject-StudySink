@@ -14,9 +14,11 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['setPostUnive
         </div>
         <div class="navbar-center">
             <div class="search-container">
-                <form action="/results.php" method="GET">
+                <form action="/results.php" method="GET" class="search-bar-container">
                     <input type="text" id="searchBar" name="search" placeholder="Search Study sets, Universities, Posts">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <button class="search-button" type="submit" aria-label="Search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
                 </form>
             </div>
         </div>
@@ -56,9 +58,11 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['setPostUnive
             <div class="mobile-header-items">
                 <a href="/index.php" id="Home"><img id="logo" src="https://studysink.s3.amazonaws.com/assets/StudySinkLogoOnly.png" alt="Company Logo" title="Home" style="margin-top: -10px; margin-bottom: -10px;"></a>
                 <div class="search-container">
-                    <form action="/results.php" method="GET" class="searchbar-form">
-                        <input type="text" id="searchBar" name="search" placeholder="Search">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                    <form action="/results.php" method="GET" class="search-bar-container">
+                        <input type="text" id="searchBar" name="search" placeholder="Search Study sets, Universities, Posts">
+                        <button class="search-button" type="submit" aria-label="Search">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
                     </form>
                 </div>
                 <i class="fa-solid fa-bars fa-2xl" id="menuIcon" title="Menu Icon"></i>
