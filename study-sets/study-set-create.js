@@ -1,3 +1,21 @@
+var totalCards = 0; // Variable for number of study cards
+
+// totalCards variable is initialized based on the # of study cards in the edit page
+function initializeCardCount(initialCardCountEditPage) {
+    totalCards = initialCardCountEditPage;
+    return totalCards;
+}
+
+// Function is used to keep count of how many study cards there are
+function cardCounter(flag) {
+    if(flag === "delete") {
+        totalCards -= 1;
+    } else {
+        totalCards += 1; 
+    }
+    return totalCards;
+}    
+
 function addCard() {
     var cardContainer = document.getElementById("studyCards");
     var cardCount = cardContainer.children.length + 1;
@@ -24,20 +42,19 @@ function addCard() {
     `;
     cardContainer.appendChild(card);
 
+    cardCounter("add");
+
     // Existing event listener for the delete button
     card.querySelector('.deleteCardBtn').addEventListener('click', function() {
         var cardElement = this.closest('.studyCard');
-        if (cardElement.getAttribute('data-card-id')) {
-            // Mark the card for deletion
-            console.log('Card marked for deletion');
-            cardElement.setAttribute('data-deleted', 'true');
-            cardElement.style.display = 'none'; // Hide the card
-    
-            // Set the hidden delete flag to true
-            cardElement.querySelector('.delete-flag').value = 'true';
+        
+        if(totalCards > 1) {
+            if (cardElement.getAttribute('data-new-card') === "true") {
+                cardElement.remove();
+                cardCounter("delete");
+            } 
         } else {
-            // If the card is new (not saved in the database), remove it
-            cardElement.remove();
+            alert("Cannot delete the last study card in the Study Set");
         }
     });
 
@@ -65,6 +82,13 @@ document.addEventListener('DOMContentLoaded', function() {
     var subjectSelect = document.getElementById('setSubject');
     var courseSelect = document.getElementById('setCourse');
 
+    var initialCardCountEditPage = document.querySelectorAll('.studyCard').length;
+
+    // Helps keep track of how many study cards there are
+    if(pageType === 'edit') {
+        initializeCardCount(initialCardCountEditPage);
+    }
+
     if (pageType === 'edit') {
         if (initialUniversityId) {
             universitySelect.value = initialUniversityId;
@@ -80,23 +104,22 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.deleteCardBtn').forEach(button => {
         button.addEventListener('click', function() {
             var cardElement = this.closest('.studyCard');
-            var totalCards = document.querySelectorAll('.studyCard').length;
     
-            if (totalCards > 1) {
-                if (cardElement.getAttribute('data-card-id')) {
-                    console.log('Card marked for deletion');
+            if (pageType === 'edit' && totalCards > 1) {
+                if (cardElement.hasAttribute('data-card-id')) {
+                    // Mark the card for deletion
                     cardElement.setAttribute('data-deleted', 'true');
                     cardElement.style.display = 'none'; // Hide the card
-    
-                    // Update the hidden delete flag
+            
+                    // Set the hidden delete flag to true
                     cardElement.querySelector('.delete-flag').value = 'true';
+                    cardCounter("delete");
                 } else {
-                    // If the card is new and not saved in the database, remove it
-                    cardElement.remove();
+                    // Display a message if it's the last card
+                    alert("Cannot delete the last study card in the Study Set");
                 }
-            } else {
-                // Display a message if it's the last card
-                alert("Cannot delete the last study card in the Study Set");
+            } else if (pageType === 'edit' && totalCards === 1) {
+                alert("Cannot delete the last study card in the Study Set");    
             }
         });
     });    
