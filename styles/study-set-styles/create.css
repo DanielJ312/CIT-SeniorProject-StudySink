@@ -12,9 +12,9 @@
     max-width: 100%;
     position: sticky;
     top: 0;
-    z-index: 500; 
-    background: #f7f7f7;
+    z-index: 10; 
     padding: 25px;
+    background-color: #f7f7f7;
 }
 
 .action-bar-buttons {
@@ -339,6 +339,64 @@
 
 .deleteCardBtn i {
     font-size: 1em;
+}
+
+#modal-delete-last-card {
+    display: flex;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    display: block;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.5em;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.modal-content p {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+}
+
+#closeModal {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1em;
+    background-color: #ff5f5f; 
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+#closeModal:hover {
+    background-color: #fcb54d; 
 }
 
 @media only screen and (max-width: 850px) {

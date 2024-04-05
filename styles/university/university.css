@@ -15,6 +15,10 @@ main {
   flex-grow: 1;
 }
 
+#space {
+  margin-top: 20px;
+}
+
 .university-main {
   flex-grow: 1;
 }
@@ -283,6 +287,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  width: 100%;
 }
 
 .posts {
@@ -443,6 +448,25 @@ main {
   width: 100%;
 }
 
+.all {
+  color: #2778ff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  margin: 2.6%;
+}
+
+.all:hover {
+  color: #fcb54d;
+}
+
+#default {
+  margin-top: 55px;
+}
+
+
 @media only screen and (max-width: 850px) {
 
   .mobileuniversity {
@@ -450,10 +474,6 @@ main {
       margin-left: 8px;
       margin-right: 8px;
       flex-grow: 1;
-  }
-
-  main {
-      display: none;
   }
 
   .margin {
@@ -482,6 +502,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0px;
   }
 
   #contentsubject {
@@ -519,7 +540,7 @@ main {
 
   .mobile-posts {
       display: block;
-      margin-top: 15px;
+      margin-top: 8px;
       align-items: center;
   }
 
@@ -527,6 +548,10 @@ main {
       display: flex;
       flex-wrap: wrap;
       margin-bottom: 10px;
+  }
+
+  #hide {
+    display: none;
   }
 
   .sort,

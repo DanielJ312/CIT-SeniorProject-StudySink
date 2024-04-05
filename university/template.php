@@ -16,6 +16,7 @@ $pageTitle = $university->Abbreviation;
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     <!--<link rel="stylesheet" href="/styles/university/dark-mode.css" id="dark-theme"/>-->
     <link rel="stylesheet" href="/styles/university/university.css" />
     <script async src="/university/university.js"></script>
@@ -27,13 +28,14 @@ $pageTitle = $university->Abbreviation;
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
-    <main>
+    <main id="space">
+        <a class="all" href="/university/index.php"><&nbsp;&nbsp; All Universities</a>
         <div class="margin">
             <div class="university-info">
                 <h2><?= $university->Name; ?></h2>
             </div>
+          
             <div class="columns">
                 <div class="subject-selection-c">
                     <div class="search-bar-csun">
@@ -66,6 +68,7 @@ $pageTitle = $university->Abbreviation;
         </div>
     </main>
     <div class=mobileuniversity>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
         <div class="university-info">
             <h2><?= $university->Name; ?></h2>
         </div>

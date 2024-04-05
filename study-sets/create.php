@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['form_id'] == 'studySetForm')
 <body class="createStudySetBody">
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
     <main>
         <div class="fixed-action-bar">
@@ -74,6 +75,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['form_id'] == 'studySetForm')
             </form>
         </div>
     </main>
+
+    <div id="modal-delete-last-card" style="display:none;">
+        <div class="modal-content">
+            <p>Cannot delete the last study card in the Study Set.</p>
+            <div class="buttons-container">
+                <button id="closeModal">OK</button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>

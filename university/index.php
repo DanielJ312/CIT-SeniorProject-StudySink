@@ -14,6 +14,7 @@ $universities = run_database($query);
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <!--<link rel="stylesheet" href="/styles/university/dark-mode.css" id="dark-theme"/>-->
     <link rel="stylesheet" href="/styles/university/university.css" />
+    <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
     <script src="/university/university.js"></script>
 </head>
 <body>
@@ -21,10 +22,10 @@ $universities = run_database($query);
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
-    <main>
+    <main id="hide">
         <div class="university-main">
             <div class="margin">
-                <div class="university-info">
+                <div class="university-info" id="default">
                     <h2>Universities</h2>
                 </div>
                 <div class="outer-box">
