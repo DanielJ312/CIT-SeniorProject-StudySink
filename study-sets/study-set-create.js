@@ -54,7 +54,7 @@ function addCard() {
                 cardCounter("delete");
             } 
         } else {
-            alert("Cannot delete the last study card in the Study Set");
+            document.getElementById('modal-delete-last-card').style.display = 'block';
         }
     });
 
@@ -116,13 +116,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     cardCounter("delete");
                 } else {
                     // Display a message if it's the last card
-                    alert("Cannot delete the last study card in the Study Set");
+                    document.getElementById('modal-delete-last-card').style.display = 'block';
                 }
             } else if (pageType === 'edit' && totalCards === 1) {
-                alert("Cannot delete the last study card in the Study Set");    
+                document.getElementById('modal-delete-last-card').style.display = 'block';   
             }
         });
-    });    
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function() {
+        document.getElementById('modal-delete-last-card').style.display = 'none';
+    });
     
     // Attach this function to the 'input' event of all textareas
     document.querySelectorAll('.studySetContainer .card-textarea').forEach(textarea => {
