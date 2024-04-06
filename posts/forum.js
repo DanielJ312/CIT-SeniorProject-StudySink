@@ -3,9 +3,11 @@
 //////////* Sorting Functions *//////////
 $(document).ready(function () {
     var currentPath = window.location.pathname;
-    if (currentPath.includes('/forum/post') || currentPath.includes('/study-sets/')) {
+    if (currentPath.includes('/post') || currentPath.includes('/study-sets/')) {
         $('.comment-sort-container').html(updateSortedData("comment-popular"));
+        console.log("test");
     }
+    
 });
 
 // Event handler for select change

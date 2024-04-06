@@ -138,6 +138,16 @@ $cards = run_database($query, $values);
             <div id="editPageIdentifier" style="display: none;"></div>
         </div>
     </main>
+
+    <div id="modal-delete-last-card" style="display:none;">
+        <div class="modal-content">
+            <p>Cannot delete the last study card in the Study Set.</p>
+            <div class="buttons-container">
+                <button id="closeModal">OK</button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>

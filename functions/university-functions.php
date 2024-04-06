@@ -27,7 +27,7 @@ function update_post_sort() {
     
     if (is_array($sorted) > 0) {
         foreach ($sorted as $post) {
-            include($_SERVER['DOCUMENT_ROOT'] . "/university/p-template.php");
+            include($_SERVER['DOCUMENT_ROOT'] . "/includes/tiles/post.php");
         }
     }
     else {
@@ -75,7 +75,7 @@ function update_set_sort() {
     
     if (is_array($sorted) > 0) {
         foreach ($sorted as $set) {
-            include($_SERVER['DOCUMENT_ROOT'] . "/university/s-template.php");
+            include($_SERVER['DOCUMENT_ROOT'] . "/includes/tiles/study-set.php");
         }
     }
     else {

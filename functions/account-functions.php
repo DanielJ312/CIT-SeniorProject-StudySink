@@ -1,6 +1,6 @@
 <?php
 # Functions - Contains functions relating to user accounts
-require($_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php");
 
 use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;

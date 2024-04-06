@@ -129,7 +129,7 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
                         <?php if ($posts && count($posts) > 0) : ?>
                             <?php foreach ($posts as $post) : ?>
                                 <div class="post">
-                                    <a href="/forum/posts/<?= htmlspecialchars($post->PostID); ?>">
+                                    <a href="/posts/<?= htmlspecialchars($post->PostID); ?>">
                                         <div class="post-header">
                                             <img src="<?= htmlspecialchars($post->Avatar); ?>" alt="<?= htmlspecialchars($post->Username); ?>'s avatar" class="post-profile-picture" />
                                             <div class="post-info">

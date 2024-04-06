@@ -2,7 +2,7 @@
 <?php if ($subjectID != 0) : ?>
 <div class="post">
 <?php endif; ?>
-    <a href="/forum/posts/<?= $post->PostID; ?>" class="<?= $subjectID != 0 ? "" : "post"; ?>">
+    <a href="/posts/<?= $post->PostID; ?>" class="<?= $subjectID != 0 ? "" : "post"; ?>">
         <div class="post-header">
             <img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" />
             <div class="post-info">

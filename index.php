@@ -9,15 +9,15 @@ $pageTitle = "Home";
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
+    <link rel="stylesheet" type="text/css" href="/styles/home/<?= !check_login() ? "logged-out" : "logged-in"; ?>.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Concert+One&display=swap" rel="stylesheet">
+    <script defer src="/home.js"></script>
 </head>
 <body>
     <header id="home-logout-header">
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
-        <link rel="stylesheet" type="text/css" href="/styles/home/<?= !check_login() ? "logged-out" : "logged-in"; ?>.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Concert+One&display=swap" rel="stylesheet">
-        <script async src="/home.js"></script>
     </header>
     <main>
     <?php if (!check_login()) : ?>

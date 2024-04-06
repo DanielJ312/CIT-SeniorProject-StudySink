@@ -2,7 +2,7 @@
 let postTiles = document.querySelectorAll('.PostLinkTile');
 postTiles.forEach(tile => {
     tile.addEventListener('click', function() {
-        window.location.href = "/forum/posts/" + this.dataset.id;
+        window.location.href = "/posts/" + this.dataset.id;
     });
 });
 

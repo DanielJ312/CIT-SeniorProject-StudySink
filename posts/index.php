@@ -1,4 +1,4 @@
-<!-- Study Set Redirect Page -->
+<!-- Post Redirect Page -->
 <?php 
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 update_session();

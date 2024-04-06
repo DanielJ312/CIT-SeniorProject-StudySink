@@ -132,7 +132,7 @@ function create_post($data) {
 
         $query = "INSERT INTO POST_T (PostID, UniversityID, SubjectID, Title, Content, UserID, Created) VALUES (:PostID, :UniversityID, :SubjectID, :Title, :Content, :UserID, :Created);";
         run_database($query, $values);
-        header("Location: /forum/posts/{$values['PostID']}.php");
+        header("Location: /posts/{$values['PostID']}.php");
     }
 
     return $errors;
@@ -239,7 +239,7 @@ function add_comment() {
     WHERE COMMENT_T.CommentID = {$values['CommentID']}
     query;
     $comment = run_database($query)[0];
-    include($_SERVER['DOCUMENT_ROOT'] . "/forum/posts/c-template.php");
+    include($_SERVER['DOCUMENT_ROOT'] . "/includes/tiles/comment.php");
 }
 
 function delete_comment() {
@@ -286,7 +286,7 @@ function update_comment_sort() {
     
     if (is_array($sorted) > 0) {
         foreach ($sorted as $comment) {
-            include($_SERVER['DOCUMENT_ROOT'] . "/forum/posts/c-template.php");
+            include($_SERVER['DOCUMENT_ROOT'] . "/includes/tiles/comment.php");
         }
     }
 }

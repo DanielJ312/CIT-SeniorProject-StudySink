@@ -206,11 +206,11 @@
 }
 
 .deleteButton {
-    color: #dc3545;
+    color: red;
 }
 
 .deleteButton:hover {
-    color: #bd2130;
+    color: #f59c1a;
 }
 
 .post:hover, .editButton:hover, .viewFlashcardsButton:hover, .deleteButton:hover {
