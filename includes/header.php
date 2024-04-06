@@ -59,7 +59,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['setPostUnive
                 <a href="/index.php" id="Home"><img id="logo" src="https://studysink.s3.amazonaws.com/assets/StudySinkLogoOnly.png" alt="Company Logo" title="Home" style="margin-top: -10px; margin-bottom: -10px;"></a>
                 <div class="search-container">
                     <form action="/results.php" method="GET" class="search-bar-container">
-                        <input type="text" id="searchBar" name="search" placeholder="Search Study sets, Universities, Posts">
+                        <input type="text" id="searchBar" name="search" placeholder="Search">
                         <button class="search-button" type="submit" aria-label="Search">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>

@@ -26,48 +26,44 @@ $userInfo = get_user_info('771');
     <main class="profile-main">
         <div class="profile-outer-container">
             <!-- First profile container -->
-            <div class="profile-container">
+            <div class="profile-user-container">
                 <div class="profile-info">
-                <img src="<?= $userInfo[0]->Avatar?>" alt="Avatar" class="profile-pp profile-pp-left" id="settingsProfilePicture" title="Avatar">
-                    <h2 class="username"><?= $userInfo[0]->Username ?></h2>
+                    <div class="profile-info-top">
+                        <img src="<?= $userInfo[0]->Avatar?>" alt="Avatar" class="profile-pp" id="settingsProfilePicture" title="Avatar">
+                        <p class="university"><?= get_user_university_name() ?></p>
+                    </div>
+                    <div class="profile-info-bottom">
+                        <h2 class="username"><?= $userInfo[0]->Username ?></h2>
+                    </div>
                 </div>
-                <div class="info-container">
-                    <p class="university"><b>School:</b><?= get_user_university_name() ?></p>
-                    <p class="university"><b>Bio:</b><?= $userInfo[0]->Bio ?></p>
-                    <p class="profile-bio"></p>
+                <div class="bio-container">
+                    <p><?= $userInfo[0]->Bio ?></p>
                 </div>
             </div>
             <!-- Second profile container for study set containers -->
-            <div class="profile-container2">
-                <div class="content-container">
+            <div class="profile-tiles-container">
+                <div class="users-study-sets">
                     <h3><?= $userInfo[0]->Username ?>'s Study Sets</h3>
                     <div class="posts-container">
-                        <ul id="post-list">
-                            <!-- Posts will be added here using JavaScript -->
-                        </ul>
+                        <!-- Put study set tiles here -->
                     </div>
                 </div>
-            </div>
-            <!-- 3rd profile container with for posts containers -->
-            <div class="profile-container2">
-                <div class="content-container">
+                <div class="users-posts">
                     <h3><?= $userInfo[0]->Username ?>'s Posts</h3>
                     <div class="posts-container">
-
-                        <ul id="post-list">
-                            <!-- Posts will be added here using JavaScript -->
-                        </ul>
+                        <!-- Put post tiles here -->
                     </div>
                 </div>
-                <div class="content-container">
+                <div class="liked-posts">
                     <h3><?= $userInfo[0]->Username ?>'s Liked Posts</h3>
                     <div class="posts-container">
-                        <ul id="post-list">
-                            <!-- Liked posts will be dynamically added here -->
-                        </ul>
+                        <!-- Put liked post tiles here -->
                     </div>
                 </div>
+
             </div>
+            <!-- 3rd profile container with for posts containers -->
+
         </div>
     </main>
     <footer>

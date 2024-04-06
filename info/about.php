@@ -5,7 +5,7 @@
     <title>Privacy Policy</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/styles/info/privacy-policy.css">
+    <link rel="stylesheet" type="text/css" href="/styles/info/about.css">
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
 </head>
 
@@ -15,7 +15,7 @@
     </header>
     <main>
         <h2>About Us</h2>
-        <p>Welcome to our Study Sink!&nbsp; Our website is designed to be a hub where students can connect, study, and engage with their university community.&nbsp; Drawing from the knowledge and skills acquired through our courses at CSUN our group has utilized technologies such as AWS, HTML, CSS, and project management techniques to bring this platform to life.&nbsp;
+        <p>Welcome to our Study Sink!&nbsp; Our website is designed to be a hub where students can connect, study, and engage with their university community.&nbsp; Drawing from the knowledge and skills acquired through our courses at CSUN our group has utilized technologies such as AWS, HTML, CSS, PHP and project management techniques to bring this platform to life.&nbsp;
 
 Our primary mission is to empower students by providing a space where they can collaborate, share insights, and support each other's learning journeys.&nbsp; Through features like commenting on posts and creating study sets, we aim to enhance the academic experience and foster a sense of community among users.&nbsp;
 
