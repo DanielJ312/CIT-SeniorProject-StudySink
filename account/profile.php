@@ -9,10 +9,8 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? upload_avatar($_FILES) : [];
 // get user info by passing in a user id
 $userInfo = get_user_info('771');
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +18,6 @@ $userInfo = get_user_info('771');
     <script defer src="/account/profile.js"></script>
     <title>User Profile</title>
 </head>
-
 <body class="profile-body">
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
     <main class="profile-main">
@@ -63,12 +60,10 @@ $userInfo = get_user_info('771');
 
             </div>
             <!-- 3rd profile container with for posts containers -->
-
         </div>
     </main>
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
 </body>
-
 </html>

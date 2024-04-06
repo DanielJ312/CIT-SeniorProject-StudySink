@@ -38,7 +38,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['setPostUnive
                     <div class="dropdown-content-profile" id="profileDropdown">
                         <a href="/account/profile.php">Profile</a>
                         <a href="/account/settings.php">Settings</a>
-                        <a href="/request/index.php">Help/Request University</a>
+                        <a href="/request/index.php">Support</a>
                         <a href="/account/logout.php">Logout</a>
                     </div>
                 </div>
@@ -84,7 +84,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['setPostUnive
                             <div class="dropdown-content">
                                 <a href="/account/profile.php" style="border-top-width: 0px;" title="My Profile">My Profile</a>
                                 <div class="navitem"><a href="/account/settings.php" title="Settings">Settings</a></div>
-                                <div class="navitem"><a href="/request/index.php" title="Help">Help/Request Uni</a></div>
+                                <div class="navitem"><a href="/request/index.php" title="Help">Support</a></div>
                                 <div class="navitem"><a href="/account/logout.php" style="border-bottom-color: black; border-bottom-width: 2px; border-bottom-style: solid;" title="Logout">Logout</a></div>
                             </div>
                         </div>
