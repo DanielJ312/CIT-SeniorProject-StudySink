@@ -4,10 +4,14 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
 update_session();
 if (!check_login()) header("Location: /account/login.php");
-$pageTitle = "Profile";
 
-$username = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
+$urlUser = (isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default');
+$username = $urlUser == "default" ? $_SESSION['USER']->Username : $urlUser;
 $user = get_user_info($username);
+
+//bryce functions here
+
+$pageTitle = "$user->Username's Profile";
 ?>
 
 <!DOCTYPE html>
@@ -69,5 +73,8 @@ $user = get_user_info($username);
 </html>
 <script>
     window.history.pushState({}, '', '/account/<?= $user->Username; ?>');
+    <?php if ($user->Username == $_SESSION['USER']->Username) : ?>
+        window.history.replaceState ({}, '', '/account/profile');
+    <?php endif; ?>
 </script>
 </html>
