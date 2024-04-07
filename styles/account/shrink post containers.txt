@@ -1,0 +1,10 @@
+shrink post containers
+size up the post tiles
+increase font size
+set width/height with %
+set bio with scroll to 1k char
+adjust for scroll bar inside the info container
+force like/created on top in by doubling up containers
+fix space
+new media for ##post-list and #liked-post-list
+copy paste for studysets and put studysets on top

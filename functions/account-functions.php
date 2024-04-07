@@ -1,6 +1,6 @@
 <?php
 # Functions - Contains functions relating to user accounts
-require($_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php");
 
 use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
@@ -290,8 +290,15 @@ function update_primary_university($data)
         update_session();
 }
 
-function delete_account()
-{
+// This function is used to populate all the information on the profile page fwhen a user clicks on another users profile
+function get_user_info($username) {
+    $values = ['Username' => $username];
+    $query = "SELECT * FROM USER_T WHERE Username = :Username LIMIT 1;";
+    $result = run_database($query, $values);
+    return $result[0];
+}
+
+function delete_account() {
     $values = ['UserID' => $_SESSION['USER']->UserID];
     //Posts created by the user will have there POST_T.UserID changed to DeletedUser's UserID
     //Post likes creted by the user will be removed from the POST_LIKE_T table WHERE POST_LIKE_T.UserID = :UserID

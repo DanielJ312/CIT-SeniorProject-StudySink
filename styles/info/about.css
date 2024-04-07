@@ -11,10 +11,9 @@ main {
     display: flex;
     flex: 1;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     text-align: center;
-    margin: 0 10%;
+    margin: 0 25%;
 }
 
 h2 {
@@ -28,4 +27,11 @@ p {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     line-height: 1.6;
     font-size: 1.2em;
+}
+
+/* media query */
+@media screen and (max-width: 950px) {
+    main {
+        margin: 0 5%;
+    }
 }

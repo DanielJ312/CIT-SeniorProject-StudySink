@@ -1,0 +1,287 @@
+.profile-body {
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.profile-main {
+    flex: 1;
+    padding: 20px;
+    background-color: #f7f7f7;
+}
+
+.profile-outer-container {
+    max-width: 75%;
+    margin: 20px auto;
+    background-color: #fff; 
+    border-radius: 10px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    overflow: hidden;
+}
+
+.profile-user-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.profile-info-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.university {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.25em;
+    margin: 0 0 0 20px;
+    text-align: left;
+    width: 320px;
+    max-width: 320px;
+}
+
+/* this is for the Post containers */
+.profile-tiles-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.bio-container {
+    display: flex;
+    margin: 4% 8% 0 0;
+    padding-left: 3%;
+}
+
+.bio-container p {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 1.6em;
+}
+
+.profile-bio {
+  width: 280px;
+  max-height: 80px;
+  overflow-y: auto;
+  padding-right: 5px; 
+  padding-left: 10px; 
+  color: black;
+  border-radius: 10px;
+}
+
+.profile-info {
+    margin: 4% 0 0 8%;
+}
+
+.profile-pp {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.username {
+    font-family: 'Comfortaa', sans-serif;
+    margin-top: 10px;
+    font-size: 1.8em;
+    width: fit-content;
+    min-width: 150px;
+    text-align: center;
+}
+
+.bio {
+    color: #666;
+    margin: 5px 0;
+}
+
+/* post contianter stuff but mainly for created */
+.posts-container {
+    text-align: center;
+    /* border: 2px solid #c9c8c8; */
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    overflow-y: auto; /* This will add a vertical scrollbar if needed */
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: flex;
+    flex-direction: column;
+  }
+
+.users-study-sets,
+.users-posts,
+.liked-posts {
+  text-align: center;
+}
+
+  @media (max-width: 600px) {
+    .profile-container2 {
+        display: flex;
+        flex-direction: column; /* Stacks containers vertically on smaller screens */
+        align-items: center; /* Centers containers horizontally */
+    }
+    
+    .posts-container {
+        margin-bottom: 10px; /* Adjust margin for spacing */
+        overflow-x: auto;
+    }
+}
+  
+  /* mobile comablitliy for the post containter */ 
+  
+  /* desktop sizs */
+  @media (min-width: 768px) {
+      .posts-container {
+          min-width: 290px;
+          max-width: 290px;
+          min-height: 290px;
+          max-height: 290px;
+      }
+
+  }
+  
+  /*  tablet sizes*/
+  @media (max-width: 767px) {
+      .posts-container {
+        margin-top: auto;
+        min-width: 300px;
+        max-width: 300px;
+        min-height: 150px;
+        max-height: 150px;
+      }
+      .bio{
+        min-width: 170px;
+        max-width: 170px;
+        min-height: 75px;
+        max-height: 75px;
+      }
+  }
+  
+/* larger sized phones */
+  @media (max-width: 430px) {
+    .posts-container {
+      margin-top: auto;
+      min-width: 320px;
+      max-width: 320px;
+      min-height: 150px;
+      max-height: 150px;
+    }
+    .info-container {
+      margin-top: 0%;
+      min-width: 150px;
+      max-width: 150px;
+      min-height: 150px;
+      max-height: 150px;
+    }
+    .bio{
+      min-width: 150px;
+      max-width: 150px;
+    }
+    .profile-picture {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+    body {
+      font-size: 14px; /* Adjusted font size for smaller screens */
+  }
+  .profile-info {
+      text-align: center;
+      padding-right: 0%;
+  }
+}
+  /* Smaller size for smaller phones */
+  @media (max-width: 375px) {
+      .posts-container {
+        display: flex;
+        margin-top: auto;
+        min-width: 300px;
+        max-width: 300px;
+        min-height: 150px;
+        max-height: 150px;
+        flex-direction: row;
+      }
+      .info-container {
+        margin-top: 0%;
+        min-width: 150px;
+        max-width: 150px;
+        min-height: 150px;
+        max-height: 150px;
+      }
+      .bio{
+        min-width: 140px;
+        max-width: 140px;
+        max-height: 80px;
+      }
+      .profile-picture {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+      }
+      body {
+        font-size: 14px; /* Adjusted font size for smaller screens */
+    }
+    .profile-info {
+        text-align: center;
+        padding-right: 0%;
+    }
+
+    #post-list,
+    #liked-post-list {
+      list-style-type: none;
+      padding: 0;
+      display: flex;
+      flex-direction: row;
+
+      
+}
+  }
+
+#post-list,
+#liked-post-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.post {
+  border: 1px solid #ddd;
+  padding: 15px;
+  font-size: large;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+}
+
+.post p {
+    margin: 0;
+}
+
+
+
+/* scrollbar */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f5f5f5;
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #ccc;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #999;
+  }
+ 
+  /* bio overflow */
+

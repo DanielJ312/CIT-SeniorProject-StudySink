@@ -56,15 +56,9 @@ function update_session() {
     }
 }
 
-function update_user() {
-    // $values = array();
-    // $values['UserID'] = $_SESSION['USER']->UserID;    
+function update_user() {   
     $query = "SELECT USER_T.*, Abbreviation FROM USER_T LEFT OUTER JOIN UNIVERSITY_T ON USER_T.UniversityID = UNIVERSITY_T.UniversityID WHERE UserID = {$_SESSION['USER']->UserID} LIMIT 1;";
-    // $query = "SELECT * FROM USER_T WHERE UserID = {$_SESSION['USER']->UserID} LIMIT 1;";
-    $result = run_database($query);
-    $result = $result[0];
-
-    $_SESSION['USER'] = $result;
+    $_SESSION['USER'] = run_database($query)[0];
     $_SESSION['LOGGED_IN'] = true;
 }
 
@@ -94,16 +88,13 @@ function display_errors($errors) {
 
 function generate_ID($type) {
     do {
-        // $createdID = '';
         $createdID = rand(10000, 99999);
         switch ($type) {
             case 'USER':
-                // $createdID = rand(101, 999);
                 $createdID = prepend(9, $createdID);
                 $query = "SELECT * FROM USER_T WHERE UserID = :createdID limit 1";
                 break;
             case 'STUDY_SET':
-                // $createdID = time(); //+ mt_rand(1000, 9999)
                 $createdID = prepend(8, $createdID);
                 $query = "SELECT * FROM STUDY_SET_T WHERE StudySetID = :createdID limit 1";
                 break;
@@ -178,7 +169,6 @@ function get_recent_university_post_IDs($universityID) {
 }
 
 function get_recent_university_posts($universityID) {
-    // $query = "SELECT * FROM POST_T WHERE UniversityID = :UniversityID ORDER BY Created DESC LIMIT 10";
     $query = <<<query
     SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, POST_T.Modified AS PostModified, USER_T.UserID, Username, Avatar, UNIVERSITY_T.UniversityID, UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation, SUBJECT_T.Name AS SubjectName, COUNT(DISTINCT CommentID) AS Comments, COALESCE((SELECT COUNT(*) FROM POST_LIKE_T WHERE PostID = POST_T.PostID AND VoteType = 1), 0) AS Likes
     FROM POST_T 
@@ -194,7 +184,7 @@ function get_recent_university_posts($universityID) {
 }
 
 function save_to_cookie($type) {
-    $urlPath = $_SERVER['REQUEST_URI']; // e.g., "/forum/posts/6969"
+    $urlPath = $_SERVER['REQUEST_URI']; // e.g., "/posts/6969"
     $segments = explode('/', $urlPath);
 
     switch ($type) {
@@ -261,7 +251,6 @@ function get_recent_posts($postIDs) {
     GROUP BY POST_T.PostID
     ORDER BY FIELD(POST_T.PostID, {$postIDs[0]}, {$postIDs[1]}, {$postIDs[2]}, {$postIDs[3]}, {$postIDs[4]})
     query;
-
     return run_database($query);
 }
 
@@ -284,7 +273,6 @@ function get_recent_study_sets($studySetIDs) {
     GROUP BY STUDY_SET_T.StudySetID 
     ORDER BY FIELD(STUDY_SET_T.StudySetID, {$studySetIDs[0]}, {$studySetIDs[1]}, {$studySetIDs[2]}, {$studySetIDs[3]}, {$studySetIDs[4]})
     query;
-
     return run_database($query);
 }
 

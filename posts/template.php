@@ -1,6 +1,5 @@
 <!-- Post Template - Displays post for given Post ID  -->
 <?php
-// require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 update_session();
 $postID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
@@ -20,7 +19,7 @@ save_to_cookie("post");
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <script async src="/forum/forum.js"></script>
+    <script async src="/posts/forum.js"></script>
     <link rel="stylesheet" href="/styles/forum/post-template.css" />
 </head>
 <body class="post-template-body">

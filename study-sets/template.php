@@ -54,7 +54,7 @@ save_to_cookie("study-set");
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <script async src="/forum/forum.js"></script>
+    <script async src="/posts/forum.js"></script>
     <link rel="stylesheet" href="../styles/study-set-styles/template.css">
     <link rel="stylesheet" href="/styles/forum/post-template.css" />
 </head>
