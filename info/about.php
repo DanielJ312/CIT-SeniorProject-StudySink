@@ -27,7 +27,7 @@ Looking ahead, we envision our project becoming the go-to study site for college
 
 We extend our heartfelt gratitude to everyone who has supported us throughout this journey, including our team members, instructors, and advisors.&nbsp; Your encouragement and guidance have been invaluable in shaping our project.&nbsp;
 
-To learn more about our platform or get involved, please visit our website and reach out to us through the request page.&nbsp; Thank you for being part of our community!&nbsp; Were there is always a steady flow of knowledge.&nbsp;
+To learn more about our platform or get involved, please visit our website and reach out to us through the request page.&nbsp; Thank you for being part of our community, were there is always a steady flow of knowledge!&nbsp;
 
 </p>
     </main>
