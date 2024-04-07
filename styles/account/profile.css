@@ -1,286 +1,278 @@
 .profile-body {
-    margin: 0;
-    padding: 0;
-    background-color: #f7f7f7;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .profile-main {
-    flex: 1;
-    padding: 20px;
+  flex: 1;
+  padding: 20px;
 }
 
 .profile-outer-container {
-    max-width: 75%;
-    margin: 20px auto;
-    background-color: #fff; 
-    border-radius: 10px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-    overflow: hidden;
+  max-width: 75%;
+  margin: 20px auto;
+  background-color: #fff; 
+  border-radius: 10px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  overflow: hidden;
 }
 
+/* START OF USERS INFORMATION */
 .profile-user-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.profile-info-top {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 4% 0 0 8%;
+}
+
+.profile-pp {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.username {
+  font-family: 'Comfortaa', sans-serif;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 1.8em;
+  width: fit-content;
+  text-align: center;
 }
 
 .university {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 1.25em;
-    margin: 0 0 0 20px;
-    text-align: left;
-    width: 320px;
-    max-width: 320px;
-}
-
-/* this is for the Post containers */
-.profile-tiles-container {
-    display: flex;
-    flex-direction: column;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  opacity: 0.5;
+  font-size: 1.2em;
+  width: 320px;
+  max-width: 320px;
+  margin: 0;
 }
 
 .bio-container {
-    display: flex;
-    margin: 4% 8% 0 0;
-    padding-left: 3%;
+  display: flex;
+  flex-direction: column;
+  margin: 4% 5% 0 2%;
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
+.bio-container h3 {
+  font-family: 'Concert One', sans-serif;
+  font-size: 2em;
+  text-align: center;
+  margin: 0;
+
 }
 
 .bio-container p {
   font-family: 'Comfortaa', sans-serif;
-  font-size: 1.6em;
-}
-
-.profile-bio {
-  width: 280px;
-  max-height: 80px;
-  overflow-y: auto;
-  padding-right: 5px; 
-  padding-left: 10px; 
-  color: black;
+  font-size: 1em;
+  text-align: center;
+  padding: 20px;
   border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+/* END OF USERS INFORMATION */
+
+/* START OF TILES SECTION */
+.profile-tiles-container {
+  display: flex;
+  flex-direction: column;
+  margin: 4% 3% 0 5%;
 }
 
-.profile-info {
-    margin: 4% 0 0 8%;
-}
-
-.profile-pp {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-}
-
-.username {
-    font-family: 'Comfortaa', sans-serif;
-    margin-top: 10px;
-    font-size: 1.8em;
-    width: fit-content;
-    min-width: 150px;
-    text-align: center;
-}
-
-.bio {
-    color: #666;
-    margin: 5px 0;
-}
-
-/* post contianter stuff but mainly for created */
-.posts-container {
-    text-align: center;
-    /* border: 2px solid #c9c8c8; */
-    border-radius: 10px;
-    padding: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    overflow-y: auto; /* This will add a vertical scrollbar if needed */
-    white-space: nowrap;
-    text-overflow: ellipsis;
+.users-study-sets-container, 
+.users-posts-container, 
+.liked-posts-container {
     display: flex;
     flex-direction: column;
-  }
-
-.users-study-sets,
-.users-posts,
-.liked-posts {
-  text-align: center;
+    /* background-color: #f7f7f7; */
+    padding: 1%;
+    border-radius: 15px;
 }
 
-  @media (max-width: 600px) {
-    .profile-container2 {
-        display: flex;
-        flex-direction: column; /* Stacks containers vertically on smaller screens */
-        align-items: center; /* Centers containers horizontally */
-    }
-    
-    .posts-container {
-        margin-bottom: 10px; /* Adjust margin for spacing */
-        overflow-x: auto;
-    }
-}
-  
-  /* mobile comablitliy for the post containter */ 
-  
-  /* desktop sizs */
-  @media (min-width: 768px) {
-      .posts-container {
-          min-width: 290px;
-          max-width: 290px;
-          min-height: 290px;
-          max-height: 290px;
-      }
-
-  }
-  
-  /*  tablet sizes*/
-  @media (max-width: 767px) {
-      .posts-container {
-        margin-top: auto;
-        min-width: 300px;
-        max-width: 300px;
-        min-height: 150px;
-        max-height: 150px;
-      }
-      .bio{
-        min-width: 170px;
-        max-width: 170px;
-        min-height: 75px;
-        max-height: 75px;
-      }
-  }
-  
-/* larger sized phones */
-  @media (max-width: 430px) {
-    .posts-container {
-      margin-top: auto;
-      min-width: 320px;
-      max-width: 320px;
-      min-height: 150px;
-      max-height: 150px;
-    }
-    .info-container {
-      margin-top: 0%;
-      min-width: 150px;
-      max-width: 150px;
-      min-height: 150px;
-      max-height: 150px;
-    }
-    .bio{
-      min-width: 150px;
-      max-width: 150px;
-    }
-    .profile-picture {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      margin-bottom: 20px;
-    }
-    body {
-      font-size: 14px; /* Adjusted font size for smaller screens */
-  }
-  .profile-info {
-      text-align: center;
-      padding-right: 0%;
-  }
-}
-  /* Smaller size for smaller phones */
-  @media (max-width: 375px) {
-      .posts-container {
-        display: flex;
-        margin-top: auto;
-        min-width: 300px;
-        max-width: 300px;
-        min-height: 150px;
-        max-height: 150px;
-        flex-direction: row;
-      }
-      .info-container {
-        margin-top: 0%;
-        min-width: 150px;
-        max-width: 150px;
-        min-height: 150px;
-        max-height: 150px;
-      }
-      .bio{
-        min-width: 140px;
-        max-width: 140px;
-        max-height: 80px;
-      }
-      .profile-picture {
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        margin-bottom: 20px;
-      }
-      body {
-        font-size: 14px; /* Adjusted font size for smaller screens */
-    }
-    .profile-info {
-        text-align: center;
-        padding-right: 0%;
-    }
-
-    #post-list,
-    #liked-post-list {
-      list-style-type: none;
-      padding: 0;
-      display: flex;
-      flex-direction: row;
-
-      
-}
-  }
-
-#post-list,
-#liked-post-list {
-    list-style-type: none;
-    padding: 0;
+.users-posts-container {
+  margin: 2% 0 2% 0;
 }
 
-.post {
-  border: 1px solid #ddd;
-  padding: 15px;
-  font-size: large;
+.container-title {
+  font-family: 'Concert One', sans-serif;
+  text-align: left;
+  font-size: 1.7em;
+}
+
+.posts-container,
+.study-sets-container {
   display: flex;
-  justify-content: center; 
-  align-items: center; 
+  flex-direction: row;
+  margin: 0;
+  overflow-x: auto;
+  padding: 2%;
+  height: 240px;
+  min-height: 240px;
 }
 
-.post p {
-    margin: 0;
+.post-tile, 
+.study-set-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #181818;
+  background: white;
+  border-radius: 5px;
+  padding: 10px;
+  text-decoration: none;
+  color: inherit;
+  width: 33%;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
+  min-width: 200px;
+  min-height: 200px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
 }
 
+.post-tile:hover, 
+.study-set-tile:hover {
+    transform: scale(1.05);
+    border: 1px solid #f59c1a;
+    transition: 0.3s;
+    box-shadow: none;
+}
 
+.post-tile:active, 
+.study-set-tile:active {
+    transform: scale(0.95);
+    transition: 0.3s;
+    box-shadow: none;
+}
 
-/* scrollbar */
+.fa-comment:before,
+.fa-heart:before,
+.fa-star:before {
+    color: #2778ff;
+}
 
+.post-header, .study-set-header {
+  display: flex;
+  color:black;
+  border: none;
+  box-shadow: none;
+  background: none;
+  font-size: 1.2em;
+}
+
+.post-profile-picture, 
+.study-set-profile-picture {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid #2778ff;
+  cursor: pointer;
+  margin-right: 13px;
+}
+
+.post-profile-picture:hover, 
+.study-set-profile-picture:hover {
+    border-color: #f59c1a;
+    border-width: 2px;
+}
+
+.post-account, .study-set-account {
+  font-size: 12px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  color:#181818;
+  text-decoration: none;
+}
+
+.post-account:hover, .study-set-account:hover {
+  text-decoration: underline;
+}
+
+.post-date, .study-set-date {
+  font-size: 10px;
+  text-decoration: none;
+  margin-top: 5px;
+  color:#181818;
+}
+
+.post-content, 
+.post-title, 
+.study-set-description, 
+.study-set-title {  
+    color:#181818;
+}
+
+.post-content, .study-set-description {
+    opacity: 0.5;
+    font-size: 75%;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    z-index: 0;
+}
+
+.bottom-of-tile, .comment, .vote, .study-set-rating {
+    display: flex;
+    color:#181818;
+}
+
+.bottom-of-tile {
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.comment {
+    justify-content: flex-start;
+    align-self: flex-start;
+}
+
+.vote, .study-set-rating {
+    justify-content: flex-end;
+    align-self: flex-end;
+}
+
+.comment, .vote, .study-set-rating {
+    margin: 2px;
+}
+
+.comments-count, .votes-count, .study-set-ratings-count {
+    padding-left: 2px;
+}
+/* END OF TILES SECTION */
+
+/* cleaner scroll bars */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: #f5f5f5;
-    border-radius: 10px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: #ccc;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: #999;
-  }
- 
-  /* bio overflow */
+  width: 5px;
+}
 
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* START OF MEDIA QUERIES */
+@media screen and (max-width: 768px) {
+
+}
