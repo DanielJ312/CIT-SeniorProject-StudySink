@@ -1,8 +1,6 @@
-<!-- Subject Page Within University. -->
 <?php
 //////////* Subject - Displays selected subject page for given university */////////
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
-
 $query = "SELECT * FROM UNIVERSITY_T WHERE Abbreviation = '{$_GET['university']}';";
 $university = run_database($query)[0];
 $query = "SELECT * FROM SUBJECT_T WHERE Abbreviation = '{$_GET['subject']}' && UniversityID = {$university->UniversityID};";

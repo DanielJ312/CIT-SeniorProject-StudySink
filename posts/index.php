@@ -1,4 +1,3 @@
-<!-- Post Redirect Page -->
 <?php
 //////////* Post Index - Redirects to user's university page *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
