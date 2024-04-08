@@ -1,12 +1,12 @@
 <?php
 # Functions - Contains functions relating to user accounts
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php");
 
 use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
 
-function upload_avatar($file)
-{
+function upload_avatar($file) {
     $credentials = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
     $s3 = new S3Client([
         'version' => 'latest',
@@ -66,8 +66,7 @@ function upload_avatar($file)
     }
 }
 
-function signup($data)
-{
+function signup($data) {
     // validate
     $errors = array();
     $checkUsername = run_database("SELECT * FROM USER_T WHERE Username = :Username LIMIT 1;", ['Username' => $data['username']]);
@@ -116,8 +115,7 @@ function signup($data)
     return $errors;
 }
 
-function login($data)
-{
+function login($data) {
     //validate
     $loginType = "Email";
     $errors = array();
@@ -163,8 +161,7 @@ function login($data)
     return $errors;
 }
 
-function check_email($data)
-{
+function check_email($data) {
     $valid = false;
 
     // validate
@@ -178,8 +175,7 @@ function check_email($data)
     return $valid;
 }
 
-function reset_password($data)
-{
+function reset_password($data) {
     $status = "none";
     $values = array();
     $values['Code'] = $data['code'];
@@ -211,8 +207,7 @@ function reset_password($data)
     return $status;
 }
 
-function verify_email($data)
-{
+function verify_email($data) {
     $values = [
         'Email' => $_SESSION['USER']->Email,
         'Code' => $data['code']
@@ -239,8 +234,7 @@ function verify_email($data)
     return $errors;
 }
 
-function update_bio($data)
-{
+function update_bio($data) {
     $values = [
         'UserID' => $_SESSION['USER']->UserID,
         'Bio' => $data['bio']
@@ -250,8 +244,7 @@ function update_bio($data)
     update_session();
 }
 
-function update_password($data)
-{
+function update_password($data) {
     $values = [
         'UserID' => $_SESSION['USER']->UserID,
         'Password' => password_hash($data['password'], PASSWORD_DEFAULT)
@@ -261,15 +254,13 @@ function update_password($data)
     update_session();
 }
 
-function get_universities()
-{
+function get_universities() {
     $query = "SELECT Name FROM UNIVERSITY_T";
     $result = run_database($query);
     return $result;
 }
 
-function update_primary_university($data)
-{
+function update_primary_university($data) {
     // If the input is blank, set the primary university to null
     if ($data['updateUniversity'] === '') {
         $primaryUniversityID = null;
@@ -290,12 +281,62 @@ function update_primary_university($data)
         update_session();
 }
 
-// This function is used to populate all the information on the profile page fwhen a user clicks on another users profile
+// This function is used to populate all the information on the profile page when a user clicks on another users profile
 function get_user_info($username) {
     $values = ['Username' => $username];
     $query = "SELECT * FROM USER_T WHERE Username = :Username LIMIT 1;";
     $result = run_database($query, $values);
-    return $result[0];
+    return is_array($result) ? $result[0] : null; 
+    
+}
+
+function get_profile_users_study_sets($userID) {
+    $values['UserID'] = $userID;
+    $query = <<<query
+    SELECT STUDY_SET_T.StudySetID, Title, Description, STUDY_SET_T.Created AS SetCreated, Username, Avatar, UNIVERSITY_T.Name AS UniversityName, COURSE_T.Abbreviation AS Course, COUNT(DISTINCT CommentID) AS Comments,
+    COALESCE((SELECT AVG(Rating) FROM STUDY_SET_RATINGS WHERE StudySetID = STUDY_SET_T.StudySetID), 0) AS Rating
+    FROM STUDY_SET_T INNER JOIN USER_T ON STUDY_SET_T.UserID = USER_T.UserID
+        INNER JOIN COURSE_T ON COURSE_T.CourseID = STUDY_SET_T.CourseID
+        INNER JOIN SUBJECT_T ON SUBJECT_T.SubjectID = COURSE_T.SubjectID
+        INNER JOIN UNIVERSITY_T ON UNIVERSITY_T.UniversityID = SUBJECT_T.UniversityID
+        LEFT OUTER JOIN COMMENT_T ON COMMENT_T.StudySetID = STUDY_SET_T.StudySetID
+    WHERE STUDY_SET_T.UserID = :UserID
+    GROUP BY STUDY_SET_T.StudySetID
+    ORDER BY STUDY_SET_T.Created DESC
+    query;
+    return run_database($query, $values = ['UserID' => $userID]);
+}
+
+function get_profile_users_posts($userID) {
+    $values['UserID'] = $userID;
+    $query = <<<query
+    SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, POST_T.Modified AS PostModified, USER_T.UserID, Username, Avatar, UNIVERSITY_T.UniversityID, UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation, SUBJECT_T.Name AS SubjectName, COUNT(DISTINCT CommentID) AS Comments, COALESCE((SELECT COUNT(*) FROM POST_LIKE_T WHERE PostID = POST_T.PostID AND VoteType = 1), 0) AS Likes
+    FROM POST_T 
+        INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID
+        INNER JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
+        INNER JOIN SUBJECT_T ON POST_T.SubjectID = SUBJECT_T.SubjectID
+        LEFT OUTER JOIN COMMENT_T ON COMMENT_T.PostID = POST_T.PostID
+    WHERE POST_T.UserID = :UserID
+    GROUP BY POST_T.PostID
+    ORDER BY POST_T.Created DESC
+    query;
+    return run_database($query, $values = ['UserID' => $userID]);
+}
+
+function get_profile_users_liked_posts($userID) {
+    $values['UserID'] = $userID;
+    $query = <<<query
+    SELECT POST_T.PostID, Title, POST_T.Content, POST_T.Created AS PostCreated, POST_T.Modified AS PostModified, USER_T.UserID, Username, Avatar, UNIVERSITY_T.UniversityID, UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation, SUBJECT_T.Name AS SubjectName, COUNT(DISTINCT CommentID) AS Comments, COALESCE((SELECT COUNT(*) FROM POST_LIKE_T WHERE PostID = POST_T.PostID AND VoteType = 1), 0) AS Likes
+    FROM POST_T 
+        INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID
+        INNER JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
+        INNER JOIN SUBJECT_T ON POST_T.SubjectID = SUBJECT_T.SubjectID
+        LEFT OUTER JOIN COMMENT_T ON COMMENT_T.PostID = POST_T.PostID
+    WHERE POST_T.PostID IN (SELECT PostID FROM POST_LIKE_T WHERE UserID = :UserID AND VoteType = 1) AND POST_T.UserID != :UserID
+    GROUP BY POST_T.PostID
+    ORDER BY POST_T.Created DESC
+    query;
+    return run_database($query, $values = ['UserID' => $userID]);
 }
 
 function delete_account() {
@@ -319,3 +360,5 @@ function delete_account() {
     session_destroy();
     header("Location: /");
 }
+
+?>

@@ -1,13 +1,12 @@
 <!-- Post Template - Displays post for given Post ID  -->
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/university-functions.php");
 update_session();
 $univeristyAbbr = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
 
-$query = "SELECT * FROM UNIVERSITY_T WHERE Abbreviation ='$univeristyAbbr';";
-$university = run_database($query)[0];
-$query = "SELECT * FROM SUBJECT_T WHERE UniversityID = {$university->UniversityID} ORDER BY SUBJECT_T.Name ASC;";
-$subjects = run_database($query);
+$university = get_university($univeristyAbbr);
+$subjects = get_university_subjects($university->UniversityID);
 
 $pageTitle = $university->Abbreviation;
 ?>
@@ -21,8 +20,7 @@ $pageTitle = $university->Abbreviation;
     <link rel="stylesheet" href="/styles/university/university.css" />
     <script async src="/university/university.js"></script>
     <script>
-        var universityID = <?= $university->UniversityID; ?>,
-            subjectID = 0;
+        var universityID = <?= $university->UniversityID; ?>, subjectID = 0;
     </script>
 </head>
 <body>

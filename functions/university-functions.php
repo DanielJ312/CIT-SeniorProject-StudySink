@@ -16,6 +16,17 @@ if (isset($_POST['function'])) {
 }
 }
 
+function get_university($univeristyAbbr) {
+    $query = "SELECT * FROM UNIVERSITY_T WHERE Abbreviation ='$univeristyAbbr';";
+    return run_database($query)[0];
+}
+
+function get_university_subjects($univeristyID) {
+    $query = "SELECT * FROM SUBJECT_T WHERE UniversityID = {$univeristyID} ORDER BY SUBJECT_T.Name ASC;";
+    return run_database($query);
+}
+
+
 //////////* University Sort Functions *//////////
 function update_post_sort() {
     $sortType = $_POST['sortType'];
@@ -43,13 +54,9 @@ function create_post_sort($sortType, $universityID, $subjectID) {
         INNER JOIN UNIVERSITY_T ON POST_T.UniversityID = UNIVERSITY_T.UniversityID
         INNER JOIN SUBJECT_T ON POST_T.SubjectID = SUBJECT_T.SubjectID
         LEFT OUTER JOIN COMMENT_T ON COMMENT_T.PostID = POST_T.PostID
-    WHERE UNIVERSITY_T.UniversityID = '$universityID' 
+    WHERE UNIVERSITY_T.UniversityID = '$universityID' AND POST_T.SubjectID = '$subjectID' 
+    GROUP BY POST_T.PostID 
     query;
-
-    if ($subjectID != 0) {
-        $query .= " AND POST_T.SubjectID = '$subjectID' ";
-    }
-    $query .= " GROUP BY POST_T.PostID ";
 
     switch ($sortType) {
         case 'post-oldest':

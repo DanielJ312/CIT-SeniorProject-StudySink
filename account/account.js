@@ -1,3 +1,21 @@
+//////////*  Profile Functions *//////////
+if (document.body.classList.contains('profile-body')) {
+    // increase bio font size based on length
+    window.onload = function() {
+        var textElement = document.querySelector('.bio-container p');
+        var textLength = textElement.textContent.length;
+
+        if (textLength > 600) {
+            textElement.style.fontSize = '1em'; // smaller font size
+        } else if (textLength > 300) {
+            textElement.style.fontSize = '1.2em'; // medium font size
+        } else {
+            textElement.style.fontSize = '1.5em'; // larger font size
+        }
+    };
+}
+
+//////////*  Register & Verify Functions *//////////
 $(".send-email").on("click", function () {
     var email = $('.email-input').val();
 
@@ -13,9 +31,6 @@ $(".send-email").on("click", function () {
             else {
                 $(".error").html("The email entered is either invalid or not associated with any account.").show();
             }
-        },
-        error: function (xhr, status, error) {
-            console.error(error);
         }
     });
 });
@@ -56,9 +71,6 @@ function checkPassword(email) {
                     else if (response == "wrong") {
                         $(".error").html("The code entered is invalid.").show();
                     }
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
                 }
             });
         }
@@ -74,9 +86,7 @@ function updateCountdown(endTimeUnix) {
         return;
     }
 
-    var hours = Math.floor((timeLeft % 86400) / 3600);
     var minutes = Math.floor((timeLeft % 3600) / 60);
     var seconds = timeLeft % 60;
-
     $(".countdown").html(minutes + "m " + seconds + "s");
 }
