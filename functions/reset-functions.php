@@ -1,10 +1,8 @@
 <?php
-# 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
+//////////* Reset Functions - Switch Statement to decide functions *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
 
-// Switch for deciding which function to run in AJAX
+/////* Switch for deciding which function to run in AJAX */////
 if (isset($_POST['function'])) {
     switch ($_POST['function']) {
         case "email":

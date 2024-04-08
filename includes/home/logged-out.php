@@ -1,3 +1,6 @@
+<?php
+//////////* Logged Out Home Page - Displays website information when a user is logged out *////////// 
+?>
 <div class="home-logout-body">
     <section class="home-logout-section" id="section0">
         <div class="top-logo-buttons">

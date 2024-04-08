@@ -1,22 +1,17 @@
-<!-- Login - Users enter account information to login with either email or username -->
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+//////////* Login - Users enter account information to login with either email or username  *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
-update_session();
-$pageTitle = "Login";
-
 $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? login($_POST) : [];
 if (check_login()) header("Location: /index.php");
+$pageTitle = "Login";
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <link rel="stylesheet" type="text/css" href="/styles/account/login.css">
 </head>
-
 <body class="body-login">
     <header id="header">
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
@@ -53,5 +48,4 @@ if (check_login()) header("Location: /index.php");
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
 </body>
-
 </html>

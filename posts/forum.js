@@ -1,6 +1,5 @@
-// Forum.js - Runs any javascript function for the forum
-
-//////////* Sorting Functions *//////////
+//////////* Forum.js - Runs any javascript function for the forum *//////////
+/////* Sorting Functions */////
 $(document).ready(function () {
     var currentPath = window.location.pathname;
     if (currentPath.includes('/post') || currentPath.includes('/study-sets/')) {
@@ -28,7 +27,7 @@ function updateSortedData(sortType) {
     });
 }
 
-//////////* Post Functions *//////////
+/////* Post Functions */////
 function DeletePost() {
     var postID = parentID;
     var uni;
@@ -132,7 +131,7 @@ function updatePostLike() {
 
 }
 
-//////////* Comment Functions *//////////
+/////* Comment Functions */////
 function AddComment() {
     content = $('.input-bar').val();
     if (content.length > 0) {
@@ -251,7 +250,7 @@ function updateCommentLike(commentID) {
     });
 }
 
-//////////* Dropdown Functions *//////////
+/////* Dropdown Functions *//////////
 function toggleDropdown(dropdown) {
     dropdown.querySelector('.dropdown-content').classList.toggle('show');
 }
@@ -270,7 +269,7 @@ window.onclick = function (event) {
     }
 }
 
-//////////* Miscellaneous Functions *//////////
+/////* Miscellaneous Functions */////
 // Character Counter for Post Title textarea and Post Content textarea
 function commentcountChar(commnetinput) {
     const maxLength = 2500;

@@ -1,6 +1,6 @@
 <?php 
+//////////* Privacy Page - Displays privacy policy about the website *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
-update_session();
 $pageTitle = "Privacy Policy";
 ?>
 

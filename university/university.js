@@ -1,3 +1,4 @@
+//////////* University.js - Contains functions for the university pages */////////
 $(document).ready(function () {
     var currentPath = window.location.pathname;
     if (currentPath.includes('/university/')) {
@@ -22,7 +23,6 @@ $('.study-set-sort').on('change', function () {
     updateStudySetSort(sortType);
     
 });
-
 
 // Function to update the sorted data
 function updatePostSort(sortType) {
@@ -106,7 +106,6 @@ function shortenPostTitles() {
     });
 }
 
-
 // JavaScript code
 function search_subject() {
     let input = document.getElementById('searchbar').value.toLowerCase();
@@ -156,5 +155,3 @@ function toggleSubject() {
         contentSubject.style.display = 'none';
     }
 }
-
-

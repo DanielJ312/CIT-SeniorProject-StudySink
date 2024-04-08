@@ -1,4 +1,3 @@
-
 <?php if ($subjectID != 0) : ?>
 <div class="post">
 <?php endif; ?>
@@ -27,7 +26,6 @@
             </div>
         </div>
     </a>
-
 <?php if ($subjectID != 0) : ?>
 </div>
 <?php endif; ?>

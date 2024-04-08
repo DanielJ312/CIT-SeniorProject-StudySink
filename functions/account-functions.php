@@ -1,6 +1,7 @@
 <?php
-# Functions - Contains functions relating to user accounts
+//////////* Account Functions - Contains functions relating to account pages *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php");
 
 use Aws\S3\S3Client;

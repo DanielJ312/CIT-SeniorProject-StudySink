@@ -1,3 +1,4 @@
+//////////* Study-Set-Create.js - Javascript functions for actions involving creating study sets */////////
 var totalCards = 0; // Variable for number of study cards
 
 // totalCards variable is initialized based on the # of study cards in the edit page

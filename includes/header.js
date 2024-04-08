@@ -1,4 +1,5 @@
-// functions for profile picture menu
+//////////* Header.js - Contains functions used for the header/navbar *//////////
+// Functions for profile picture menu
 document.addEventListener("DOMContentLoaded", function () {
     // Get profile picture and dropdown elements
     var profilePicture = document.getElementById("profilePicture");

@@ -1,8 +1,8 @@
 <?php
-# University Functions - Runs functions relating to the university page
+//////////* University Functions - Runs functions relating to the university page *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 
-//////////*  AJAX Functions Switch *//////////
+/////*  AJAX Functions Switch */////
 if (isset($_POST['function'])) {
     switch ($_POST['function']) {
         // Post Functions
@@ -13,7 +13,7 @@ if (isset($_POST['function'])) {
         case "study-set-sort":
             update_set_sort(); 
             break;
-}
+    }
 }
 
 function get_university($univeristyAbbr) {
@@ -27,7 +27,7 @@ function get_university_subjects($univeristyID) {
 }
 
 
-//////////* University Sort Functions *//////////
+/////* University Sort Functions */////
 function update_post_sort() {
     $sortType = $_POST['sortType'];
     $universityID = $_POST['universityID'];

@@ -1,15 +1,12 @@
 <?php 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+//////////* Edit - Edits a study set */////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/study-set-functions.php");
-update_session();
 if (!check_login()) header("Location: /study-sets/index.php");
 $pageTitle = "Edit Study Set";
 $universities = get_universities_list();
 
 $setID = $_GET['id'];
 if ($_SERVER['REQUEST_METHOD'] == "POST") edit_study_set($setID, $_POST);
-
-// if (!(check_login() && ($set->Username == $_SESSION['USER']->Username))) header("Location: /study-sets/index.php");
 
 $values['StudySetID'] = $setID;
 $query = "
@@ -38,7 +35,6 @@ $query = "
 $set = run_database($query, $values)[0];
 empty($set) ? header("Location: /study-sets/create.php") : null;
 if (!($set->Username == $_SESSION['USER']->Username)) header("Location: /study-sets/index.php");
-
 
 $query = "SELECT * FROM STUDY_CARD_T WHERE StudySetID = :StudySetID ORDER BY CardID;";
 $cards = run_database($query, $values);
@@ -138,7 +134,6 @@ $cards = run_database($query, $values);
             <div id="editPageIdentifier" style="display: none;"></div>
         </div>
     </main>
-
     <div id="modal-delete-last-card" style="display:none;">
         <div class="modal-content">
             <p>Cannot delete the last study card in the Study Set.</p>
@@ -147,7 +142,6 @@ $cards = run_database($query, $values);
             </div>
         </div>
     </div>
-
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>

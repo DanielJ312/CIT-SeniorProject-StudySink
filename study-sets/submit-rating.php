@@ -1,4 +1,5 @@
 <?php
+//////////* Submit Rating - Script that updates a rating for a givens study set *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/study-set-functions.php");
 
 header('Content-Type: application/json');

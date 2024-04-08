@@ -14,10 +14,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Concert+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kodchasan:wght@700&display=swap" rel="stylesheet">
 
-<!-- Navbar -->
+<!-- Header & -->
 <link rel="stylesheet" href="/styles/includes/header.css"> 
 <script defer src="/includes/header.js"></script>
+<link rel="stylesheet" type="text/css" href="/styles/includes/footer.css">
 
 <!-- Create Forum Post Pop up -->
 <link rel="stylesheet" href="/styles/forum/post-create.css"> 

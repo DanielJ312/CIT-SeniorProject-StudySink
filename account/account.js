@@ -1,4 +1,5 @@
-//////////*  Profile Functions *//////////
+//////////* Account.js - Javascript functions for account pages *//////////
+/////*  Profile Functions */////
 if (document.body.classList.contains('profile-body')) {
     // increase bio font size based on length
     window.onload = function() {
@@ -15,7 +16,7 @@ if (document.body.classList.contains('profile-body')) {
     };
 }
 
-//////////*  Register & Verify Functions *//////////
+/////*  Register & Verify Functions */////
 $(".send-email").on("click", function () {
     var email = $('.email-input').val();
 

@@ -1,11 +1,8 @@
-<!-- Univeristy Selection Page  -->
 <?php
+//////////* University Index - Lists available universities to choose from */////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
-update_session();
+$universities = get_universities_list();
 $pageTitle = "Universities";
-
-$query = "SELECT * FROM UNIVERSITY_T ORDER BY Name ASC;";
-$universities = run_database($query);
 ?>
 
 <!DOCTYPE html>

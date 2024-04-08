@@ -1,8 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
+//////////* Get Subjects - Script that retrieves all subjects for a given university for the create post popup *//////////
 // Include the functions file for database access
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 

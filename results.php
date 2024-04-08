@@ -1,6 +1,6 @@
 <?php
+//////////* Results - Displays search results based on user prompt */////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
-
 $searchTerm = isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '';
 
 // Search query for study sets

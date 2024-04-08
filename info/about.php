@@ -1,6 +1,6 @@
-<?php 
+<?php
+//////////* About Page - Displays information about the website *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
-update_session();
 $pageTitle = "About";
 ?>
 
@@ -15,7 +15,7 @@ $pageTitle = "About";
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
     </header>
     <main>
-    <h2>About Us</h2>
+        <h2>About Us</h2>
         <p>
             Welcome to our Study Sink!&nbsp; Our website is designed to be a hub where students can connect, study, and engage with their university community.&nbsp; Drawing from the knowledge and skills acquired through our courses at CSUN our group has utilized technologies such as AWS, HTML, CSS, and project management techniques to bring this platform to life.&nbsp;
 
@@ -29,9 +29,8 @@ $pageTitle = "About";
 
             We extend our heartfelt gratitude to everyone who has supported us throughout this journey, including our team members, instructors, and advisors.&nbsp; Your encouragement and guidance have been invaluable in shaping our project.&nbsp;
 
-To learn more about our platform or get involved, please visit our website and reach out to us through the request page.&nbsp; Thank you for being part of our community, were there is always a steady flow of knowledge!&nbsp;
-
-</p>
+            To learn more about our platform or get involved, please visit our website and reach out to us through the request page.&nbsp; Thank you for being part of our community, were there is always a steady flow of knowledge!&nbsp;
+        </p>
     </main>
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>

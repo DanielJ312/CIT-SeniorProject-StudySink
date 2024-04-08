@@ -1,5 +1,5 @@
-<!-- Study Set Template - Displays Study Set for given Study Set ID  -->
 <?php
+//////////* Study Set Template - Displays Study Set for given Study Set ID */////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/study-set-functions.php");
 

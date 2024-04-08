@@ -1,3 +1,4 @@
+//////////* Flashcards.js - Javascript functions for actions involving flashcards */////////
 document.addEventListener("DOMContentLoaded", function() {
     let cards = document.querySelectorAll('.cardContainer');
     let currentCardIndex = 0;

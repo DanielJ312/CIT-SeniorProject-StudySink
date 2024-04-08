@@ -1,7 +1,4 @@
-<!-- Footer - Contains HTML injected into the footer tag -->
-<head>
-    <link rel="stylesheet" type="text/css" href="/styles/includes/footer.css">
-</head>
+<!-- Footer - Injects footer at the bottom of every page -->
 <ul>
     <li><a href="/info/about.php">About Us</a></li>
     <li><a href="/request/index.php">Contact Support</a></li>

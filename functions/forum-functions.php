@@ -1,9 +1,8 @@
 <?php
-# Forum Functions - Runs functions relating to the forum
+//////////* Forum Functions - Contains functions for forum pages *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 
-//////////*  AJAX Functions Switch *//////////
+/////*  AJAX Functions Switch */////
 if (isset($_POST['function'])) {
     switch ($_POST['function']) {
         // Post Functions
@@ -43,7 +42,7 @@ if (isset($_POST['function'])) {
     }
 }
 
-//////////* Get Functions *//////////
+/////* Get Functions */////
 function get_posts() {
     $query = "SELECT * FROM POST_T INNER JOIN USER_T ON POST_T.UserID = USER_T.UserID ORDER BY POST_T.Created ASC;";
     return run_database($query);
@@ -103,7 +102,7 @@ function get_comment($commentID) {
     return run_database($query, $values)[0];
 }
 
-//////////* Post Functions *//////////
+/////* Post Functions */////
 function create_post($data) {
     $subjectID = $data['setPostSubject'] == "0" ? "NULL" : $data['setPostSubject'];
 
@@ -210,7 +209,7 @@ function get_likes($postID) {
     return run_database($query)[0]->Likes;
 }
 
-//////////*  Comment Functionms *//////////
+/////*  Comment Functionms */////
 function add_comment() {
     $parentID = $_POST['parentID'];
     $values = [

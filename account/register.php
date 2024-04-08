@@ -1,25 +1,18 @@
-<!-- Register - User creates account by entering username, email, and password -->
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+//////////* Register - User creates account by entering username, email, and password with optional university *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 if (check_login()) header("Location: /account/profile.php");
-$pageTitle = "Create Account";
-
 $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? ((count($errors = signup($_POST)) == 0) ? header("Location: verify.php") : $errors) : [];
-
-$query = "SELECT UniversityID, Name, Abbreviation FROM UNIVERSITY_T;";
-$universities = run_database($query);
+$universities = get_universities_list();
+$pageTitle = "Sign Up";
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <link rel="stylesheet" type="text/css" href="/styles/account/register.css">
 </head>
-
 <body class="register-body">
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
@@ -80,5 +73,4 @@ $universities = run_database($query);
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
 </body>
-
 </html>

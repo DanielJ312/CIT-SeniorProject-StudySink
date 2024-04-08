@@ -1,4 +1,5 @@
 <?php
+//////////* Flashcards - Full screen flashcard view for a given study set ID */////////
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 
 $setID = isset($_GET['setID']) ? $_GET['setID'] : 'default';
@@ -23,10 +24,10 @@ $cards = run_database($query, $values);
 
 <!DOCTYPE html>
 <html lang="en">
-<title>Flashcards: <?= htmlspecialchars($studySetTitle); ?></title> 
+<title>Flashcards: <?= htmlspecialchars($studySetTitle); ?></title>
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <link rel="stylesheet" href="/styles/study-set-styles/flashcards.css"> 
+    <link rel="stylesheet" href="/styles/study-set-styles/flashcards.css">
 </head>
 <body class="flashcardsBody">
     <header>
@@ -35,19 +36,18 @@ $cards = run_database($query, $values);
     </header>
     <main class="flashcardMain">
         <div class="flashcardsContainer">
-                 
-            <div class="top-controls">
-                <a href="/study-sets/<?= urlencode($setID) ?>" class="back-button">< Back to Set</a>
-                <div class="cardCounter">
-                    <span id="currentCardIndex">1</span>/<span id="totalCards"></span>
-                </div>
-                <div class="top-controls-spacer"></div> <!-- Spacer to balance the layout -->
-            </div>
 
+            <div class="top-controls">
+                <a href="/study-sets/<?= urlencode($setID) ?>" class="back-button">
+                    < Back to Set</a>
+                        <div class="cardCounter">
+                            <span id="currentCardIndex">1</span>/<span id="totalCards"></span>
+                        </div>
+                        <div class="top-controls-spacer"></div> <!-- Spacer to balance the layout -->
+            </div>
             <h2>Flashcards for <?= htmlspecialchars($studySetTitle); ?></h2>
             <div class="cards">
-
-                <?php foreach ($cards as $card): ?>
+                <?php foreach ($cards as $card) : ?>
                     <div class="cardContainer">
                         <div class="cardFront"><?= nl2br(htmlspecialchars($card->Front)); ?></div>
                         <div class="cardBack"><?= nl2br(htmlspecialchars($card->Back)); ?></div>

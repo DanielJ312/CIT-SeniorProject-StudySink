@@ -1,8 +1,7 @@
 <!-- Post Redirect Page -->
-<?php 
+<?php
+//////////* Post Index - Redirects to user's university page *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
-update_session();
-
 $location = isset($_SESSION['USER']->Abbreviation) ? "university/{$_SESSION['USER']->Abbreviation}" : "university";
 header("Location: /$location.php");
 ?>

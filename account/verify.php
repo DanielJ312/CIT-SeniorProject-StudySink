@@ -1,24 +1,19 @@
-<!-- Verify - User recieves email with verifcation code to verify their account -->
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+//////////* Verify - User recieves email with verifcation code to verify their account *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/mail-functions.php");
 if (check_verification()) header("Location: /account/profile.php");
 $expirationTime = update_session();
-$pageTitle = "Verify Account";
-
 $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? verify_email($_POST) : [];
+$pageTitle = "Verify Account";
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <link rel="stylesheet" type="text/css" href="/styles/account/verify.css">
     <script desync src="/account/account.js"></script>
 </head>
-
 <body class="verify-body">
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
@@ -54,5 +49,4 @@ $errors = $_SERVER['REQUEST_METHOD'] == "POST" ? verify_email($_POST) : [];
         updateCountdown(<?= $expirationTime; ?>);
     }, 1000);
 </script>
-
 </html>

@@ -1,3 +1,4 @@
+//////////* Home.js - Javascript functions for the home page */////////
 // Event listener for the post tiles so it goes to the post page when clicking on the tile
 let postTiles = document.querySelectorAll('.PostLinkTile');
 postTiles.forEach(tile => {

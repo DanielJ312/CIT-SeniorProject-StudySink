@@ -1,10 +1,8 @@
-<!-- Post Template - Displays post for given Post ID  -->
 <?php
+//////////* University Template - Displays posts and subjects */////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/university-functions.php");
-update_session();
 $univeristyAbbr = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
-
 $university = get_university($univeristyAbbr);
 $subjects = get_university_subjects($university->UniversityID);
 
@@ -33,7 +31,6 @@ $pageTitle = $university->Abbreviation;
             <div class="university-info">
                 <h2><?= $university->Name; ?></h2>
             </div>
-          
             <div class="columns">
                 <div class="subject-selection-c">
                     <div class="search-bar-csun">

@@ -1,8 +1,7 @@
 <?php 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+//////////* Create - Creates a study set */////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/study-set-functions.php");
 $pageTitle = "Create Study Set";
-update_session();
 $universities = get_universities_list();
 
 // Check if the form was submitted with id="studySetForm"

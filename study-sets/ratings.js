@@ -1,3 +1,4 @@
+//////////* Ratings.js - Javascript functions for actions involving ratings */////////
 function initializeRating(studySetID, userRating) {
     console.log('Initialized with studySetID:', studySetID);
 

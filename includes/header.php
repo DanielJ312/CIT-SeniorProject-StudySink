@@ -1,5 +1,5 @@
-<!-- Header - Contains HTML injected into the header tag -->
 <?php
+//////////* Header - Contains header HTML injected into every page *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 $query = "SELECT * FROM UNIVERSITY_T;";
 $postUniversities = get_universities_list();

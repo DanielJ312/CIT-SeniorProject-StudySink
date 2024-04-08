@@ -1,7 +1,6 @@
-<!-- Profile - Display the logged in user's profile page -->
 <?php
+//////////* Profile - Display the logged in user's profile page *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
-update_session();
 if (!check_login()) header("Location: /account/login.php");
 
 $urlUser = (isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default');
@@ -15,7 +14,6 @@ if ($user != null) {
     $usersLikedPosts = get_profile_users_liked_posts($user->UserID);
     $pageTitle = "$user->Username's Profile";
 }
-
 ?>
 
 <!DOCTYPE html>

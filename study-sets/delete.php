@@ -1,4 +1,5 @@
 <?php
+//////////* Delete - Deletes a study set */////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/study-set-functions.php");
 
 $setID = $_GET['id'] ?? null;  // Get the Study Set ID from the URL

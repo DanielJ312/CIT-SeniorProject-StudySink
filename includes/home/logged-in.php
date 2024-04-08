@@ -1,4 +1,5 @@
 <?php 
+//////////* Logged In Home Page - Displays home page content for when a user is logged in *//////////
 // University Side Bar
 $userUniversity = get_user_university();
 if (isset($userUniversity)) {

@@ -1,4 +1,5 @@
 <?php
+//////////* Study Set Functions - Contains functions for study set pages *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 
 function create_study_set($data) {

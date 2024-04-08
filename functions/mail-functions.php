@@ -1,5 +1,6 @@
 <?php
-# Functions - Contains functions relating to PHPMailer
+//////////* Mail Functions - Contains functions relating to PHPMailer and sending messages *//////////
+require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] ."/vendor/autoload.php");
 
 use PHPMailer\PHPMailer\PHPMailer;

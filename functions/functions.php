@@ -1,7 +1,8 @@
 <?php
-# Functions - Contains functions that are used by multiple pages
+//////////* Functions - Contains general functions used by many pages  *//////////
 date_default_timezone_set('America/Los_Angeles');
 session_start();
+update_session();
 
 function run_database($query, $values = array()) {
     $connection = get_pdo_connection();
@@ -123,7 +124,7 @@ function prepend ($var1, $var2){
 }
 
 function get_universities_list() {
-    $query = "SELECT UniversityID, Name FROM UNIVERSITY_T ORDER BY Name ASC";
+    $query = "SELECT UniversityID, Name, Abbreviation FROM UNIVERSITY_T ORDER BY Name ASC";
     return run_database($query);
 }
 

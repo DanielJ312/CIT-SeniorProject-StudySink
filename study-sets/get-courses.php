@@ -1,4 +1,5 @@
 <?php
+//////////* Get Courses - Script that retrieves all courses for a given subject *//////////
 // Include the functions file for database access
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 

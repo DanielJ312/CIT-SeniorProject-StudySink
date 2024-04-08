@@ -1,3 +1,4 @@
+//////////* Forum-Popup.js - Contains functions used for the create post popup *//////////
 function openPopup() {
     document.getElementById("overlay").style.display = "block";
     document.getElementById("popupContainer").style.display = "block";

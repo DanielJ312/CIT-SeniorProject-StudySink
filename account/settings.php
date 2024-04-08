@@ -1,31 +1,35 @@
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
+//////////* Settings - Allows users to change their profile picture, bio, password, & university and also delete account  *//////////
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
-update_session();
-$pageTitle = "Account Settings";
 if (!check_login()) header("Location: /account/login.php");
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    if (isset($_POST['bio'])) {
-        update_bio($_POST);
-    } else if (isset($_POST['password'])) {
-        update_password($_POST);
-    } else if (isset($_POST['updateUniversity'])) {
-        update_primary_university($_POST);
-    } else if (isset($_FILES['image'])) {
-        upload_avatar($_FILES);
-    } else if (isset($_POST['delete-password'])) {
-        delete_account();
+    switch(true) {
+        case isset($_FILES['image']):
+            upload_avatar($_FILES);
+            break;
+        case isset($_POST['bio']):
+            update_bio($_POST);
+            break;
+        case isset($_POST['password']):
+            update_password($_POST);
+            break;
+        case isset($_POST['updateUniversity']):
+            update_primary_university($_POST);
+            break;
+        case isset($_POST['delete-password']):
+            delete_account();
+            break;
+        default:
+            break;
     }
 }
+$pageTitle = "Settings";
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <link rel="stylesheet" type="text/css" href="/styles/account/account-settings.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kodchasan:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>

@@ -1,3 +1,4 @@
+//////////* Request.js - Javascript functions for the request page */////////
 const toggleSwitch = document.getElementById('toggleSwitch');
 const pageTitle = document.getElementById('pageTitle');
 const helpForm = document.getElementById('helpForm');
