@@ -2,7 +2,7 @@
 //////////* University Template - Displays posts and subjects */////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/university-functions.php");
-$univeristyAbbr = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
+$univeristyAbbr = get_end_url();
 $university = get_university($univeristyAbbr);
 $subjects = get_university_subjects($university->UniversityID);
 

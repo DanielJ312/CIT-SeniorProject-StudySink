@@ -3,7 +3,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/study-set-functions.php");
 
-$setID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
+$setID = get_end_url();
 $values['StudySetID'] = $setID;
 $query = "
     SELECT SS.*, U.Name AS UniversityName, S.Name AS SubjectName, 

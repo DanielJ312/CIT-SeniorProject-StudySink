@@ -1,7 +1,7 @@
 <?php
 //////////* Post Template - Displays post for given Post ID *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
-$postID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
+$postID = get_end_url();
 $post = get_post($postID);
 empty($post) ? university_redirect() : "";
 $commentTotal = count_comments($postID);
