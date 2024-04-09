@@ -9,17 +9,17 @@ function create_study_set($data) {
 
     $title = $data['setTitle'] ?? null;
     $description = $data['setDescription'] ?? null;
-    $universityID = $data['universityId'] ?? null; // Please ensure this variable is correctly used.
-    $subjectID = $data['subjectId'] ?? null; // Please ensure this variable is correctly used.
-    $courseID = $data['course_id'] ?? null;
+
+    $universityID = $data['setUniversity'] ?? null; 
+    $subjectID = $data['setSubject'] ?? null; 
+    $courseID = $data['setCourse'] ?? null;
     $instructor = $data['instructor'] ?? null;
-    $userID = $_SESSION['USER']->UserID;
+    $userID = $_SESSION['USER']->UserID; 
     $time = time();
 
     $errors = [];
     if (empty($title)) $errors[] = "Title is required.";
     if (empty($courseID)) $errors[] = "Course is required.";
-    // Add more validations as needed...
 
     if (!empty($errors)) {
         display_errors($errors);
@@ -31,7 +31,7 @@ function create_study_set($data) {
         $studySetID = generate_ID('STUDY_SET');
 
         $stmt = $pdo->prepare("INSERT INTO STUDY_SET_T (StudySetID, UserID, CourseID, Title, Description, Instructor, Created)
-              VALUES (?, ?, ?, ?, ?, ?, ?)");
+                               VALUES (?, ?, ?, ?, ?, ?, ?)");
 
         $stmt->execute([$studySetID, $userID, $courseID, $title, $description, $instructor, $time]);
 
@@ -42,6 +42,9 @@ function create_study_set($data) {
                 $cardStmt->execute([$studySetID, $card['front'], $card['back']]);
             }
         }
+
+        // Automatically rate the study set 5 stars after creation
+        addOrUpdateRating($pdo, $studySetID, $userID, 5);
 
         header("Location: /study-sets/{$studySetID}");
     } catch (PDOException $e) {
@@ -192,21 +195,20 @@ function get_study_set($StudySetID) {
 }
 
 function addOrUpdateRating($pdo, $studySetID, $userID, $rating) {
-    // Check if the user has already rated this study set
-    $stmt = $pdo->prepare("SELECT RatingID FROM STUDY_SET_RATINGS WHERE StudySetID = :StudySetID AND UserID = :UserID");
-    $stmt->execute([':StudySetID' => $studySetID, ':UserID' => $userID]);
+    $stmt = $pdo->prepare("SELECT RatingID FROM STUDY_SET_RATINGS WHERE StudySetID = ? AND UserID = ?");
+    $stmt->execute([$studySetID, $userID]);
     $existingRating = $stmt->fetch();
+    $time = time();
 
     if ($existingRating) {
-        // Update existing rating
-        $updateStmt = $pdo->prepare("UPDATE STUDY_SET_RATINGS SET Rating = :Rating, RatedOn = NOW() WHERE RatingID = :RatingID");
-        $updateStmt->execute([':Rating' => $rating, ':RatingID' => $existingRating['RatingID']]);
+        $updateStmt = $pdo->prepare("UPDATE STUDY_SET_RATINGS SET Rating = ?, RatedOn = $time WHERE RatingID = ?");
+        $updateStmt->execute([$rating, $existingRating['RatingID']]);
     } else {
-        // Insert new rating
-        $insertStmt = $pdo->prepare("INSERT INTO STUDY_SET_RATINGS (StudySetID, UserID, Rating) VALUES (:StudySetID, :UserID, :Rating)");
-        $insertStmt->execute([':StudySetID' => $studySetID, ':UserID' => $userID, ':Rating' => $rating]);
+        $insertStmt = $pdo->prepare("INSERT INTO STUDY_SET_RATINGS (StudySetID, UserID, Rating, RatedOn) VALUES (?, ?, ?, $time)");
+        $insertStmt->execute([$studySetID, $userID, $rating]);
     }
 }
+
 
 function getAverageRating($pdo, $studySetID) {
     $stmt = $pdo->prepare("SELECT AVG(Rating) as AverageRating FROM STUDY_SET_RATINGS WHERE StudySetID = :StudySetID");
