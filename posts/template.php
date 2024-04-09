@@ -15,7 +15,7 @@ $pageTitle = "$post->Title";
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <script async src="/posts/forum.js"></script>
-    <link rel="stylesheet" href="/styles/forum/post-template.css" />
+    <link rel="stylesheet" href="/styles/posts/template.css" />
 </head>
 <body class="post-template-body">
     <header>
