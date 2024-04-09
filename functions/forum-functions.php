@@ -131,7 +131,7 @@ function create_post($data) {
 
         $query = "INSERT INTO POST_T (PostID, UniversityID, SubjectID, Title, Content, UserID, Created) VALUES (:PostID, :UniversityID, :SubjectID, :Title, :Content, :UserID, :Created);";
         run_database($query, $values);
-        header("Location: /posts/{$values['PostID']}.php");
+        redirect("/posts/{$values['PostID']}");
     }
 
     return $errors;

@@ -9,7 +9,7 @@ if ($setID) {
     delete_study_set($setID);
 } else {
     // Redirect to an error page if the ID is invalid or not provided
-    header("Location: /error-page.php");  // Need to change
+    university_redirect();
     exit;
 }
 ?>

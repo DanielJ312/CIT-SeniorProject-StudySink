@@ -79,6 +79,15 @@ function check_active($toCheck, $page = null) {
     else if ($_SERVER['REQUEST_URI'] == '/' && $page == 'home') echo "active";
 }
 
+function redirect($directory) {
+    echo "<script>window.location.href = '$directory.php';</script>'";;
+}
+
+function university_redirect() {
+    $location = isset($_SESSION['USER']->Abbreviation) ? "university/{$_SESSION['USER']->Abbreviation}" : "university";
+    header("Location: /$location.php");
+}
+
 function display_errors($errors) {
     if(count($errors) > 0) {
         foreach($errors as $errors) {

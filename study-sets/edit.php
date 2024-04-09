@@ -2,12 +2,9 @@
 //////////* Edit - Edits a study set */////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/study-set-functions.php");
 if (!check_login()) header("Location: /study-sets/index.php");
-$pageTitle = "Edit Study Set";
+isset($_GET['id']) ? $setID = $_GET['id'] : university_redirect();
+
 $universities = get_universities_list();
-
-$setID = $_GET['id'];
-if ($_SERVER['REQUEST_METHOD'] == "POST") edit_study_set($setID, $_POST);
-
 $values['StudySetID'] = $setID;
 $query = "
     SELECT 
@@ -31,13 +28,13 @@ $query = "
     WHERE 
         SS.StudySetID = :StudySetID;
 ";
-
 $set = run_database($query, $values)[0];
 empty($set) ? header("Location: /study-sets/create.php") : null;
 if (!($set->Username == $_SESSION['USER']->Username)) header("Location: /study-sets/index.php");
 
 $query = "SELECT * FROM STUDY_CARD_T WHERE StudySetID = :StudySetID ORDER BY CardID;";
 $cards = run_database($query, $values);
+$pageTitle = "Edit Study Set";
 ?>
 
 <!DOCTYPE html>

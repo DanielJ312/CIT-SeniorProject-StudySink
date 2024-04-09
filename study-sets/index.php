@@ -1,9 +1,7 @@
 <?php 
 //////////* Study Set Index - Redirects to user's university page */////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
-
-$location = isset($_SESSION['USER']->Abbreviation) ? "university/{$_SESSION['USER']->Abbreviation}" : "university";
-header("Location: /$location.php");
+university_redirect();
 ?>
 
 <!DOCTYPE html>

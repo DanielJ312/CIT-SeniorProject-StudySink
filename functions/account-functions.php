@@ -224,7 +224,7 @@ function verify_email($data) {
             $result = run_database($query);
             delete_code("verify", $email);
             update_user();
-            header("Location: profile.php");
+            header("Location: /account/profile.php");
         } else {
             $errors['code'] = "This code has expired.";
         }

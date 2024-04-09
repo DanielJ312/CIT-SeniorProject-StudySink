@@ -14,6 +14,7 @@ function create_study_set($data) {
     $courseID = $data['course_id'] ?? null;
     $instructor = $data['instructor'] ?? null;
     $userID = $_SESSION['USER']->UserID;
+    $time = time();
 
     $errors = [];
     if (empty($title)) $errors[] = "Title is required.";
@@ -29,10 +30,10 @@ function create_study_set($data) {
         $pdo = get_pdo_connection();
         $studySetID = generate_ID('STUDY_SET');
 
-        $stmt = $pdo->prepare("INSERT INTO STUDY_SET_T (StudySetID, UserID, CourseID, Title, Description, Instructor, Created, Modified)
-              VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())");
+        $stmt = $pdo->prepare("INSERT INTO STUDY_SET_T (StudySetID, UserID, CourseID, Title, Description, Instructor, Created)
+              VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-        $stmt->execute([$studySetID, $userID, $courseID, $title, $description, $instructor]);
+        $stmt->execute([$studySetID, $userID, $courseID, $title, $description, $instructor, $time]);
 
         if (isset($data['cards'])) {
             $cards = json_decode($data['cards'], true);
@@ -58,13 +59,14 @@ function edit_study_set($setID, $data) {
 
         // Update study set details
         $stmt = $pdo->prepare("UPDATE STUDY_SET_T 
-            SET CourseID = ?, Title = ?, Description = ?, Instructor = ?, Modified = NOW() 
+            SET CourseID = ?, Title = ?, Description = ?, Instructor = ?, Modified = ? 
             WHERE StudySetID = ?");
         $stmt->execute([
             $data['course_id'], 
             $data['setTitle'], 
             $data['setDescription'], 
             $data['instructor'], 
+            time(),
             $setID
         ]);
 
@@ -127,7 +129,7 @@ function delete_study_set($setID) {
     if (!$studySet || $studySet['UserID'] != $_SESSION['USER']->UserID) {
         // User does not own the study set or study set does not exist
         // Handle this case, redirect to an error page or display a message
-        header("Location: /unauthorized.php"); // Needs to be implemented
+        university_redirect();
         exit;
     }
 
@@ -155,7 +157,8 @@ function delete_study_set($setID) {
         $pdo->commit();
 
         // Redirect or inform the user of successful deletion
-        header("Location: /index.php/");
+        university_redirect();
+
         exit;
     } catch (PDOException $e) {
         // Roll back the transaction in case of an error
@@ -164,7 +167,7 @@ function delete_study_set($setID) {
         // Log and handle the error
         error_log("Database error: " . $e->getMessage());
         // Redirect or display a user-friendly error message
-        header("Location: /error.php");  // Need to implement
+        university_redirect();
         exit;
     }
 }

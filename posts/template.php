@@ -3,10 +3,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 $postID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
 $post = get_post($postID);
-if (empty($post)) {
-    header("Location: " . (isset($_SESSION['USER']->Abbreviation) ? "/university/{$_SESSION['USER']->Abbreviation}.php" : "/index.php"));
-}
-
+empty($post) ? university_redirect() : "";
 $commentTotal = count_comments($postID);
 $likeTotal = get_likes($postID);
 save_to_cookie("post");
