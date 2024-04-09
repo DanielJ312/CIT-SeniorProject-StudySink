@@ -2,10 +2,11 @@
 //////////* Subject - Displays selected subject page for given university */////////
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 $query = "SELECT * FROM UNIVERSITY_T WHERE Abbreviation = '{$_GET['university']}';";
-$university = run_database($query)[0];
+$university = run_database($query);
+is_array($university) ? $university = reset($university) : header("Location: /university/index.php");
 $query = "SELECT * FROM SUBJECT_T WHERE Abbreviation = '{$_GET['subject']}' && UniversityID = {$university->UniversityID};";
-$subject = run_database($query)[0];
-
+$subject = run_database($query);
+is_array($subject) ? $subject = reset($subject) : header("Location: /university/{$university->Abbreviation}.php");
 $pageTitle = "$university->Abbreviation $subject->Name";
 ?>
 
@@ -68,45 +69,45 @@ $pageTitle = "$university->Abbreviation $subject->Name";
     <footer>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
-    <script>
-        document.getElementById('toggleSet').addEventListener('click', function() {
-            if (window.innerWidth <= 850) {
-                var contentDiv = document.getElementById('contentset');
-                if (contentDiv.style.display === 'none' || window.getComputedStyle(contentDiv).display === 'none') {
-                    contentDiv.style.display = 'block'; // or any other desired display value
-                } else {
-                    contentDiv.style.display = 'none';
-                }
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var contentDiv = document.getElementById('contentpost');
-
-            // Initially show the content
-            contentDiv.style.display = 'block';
-
-    document.getElementById('togglePost').addEventListener('click', function() {
+</body>
+<script>
+    window.history.replaceState({}, '', '/university/<?= $university->Abbreviation; ?>/<?= $subject->Abbreviation; ?>');
+    document.getElementById('toggleSet').addEventListener('click', function() {
         if (window.innerWidth <= 850) {
+            var contentDiv = document.getElementById('contentset');
             if (contentDiv.style.display === 'none' || window.getComputedStyle(contentDiv).display === 'none') {
-                contentDiv.style.display = 'block';
+                contentDiv.style.display = 'block'; // or any other desired display value
             } else {
                 contentDiv.style.display = 'none';
             }
         }
     });
-});
 
-document.addEventListener("DOMContentLoaded", function() {
-    var gridItems = document.querySelectorAll('.post-content');
-    gridItems.forEach(function(item) {
-        var text = item.textContent;
-        if (text.length > 50) {
-            item.textContent = text.substring(0, 50) + '...';
-        }
+    document.addEventListener('DOMContentLoaded', function() {
+        var contentDiv = document.getElementById('contentpost');
+
+        // Initially show the content
+        contentDiv.style.display = 'block';
+
+        document.getElementById('togglePost').addEventListener('click', function() {
+            if (window.innerWidth <= 850) {
+                if (contentDiv.style.display === 'none' || window.getComputedStyle(contentDiv).display === 'none') {
+                    contentDiv.style.display = 'block';
+                } else {
+                    contentDiv.style.display = 'none';
+                }
+            }
+        });
     });
-});
 
+    document.addEventListener("DOMContentLoaded", function() {
+        var gridItems = document.querySelectorAll('.post-content');
+        gridItems.forEach(function(item) {
+            var text = item.textContent;
+            if (text.length > 50) {
+                item.textContent = text.substring(0, 50) + '...';
+            }
+        });
+    });
 </script>
-</body>
 </html>
