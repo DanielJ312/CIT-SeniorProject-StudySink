@@ -2,19 +2,37 @@
 /////*  Profile Functions */////
 if (document.body.classList.contains('profile-body')) {
     // increase bio font size based on length
-    window.onload = function() {
+    window.onload = function () {
         var textElement = document.querySelector('.bio-container p');
         var textLength = textElement.textContent.length;
 
-        if (textLength > 600) {
-            textElement.style.fontSize = '1em'; // smaller font size
-        } else if (textLength > 300) {
-            textElement.style.fontSize = '1.2em'; // medium font size
+        if (window.innerWidth > 1280) {
+            if (textLength > 600) {
+                textElement.style.fontSize = '1em'; // smaller font size
+            } else if (textLength > 300) {
+                textElement.style.fontSize = '1.2em'; // medium font size
+            } else {
+                textElement.style.fontSize = '1.5em'; // larger font size
+            }
         } else {
-            textElement.style.fontSize = '1.5em'; // larger font size
+            if (textLength > 600) {
+                textElement.style.fontSize = '0.7em'; // smaller font size
+            } else if (textLength > 300) {
+                textElement.style.fontSize = '0.8em'; // medium font size
+            } else {
+                textElement.style.fontSize = '1em'; // larger font size
+            }
         }
     };
 }
+
+
+// if $user->Bio; is empty, remove the bio-container and move profile-info to the center
+if (document.querySelector('.bio-container p').textContent == '') {
+    document.querySelector('.bio-container').style.display = 'none';
+    document.querySelector('.profile-info').style.margin = '4% auto auto auto';
+}
+
 
 /////*  Register & Verify Functions */////
 $(".send-email").on("click", function () {
@@ -44,7 +62,7 @@ function checkPassword(email) {
     $(".submit-pass").on("click", function () {
         var code = $('.code-input').val();
         var password1 = $('.password-input').val(), password2 = $('.password2-input').val();
-        
+
         if (code.length == 0) {
             $(".error").html("No code was entered.").show();
         }
