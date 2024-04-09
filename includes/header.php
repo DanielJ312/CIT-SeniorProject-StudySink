@@ -36,9 +36,9 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['setPostUnive
                 <div class="dropdown">
                     <img src="<?= $_SESSION['USER']->Avatar ?>" alt="Avatar" class="profile-picture <?= check_active('/account/profile'); ?>" id="profilePicture" title="Avatar">
                     <div class="dropdown-content-profile" id="profileDropdown">
-                        <a href="/account/profile.php">Profile</a>
-                        <a href="/account/settings.php">Settings</a>
-                        <a href="/request/index.php">Support</a>
+                        <a href="/account/profile.php">My Profile</a>
+                        <a href="/account/settings.php">Account Settings</a>
+                        <a href="/request/index.php">Contact Support</a>
                         <a href="/account/logout.php">Logout</a>
                     </div>
                 </div>

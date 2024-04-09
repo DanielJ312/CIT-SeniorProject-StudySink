@@ -31,7 +31,6 @@
 .profile-info {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   margin: 4% 0 0 8%;
 }
@@ -84,6 +83,7 @@
   font-size: 1em;
   text-align: center;
   width: fit-content;
+  min-width: 40%;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -256,6 +256,12 @@
 .comments-count, .votes-count, .study-set-ratings-count {
     padding-left: 2px;
 }
+
+.no-tiles {
+  text-align: left;
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 1em;
+}
 /* END OF TILES SECTION */
 
 /* cleaner scroll bars */
@@ -277,6 +283,70 @@
 }
 
 /* START OF MEDIA QUERIES */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1280px) {
+  .profile-outer-container {
+    max-width: 90%;
+  }
 
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 4% 0 0 2%;
+  }
+
+  .profile-user-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .bio-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+  }
+
+  .study-set-tile, .post-tile {
+    margin: 0 1.5% 0 1.5%;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .profile-outer-container {
+    max-width: 100%;
+  }
+
+  .profile-pp {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    }
+
+  .username {
+    font-size: 1.5em;
+  }
+  
+  .university {
+    font-size: 1em;
+    width: 250px;
+    max-width: 250px;
+  }
+
+  .bio-container h3 {
+    font-size: 1.5em;
+  }
+
+  .users-posts-container {
+    margin: 8% 0 8% 0;
+  }
+
+  .container-title {
+    margin-bottom: 3%;
+  }
+
+  .study-set-tile, .post-tile {
+    margin: 0 3% 0 3%;
+  }
 }
