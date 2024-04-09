@@ -53,11 +53,10 @@ function create_study_set($data) {
 }
 
 function edit_study_set($setID, $data) {
-    global $pdo; // Ensure that $pdo is your PDO connection instance
-    $pdo = get_pdo_connection(); // Make sure this returns a valid PDO connection
+    global $pdo;
+    $pdo = get_pdo_connection(); 
 
     try {
-        // Begin a transaction
         $pdo->beginTransaction();
 
         // Update study set details
@@ -198,13 +197,14 @@ function addOrUpdateRating($pdo, $studySetID, $userID, $rating) {
     $stmt = $pdo->prepare("SELECT RatingID FROM STUDY_SET_RATINGS WHERE StudySetID = ? AND UserID = ?");
     $stmt->execute([$studySetID, $userID]);
     $existingRating = $stmt->fetch();
-    $time = time();
 
     if ($existingRating) {
-        $updateStmt = $pdo->prepare("UPDATE STUDY_SET_RATINGS SET Rating = ?, RatedOn = $time WHERE RatingID = ?");
+        // Since RatedOn field is removed, no need to update it
+        $updateStmt = $pdo->prepare("UPDATE STUDY_SET_RATINGS SET Rating = ? WHERE RatingID = ?");
         $updateStmt->execute([$rating, $existingRating['RatingID']]);
     } else {
-        $insertStmt = $pdo->prepare("INSERT INTO STUDY_SET_RATINGS (StudySetID, UserID, Rating, RatedOn) VALUES (?, ?, ?, $time)");
+        // Remove RatedOn from INSERT statement as well
+        $insertStmt = $pdo->prepare("INSERT INTO STUDY_SET_RATINGS (StudySetID, UserID, Rating) VALUES (?, ?, ?)");
         $insertStmt->execute([$studySetID, $userID, $rating]);
     }
 }
