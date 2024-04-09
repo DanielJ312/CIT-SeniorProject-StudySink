@@ -45,7 +45,7 @@
 .username {
   font-family: 'Comfortaa', sans-serif;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   font-size: 1.8em;
   width: fit-content;
   text-align: center;
@@ -58,14 +58,18 @@
   width: 320px;
   max-width: 320px;
   margin: 0;
+  text-align: center;
 }
 
 .bio-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 4% 5% 0 2%;
   padding-left: 3%;
   padding-right: 3%;
+  width: 50%;
+  min-width: 50%;
 }
 
 .bio-container h3 {
@@ -73,13 +77,13 @@
   font-size: 2em;
   text-align: center;
   margin: 0;
-
 }
 
 .bio-container p {
   font-family: 'Comfortaa', sans-serif;
   font-size: 1em;
   text-align: center;
+  width: fit-content;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
