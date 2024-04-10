@@ -1,9 +1,9 @@
 <?php
 //////////* Profile - Display the logged in user's profile page *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
-if (!check_login()) header("Location: /account/login.php");
+// if (!check_login()) header("Location: /account/login.php");
 
-$urlUser = (isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default');
+$urlUser = get_end_url();
 $username = $urlUser == "default" ? $_SESSION['USER']->Username : $urlUser;
 $user = get_user_info($username);
 
@@ -18,14 +18,12 @@ if ($user != null) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <link rel="stylesheet" type="text/css" href="/styles/account/profile.css">
     <script defer src="/account/account.js"></script>
     <script defer src="/home.js"></script>
 </head>
-
 <body class="profile-body">
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
@@ -41,11 +39,11 @@ if ($user != null) {
                     <div class="profile-info">
                         <img src="<?= $user->Avatar; ?>" alt="Avatar" class="profile-pp" id="settingsProfilePicture" title="Avatar">
                         <h2 class="username"><?= $user->Username; ?></h2>
-                        <p class="university"><?= get_user_university_name() ?></p>
+                        <p class="university"><?= $user->Name; ?></p>
                     </div>
                     <div class="bio-container">
                         <h3>About Me</h3>
-                        <p><?= $user->Bio ?></p>
+                        <p><?= $user->Bio; ?></p>
                     </div>
                 </div>
                 <!-- Start of the all the users tiles (study sets, posts, liked posts (bottom section))-->
@@ -163,11 +161,10 @@ if ($user != null) {
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
 </body>
-
 </html>
 <script>
-    window.history.pushState({}, '', '/account/<?= $user->Username; ?>');
-    <?php if ($user->Username == $_SESSION['USER']->Username) : ?>
+    window.history.replaceState({}, '', '/account/<?= $user->Username; ?>');
+    <?php if (isset($_SESSION['USER']->Username) && $user->Username == $_SESSION['USER']->Username) : ?>
         window.history.replaceState({}, '', '/account/profile');
     <?php endif; ?>
 </script>

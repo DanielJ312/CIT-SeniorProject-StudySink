@@ -285,7 +285,7 @@ function update_primary_university($data) {
 // This function is used to populate all the information on the profile page when a user clicks on another users profile
 function get_user_info($username) {
     $values = ['Username' => $username];
-    $query = "SELECT * FROM USER_T WHERE Username = :Username LIMIT 1;";
+    $query = "SELECT * FROM USER_T INNER JOIN UNIVERSITY_T ON UNIVERSITY_T.UniversityID = USER_T.UniversityID WHERE Username = :Username LIMIT 1;";
     $result = run_database($query, $values);
     return is_array($result) ? $result[0] : null; 
     

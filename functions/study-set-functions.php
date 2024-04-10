@@ -61,6 +61,7 @@ function edit_study_set($setID, $data) {
         $pdo->beginTransaction();
 
         // Update study set details
+        $time = time();
         $stmt = $pdo->prepare("UPDATE STUDY_SET_T 
             SET CourseID = ?, Title = ?, Description = ?, Instructor = ?, Modified = ? 
             WHERE StudySetID = ?");
@@ -198,13 +199,12 @@ function addOrUpdateRating($pdo, $studySetID, $userID, $rating) {
     $stmt = $pdo->prepare("SELECT RatingID FROM STUDY_SET_RATINGS WHERE StudySetID = ? AND UserID = ?");
     $stmt->execute([$studySetID, $userID]);
     $existingRating = $stmt->fetch();
-    $time = time();
 
     if ($existingRating) {
-        $updateStmt = $pdo->prepare("UPDATE STUDY_SET_RATINGS SET Rating = ?, RatedOn = $time WHERE RatingID = ?");
+        $updateStmt = $pdo->prepare("UPDATE STUDY_SET_RATINGS SET Rating = ?, WHERE RatingID = ?");
         $updateStmt->execute([$rating, $existingRating['RatingID']]);
     } else {
-        $insertStmt = $pdo->prepare("INSERT INTO STUDY_SET_RATINGS (StudySetID, UserID, Rating, RatedOn) VALUES (?, ?, ?, $time)");
+        $insertStmt = $pdo->prepare("INSERT INTO STUDY_SET_RATINGS (StudySetID, UserID, Rating) VALUES (?, ?, ?)");
         $insertStmt->execute([$studySetID, $userID, $rating]);
     }
 }

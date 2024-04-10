@@ -88,6 +88,10 @@ function university_redirect() {
     header("Location: /$location.php");
 }
 
+function get_end_url() {
+    return isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
+}
+
 function display_errors($errors) {
     if(count($errors) > 0) {
         foreach($errors as $errors) {

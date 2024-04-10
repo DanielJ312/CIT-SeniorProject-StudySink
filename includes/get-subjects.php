@@ -6,7 +6,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php");
 // Function to fetch subjects based on a university ID using the run_database function
 function get_subjects_by_university($universityId) {
     // Prepare the query to fetch subjects
-    $query = "SELECT SubjectID, Name FROM SUBJECT_T WHERE UniversityID = :UniversityID";
+    $query = "SELECT SubjectID, Name FROM SUBJECT_T WHERE UniversityID = :UniversityID ORDER BY Name ASC";
     $values = array(':UniversityID' => $universityId);
 
     // Use the run_database function to execute the query
