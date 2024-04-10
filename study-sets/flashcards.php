@@ -15,6 +15,12 @@ if ($shuffle) {
 
 $titleQuery = "SELECT Title FROM STUDY_SET_T WHERE StudySetID = :StudySetID";
 $titleResult = run_database($titleQuery, ['StudySetID' => $setID]);
+
+if (empty($titleResult)) {
+    university_redirect();
+    exit;
+}
+
 $studySetTitle = $titleResult ? $titleResult[0]->Title : 'Study Set';
 
 // Fetch the cards
