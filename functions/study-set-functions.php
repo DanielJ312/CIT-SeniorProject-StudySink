@@ -61,6 +61,7 @@ function edit_study_set($setID, $data) {
         $pdo->beginTransaction();
 
         // Update study set details
+        $time = time();
         $stmt = $pdo->prepare("UPDATE STUDY_SET_T 
             SET CourseID = ?, Title = ?, Description = ?, Instructor = ?, Modified = ? 
             WHERE StudySetID = ?");

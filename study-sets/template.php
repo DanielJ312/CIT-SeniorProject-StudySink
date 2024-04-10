@@ -8,7 +8,7 @@ $values['StudySetID'] = $setID;
 $query = "
     SELECT SS.*, U.Name AS UniversityName, S.Name AS SubjectName, 
         C.Name AS CourseName, C.Abbreviation AS CourseAbbreviation,
-        USER_T.Username, USER_T.Avatar, SS.Created AS SetCreated 
+        USER_T.Username, USER_T.Avatar, SS.Created AS SetCreated, SS.Modified as SetModified
     FROM STUDY_SET_T SS
         INNER JOIN USER_T ON SS.UserID = USER_T.UserID
         LEFT JOIN COURSE_T C ON SS.CourseID = C.CourseID
@@ -55,8 +55,8 @@ save_to_cookie("study-set");
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <script async src="/posts/forum.js"></script>
-    <link rel="stylesheet" href="../styles/study-sets/template.css">
-    <link rel="stylesheet" href="/styles/forum/post-template.css" />
+    <link rel="stylesheet" href="/styles/study-sets/template.css">
+    <link rel="stylesheet" href="/styles/posts/template.css" />
 </head>
 <body class="studySetTemplateBody">
     <header>
@@ -74,7 +74,8 @@ save_to_cookie("study-set");
                             <p><?= htmlspecialchars($set->Username); ?>
                                 <?= check_login(false) && $set->Username == $_SESSION['USER']->Username ? " (You)" : "" ?>
                             </p>
-                            <p>Created on <?= date("F j, Y h:i:s", $set->SetCreated); ?></p>
+                            <p><?= date("M j, Y", $set->Created); ?> <?= isset($set->SetModified) ?  "<i>· edited on " . date("F j, Y  h:i A", $set->SetModified) . "</i>" : "" ?></p>
+                            
                         </div>
                         <div class="ratingAndAverage">
                             <div class="rating">
