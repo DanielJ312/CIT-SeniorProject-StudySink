@@ -5,8 +5,7 @@
     <section class="home-logout-section" id="section0">
         <div class="top-logo-buttons">
             <img src="https://studysink.s3.amazonaws.com/assets/StudySinkBanner.png" alt="Company Logo" class="company-logo">
-            <!-- <p style="color: black; font-size: 2em;">A steady flow of information</p> -->
-            <p style="color: black; font-size: 2em;">TESTING BRANCH</p>
+            <p style="color: black; font-size: 2em;">A steady flow of information</p>
             <button onclick="location.href='/account/login.php'" class="home-logout-btn">Login</button>
             <button onclick="scrollToSection('section1')" class="home-logout-btn">More Information</button>
         </div>

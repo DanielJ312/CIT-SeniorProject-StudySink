@@ -2,10 +2,8 @@
 //////////* University Template - Displays posts and subjects */////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/university-functions.php");
-$univeristyAbbr = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
-$university = get_university($univeristyAbbr);
-$subjects = get_university_subjects($university->UniversityID);
-
+$university = get_university(get_end_url());
+$university != false ? $subjects = get_university_subjects($university->UniversityID) : header("Location: /university/index.php"); 
 $pageTitle = $university->Abbreviation;
 ?>
 
@@ -38,11 +36,12 @@ $pageTitle = $university->Abbreviation;
                         <button><i class="fas fa-search"></i></button>
                     </div>
                     <div class="subjects">
-                        <?php if (!empty($subjects)) : foreach ($subjects as $subject) : ?>
+                        <?php if (!empty($subjects)) : ?>
+                            <?php foreach ($subjects as $subject) : ?>
                                 <ul><a href="/university/<?= $university->Abbreviation; ?>/<?= $subject->Abbreviation; ?>"><?= $subject->Name; ?></a></ul>
                             <?php endforeach; ?>
                         <?php else : ?>
-                            <ul>This university has no subjects.</ul>
+                            <ul>There are currently no subjects for <?= $university->Abbreviation; ?>.</ul>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -75,9 +74,13 @@ $pageTitle = $university->Abbreviation;
                     <button><i class="fas fa-search"></i></button>
                 </div>
                 <div class="subjects">
-                    <?php foreach ($subjects as $subject) : ?>
-                        <ul><a href="/university/<?= $university->Abbreviation; ?>/<?= $subject->Abbreviation; ?>"><?= $subject->Name; ?></a></ul>
-                    <?php endforeach; ?>
+                    <?php if (!empty($subjects)) : ?>
+                        <?php foreach ($subjects as $subject) : ?>
+                            <ul><a href="/university/<?= $university->Abbreviation; ?>/<?= $subject->Abbreviation; ?>"><?= $subject->Name; ?></a></ul>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <ul>There are currently no subjects for <?= $university->Abbreviation; ?>.</ul>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -101,4 +104,7 @@ $pageTitle = $university->Abbreviation;
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
 </body>
+<script>
+    window.history.replaceState({}, '', '/university/<?= $university->Abbreviation; ?>');
+</script>
 </html>

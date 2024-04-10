@@ -3,7 +3,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/study-set-functions.php");
 if (!check_login()) header("Location: /study-sets/index.php");
 isset($_GET['id']) ? $setID = $_GET['id'] : university_redirect();
-
+if ($_SERVER['REQUEST_METHOD'] == "POST") edit_study_set($setID, $_POST);
 $universities = get_universities_list();
 $values['StudySetID'] = $setID;
 $query = "
@@ -41,7 +41,7 @@ $pageTitle = "Edit Study Set";
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <link rel="stylesheet" href="/styles/study-set-styles/create.css">
+    <link rel="stylesheet" href="/styles/study-sets/create.css">
 </head>
 <body class="createStudySetBody">
     <header>

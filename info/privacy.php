@@ -8,7 +8,7 @@ $pageTitle = "Privacy Policy";
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <link rel="stylesheet" type="text/css" href="/styles/info/privacy-policy.css">
+    <link rel="stylesheet" type="text/css" href="/styles/info/privacy.css">
 </head>
 <body>
     <header>

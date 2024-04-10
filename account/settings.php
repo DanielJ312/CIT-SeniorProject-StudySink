@@ -29,7 +29,7 @@ $pageTitle = "Settings";
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <link rel="stylesheet" type="text/css" href="/styles/account/account-settings.css">
+    <link rel="stylesheet" type="text/css" href="/styles/account/settings.css">
 </head>
 <body>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
