@@ -2,7 +2,7 @@
 //////////* Login - Users enter account information to login with either email or username  *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
 $errors = ($_SERVER['REQUEST_METHOD'] == "POST") ? login($_POST) : [];
-if (check_login()) header("Location: /account/profile.php");
+if (check_login()) header("Location: /index.php");
 $pageTitle = "Login";
 ?>
 

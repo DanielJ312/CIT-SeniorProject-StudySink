@@ -1,7 +1,6 @@
 <?php
 //////////* Home - Displays home content depending on a user is logged in or logged out */////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/study-set-functions.php");
-update_session();
 $pageTitle = "Home";
 ?>
 

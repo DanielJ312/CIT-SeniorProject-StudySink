@@ -3,7 +3,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
 if (!check_login()) header("Location: /account/login.php");
 
-$urlUser = (isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default');
+$urlUser = get_end_url();
 $username = $urlUser == "default" ? $_SESSION['USER']->Username : $urlUser;
 $user = get_user_info($username);
 
@@ -18,14 +18,12 @@ if ($user != null) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <link rel="stylesheet" type="text/css" href="/styles/account/profile.css">
     <script defer src="/account/account.js"></script>
     <script defer src="/home.js"></script>
 </head>
-
 <body class="profile-body">
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
@@ -163,7 +161,6 @@ if ($user != null) {
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
 </body>
-
 </html>
 <script>
     window.history.pushState({}, '', '/account/<?= $user->Username; ?>');

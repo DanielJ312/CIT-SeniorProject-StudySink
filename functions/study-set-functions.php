@@ -60,6 +60,7 @@ function edit_study_set($setID, $data) {
         $pdo->beginTransaction();
 
         // Update study set details
+        $time = time();
         $stmt = $pdo->prepare("UPDATE STUDY_SET_T 
             SET CourseID = ?, Title = ?, Description = ?, Instructor = ?, Modified = ? 
             WHERE StudySetID = ?");
@@ -199,11 +200,9 @@ function addOrUpdateRating($pdo, $studySetID, $userID, $rating) {
     $existingRating = $stmt->fetch();
 
     if ($existingRating) {
-        // Since RatedOn field is removed, no need to update it
-        $updateStmt = $pdo->prepare("UPDATE STUDY_SET_RATINGS SET Rating = ? WHERE RatingID = ?");
+        $updateStmt = $pdo->prepare("UPDATE STUDY_SET_RATINGS SET Rating = ?, WHERE RatingID = ?");
         $updateStmt->execute([$rating, $existingRating['RatingID']]);
     } else {
-        // Remove RatedOn from INSERT statement as well
         $insertStmt = $pdo->prepare("INSERT INTO STUDY_SET_RATINGS (StudySetID, UserID, Rating) VALUES (?, ?, ?)");
         $insertStmt->execute([$studySetID, $userID, $rating]);
     }

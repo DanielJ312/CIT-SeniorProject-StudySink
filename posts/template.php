@@ -1,7 +1,7 @@
 <?php
 //////////* Post Template - Displays post for given Post ID *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/forum-functions.php");
-$postID = isset($_GET['url']) ? basename($_GET['url'], '.php') : 'default';
+$postID = get_end_url();
 $post = get_post($postID);
 empty($post) ? university_redirect() : "";
 $commentTotal = count_comments($postID);
@@ -15,7 +15,7 @@ $pageTitle = "$post->Title";
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <script async src="/posts/forum.js"></script>
-    <link rel="stylesheet" href="/styles/forum/post-template.css" />
+    <link rel="stylesheet" href="/styles/posts/template.css" />
 </head>
 <body class="post-template-body">
     <header>

@@ -22,5 +22,5 @@
 <link rel="stylesheet" type="text/css" href="/styles/includes/footer.css">
 
 <!-- Create Forum Post Pop up -->
-<link rel="stylesheet" href="/styles/forum/post-create.css"> 
+<link rel="stylesheet" href="/styles/posts/create.css"> 
 <script defer src="/includes/forum-popup.js"></script>
