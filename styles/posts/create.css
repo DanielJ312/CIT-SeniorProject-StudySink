@@ -273,6 +273,19 @@
 /* Mobile Compatability at 850px */
 @media (max-width: 850px) {
 
+    #deletepopupContainer {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #f7f7f7;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+        width: auto;
+    }
+
     .fa-circle-xmark {
         color: black;
         margin-top: 5%;
