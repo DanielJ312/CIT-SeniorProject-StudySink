@@ -33,6 +33,7 @@ $pageTitle = "Settings";
 </head>
 <body>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     <main class="account-settings">
         <div class="left-container">
             <div class="main-title">Account Settings</div>

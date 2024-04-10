@@ -15,6 +15,7 @@ $pageTitle = "Reset Password";
 <body class="forgot-body">
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
     <main class="forgot-main">
         <div class="forgot-container">

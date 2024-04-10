@@ -27,6 +27,7 @@ if ($user != null) {
 <body class="profile-body">
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
     <main class="profile-main">
         <?php if ($user == null) : ?>

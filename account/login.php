@@ -10,6 +10,7 @@ $pageTitle = "Login";
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     <link rel="stylesheet" type="text/css" href="/styles/account/login.css">
 </head>
 <body class="body-login">
