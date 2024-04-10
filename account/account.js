@@ -6,21 +6,29 @@ if (document.body.classList.contains('profile-body')) {
         var textElement = document.querySelector('.bio-container p');
         var textLength = textElement.textContent.length;
 
-        if (window.innerWidth > 1280) {
+        if (window.innerWidth > 850) {
             if (textLength > 600) {
                 textElement.style.fontSize = '1em'; // smaller font size
             } else if (textLength > 300) {
                 textElement.style.fontSize = '1.2em'; // medium font size
             } else {
-                textElement.style.fontSize = '1.5em'; // larger font size
+                textElement.style.fontSize = '1.35em'; // larger font size
+            }
+        } else if (window.innerWidth > 550) {
+            if (textLength > 600) {
+                textElement.style.fontSize = '0.8em'; // smaller font size
+            } else if (textLength > 300) {
+                textElement.style.fontSize = '0.9em'; // medium font size
+            } else {
+                textElement.style.fontSize = '1.1em'; // larger font size
             }
         } else {
             if (textLength > 600) {
-                textElement.style.fontSize = '0.7em'; // smaller font size
+                textElement.style.fontSize = '0.65em'; // smaller font size
             } else if (textLength > 300) {
                 textElement.style.fontSize = '0.8em'; // medium font size
             } else {
-                textElement.style.fontSize = '1em'; // larger font size
+                textElement.style.fontSize = '.9em'; // larger font size
             }
         }
     };

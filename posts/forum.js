@@ -252,13 +252,13 @@ function updateCommentLike(commentID) {
 
 /////* Dropdown Functions *//////////
 function toggleDropdown(dropdown) {
-    dropdown.querySelector('.dropdown-content').classList.toggle('show');
+    dropdown.querySelector('.post-dropdown-content').classList.toggle('show');
 }
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function (event) {
     if (!event.target.matches('.ellipsis-icon')) {
-        var dropdowns = document.getElementsByClassName('dropdown-content');
+        var dropdowns = document.getElementsByClassName('post-dropdown-content');
         var i;
         for (i = 0; i < dropdowns.length; i++) {
             var openDropdown = dropdowns[i];

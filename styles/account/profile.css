@@ -348,5 +348,82 @@
 
   .study-set-tile, .post-tile {
     margin: 0 3% 0 3%;
+    
   }
+}
+
+@media screen and (max-width: 550px) {
+  .username {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+
+  .profile-main {
+      padding: 10px;
+  }
+
+  .users-posts-container {
+    margin: 4% 0 4% 0;
+  }
+
+  .profile-outer-container {
+    width: 100%;
+    margin: 1% 0;
+  }
+
+  .container-title {
+    font-size: 1.3em;
+  }
+
+  .posts-container,
+  .study-sets-container {
+    height: 200px;
+    min-height: 200px;
+  }
+
+  .post-tile, 
+  .study-set-tile {
+    padding: 10px;
+    min-width: 140px;
+    min-height: 155px;
+    height: 70%;
+    margin: 0 1.5% 0 1.5%;
+}
+
+.post-header, .study-set-header {
+  font-size: 0.9em;
+}
+
+.post-profile-picture, 
+.study-set-profile-picture {
+  width: 25px;
+  height: 25px;
+  margin-right: 13px;
+}
+
+.post-account, .study-set-account {
+  font-size: 12px;
+}
+
+.post-date, .study-set-date {
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+.post-content, 
+.post-title, 
+.study-set-description, 
+.study-set-title {  
+    font-size: 0.75em;
+}
+
+.study-set-title,
+.post-title {
+  margin: 2px 0;
+}
+
+.post-content, .study-set-description {
+    font-size: 0.7em;
+}
+
 }
