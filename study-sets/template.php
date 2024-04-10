@@ -18,7 +18,11 @@ $query = "
 ";
 
 $set = run_database($query, $values)[0];
-empty($set) ? header("Location: /study-sets/create.php") : null;
+
+if (empty($set)) {
+    university_redirect();
+    exit;
+}
 
 $query = "SELECT * FROM STUDY_CARD_T WHERE StudySetID = :StudySetID ORDER BY CardID;";
 $cards = run_database($query, $values);
