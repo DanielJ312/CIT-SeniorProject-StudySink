@@ -53,11 +53,10 @@ function create_study_set($data) {
 }
 
 function edit_study_set($setID, $data) {
-    global $pdo; // Ensure that $pdo is your PDO connection instance
-    $pdo = get_pdo_connection(); // Make sure this returns a valid PDO connection
+    global $pdo;
+    $pdo = get_pdo_connection(); 
 
     try {
-        // Begin a transaction
         $pdo->beginTransaction();
 
         // Update study set details
