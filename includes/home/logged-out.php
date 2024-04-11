@@ -15,12 +15,12 @@
             <div class="home-logout-text-container">
                 <p style="font-size: 1.2em;">Your College Journey, Elevated. Welcome to StudySink, where collaboration meets effective study tools. Unleash your potential, share your insights, and study smarter, not harder. StudySink merges the best of both worlds - a buzzing college hub and a dynamic flashcard creator.</p>
             </div>
-            <img src="https://studysink.s3.amazonaws.com/assets/homepage-logout-pictures/create-study-sets.png" alt="Company Logo" width="850" height="950">
+            <img src="https://studysink.s3.amazonaws.com/assets/homepage-logout-pictures/create_study_sets.png" alt="Company Logo" width="650" height="750">
         </div>
     </section>
     <section class="home-logout-section" id="section2" style="background-color: darkgrey;">
         <div class="home-logout-content">
-            <img src="https://studysink.s3.amazonaws.com/assets/homepage-logout-pictures/StudySink-browse-posts.gif" alt="Browse Posts Gif" width="50%" height="50%">
+            <img src="https://studysink.s3.amazonaws.com/assets/homepage-logout-pictures/Site-browse.gif" alt="Browse Posts Gif" class="browse-site-gif" width="40%" height="40%">
             <div class="home-logout-text-container">
                 <p style="font-size: 1.3em;">StudySink is your passport to a world where college insights and powerful study tools converge. Join the community, harness the collective knowledge, and create your path to success.</p>
             </div>

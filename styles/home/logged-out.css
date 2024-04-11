@@ -213,6 +213,10 @@
         background-position: center;
     }
 
+    .browse-site-gif {
+        width: 100%;
+        height: auto;
+    }
 
 
 }
