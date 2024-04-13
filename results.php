@@ -63,6 +63,7 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
     <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
     <main>
         <div class="margin">
