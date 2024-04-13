@@ -3,7 +3,7 @@
 require($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
 if (!check_login()) header("Location: /account/login.php");
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    switch(true) {
+    switch (true) {
         case isset($_FILES['image']):
             upload_avatar($_FILES);
             break;
@@ -24,13 +24,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 }
 $pageTitle = "Settings";
+$settingsUniversities = get_universities_list();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
     <link rel="stylesheet" type="text/css" href="/styles/account/settings.css">
 </head>
+
 <body>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
     <main class="account-settings">
@@ -88,15 +91,16 @@ $pageTitle = "Settings";
                 <div class="request-link">Dont see your school? Request a school by clicking <a href="/request">Here</a>.</div>
                 <div class="uniFormContainer">
                     <form method="post" class="uni-form">
-                        <input class="uniDropdown" list="universities" id="setUniversity" placeholder="Select from the dropdown" name="updateUniversity" value="<?= get_user_university_name() ?>">
-                        <datalist id="universities">
-                            <?php
-                            $universities = get_universities();
-                            foreach ($universities as $university) {
-                                echo "<option value='$university->Name'>";
-                            }
-                            ?>
-                        </datalist>
+                        <select class="uniDropdown" id="setUniversity" name="updateUniversity">
+                            <option value=""></option>
+                            <?php $currentUniversity = get_user_university_name();
+                                  foreach ($settingsUniversities as $settingsUniversity) :
+                                  $selected = ($currentUniversity == $settingsUniversity->Name) ? 'selected' : ''; ?>
+                                <option value="<?= htmlspecialchars($settingsUniversity->UniversityID) ?>" <?= $selected ?>>
+                                    <?= htmlspecialchars($settingsUniversity->Name) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                         <button type="submit" class="uni-save-btn">Save</button>
                     </form>
                 </div>
@@ -194,8 +198,8 @@ $pageTitle = "Settings";
 
         //If blank value is submitted, form will submit and set primary university to null
         if (university === '') {
-        return;
-    }
+            return;
+        }
         document.getElementById('uniError').textContent = '';
         for (var i = 0; i < universities.length; i++) {
             if (universities[i].value === university) {
@@ -230,4 +234,5 @@ $pageTitle = "Settings";
         }
     });
 </script>
+
 </html>

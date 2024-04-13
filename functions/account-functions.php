@@ -266,11 +266,7 @@ function update_primary_university($data) {
     if ($data['updateUniversity'] === '') {
         $primaryUniversityID = null;
     } else {
-        // Fetch the UniversityID from the UNIVERSITY_T table
-        $values = ['UniversityName' => $data['updateUniversity']];
-        $query = "SELECT UniversityID FROM UNIVERSITY_T WHERE Name = :UniversityName";
-        $result = run_database($query, $values);
-        $primaryUniversityID = $result[0]->UniversityID;
+        $primaryUniversityID = $data['updateUniversity'];
     }
         // Use the UniversityID to update the USER_T table
         $values = [
