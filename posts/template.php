@@ -48,7 +48,7 @@ $pageTitle = "$post->Title";
                         <?php if (check_login()) : ?>
                             <div class="dropdown" onclick="toggleDropdown(this)">
                                 <i class="fa-solid fa-ellipsis-vertical ellipsis-icon"></i>
-                                <div class="post-dropdown-content">
+                                <div class="dropdown-content">
                                     <?php if ($_SESSION['USER']->UserID != $post->UserID) : ?>
                                         <a class="report" onclick="ReportPost()">Report</a>
                                     <?php endif; ?>

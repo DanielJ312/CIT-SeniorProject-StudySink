@@ -85,8 +85,7 @@
     margin-left: auto;
 }
 
-
-.post-dropdown-content {
+.dropdown-content {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
@@ -94,10 +93,9 @@
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     font-family: Arial, sans-serif;
-    right: 0.5%;
 }
 
-.post-dropdown-content a {
+.dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
@@ -111,7 +109,7 @@
     padding-right: 10px;
 }
 
-.ellipsis-icon:hover{
+.ellipsis-icon:hover {
     color: #f59c1a;
 }
 
@@ -211,7 +209,9 @@
     margin-right: 8px;
 }
 
-.addComment, .cancelComment, .saveComment {
+.addComment,
+.cancelComment,
+.saveComment {
     background-color: #2778ff;
     color: white;
     border: none;
@@ -219,12 +219,14 @@
     padding: 8px 15px;
     cursor: pointer;
 }
+
 .cancelComment {
     margin-right: 10px;
-    background-color:#e30000
+    background-color: #e30000
 }
 
-.addComment:hover, .cancelComment:hover {
+.addComment:hover,
+.cancelComment:hover {
     background-color: #f59c1a;
 }
 
@@ -292,13 +294,13 @@
     color: black;
     opacity: 30%;
     margin-right: 6px;
-  }
+}
 
 #deletepopup {
     background-color: #2778ff;
 }
 
-  @media only screen and (max-width: 850px) {
+@media only screen and (max-width: 850px) {
 
     .margin {
         margin: 20px 2%;
