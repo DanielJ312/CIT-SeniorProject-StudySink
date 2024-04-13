@@ -16,6 +16,7 @@ $pageTitle = "Sign Up";
 <body class="register-body">
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
     <main class="register-main">
         <div class="register-container">

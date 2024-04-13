@@ -13,6 +13,7 @@ $pageTitle = "About";
 <body>
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
     <main>
         <h2>About Us</h2>

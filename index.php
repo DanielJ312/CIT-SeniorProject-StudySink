@@ -17,6 +17,7 @@ $pageTitle = "Home";
 <body>
     <header id="home-logout-header">
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
     <main>
     <?php if (!check_login()) : ?>

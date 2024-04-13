@@ -17,6 +17,7 @@ $pageTitle = "Confirmation";
 </head>
 <header>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
 </header>
 <body class="confirmation-body">
     <main class="confirmation-main">

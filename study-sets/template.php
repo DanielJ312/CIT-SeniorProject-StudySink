@@ -65,6 +65,7 @@ save_to_cookie("study-set");
 <body class="studySetTemplateBody">
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?> 
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
     <main>
         <div class="studySetTemplateContainer">

@@ -17,6 +17,7 @@ $pageTitle = "Verify Account";
 <body class="verify-body">
     <header>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/header.php"); ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
     </header>
     <main class="verify-main">
         <div class="verify-container">
