@@ -72,7 +72,7 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
             <div class="column">
                 <div class="study-set">
                     <div class="header">
-                        <h2 id="toggleSet">Study Sets</h2>
+                    <h2 id="toggleSet">Study Sets<i class="down"></i></h2>
                         <!-- Sorting options can be added here if needed -->
                     </div>
                     <div class="scrollbar" id="contentset">
@@ -122,7 +122,7 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
                 </div>
                 <div class="posts">
                     <div class="header">
-                        <h2 id="togglePost">Posts</h2>
+                    <h2 id="togglePost">Posts<i class="down"></i></h2>
                         <!-- Sorting options can be added here if needed -->
                     </div>
                     <div class="scrollbar" id="contentpost">
@@ -168,4 +168,31 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var contentSet = document.getElementById('contentset');
+    var contentPost = document.getElementById('contentpost');
+
+    document.getElementById('toggleSet').addEventListener('click', function() {
+        if (window.innerWidth <= 850) {
+            contentSet.style.display = (contentSet.style.display === 'none' || window.getComputedStyle(contentSet).display === 'none') ? 'block' : 'none';
+        }
+    });
+
+    document.getElementById('togglePost').addEventListener('click', function() {
+        if (window.innerWidth <= 850) {
+            contentPost.style.display = (contentPost.style.display === 'none' || window.getComputedStyle(contentPost).display === 'none') ? 'block' : 'none';
+        }
+    });
+
+    var gridItems = document.querySelectorAll('.post-content');
+    gridItems.forEach(function(item) {
+        var text = item.textContent;
+        if (text.length > 50) {
+            item.textContent = text.substring(0, 50) + '...';
+        }
+    });
+});
+
+</script>
 </html>
