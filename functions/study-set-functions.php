@@ -200,7 +200,7 @@ function addOrUpdateRating($pdo, $studySetID, $userID, $rating) {
     $existingRating = $stmt->fetch();
 
     if ($existingRating) {
-        $updateStmt = $pdo->prepare("UPDATE STUDY_SET_RATINGS SET Rating = ?, WHERE RatingID = ?");
+        $updateStmt = $pdo->prepare("UPDATE STUDY_SET_RATINGS SET Rating = ? WHERE RatingID = ?");
         $updateStmt->execute([$rating, $existingRating['RatingID']]);
     } else {
         $insertStmt = $pdo->prepare("INSERT INTO STUDY_SET_RATINGS (StudySetID, UserID, Rating) VALUES (?, ?, ?)");

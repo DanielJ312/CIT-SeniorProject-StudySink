@@ -30,7 +30,7 @@ function initializeRating(studySetID, userRating) {
 
             // AJAX request to submit the rating
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/study-sets/submit-rating', true);
+            xhr.open('POST', '/study-sets/submit-rating.php', true);
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             var params = 'studySetID=' + encodeURIComponent(studySetID) + '&rating=' + encodeURIComponent(rating);
             xhr.onload = function() {
