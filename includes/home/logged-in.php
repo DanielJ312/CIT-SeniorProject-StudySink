@@ -28,9 +28,9 @@ if (isset($_COOKIE['viewed_study_sets'])) {
                 <?php foreach ($recentPosts as $post) : ?>
                     <div class="university-post-tile PostLinkTile" data-id="<?= $post->PostID; ?>">
                         <div class="post-header">
-                            <a href="account/profile.php"><img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" /></a>
+                            <a href="/account/<?= $post->Username; ?>.php" title="<?= $post->Username; ?>"><img src="<?= $post->Avatar; ?>" alt="<?= $post->Username; ?>" class="post-profile-picture" /></a>
                             <div class="post-info">
-                                <a href="account/profile.php" class="post-account"><?= $post->Username; ?></a>
+                                <a href="/account/<?= $post->Username; ?>.php" class="post-account"><?= $post->Username; ?></a>
                                 <p class="post-date"> <?= date('F j, Y', $post->PostCreated); ?> </p>
                             </div>
                         </div>
@@ -67,9 +67,9 @@ if (isset($_COOKIE['viewed_study_sets'])) {
                 <?php foreach ($viewedPosts as $post) : ?>
                         <div class="post-tile PostLinkTile" data-id="<?= $post->PostID; ?>">
                             <div class="post-header">
-                                <a href="account/profile.php"><img src="<?= $post->Avatar; ?>" alt="Place Holder" class="post-profile-picture" /></a>
+                                <a href="/account/<?= $post->Username; ?>.php" title="<?= $post->Username; ?>"><img src="<?= $post->Avatar; ?>" alt="<?= $post->Username; ?>" class="post-profile-picture" /></a>
                                 <div class="post-info">
-                                    <a href="account/profile.php" class="post-account"> <?= $post->Username; ?> </a>
+                                    <a href="/account/<?= $post->Username; ?>.php" class="post-account"> <?= $post->Username; ?> </a>
                                     <p class="post-date"> <?= date('F j, Y', $post->PostCreated); ?> </p>
                                 </div>
                             </div>
@@ -100,9 +100,9 @@ if (isset($_COOKIE['viewed_study_sets'])) {
                     <?php foreach ($viewedStudySets as $studySet) : ?>
                             <div class="study-set-tile StudySetLinkTile" data-id="<?= $studySet->StudySetID; ?>">
                                 <div class="study-set-header">
-                                    <a href="account/profile.php"><img src="<?= $studySet->Avatar; ?>" alt="Place Holder" class="study-set-profile-picture" /></a>
+                                    <a href="/account/<?= $studySet->Username; ?>.php" title="<?= $studySet->Username; ?>"><img src="<?= $studySet->Avatar; ?>" alt="<?= $studySet->Username; ?>" class="study-set-profile-picture" /></a>
                                     <div class="study-set-info">
-                                        <a href="account/profile.php" class="study-set-account"> <?= $studySet->Username; ?></a>
+                                        <a href="/account/<?= $studySet->Username; ?>.php" class="study-set-account"> <?= $studySet->Username; ?></a>
                                         <p class="study-set-date"> <?= date('F j, Y', $studySet->SetCreated); ?> </p>
                                     </div>
                                 </div>
