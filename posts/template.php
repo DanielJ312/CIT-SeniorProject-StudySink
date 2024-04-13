@@ -33,9 +33,9 @@ $pageTitle = "$post->Title";
             <div class="posts">
                 <div class="post">
                     <div class="post-header">
-                        <img src="<?= $post->Avatar; ?>" title="<?= $post->Username; ?>" alt="Place Holder" class="profile-picture" />
+                        <a href="/account/<?= $post->Username; ?>" title="<?= $post->Username; ?>"><img src="<?= $post->Avatar; ?>" title="<?= $post->Username; ?>" alt="<?= $post->Username; ?>" class="profile-picture" /></a>
                         <div class="post-info">
-                            <p class="post-account"><?= $post->Username; ?></p>
+                            <p class="post-account"><a href="/account/<?= $post->Username; ?>"><?= $post->Username; ?></a></p>
                             <p class="post-date">
                                 <?php if (!isset($post->PostModified)): ?>
                                     <span class="posted"><?= date("F j, Y  h:i A", $post->PostCreated); ?></span>

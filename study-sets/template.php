@@ -76,9 +76,7 @@ save_to_cookie("study-set");
                     <img src="<?= htmlspecialchars($set->Avatar); ?>" alt="<?= htmlspecialchars($set->Username); ?>'s avatar" class="profile-picture"/>
                     <div class="headerInfoAndRating">
                         <div class="studySetHeaderInfo">
-                            <p><?= htmlspecialchars($set->Username); ?>
-                                <?= check_login(false) && $set->Username == $_SESSION['USER']->Username ? " (You)" : "" ?>
-                            </p>
+                            <p><a href="/account/<?= htmlspecialchars($set->Username); ?>" title="<?= htmlspecialchars($set->Username); ?>"><?= htmlspecialchars($set->Username); ?></a></p>
                             <p><?= date("M j, Y", $set->Created); ?> <?= isset($set->SetModified) ?  "<i>· edited on " . date("F j, Y  h:i A", $set->SetModified) . "</i>" : "" ?></p>
                             
                         </div>
