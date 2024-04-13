@@ -34,7 +34,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['setPostUnive
                 <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index', 'home'); ?>"></i></a>
                 <a href="/university/<?= isset($_SESSION['USER']->Abbreviation) ? $_SESSION['USER']->Abbreviation : "index"; ?>.php" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-2xl <?= check_active('/university'); ?>"></i></a>
                 <div class="dropdown">
-                    <img src="<?= $_SESSION['USER']->Avatar ?>" alt="Avatar" class="profile-picture <?= check_active('/account/profile'); ?>" id="profilePicture" title="Avatar">
+                    <img src="<?= $_SESSION['USER']->Avatar ?>" alt="Avatar" class="profile-picture <?= check_active('/account'); ?>" id="profilePicture" title="Avatar">
                     <div class="dropdown-content-profile" id="profileDropdown">
                         <a href="/account/profile.php">My Profile</a>
                         <a href="/account/settings.php">Account Settings</a>

@@ -87,8 +87,8 @@ $pageTitle = $university->Abbreviation;
         <div class="mobile-posts">
             <div class="post-header">
                 <div class=title>Posts</div>
-                <form method="post">
-                    <select class="sort" name="sorts">
+                <form method="">
+                    <select id="sort" class="post-sort sort" name="sorts">
                         <option value="post-newest">Newest</option>
                         <option value="post-oldest">Oldest</option>
                         <option value="post-popular">Popular</option>
