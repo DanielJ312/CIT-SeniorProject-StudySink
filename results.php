@@ -61,8 +61,11 @@ WHERE USER_T.Username LIKE :searchTerm
 GROUP BY USER_T.UserID";
 $users = run_database($usersQuery, ['searchTerm' => "%$searchTerm%"]);
 
-$universitiesQuery = "SELECT Name, Abbreviation, Logo FROM UNIVERSITY_T";
-$universities = run_database($universitiesQuery);
+$universitiesQuery = "SELECT UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation AS UniversityAbbreviation, UNIVERSITY_T.Logo AS UniversityLogo 
+FROM UNIVERSITY_T
+WHERE UNIVERSITY_T.Name LIKE :searchTerm
+OR UNIVERSITY_T.Abbreviation LIKE :searchTerm";
+$universities = run_database($universitiesQuery, ['searchTerm' => "%$searchTerm%"]);
 
 $pageTitle = "Results for " . '"' . $searchTerm . '"';
 ?>
@@ -208,35 +211,28 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
                         <?php endif; ?>
                     </div>
                 </div>
-                <div class="posts">
+                <div class="universities">
                     <div class="header">
                         <h2 id="togglePost">Universities</h2>
                         <!-- Sorting options can be added here if needed -->
                     </div>
-                    <div class="scrollbar" id="contentpost">
-                        <?php if ($posts && count($posts) > 0) : ?>
-                            <?php foreach ($posts as $post) : ?>
-                                <div class="post">
-                                    <a href="/posts/<?= htmlspecialchars($post->PostID); ?>">
-                                        <div class="post-header">
-                                            <img src="<?= htmlspecialchars($post->Avatar); ?>" alt="<?= htmlspecialchars($post->Username); ?>'s avatar" class="post-profile-picture" />
-                                            <div class="post-info">
-                                                <p class="post-account"><?= htmlspecialchars($post->Username); ?></p>
-                                                <p class="post-date"><?= date("F j, Y", $post->Created); ?></p>
+                    <div class="scrollbar" id="contentuniversities">
+                        <?php if ($universities && count($universities) > 0) : ?>
+                            <?php foreach ($universities as $university) : ?>
+                                <div class="userCardContainer">
+                                    <a href="/university/<?= htmlspecialchars($university->UniversityAbbreviation); ?>">
+                                        <div class="userCardHeaderTopLeft">
+                                            <!--<img src="<?= htmlspecialchars($university->UniversityLogo); ?>" class="profile-picture" /> -->
+                                            <div class="userCardHeaderUsernameDate">
+                                                <p class="post-account"><?= htmlspecialchars($university->UniversityName); ?></p>
                                             </div>
                                         </div>
-                                        <h3 class="post-title"><?= htmlspecialchars($post->Title); ?></h3>
-                                        <div class="post-content"><?= htmlspecialchars(substr($post->Content, 0, 100)) . '...'; ?></div>
-                                        <div class="lower-header">
-                                            <div class="comment">
-                                                <div class="post-iconsp">
-
-                                                </div>
-                                                <div class="comments-count"></div>
+                                        <div class="userDetailsBottom">
+                                            <div class="userDetailsBottomLeft">
+                                                <h3 class="post-account"><?= htmlspecialchars($university->UniversityAbbreviation); ?></h3>
                                             </div>
-                                            <div class="vote">
-                                                <div class="post-iconsp"></div>
-                                                <div class="votes"></div>
+                                            <div class="userDetailsBottomRight">
+                                               <!-- <p class="post-account"><?= htmlspecialchars($user->UniversityAbbreviation); ?></p> -->
                                             </div>
                                         </div>
                                     </a>
