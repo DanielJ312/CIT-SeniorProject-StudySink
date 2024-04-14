@@ -8,6 +8,7 @@ $query = "SELECT * FROM SUBJECT_T WHERE Abbreviation = '{$_GET['subject']}' && U
 $subject = run_database($query);
 is_array($subject) ? $subject = reset($subject) : header("Location: /university/{$university->Abbreviation}.php");
 $pageTitle = "$university->Abbreviation $subject->Name";
+$unilogo = "https://studysink.s3.amazonaws.com/assets/Uni-logos/$university->Abbreviation.png";
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +30,7 @@ $pageTitle = "$university->Abbreviation $subject->Name";
         <div class="margin">
             <div class="university-info">
                 <h2><?= $subject->Name; ?></h2>
+                <img src="<?= $unilogo; ?>" alt="School Logo">
             </div>
             <div class="column">
                 <div class="study-set">

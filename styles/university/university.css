@@ -25,13 +25,41 @@ main {
 
 /* Styling for university info */
 .university-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
   border-radius: 5px;
-  padding: 20px;
   text-align: center;
   color: black;
   box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
-  margin-top: 20px;
+  padding: 20px;
   background-color: white;
+}
+
+.university-info h2 {
+  display: flex;
+  justify-self: center;
+  align-self: center;
+  justify-content: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 3em;
+  border-radius: 5px;
+  text-align: center;
+  height: fit-content;
+  margin-right: 20px;
+  /* box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
+  padding: 20px;
+  background-color: white; */
+}
+
+.university-info img {
+  display: flex;
+  justify-self: right;
+  align-self: right;
+  width: auto; 
+  height: 200px;
 }
 
 /* Styling for subject selection */
@@ -107,7 +135,7 @@ main {
   border: none;
   box-shadow: none;
   background: none;
-  font-size: 24px;
+  font-size: 2em;
 }
 
 .header:hover {
@@ -467,14 +495,41 @@ main {
   margin-top: 55px;
 }
 
+@media only screen and (max-width: 1200px) {
+  .university-info h2 {
+    font-size: 2em;
+  }
+
+  .university-info img {
+    height: 150px;
+  }
+
+}
 
 @media only screen and (max-width: 850px) {
+
+  #space {
+    flex-grow: 0;
+  }
 
   .mobileuniversity {
       display: block;
       margin-left: 8px;
       margin-right: 8px;
       flex-grow: 1;
+  }
+
+  .university-info {
+    padding: 10px;
+    margin-top: 10px;
+  }
+
+  .university-info h2 {
+    font-size: 1.3em;
+  }
+  
+  .university-info img {
+    height: 85px;
   }
 
   .margin {
