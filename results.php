@@ -207,7 +207,7 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
                                 </div>
                             <?php endforeach; ?>
                         <?php else : ?>
-                            <p>No posts found.</p>
+                            <p>No users found.</p>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -239,7 +239,7 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
                                 </div>
                             <?php endforeach; ?>
                         <?php else : ?>
-                            <p>No posts found.</p>
+                            <p>No universities found.</p>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -274,6 +274,18 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
             item.textContent = text.substring(0, 50) + '...';
         }
     });
+
+    const userSection = document.getElementById('contentuser');
+    const universitySection = document.getElementById('contentuniversities');
+
+    if(userSection.textContent.includes('No users found')) {
+        document.querySelector('.users').style.display = 'none';
+    }
+
+    if(universitySection.textContent.includes('No universities found')) {
+        document.querySelector('.universities').style.display = 'none';
+    }
+
 });
 
 </script>
