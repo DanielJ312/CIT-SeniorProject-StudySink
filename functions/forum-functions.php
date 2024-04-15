@@ -131,6 +131,8 @@ function create_post($data) {
 
         $query = "INSERT INTO POST_T (PostID, UniversityID, SubjectID, Title, Content, UserID, Created) VALUES (:PostID, :UniversityID, :SubjectID, :Title, :Content, :UserID, :Created);";
         run_database($query, $values);
+        $query = "INSERT INTO POST_LIKE_T (PostId, UserID, VoteType) VALUES ({$values['PostID']}, {$_SESSION['USER']->UserID}, 1);";
+        run_database($query);
         redirect("/posts/{$values['PostID']}");
     }
 
