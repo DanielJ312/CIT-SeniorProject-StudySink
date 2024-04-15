@@ -15,25 +15,12 @@ body {
 
 /* Styling for university info */
 .university-info {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
     border-radius: 5px;
     padding: 20px;
     text-align: center;
     color: #ededed;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
     background: rgb(255 255 255);
-}
-
-.university-info h2 {
-    margin-right: 20px;
-}
-
-.university-info img {
-    height: 100px;
-    width: auto;
 }
 
 .sort {
@@ -56,7 +43,7 @@ body {
     justify-content: space-between; /* Add space between the columns */
 }
 
-.study-set, .posts {
+.study-set, .posts .users{
     flex: 1; /* Each section takes up an equal amount of space */
 }
 
@@ -75,6 +62,10 @@ h3 {
 
 .study-set {
     padding-right: 5px;
+}
+
+.users {
+    padding-left: 10px
 }
 
 /* Styling for individual posts */
@@ -172,6 +163,8 @@ h3 {
     border-color: #f59c1a;
     }
 
+
+
 .subjects {
     width: 100%;
     height: 380px;
@@ -197,7 +190,7 @@ h3 {
     scrollbar-color: lightgrey #f7f7f7;
 }
 
-.cardContainer {
+.cardContainer, .userCardContainer {
     display: flex;
     flex-direction: column;
     transition: box-shadow 0.3s ease;
@@ -211,7 +204,7 @@ h3 {
     border-width: 0.5px;
 }
 
-.cardHeaderTopLeft {
+.cardHeaderTopLeft, .userCardHeaderTopLeft {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -220,7 +213,7 @@ h3 {
     border-bottom: 1px solid #2778ff;
 }
 
-.cardHeaderUsernameDate {
+.cardHeaderUsernameDate, .userCardHeaderUsernameDate {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -229,29 +222,29 @@ h3 {
     padding: 0px;
 }
 
-.cardHeaderUsernameDate > p {
+.cardHeaderUsernameDate > p, .userCardHeaderUsernameDate > p {
     margin: 0;
     padding: 0px;
     font-weight: bold; 
 }
 
-.cardHeaderUsernameDate > p:first-child {
+.cardHeaderUsernameDate > p:first-child, .userCardHeaderUsernameDate >  p:first-child{
     font-size: 1.1em; 
     margin-bottom: 0px;
 }
 
-.cardHeaderUsernameDate > p:last-child {
+.cardHeaderUsernameDate > p:last-child,  .userCardHeaderUsernameDate > p:last-child{
     font-size: 0.9em; 
     color: black; 
     margin-top: 5px;
 }
 
-.cardContainer:hover {
+.cardContainer:hover, .userCardContainer:hover {
     border:solid #f59c1a;
     border-width: 1px;
 }
 
-.cardContainer img.profile-picture {
+.cardContainer img.profile-picture,  .userCardContainer img.profile-picture{
     width: 50px;
     height: 50px;
     margin-left: 0px;
@@ -264,18 +257,18 @@ h3 {
     display: block;
 }
 
-.cardContainer img.profile-picture:hover {
+.cardContainer img.profile-picture:hover, .userCardContainer img.profile-picture:hover{
     border-color: #f59c1a;
 }
 
-.cardContainer h3 {
+.cardContainer h3,  .userCardContainer h3{
     font-size: 1.2em;
     margin: 0;
     padding: 10px; 
     text-align: center; 
 }
 
-.cardContainer p {
+.cardContainer p, .userCardContainer p{
     font-size: 0.9em;
     color: black; 
     margin: 5px 0;
@@ -367,7 +360,7 @@ a {
         display: block;
     }
 
-    .study-set, .posts, .subject-selection-c {
+    .study-set, .posts, .users, .subject-selection-c {
         padding-right: 0;
         padding-left: 0;
     }
@@ -401,7 +394,7 @@ a {
         justify-content: space-between;
     }
 
-    .study-set, .posts {
+    .study-set, .posts, .users{
         flex: 1;
         padding: 0 10px;
     }

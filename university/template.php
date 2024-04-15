@@ -5,6 +5,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/university-functions.php");
 $university = get_university(get_end_url());
 $university != false ? $subjects = get_university_subjects($university->UniversityID) : header("Location: /university/index.php"); 
 $pageTitle = $university->Abbreviation;
+$unilogo = "https://studysink.s3.amazonaws.com/assets/Uni-logos/$university->Abbreviation.png";
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +29,7 @@ $pageTitle = $university->Abbreviation;
         <div class="margin">
             <div class="university-info">
                 <h2><?= $university->Name; ?></h2>
+                <img src="<?= $unilogo; ?>" alt="School Logo">
             </div>
             <div class="columns">
                 <div class="subject-selection-c">
@@ -65,6 +67,7 @@ $pageTitle = $university->Abbreviation;
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/to-top.php"); ?>
         <div class="university-info">
             <h2><?= $university->Name; ?></h2>
+            <img src="<?= $unilogo; ?>" alt="School Logo">
         </div>
         <div class="subject">
             <h2 id="toggleSubject" onclick="toggleSubject()">Subjects<i class="down"></i></h2>

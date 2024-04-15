@@ -12,7 +12,12 @@ $studySetsQuery = "SELECT DISTINCT STUDY_SET_T.*,
                    USER_T.Username AS Username,
                    USER_T.Avatar AS Avatar,
                    COUNT(DISTINCT CommentID) AS Comments,
-                   COALESCE((SELECT AVG(Rating) FROM STUDY_SET_RATINGS WHERE StudySetID = STUDY_SET_T.StudySetID), 0) AS Rating
+                   COALESCE((SELECT AVG(Rating) FROM STUDY_SET_RATINGS WHERE StudySetID = STUDY_SET_T.StudySetID), 0) AS Rating,
+                   (MATCH(STUDY_SET_T.Title, STUDY_SET_T.Description, STUDY_SET_T.Instructor) AGAINST(:searchTerm IN NATURAL LANGUAGE MODE)
+                   + MATCH(COURSE_T.Name, COURSE_T.Abbreviation) AGAINST(:searchTerm IN BOOLEAN MODE)
+                   + MATCH(SUBJECT_T.Name, SUBJECT_T.Abbreviation) AGAINST(:searchTerm IN BOOLEAN MODE)
+                   + MATCH(UNIVERSITY_T.Name) AGAINST(:searchTerm IN BOOLEAN MODE)
+                   + MATCH(STUDY_CARD_T.Front, STUDY_CARD_T.Back) AGAINST(:searchTerm IN NATURAL LANGUAGE MODE)) AS RelevanceScore
                    FROM STUDY_SET_T
                    INNER JOIN COURSE_T ON STUDY_SET_T.CourseID = COURSE_T.CourseID
                    INNER JOIN SUBJECT_T ON COURSE_T.SubjectID = SUBJECT_T.SubjectID
@@ -20,17 +25,15 @@ $studySetsQuery = "SELECT DISTINCT STUDY_SET_T.*,
                    LEFT JOIN STUDY_CARD_T ON STUDY_SET_T.StudySetID = STUDY_CARD_T.StudySetID
                    INNER JOIN USER_T ON STUDY_SET_T.UserID = USER_T.UserID
                    LEFT OUTER JOIN COMMENT_T ON COMMENT_T.StudySetID = STUDY_SET_T.StudySetID
-                   WHERE STUDY_SET_T.Title LIKE :searchTerm 
-                     OR STUDY_SET_T.Description LIKE :searchTerm 
-                     OR STUDY_SET_T.Instructor LIKE :searchTerm
-                     OR COURSE_T.Abbreviation LIKE :searchTerm 
-                     OR SUBJECT_T.Name LIKE :searchTerm 
-                     OR UNIVERSITY_T.Name LIKE :searchTerm 
+                   WHERE MATCH(STUDY_SET_T.Title, STUDY_SET_T.Description, STUDY_SET_T.Instructor) AGAINST(:searchTerm IN NATURAL LANGUAGE MODE)
+                     OR MATCH(COURSE_T.Name, COURSE_T.Abbreviation) AGAINST(:searchTerm IN BOOLEAN MODE)
+                     OR MATCH(SUBJECT_T.Name, SUBJECT_T.Abbreviation) AGAINST(:searchTerm IN BOOLEAN MODE)
+                     OR MATCH(UNIVERSITY_T.Name) AGAINST(:searchTerm IN BOOLEAN MODE)
                      OR UNIVERSITY_T.Abbreviation LIKE :searchTerm
-                     OR STUDY_CARD_T.Front LIKE :searchTerm
-                     OR STUDY_CARD_T.Back LIKE :searchTerm
+                     OR MATCH(STUDY_CARD_T.Front, STUDY_CARD_T.Back) AGAINST(:searchTerm IN NATURAL LANGUAGE MODE)
                      OR USER_T.Username LIKE :searchTerm
-                    GROUP BY STUDY_SET_T.StudySetID";
+                    GROUP BY STUDY_SET_T.StudySetID
+                    ORDER BY RelevanceScore DESC";
 $studySets = run_database($studySetsQuery, ['searchTerm' => "%$searchTerm%"]);
 
 // Search query for posts
@@ -52,13 +55,25 @@ $postsQuery = "SELECT POST_T.*, USER_T.Username, USER_T.Avatar,
                GROUP BY POST_T.PostID";
 $posts = run_database($postsQuery, ['searchTerm' => "%$searchTerm%"]);
 
+$usersQuery = "SELECT USER_T.Username, USER_T.Bio, USER_T.Avatar, USER_T.Created, UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation AS UniversityAbbreviation
+FROM USER_T INNER JOIN UNIVERSITY_T ON USER_T.UniversityID = UNIVERSITY_T.UniversityID
+WHERE USER_T.Username LIKE :searchTerm
+GROUP BY USER_T.UserID";
+$users = run_database($usersQuery, ['searchTerm' => "%$searchTerm%"]);
+
+$universitiesQuery = "SELECT UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation AS UniversityAbbreviation, UNIVERSITY_T.Logo AS UniversityLogo 
+FROM UNIVERSITY_T
+WHERE UNIVERSITY_T.Name LIKE :searchTerm
+OR UNIVERSITY_T.Abbreviation LIKE :searchTerm";
+$universities = run_database($universitiesQuery, ['searchTerm' => "%$searchTerm%"]);
+
 $pageTitle = "Results for " . '"' . $searchTerm . '"';
 ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-        <link rel="stylesheet" href="../styles/university/subject.css" />
+        <link rel="stylesheet" href="../styles/results.css" />
     </head>
     <body>
     <header>
@@ -162,6 +177,72 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
                         <?php endif; ?>
                     </div>
                 </div>
+                <div class="users">
+                    <div class="header">
+                        <h2 id="togglePost">Users</h2>
+                        <!-- Sorting options can be added here if needed -->
+                    </div>
+                    <div class="scrollbar" id="contentuser">
+                        <?php if ($users && count($users) > 0) : ?>
+                            <?php foreach ($users as $user) : ?>
+                                <div class="userCardContainer">
+                                    <a href="/account/<?= htmlspecialchars($user->Username); ?>">
+                                        <div class="userCardHeaderTopLeft">
+                                            <img src="<?= htmlspecialchars($user->Avatar); ?>" class="profile-picture" />
+                                            <div class="userCardHeaderUsernameDate">
+                                                <p class="post-account"><?= htmlspecialchars($user->Username); ?></p>
+                                                <p>Joined: <?= isset($user->Created) ? date('F j, Y', $user->Created) : 'Unknown Date'; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="userDetailsBottom">
+                                            <div class="userDetailsBottomLeft">
+                                                <h3 class="post-account"><?= htmlspecialchars($user->UniversityName); ?></h3>
+                                            </div>
+                                            <div class="userDetailsBottomRight">
+                                                <p class="post-account"><?= htmlspecialchars($user->UniversityAbbreviation); ?></p>
+                                                <!--<p class="post-title"><?= htmlspecialchars($user->Bio); ?></p>-->
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else : ?>
+                            <p>No users found.</p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="universities">
+                    <div class="header">
+                        <h2 id="togglePost">Universities</h2>
+                        <!-- Sorting options can be added here if needed -->
+                    </div>
+                    <div class="scrollbar" id="contentuniversities">
+                        <?php if ($universities && count($universities) > 0) : ?>
+                            <?php foreach ($universities as $university) : ?>
+                                <div class="userCardContainer">
+                                    <a href="/university/<?= htmlspecialchars($university->UniversityAbbreviation); ?>">
+                                        <div class="userCardHeaderTopLeft">
+                                            <!--<img src="<?= htmlspecialchars($university->UniversityLogo); ?>" class="profile-picture" /> -->
+                                            <div class="userCardHeaderUsernameDate">
+                                                <p class="post-account"><?= htmlspecialchars($university->UniversityName); ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="userDetailsBottom">
+                                            <div class="userDetailsBottomLeft">
+                                                <h3 class="post-account"><?= htmlspecialchars($university->UniversityAbbreviation); ?></h3>
+                                            </div>
+                                            <div class="userDetailsBottomRight">
+                                               <!-- <p class="post-account"><?= htmlspecialchars($user->UniversityAbbreviation); ?></p> -->
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else : ?>
+                            <p>No universities found.</p>
+                        <?php endif; ?>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -193,6 +274,18 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
             item.textContent = text.substring(0, 50) + '...';
         }
     });
+
+    const userSection = document.getElementById('contentuser');
+    const universitySection = document.getElementById('contentuniversities');
+
+    if(userSection.textContent.includes('No users found')) {
+        document.querySelector('.users').style.display = 'none';
+    }
+
+    if(universitySection.textContent.includes('No universities found')) {
+        document.querySelector('.universities').style.display = 'none';
+    }
+
 });
 
 </script>
