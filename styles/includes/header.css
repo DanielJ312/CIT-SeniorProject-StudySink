@@ -171,6 +171,10 @@
     color: #fcb54d;
 }
 
+.active-background {
+    background-color: #fcb54d;
+}
+
 /* -- Dropdown Contect for Create -- */
 .dropdown-content-create {
     display: none;
