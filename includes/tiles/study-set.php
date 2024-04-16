@@ -1,10 +1,12 @@
 <div class="cardContainer">
-    <a href="/study-sets/<?= $set->StudySetID; ?>" class="">
+    <div id="outerAnchor" data-id="<?= $set->StudySetID; ?>" class="<?= $subjectID != 0 ? "" : "post"; ?>">
         <div class="cardHeaderTopLeft">
-            <img src="<?= htmlspecialchars($set->Avatar); ?>" alt="<?= htmlspecialchars($set->Username); ?>'s avatar" class="profile-picture" />
-            <div class="cardHeaderUsernameDate">
-                <p><?= $set->Username; ?></p>
-                <p><?= date("F j, Y", $set->SetCreated); ?></p>
+            <a href="/account/<?= $set->Username; ?>.php" title="<?= $set->Username; ?>">
+                <img src="<?= $set->Avatar; ?>" alt="<?= $set->Username; ?>" class="post-profile-picture" />
+            </a>
+            <div class="post-info">
+                <a href="/account/<?= $set->Username; ?>.php" class="post-account"><?= $set->Username; ?></a>
+                <p class="post-date"><?= date("F j, Y", $set->SetCreated); ?></p>
             </div>
         </div>
         <div class="studySetDetailsBottom">
@@ -30,5 +32,18 @@
                 <div class="votes"><?= round($set->Rating, 1); ?></div>
             </div>
         </div>
-    </a>
+    </div>
 </div>
+
+<script>
+    document.getElementById('outerAnchor').addEventListener('click', function(event) {
+        // Check if the click was on the inner anchor tag
+        if (event.target.tagName.toLowerCase() === 'a') {
+            // Let the inner anchor handle the click
+            return;
+        }
+
+        // Handle the click for the outer anchor
+        window.location.href = "/study-sets/<?= $set->StudySetID; ?>";
+    });
+</script>
