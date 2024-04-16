@@ -1,14 +1,34 @@
-# htaccess - Includes Apache redirect rules
+########## htaccess - Includes Apache Rules ##########
+
+ErrorDocument 404 /index.php
+
 <FilesMatch "\.(html|htm|js|css)$">
     Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+</FilesMatch>
+
+<FilesMatch "^(config.ini|composer.json|composer.json|.gitignore)$">
+    Redirect /index.php
 </FilesMatch>
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
 
+    # Prevent Vendor folder from being accessed
+    RewriteRule ^vendor index.php
+
+    # Prevent Javascript files from being accessed
+    RewriteCond %{HTTP_REFERER} ^$
+    RewriteRule \.js$ /index.html [L,R=301]
+
     # Rewrite URL from /university/universityname/subjectname to /university/subject/template.php?university=universityname&subject=subjectname
     RewriteRule ^university/([^/]+)/([^/]+)$ university/subject/template.php?university=$1&subject=$2 [QSA,L]
+
+    # Remove "index" for index pages
+    RewriteRule ^index\.php$ / [NC,L,R]
+
+    # Remove "index" for subdirectories
+    RewriteRule ^(.*/)?index\.php$ /$1 [NC,L,R]
     
     # Remove .php extension from URLs
     RewriteCond %{THE_REQUEST} /([^.]+)\.php [NC]
@@ -19,18 +39,8 @@
     RewriteCond %{REQUEST_FILENAME}.php -f
     RewriteRule ^ %{REQUEST_URI}.php [NC,L]
 
-    # Remove "index" for index pages
-    RewriteRule ^index\.php$ / [NC,L,R]
-
-    # Remove "index" for subdirectories
-    RewriteRule ^(.*/)?index\.php$ /$1 [NC,L,R]
-
     # Post and Study Set Redirect
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(|account|posts|study-sets|university)/(.*)$ $1/template.php?url=$2 [QSA,L]
-
-    # ErrorDocument 404 /index.php
-    
-    
 </IfModule>

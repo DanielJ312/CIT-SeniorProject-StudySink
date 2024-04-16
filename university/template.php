@@ -110,6 +110,6 @@ $unilogo = "https://studysink.s3.amazonaws.com/assets/Uni-logos/$university->Abb
     </footer>
 </body>
 <script>
-    window.history.replaceState({}, '', '/university/<?= $university->Abbreviation; ?>');
+    window.history.replaceState({}, '', '/university/<?= strtoupper($university->Abbreviation); ?>');
 </script>
 </html>

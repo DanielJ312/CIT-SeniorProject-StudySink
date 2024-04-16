@@ -78,7 +78,6 @@ save_to_cookie("study-set");
                         <div class="studySetHeaderInfo">
                             <p><a href="/account/<?= htmlspecialchars($set->Username); ?>" title="<?= htmlspecialchars($set->Username); ?>"><?= htmlspecialchars($set->Username); ?></a></p>
                             <p><?= date("M j, Y", $set->Created); ?> <?= isset($set->SetModified) ?  "<i>· edited on " . date("F j, Y  h:i A", $set->SetModified) . "</i>" : "" ?></p>
-                            
                         </div>
                         <div class="ratingAndAverage">
                             <div class="rating">

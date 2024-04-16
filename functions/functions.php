@@ -79,8 +79,27 @@ function check_active($toCheck, $page = null) {
     else if ($_SERVER['REQUEST_URI'] == '/' && $page == 'home') echo "active";
 }
 
+function check_account_dir() {
+    $pages = array("forgot", "login", "register");
+    foreach ($pages as $page) {
+        if (str_contains($_SERVER['REQUEST_URI'], $page)) {
+            echo "active";
+            break;
+        }
+    }
+}
+
+function background_check_active($toCheck, $page = null) {
+    if (str_contains($_SERVER['REQUEST_URI'], $toCheck) && $page == null) echo "active-background";
+    else if ($_SERVER['REQUEST_URI'] == '/' && $page == 'home') echo "active-background";
+}
+
 function redirect($directory) {
-    echo "<script>window.location.href = '$directory.php';</script>'";;
+    echo "<script>window.location.href = '$directory.php';</script>'";
+}
+
+function console_log($string) {
+    echo "<script>console.log('$string')</script>'";
 }
 
 function university_redirect() {

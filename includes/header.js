@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Fetches subjects based on University Selection
     function fetchSubjectsForPostUniversity(universityId) {
-        fetch('/includes/get-subjects.php?universityId=' + universityId)
+        fetch('/study-sets/get-subjects.php?universityId=' + universityId)
             .then(response => response.json())
             .then(subjects => {
                 // Update the subject options

@@ -47,7 +47,7 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['setPostUnive
             <div class="navbar-right">
                 <a href="/index.php" id="Home" title="Home"><i class="fa-solid fa-house fa-2xl <?= check_active('/index', 'home'); ?>"></i></a>
                 <a href="/university/index.php" id="University" title="My University"><i class="fa-solid fa-graduation-cap fa-2xl <?= check_active('/university'); ?>"></i></a>
-                <a href="/account/login.php" id="Login" title="Login or Register"><i class="fa-solid fa-id-card fa-2xl <?= check_active('/account'); ?>"></i></a>
+                <a href="/account/login.php" id="Login" title="Login or Register"><i class="fa-solid fa-id-card fa-2xl <?= check_account_dir(); ?>"></i></a>
             </div>
         <?php endif; ?>
     </div>
@@ -69,36 +69,35 @@ $postErrors = $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['setPostUnive
             </div>
             <nav class="mobilenav">
                 <div class="nav-options">
-                    <div class="navitem"><a href="/index.php" title="Home">Home</a></div>
+                    <div class="navitem <?= background_check_active('/index', 'home'); ?>"><a href="/index.php" title="Home">Home</a></div>
                     <?php if (check_login()) : ?>
-                        <div class="navitem"><a href="/university/<?= isset($_SESSION['USER']->Abbreviation) ? $_SESSION['USER']->Abbreviation : "index"; ?>" title="My University">My University</a></div>
+                        <div class="navitem <?= background_check_active('/university'); ?>"><a href="/university/<?= isset($_SESSION['USER']->Abbreviation) ? $_SESSION['USER']->Abbreviation : "index"; ?>" title="My University">My University</a></div>
                         <div class="dropdown">
-                            <div class="navitem"><a href="#" title="Create">Create</a></div>
+                            <div class="navitem"><a title="Create">Create</a></div>
                             <div class="dropdown-content">
-                                <div class="navitem"><a href="/study-sets/create.php" title="Create Study Set">Study Set</a></div>
+                                <div class="navitem <?= background_check_active('/study-sets/create'); ?>"><a href="/study-sets/create.php" title="Create Study Set">Study Set</a></div>
                                 <div class="navitem"><a title="Create Post" onclick="openPopup()">Post</a></div>
                             </div>
                         </div>
                         <div class="dropdown">
                             <div class="navitem"><a href="#" style="border-bottom-color: black; border-bottom-width: 2px; border-bottom-style: solid;" title="Profile">Profile</a></div>
                             <div class="dropdown-content">
-                                <a href="/account/profile.php" style="border-top-width: 0px;" title="My Profile">My Profile</a>
-                                <div class="navitem"><a href="/account/settings.php" title="Settings">Settings</a></div>
-                                <div class="navitem"><a href="/request/index.php" title="Help">Support</a></div>
+                                <a href="/account/profile.php" class="<?= background_check_active("/account/{$_SESSION['USER']->Username}"); ?>" style="border-top-width: 0px;" title="My Profile">My Profile</a>
+                                <div class="navitem <?= background_check_active('/account/settings'); ?>"><a href="/account/settings.php" title="Settings">Settings</a></div>
+                                <div class="navitem <?= background_check_active('/request'); ?>"><a href="/request/index.php" title="Help">Support</a></div>
                                 <div class="navitem"><a href="/account/logout.php" style="border-bottom-color: black; border-bottom-width: 2px; border-bottom-style: solid;" title="Logout">Logout</a></div>
                             </div>
                         </div>
                     <?php else : ?>
-                        <div class="navitem"><a href="/university/index.php" title="Home">Universities</a></div>
-                        <div class="navitem"><a href="/account/login.php" title="Home">Login</a></div>
-                        <div class="navitem"><a href="/account/register.php" title="Home">Register</a></div>
+                        <div class="navitem <?= background_check_active('/university'); ?>"><a href="/university/index.php" title="Universities">Universities</a></div>
+                        <div class="navitem <?= background_check_active('/account/login'); ?>"><a href="/account/login.php" title="Login">Login</a></div>
+                        <div class="navitem <?= background_check_active('/account/register'); ?>"><a href="/account/register.php" title="Register">Register</a></div>
                     <?php endif; ?>
                 </div>
             </nav>
-            <header>
+        <header>
     </div>
 </div>
-
 
 <!-- End of Mobile Nav Bar and Beginning of Create Forum Post Pop up Window -->
 <div id="forumBody">
