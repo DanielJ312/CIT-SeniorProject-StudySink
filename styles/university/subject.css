@@ -36,15 +36,22 @@ body {
     width: auto;
 }
 
+.sort-container {
+    display: flex;
+    align-items: center;
+}
+
 .sort {
     display: flex;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1em;
     border: none;
+    background-color: white;
     justify-content: space-between;
-    align-items: center;
     padding: 5px;
+    margin-left: 5px;
     border-radius: 0.5em;
     cursor: pointer;
-    height: 25px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
 }
 

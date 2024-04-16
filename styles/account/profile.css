@@ -9,7 +9,7 @@
 
 .profile-main {
   flex: 1;
-  margin: 20px 15%;
+  margin: 20px 9%;
 }
 
 .profile-outer-container {
@@ -75,6 +75,7 @@
 
 .bio-container p {
   font-family: 'Comfortaa', sans-serif;
+  background-color: white;
   font-size: 1em;
   text-align: center;
   width: fit-content;
@@ -90,6 +91,7 @@
   display: flex;
   flex-direction: column;
   padding: 12px;
+  margin-top: 20px;
 }
 
 .users-study-sets-container, 
@@ -109,7 +111,7 @@
 .container-title {
   font-family: 'Concert One', sans-serif;
   text-align: left;
-  font-size: 1.7em;
+  font-size: 1.9em;
 }
 
 .posts-container,
@@ -137,7 +139,7 @@
   width: 33%;
   margin-left: 0.5%;
   margin-right: 0.5%;
-  min-width: 200px;
+  min-width: 250px;
   min-height: 200px;
   cursor: pointer;
   box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
