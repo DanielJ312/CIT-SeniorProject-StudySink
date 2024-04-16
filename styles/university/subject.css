@@ -326,6 +326,7 @@ h3 {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    padding-right: 15px;
 }
 
 .test {
@@ -342,6 +343,17 @@ h3 {
 
 a {
     text-decoration: none !important;
+}
+
+@media only screen and (max-width: 1200px) {
+    
+    .sort-container {
+        font-size: 0.85em;
+    }
+
+    .sort {
+        font-size: 0.85em;
+    
 }
 
 
@@ -379,6 +391,10 @@ a {
         padding-left: 0;
     }
 
+    .sort {
+        height: fit-content;
+    }
+
     .cardContainer, .post, .subject, .mobile-posts {
         margin-bottom: 20px;
     }
@@ -392,7 +408,7 @@ a {
         height: 60px;
     }
 
-    .search-bar-csun input, .sort, button, .search-bar-csun button {
+    .search-bar-csun input, button, .search-bar-csun button {
         min-height: 44px;
         font-size: 16px;
     }
