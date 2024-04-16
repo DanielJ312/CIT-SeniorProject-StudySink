@@ -179,7 +179,7 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
                 </div>
                 <div class="users">
                     <div class="header">
-                        <h2 id="togglePost">Users</h2>
+                        <h2 id="toggleUsers">Users<i class="down"></i></h2>
                         <!-- Sorting options can be added here if needed -->
                     </div>
                     <div class="scrollbar" id="contentuser">
@@ -213,7 +213,7 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
                 </div>
                 <div class="universities">
                     <div class="header">
-                        <h2 id="togglePost">Universities</h2>
+                        <h2 id="toggleUniversities">Universities<i class="down"></i></h2>
                         <!-- Sorting options can be added here if needed -->
                     </div>
                     <div class="scrollbar" id="contentuniversities">
@@ -222,9 +222,9 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
                                 <div class="userCardContainer">
                                     <a href="/university/<?= htmlspecialchars($university->UniversityAbbreviation); ?>">
                                         <div class="userCardHeaderTopLeft">
-                                            <!--<img src="<?= htmlspecialchars($university->UniversityLogo); ?>" class="profile-picture" /> -->
+                                        <img src="<?= htmlspecialchars($university->UniversityLogo); ?>" class="profile-picture" />
                                             <div class="userCardHeaderUsernameDate">
-                                                <p class="post-account"><?= htmlspecialchars($university->UniversityName); ?></p>
+                                                <h2 class="post-account"><?= htmlspecialchars($university->UniversityName); ?></h2>
                                             </div>
                                         </div>
                                         <div class="userDetailsBottom">
@@ -254,6 +254,8 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
     document.addEventListener('DOMContentLoaded', function() {
     var contentSet = document.getElementById('contentset');
     var contentPost = document.getElementById('contentpost');
+    var contentUsers = document.getElementById('contentuser');
+    var contentUniversities = document.getElementById('contentuniversities');
 
     document.getElementById('toggleSet').addEventListener('click', function() {
         if (window.innerWidth <= 850) {
@@ -264,6 +266,18 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
     document.getElementById('togglePost').addEventListener('click', function() {
         if (window.innerWidth <= 850) {
             contentPost.style.display = (contentPost.style.display === 'none' || window.getComputedStyle(contentPost).display === 'none') ? 'block' : 'none';
+        }
+    });
+
+    document.getElementById('toggleUsers').addEventListener('click', function() {
+        if (window.innerWidth <= 850) {
+            contentUsers.style.display = (contentUsers.style.display === 'none' || window.getComputedStyle(contentUsers).display === 'none') ? 'block' : 'none';
+        }
+    });
+
+    document.getElementById('toggleUniversities').addEventListener('click', function() {
+        if (window.innerWidth <= 850) {
+            contentUniversities.style.display = (contentUniversities.style.display === 'none' || window.getComputedStyle(contentUniversities).display === 'none') ? 'block' : 'none';
         }
     });
 
