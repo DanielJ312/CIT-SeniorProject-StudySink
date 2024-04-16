@@ -23,11 +23,11 @@ $pageTitle = "Login";
                 <div class="lheader"><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></div>
                 <form method="post">
                     <div class="login-form-error" style="margin-top: 10px;">
-                        <?= isset($errors['logintype']) ? "<p>" . $errors['logintype'] . "</p>" : ""; ?>
+                        <?= isset($errors['logininput']) ? "<p>" . $errors['logininput'] . "</p>" : ""; ?>
                     </div>
                     <div class="login-email-container">
-                        <p style="white-space: nowrap;">Username/Email</p>
-                        <input type="text" name="logininput">
+                        <p style="white-space: nowrap;">Username or Email</p>
+                        <input type="text" name="logininput" value="<?= $_POST['logininput'] ?? ''; ?>">
                     </div>
                     <div class="login-form-error">
                         <?= isset($errors['password']) ? "<p>" . $errors['password'] . "</p>" : ""; ?>

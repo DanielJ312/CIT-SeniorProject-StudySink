@@ -2,7 +2,7 @@
     <div class="comment-header">
         <a href="/account/<?= $comment->Username; ?>" title="<?= $comment->Username; ?>"><img src="<?= $comment->Avatar; ?>" title="<?= $comment->Username; ?>" alt="<?= $comment->Username; ?>" class="profile-picture" /></a>
         <div class="comment-info">
-            <p class="comment-account"><a href="<?= $comment->Username; ?>" title="<?= $comment->Username; ?>"><?= $comment->Username; ?></a></p>
+            <p class="comment-account"><a href="/account/<?= $comment->Username; ?>" title="<?= $comment->Username; ?>"><?= $comment->Username; ?></a></p>
             <p class="comment-date">
                 <?php if (!isset($comment->Modified)): ?>
                     <span class="posted"><?= date("F j, Y", $comment->CommentCreated); ?></span>

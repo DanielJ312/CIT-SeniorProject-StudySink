@@ -1,47 +1,4 @@
 //////////* Account.js - Javascript functions for account pages *//////////
-/////*  Profile Functions */////
-if (document.body.classList.contains('profile-body')) {
-    // increase bio font size based on length
-    window.onload = function () {
-        var textElement = document.querySelector('.bio-container p');
-        var textLength = textElement.textContent.length;
-
-        if (window.innerWidth > 850) {
-            if (textLength > 600) {
-                textElement.style.fontSize = '1em'; // smaller font size
-            } else if (textLength > 300) {
-                textElement.style.fontSize = '1.2em'; // medium font size
-            } else {
-                textElement.style.fontSize = '1.35em'; // larger font size
-            }
-        } else if (window.innerWidth > 550) {
-            if (textLength > 600) {
-                textElement.style.fontSize = '0.8em'; // smaller font size
-            } else if (textLength > 300) {
-                textElement.style.fontSize = '0.9em'; // medium font size
-            } else {
-                textElement.style.fontSize = '1.1em'; // larger font size
-            }
-        } else {
-            if (textLength > 600) {
-                textElement.style.fontSize = '0.65em'; // smaller font size
-            } else if (textLength > 300) {
-                textElement.style.fontSize = '0.8em'; // medium font size
-            } else {
-                textElement.style.fontSize = '.9em'; // larger font size
-            }
-        }
-    };
-}
-
-
-// if $user->Bio; is empty, remove the bio-container and move profile-info to the center
-if (document.querySelector('.bio-container p').textContent == '') {
-    document.querySelector('.bio-container').style.display = 'none';
-    document.querySelector('.profile-info').style.margin = '4% auto auto auto';
-}
-
-
 /////*  Register & Verify Functions */////
 $(".send-email").on("click", function () {
     var email = $('.email-input').val();
@@ -116,4 +73,45 @@ function updateCountdown(endTimeUnix) {
     var minutes = Math.floor((timeLeft % 3600) / 60);
     var seconds = timeLeft % 60;
     $(".countdown").html(minutes + "m " + seconds + "s");
+}
+
+/////*  Profile Functions */////
+if (document.body.classList.contains('profile-body')) {
+    // increase bio font size based on length
+    window.onload = function () {
+        var textElement = document.querySelector('.bio-container p');
+        var textLength = textElement.textContent.length;
+
+        if (window.innerWidth > 850) {
+            if (textLength > 600) {
+                textElement.style.fontSize = '1em'; // smaller font size
+            } else if (textLength > 300) {
+                textElement.style.fontSize = '1.2em'; // medium font size
+            } else {
+                textElement.style.fontSize = '1.35em'; // larger font size
+            }
+        } else if (window.innerWidth > 550) {
+            if (textLength > 600) {
+                textElement.style.fontSize = '0.8em'; // smaller font size
+            } else if (textLength > 300) {
+                textElement.style.fontSize = '0.9em'; // medium font size
+            } else {
+                textElement.style.fontSize = '1.1em'; // larger font size
+            }
+        } else {
+            if (textLength > 600) {
+                textElement.style.fontSize = '0.65em'; // smaller font size
+            } else if (textLength > 300) {
+                textElement.style.fontSize = '0.8em'; // medium font size
+            } else {
+                textElement.style.fontSize = '.9em'; // larger font size
+            }
+        }
+    };
+    
+    // if $user->Bio; is empty, remove the bio-container and move profile-info to the center
+    if (document.querySelector('.bio-container p').textContent == '') {
+        document.querySelector('.bio-container').style.display = 'none';
+        document.querySelector('.profile-info').style.margin = '4% auto auto auto';
+    }
 }

@@ -27,21 +27,21 @@ $pageTitle = "Sign Up";
                 </div>
                 <div class="register-username">
                     <p>Username</p>
-                    <input type="text" name="username">
+                    <input type="text" name="username" value="<?= $_POST['username'] ?? ''; ?>">
                 </div>
                 <div class="register-form-error">
                     <?= isset($errors['email']) ? "<p>" . $errors['email'] . "</p>" : ""; ?>
                 </div>
                 <div class="register-email">
                     <p>Email</p>
-                    <input type="email" name="email">
+                    <input type="email" name="email" value="<?= $_POST['email'] ?? ''; ?>">
                 </div>
                 <div class="register-form-error">
                     <?= isset($errors['password']) ? "<p>" . $errors['password'] . "</p>" : ""; ?>
                 </div>
                 <div class="register-password">
                     <p>Password</p>
-                    <input type="password" name="password">
+                    <input type="password" name="password" value="<?= $_POST['password'] ?? ''; ?>">
                 </div>
                 <div class="register-form-error">
                     <?= isset($errors['password2']) ? "<p>" . $errors['password2'] . "</p>" : ""; ?>
@@ -58,7 +58,7 @@ $pageTitle = "Sign Up";
                     <select class="Uni-selection" name="useruni">
                         <option value="0">None</option>
                         <?php foreach ($universities as $university) : ?>
-                            <option value="<?= $university->UniversityID ?>"><?= $university->Name . " (" . $university->Abbreviation . ")"; ?></option>
+                            <option value="<?= $university->UniversityID ?>" <?=isset($_POST['useruni']) && $_POST['useruni'] == $university->UniversityID ? 'selected' : ''; ?>><?= $university->Name . " (" . $university->Abbreviation . ")"; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
