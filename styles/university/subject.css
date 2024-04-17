@@ -36,15 +36,22 @@ body {
     width: auto;
 }
 
+.sort-container {
+    display: flex;
+    align-items: center;
+}
+
 .sort {
     display: flex;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1em;
     border: none;
+    background-color: white;
     justify-content: space-between;
-    align-items: center;
     padding: 5px;
+    margin-left: 5px;
     border-radius: 0.5em;
     cursor: pointer;
-    height: 25px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.31);
 }
 
@@ -319,6 +326,7 @@ h3 {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    padding-right: 15px;
 }
 
 .test {
@@ -335,11 +343,26 @@ h3 {
 
 a {
     text-decoration: none !important;
-  }
-  
-  .post-account:hover {
-    color: #fcb54d;
-  }
+    color: #2778ff;
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 1200px) {
+    
+    .sort-container {
+        font-size: 0.85em;
+    }
+
+    .sort {
+        font-size: 0.85em;
+    
+}
+}
+
 
 @media only screen and (max-width: 850px) {
     body {
@@ -375,6 +398,10 @@ a {
         padding-left: 0;
     }
 
+    .sort {
+        height: fit-content;
+    }
+
     .cardContainer, .post, .subject, .mobile-posts {
         margin-bottom: 20px;
     }
@@ -388,7 +415,7 @@ a {
         height: 60px;
     }
 
-    .search-bar-csun input, .sort, button, .search-bar-csun button {
+    .search-bar-csun input, button, .search-bar-csun button {
         min-height: 44px;
         font-size: 16px;
     }
@@ -408,13 +435,4 @@ a {
         flex: 1;
         padding: 0 10px;
     }
-}
-
-a {
-    color: #2778ff;
-    text-decoration: underline;
-}
-
-a:hover {
-    text-decoration: none;
 }

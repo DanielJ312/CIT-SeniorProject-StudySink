@@ -269,11 +269,14 @@ main {
 }
 
 .sort {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 1em;
   border: none;
+  background-color: white;
   justify-content: space-between;
   align-items: center;
   padding: 5px;
-  border-radius: 0.5em;
+  border-radius: 5px;
   box-shadow: 0 2px 5px rgb(0 0 0 / 31%);
   cursor: pointer;
 }
@@ -572,6 +575,10 @@ a {
   #contentsubject {
     display: none;
 }
+
+  .sort {
+    font-size: 0.75em;
+  }
 
 
   .subject-selection-c a {

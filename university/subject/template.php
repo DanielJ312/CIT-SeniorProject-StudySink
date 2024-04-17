@@ -36,11 +36,14 @@ $unilogo = "https://studysink.s3.amazonaws.com/assets/Uni-logos/$university->Abb
                 <div class="study-set">
                     <div class="header">
                         <h2 id="toggleSet">Study Sets<i class="down"></i></h2>
-                        <select id="" class="study-set-sort sort" name="sorts">
-                            <option value="study-set-popular">Popular</option>
-                            <option value="study-set-newest">Newest</option>
-                            <option value="study-set-oldest">Oldest</option>
-                        </select>
+                        <div class="sort-container">
+                            <label for="sorts">Sort By: </label>
+                            <select id="" class="study-set-sort sort" name="sorts">
+                                <option value="study-set-popular">Popular</option>
+                                <option value="study-set-newest">Newest</option>
+                                <option value="study-set-oldest">Oldest</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="scrollbar" id="contentset">
                         <div class="displayCardArea">
@@ -53,11 +56,14 @@ $unilogo = "https://studysink.s3.amazonaws.com/assets/Uni-logos/$university->Abb
                 <div class="posts">
                     <div class="header">
                         <h2 id="togglePost">Posts<i class="down"></i></h2>
-                        <select class="post-sort sort" name="sorts">
-                            <option value="post-popular">Popular</option>
-                            <option value="post-newest">Newest</option>
-                            <option value="post-oldest">Oldest</option>
-                        </select>
+                        <div class= "sort-container">
+                            <label for="sorts" style="align-self: right;">Sort By: </label>
+                            <select class="post-sort sort" name="sorts">
+                                <option value="post-popular">Popular</option>
+                                <option value="post-newest">Newest</option>
+                                <option value="post-oldest">Oldest</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="scrollbar" id="contentpost">
                         <div class="post-sort-container">
