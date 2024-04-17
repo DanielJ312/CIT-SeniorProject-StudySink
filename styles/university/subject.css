@@ -346,10 +346,10 @@ a {
     color: #2778ff;
     text-decoration: underline;
 }
-
-a:hover {
-    text-decoration: none;
-}
+  
+  .post-account:hover {
+    color: #fcb54d;
+  }
 
 @media only screen and (max-width: 1200px) {
     
