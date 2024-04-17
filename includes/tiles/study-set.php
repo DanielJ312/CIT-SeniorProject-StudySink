@@ -1,5 +1,9 @@
-<div class="cardContainer">
-    <div id="outerAnchor" data-id="<?= $set->StudySetID; ?>" class="<?= $subjectID != 0 ? "" : "post"; ?>">
+
+    <?php if ($subjectID != 0) : ?>
+        <div class="cardContainer" onclick="window.location.href='/study-sets/<?= $set->StudySetID; ?>'">
+    <?php endif; ?>
+
+    <div data-id="<?= $set->StudySetID; ?>" class="<?= $subjectID != 0 ? "" : "post"; ?>">
         <div class="cardHeaderTopLeft">
             <a href="/account/<?= $set->Username; ?>.php" title="<?= $set->Username; ?>">
                 <img src="<?= $set->Avatar; ?>" alt="<?= $set->Username; ?>" class="post-profile-picture" />
@@ -33,17 +37,7 @@
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    document.getElementById('outerAnchor').addEventListener('click', function(event) {
-        // Check if the click was on the inner anchor tag
-        if (event.target.tagName.toLowerCase() === 'a') {
-            // Let the inner anchor handle the click
-            return;
-        }
-
-        // Handle the click for the outer anchor
-        window.location.href = "/study-sets/<?= $set->StudySetID; ?>";
-    });
-</script>
+    <?php if ($subjectID != 0) : ?>
+        </div>
+    <?php endif; ?>
