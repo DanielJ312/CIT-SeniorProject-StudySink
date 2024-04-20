@@ -197,21 +197,21 @@ function reset_password($data) {
     $values['Code'] = $data['code'];
     $query = "SELECT * FROM CODE_T WHERE Code = :Code LIMIT 1;";
     $result = run_database($query, $values);
-    $data['password'] = trim($data['password']);
+    $password = trim($data['password']);
 
     if (is_array($result)) {
         $result = $result[0];
         if (time() > $result->Expires) {
             $status = "expired";
         } 
-        else if (strlen(trim($data['password'])) < 4) {
+        else if (strlen($password) < 6 || !check_uppercase($password) || !check_number($password) || !check_specialchar($password)) {
             $status = "invalid";
         }
         if ($status == "none") {
             $values = array();
             $values = [
                 'Email' => $result->Email,
-                'Password' => password_hash($data['password'], PASSWORD_DEFAULT)
+                'Password' => password_hash($password, PASSWORD_DEFAULT)
             ];
             $query = "UPDATE USER_T SET Password = :Password WHERE Email = :Email";
             run_database($query, $values);
@@ -226,8 +226,6 @@ function reset_password($data) {
 }
 
 /////* Settings Functions */////
-
-
 function upload_avatar($file) {
     $credentials = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
     $s3 = new S3Client([
