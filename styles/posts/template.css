@@ -300,6 +300,15 @@
     background-color: #2778ff;
 }
 
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #f59c1a;
+}
+
 @media only screen and (max-width: 850px) {
 
     .margin {

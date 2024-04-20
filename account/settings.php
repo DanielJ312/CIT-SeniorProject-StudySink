@@ -178,6 +178,27 @@ $settingsUniversities = get_universities_list();
         }
     }
 
+    //code for password rules (min length = 8, 1 uppercase, 1 lowercase, 1 number, and 1 special character)
+    document.getElementById('password').addEventListener('input', function() {
+        var password = document.getElementById('password').value;
+        var passwordError = document.getElementById('passwordError');
+        var submitBtn = document.getElementById('submitBtn');
+        var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+
+        if (!regex.test(password)) {
+            passwordError.textContent = 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.';
+            submitBtn.disabled = true;
+        } else {
+            passwordError.textContent = '';
+            submitBtn.disabled = false;
+        }
+        //If the password is empty, the submit button will be disabled
+        if (password === '') {
+            passwordError.textContent = '';
+        }
+
+    });
+
     //code for the password confirmation
     document.getElementById('passwordForm').addEventListener('submit', function(event) {
         var password = document.getElementById('password').value;

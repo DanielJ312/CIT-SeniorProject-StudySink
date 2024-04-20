@@ -50,6 +50,7 @@ $unilogo = "https://studysink.s3.amazonaws.com/assets/Uni-logos/$university->Abb
                 <div class="posts">
                     <div class="post header">Posts</div>
                     <form id="sort-dropdown" method="">
+                        <label for="sort">Sort By: </label>
                         <select id="sort" class="post-sort sort" name="sorts">
                             <option value="post-newest">Newest</option>
                             <option value="post-popular">Popular</option>
@@ -91,6 +92,7 @@ $unilogo = "https://studysink.s3.amazonaws.com/assets/Uni-logos/$university->Abb
             <div class="post-header">
                 <div class=title>Posts</div>
                 <form method="">
+                    <label for="sort" style="font-size: 0.75em;">Sort By: </label>
                     <select id="sort" class="post-sort sort" name="sorts">
                         <option value="post-newest">Newest</option>
                         <option value="post-oldest">Oldest</option>
