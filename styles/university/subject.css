@@ -60,11 +60,14 @@ body {
     margin-top: 10px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between; /* Add space between the columns */
+    justify-content: space-between;
+    /* Add space between the columns */
 }
 
-.study-set, .posts {
-    flex: 1; /* Each section takes up an equal amount of space */
+.study-set,
+.posts {
+    flex: 1;
+    /* Each section takes up an equal amount of space */
 }
 
 h2 {
@@ -101,7 +104,7 @@ h3 {
 }
 
 .post:hover {
-    border: 1px solid #f59c1a; 
+    border: 1px solid #f59c1a;
 }
 
 .post-account {
@@ -148,18 +151,18 @@ h3 {
 .lower-header {
     display: flex;
     justify-content: space-between;
-  }
-  
-  .comment {
+}
+
+.comment {
     display: flex;
     color: #181818;
-  }
-  
-  .vote {
+}
+
+.vote {
     display: flex;
     justify-content: flex-end;
     color: #181818;
-  }
+}
 
 .post-profile-picture {
     border-radius: 50%;
@@ -170,14 +173,14 @@ h3 {
     margin-left: 0px;
     object-fit: cover;
     border: 1px solid #2778ff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     display: block;
 }
 
 .post-profile-picture:hover {
     border-color: #f59c1a;
-    }
+}
 
 .subjects {
     width: 100%;
@@ -236,25 +239,25 @@ h3 {
     padding: 0px;
 }
 
-.cardHeaderUsernameDate > p {
+.cardHeaderUsernameDate>p {
     margin: 0;
     padding: 0px;
-    font-weight: bold; 
+    font-weight: bold;
 }
 
-.cardHeaderUsernameDate > p:first-child {
-    font-size: 1.1em; 
+.cardHeaderUsernameDate>p:first-child {
+    font-size: 1.1em;
     margin-bottom: 0px;
 }
 
-.cardHeaderUsernameDate > p:last-child {
-    font-size: 0.9em; 
-    color: black; 
+.cardHeaderUsernameDate>p:last-child {
+    font-size: 0.9em;
+    color: black;
     margin-top: 5px;
 }
 
 .cardContainer:hover {
-    border:solid #f59c1a;
+    border: solid #f59c1a;
     border-width: 1px;
 }
 
@@ -263,10 +266,10 @@ h3 {
     height: 50px;
     margin-left: 0px;
     margin-right: 0px;
-    border-radius: 50%; 
+    border-radius: 50%;
     object-fit: cover;
     border: 1px solid #2778ff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     display: block;
 }
@@ -278,15 +281,15 @@ h3 {
 .cardContainer h3 {
     font-size: 1.2em;
     margin: 0;
-    padding: 10px; 
-    text-align: center; 
+    padding: 10px;
+    text-align: center;
 }
 
 .cardContainer p {
     font-size: 0.9em;
-    color: black; 
+    color: black;
     margin: 5px 0;
-    padding: 0 10px; 
+    padding: 0 10px;
     text-align: center;
 }
 
@@ -346,21 +349,21 @@ a {
     color: #2778ff;
     text-decoration: underline;
 }
-  
-  .post-account:hover {
+
+.post-account:hover {
     color: #fcb54d;
-  }
+    text-decoration: underline;
+}
 
 @media only screen and (max-width: 1200px) {
-    
+
     .sort-container {
         font-size: 0.85em;
     }
 
     .sort {
         font-size: 0.85em;
-    
-}
+    }
 }
 
 
@@ -389,11 +392,14 @@ a {
         margin: 20px 5%;
     }
 
-    .column, .columns {
+    .column,
+    .columns {
         display: block;
     }
 
-    .study-set, .posts, .subject-selection-c {
+    .study-set,
+    .posts,
+    .subject-selection-c {
         padding-right: 0;
         padding-left: 0;
     }
@@ -402,20 +408,30 @@ a {
         height: fit-content;
     }
 
-    .cardContainer, .post, .subject, .mobile-posts {
+    .cardContainer,
+    .post,
+    .subject,
+    .mobile-posts {
         margin-bottom: 20px;
     }
 
-    h2, h3, .post-account, .post-date, .cardHeaderUsernameDate > p {
+    h2,
+    h3,
+    .post-account,
+    .post-date,
+    .cardHeaderUsernameDate>p {
         font-size: calc(1em + 1vw);
     }
 
-    .post-profile-picture, .cardContainer img.profile-picture {
+    .post-profile-picture,
+    .cardContainer img.profile-picture {
         width: 60px;
         height: 60px;
     }
 
-    .search-bar-csun input, button, .search-bar-csun button {
+    .search-bar-csun input,
+    button,
+    .search-bar-csun button {
         min-height: 44px;
         font-size: 16px;
     }
@@ -426,12 +442,14 @@ a {
         margin: 20px 10%;
     }
 
-    .column, .columns {
+    .column,
+    .columns {
         display: flex;
         justify-content: space-between;
     }
 
-    .study-set, .posts {
+    .study-set,
+    .posts {
         flex: 1;
         padding: 0 10px;
     }
