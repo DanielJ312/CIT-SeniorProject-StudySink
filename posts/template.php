@@ -108,7 +108,7 @@ $pageTitle = "$post->Title";
         <form method="post">
             <div id="deletepopupContainer">
                 <div class="contentitem">
-                    <label for="universityforum" id="deletetitle">Are you sure you would like to DELETE post?</label>
+                    <label for="universityforum" id="deletetitle">Are you sure you would like to DELETE this post?</label>
                     <div class="buttons">
                     <button type="submit" onclick="closeDeletePopup()" class="canceldeletepostbutton">Cancel</button>
                     <button type="submit" onclick="DeletePost()" class="deletepostbutton">Delete</button>

@@ -290,12 +290,14 @@
     justify-content: space-between;
     font-family: 'Comfortaa', sans-serif;
     font-size: 1.5em;
+    box-shadow: 0 10px 14px rgba(0,0,0,0.5);
 }
 
 .modal-content p {
     margin-top: 0;
     margin-bottom: 20px;
     font-family: 'Comfortaa', sans-serif;
+    text-align: center;
 }
 
 .buttons-container {
@@ -309,8 +311,10 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-family: 'YourFontFamily', sans-serif;
-    font-size: 1em;
+    font-family: 'Comfortaa', sans-serif;
+    height: fit-content;
+    font-size: 0.8em;
+    white-space: nowrap;
 }
 
 #confirmDelete {

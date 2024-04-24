@@ -163,7 +163,7 @@ save_to_cookie("study-set");
             <p>Are you sure you want to DELETE this study set?</p>
             <div class="buttons-container">
                 <button id="cancelDelete">Cancel</button>
-                <button id="confirmDelete">Yes, delete it</button>
+                <button id="confirmDelete">Delete</button>
             </div>
         </div>
     </div>
