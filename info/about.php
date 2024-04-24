@@ -8,7 +8,7 @@ $pageTitle = "About";
 <html lang="en">
 <head>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/head.php"); ?>
-    <link rel="stylesheet" type="text/css" href="/styles/info/privacy.css">
+    <link rel="stylesheet" type="text/css" href="/styles/info/about.css">
 </head>
 <body>
     <header>
