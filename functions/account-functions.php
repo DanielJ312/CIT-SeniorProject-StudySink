@@ -7,6 +7,225 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php");
 use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
 
+/////* Register Functions */////
+function signup($data) {
+    $errors = array();
+    $data['username'] = trim($data['username']);
+    $data['password'] = trim($data['password']);
+
+    // Username Checks
+    $checkUsername = run_database("SELECT * FROM USER_T WHERE Username = :Username LIMIT 1;", ['Username' => $data['username']]);
+    if (is_array($checkUsername)) {
+        $errors['username'] = "Username already exists.";
+    }
+    else if (!check_alphanumeric($data['username'])) {
+        $errors['username'] = "Username must be alphanumberic.";
+    }
+    else if (strlen(trim($data['username'])) < 4) {
+        $errors['username'] = "Username must be 4 or more characters.";
+    }
+    
+    //Email Checks
+    if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = "Email is invalid.";
+    }
+    $checkEmail = run_database("SELECT * FROM USER_T WHERE Email = :Email LIMIT 1;", ['Email' => $data['email']]);
+    if (is_array($checkEmail)) {
+        $errors['email'] = "Email already exists.";
+    }
+
+    // Password Checks
+    if (strlen(trim($data['password'])) < 6) {
+        $errors['password'] = "Password must be 6 or more characters.";
+    } 
+    else if (!check_uppercase($data['password'])) {
+        $errors['password'] = "Password must contain an uppercase charcter.";
+    }
+    else if (!check_number($data['password'])) {
+        $errors['password'] = "Password must contain a number.";
+    }
+    else if (!check_specialchar($data['password'])) {
+        $errors['password'] = "Password must contain a special charcter.";
+    }
+    else if ($data['password'] != $data['password2']) {
+        $errors['password2'] = "Passwords must match.";
+    }
+    
+    // Save to Database if valid
+    if (count($errors) == 0) {
+        $values = [
+            'UserID' => generate_ID("USER"),
+            'UniversityID' => $data['useruni'] == 0 ? null : $data['useruni'],
+            'Username' => $data['username'],
+            'Email' => $data['email'],
+            'Password' => password_hash($data['password'], PASSWORD_DEFAULT),
+            'Created' => time()
+        ];
+
+        $query = "INSERT INTO USER_T (UserID, UniversityID, Username, Email, Password, Created) VALUES (:UserID, :UniversityID, :Username, :Email, :Password, :Created);";
+        run_database($query, $values);
+
+        $query = "SELECT * FROM USER_T WHERE Email = '{$values['Email']}' LIMIT 1;";
+        $result = run_database($query);
+        if (!empty($result)) {
+            $_SESSION['USER'] = $result[0];
+            $_SESSION['LOGGED_IN'] = true;
+        }
+        send_verify_code("verify", $values['Email']);
+    }
+
+    return $errors;
+}
+
+function check_alphanumeric($string) {
+    return preg_match('/^[a-zA-Z0-9]+$/', $string);
+}
+
+function check_uppercase($string) {
+    return preg_match('/[A-Z]/', $string);
+}
+
+function check_number($string) {
+    return preg_match('/[0-9]/', $string);
+}
+
+function check_specialchar($string) {
+    return preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $string);
+}
+
+/////* Login Functions */////
+function login($data) {
+    $loginType = "Email";
+    $errors = array();
+
+    // Input Type checks
+    if (filter_var($data['logininput'], FILTER_VALIDATE_EMAIL)) {
+        $loginType = "Email";
+    } 
+    else if (check_alphanumeric($data['logininput']) && strlen($data['logininput']) >= 6) {
+        $loginType = "Username";
+    } 
+    else {
+        $errors['logininput'] = "Email or username is not valid.";
+    }
+
+    // Password Checks
+    if (strlen(trim($data['password'])) < 6) {
+        $errors['password'] = "Password is not a valid form of password.";
+    }
+
+    // Check if valid logininput
+    if (!isset($errors['logininput'])) {
+        switch ($loginType) {
+            case 'Email':
+                $values['Email'] = $data['logininput'];
+                break;
+            case 'Username':
+                $values['Username'] = $data['logininput'];
+                break;
+            default:
+                break;
+        }
+        $query = "SELECT * FROM USER_T WHERE $loginType = :$loginType LIMIT 1;";
+        $result = run_database($query, $values);
+    }
+    
+    // Check if password and logininput match
+    if (!empty($result)) {
+        $password = $data['password'];
+        $result = $result[0];
+        if (password_verify($password, $result->Password)) {
+            $_SESSION['USER'] = $result;
+            $_SESSION['LOGGED_IN'] = true;
+        } 
+        else {
+            $errors['password'] = "Password for this account is incorrect.";
+        }
+    }
+    else {
+        $errors['logininput'] = "Account not found.";
+        unset($errors['password']);
+    }
+
+    return $errors;
+}
+
+/////* Verify Functions */////
+function verify_email($data) {
+    $values = [
+        'Email' => $_SESSION['USER']->Email,
+        'Code' => $data['code']
+    ];
+
+    $query = "SELECT * FROM CODE_T WHERE Email = :Email && Code = :Code;";
+    $result = run_database($query, $values);
+    if (is_array($result)) {
+        $result = $result[0];
+        if ($result->Expires > time()) {
+            $email = $result->Email;
+            $query = "UPDATE USER_T SET Verified = 1 WHERE Email = '$email' LIMIT 1;";
+            $result = run_database($query);
+            delete_code("verify", $email);
+            update_user();
+            header("Location: /account/profile.php");
+        } else {
+            $errors['code'] = "This code has expired.";
+        }
+    } else {
+        $errors['code'] = "This code is incorrect.";
+    }
+
+    return $errors;
+}
+
+/////* Reset Functions */////
+function check_email($data) {
+    $valid = false;
+    $values['Email'] = $data['email'];
+    $query = "SELECT * FROM USER_T WHERE Email = :Email LIMIT 1;";
+    $result = run_database($query, $values);
+    if (is_array($result)) {
+        $valid = true;
+    }
+
+    return $valid;
+}
+
+function reset_password($data) {
+    $status = "none";
+    $values = array();
+    $values['Code'] = $data['code'];
+    $query = "SELECT * FROM CODE_T WHERE Code = :Code LIMIT 1;";
+    $result = run_database($query, $values);
+    $password = trim($data['password']);
+
+    if (is_array($result)) {
+        $result = $result[0];
+        if (time() > $result->Expires) {
+            $status = "expired";
+        } 
+        else if (strlen($password) < 6 || !check_uppercase($password) || !check_number($password) || !check_specialchar($password)) {
+            $status = "invalid";
+        }
+        if ($status == "none") {
+            $values = array();
+            $values = [
+                'Email' => $result->Email,
+                'Password' => password_hash($password, PASSWORD_DEFAULT)
+            ];
+            $query = "UPDATE USER_T SET Password = :Password WHERE Email = :Email";
+            run_database($query, $values);
+            delete_code("reset", $result->Email);
+            $status = "valid";
+        }
+    } else {
+        $status = "wrong";
+    }
+
+    return $status;
+}
+
+/////* Settings Functions */////
 function upload_avatar($file) {
     $credentials = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
     $s3 = new S3Client([
@@ -67,174 +286,6 @@ function upload_avatar($file) {
     }
 }
 
-function signup($data) {
-    // validate
-    $errors = array();
-    $checkUsername = run_database("SELECT * FROM USER_T WHERE Username = :Username LIMIT 1;", ['Username' => $data['username']]);
-    if (is_array($checkUsername)) {
-        $errors['username'] = "Username already exists.";
-    }
-    if (!preg_match('/^[a-zA-Z0-9]+$/', $data['username'])) {
-        $errors['username'] = "Enter a valid username.";
-    }
-    if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = "Enter a valid email.";
-    }
-    if (strlen(trim($data['password'])) < 4) {
-        $errors['password'] = "Enter a valid password.";
-    } else if ($data['password'] != $data['password2']) {
-        $errors['password'] = "Passwords must match.";
-    }
-    $checkEmail = run_database("SELECT * FROM USER_T WHERE Email = :Email LIMIT 1;", ['Email' => $data['email']]);
-    if (is_array($checkEmail)) {
-        $errors['email'] = "Email already exists.";
-    }
-
-    // save
-    if (count($errors) == 0) {
-        $values = [
-            'UserID' => generate_ID("USER"),
-            'UniversityID' => $data['useruni'] == 0 ? null : $data['useruni'],
-            'Username' => $data['username'],
-            'Email' => $data['email'],
-            'Password' => password_hash($data['password'], PASSWORD_DEFAULT),
-            'Created' => time()
-        ];
-
-        $query = "INSERT INTO USER_T (UserID, UniversityID, Username, Email, Password, Created) VALUES (:UserID, :UniversityID, :Username, :Email, :Password, :Created);";
-        run_database($query, $values);
-
-        $query = "SELECT * FROM USER_T WHERE Email = '{$values['Email']}' LIMIT 1;";
-        $result = run_database($query);
-        if (!empty($result)) {
-            $_SESSION['USER'] = $result[0];
-            $_SESSION['LOGGED_IN'] = true;
-        }
-        send_verify_code("verify", $values['Email']);
-    }
-
-    return $errors;
-}
-
-function login($data) {
-    //validate
-    $loginType = "Email";
-    $errors = array();
-    if (filter_var($data['logininput'], FILTER_VALIDATE_EMAIL)) {
-        $loginType = "Email";
-    } else if (preg_match('/^[a-zA-Z0-9]+$/', $data['logininput'])) {
-        $loginType = "Username";
-    } else {
-        $errors['logintype'] = "Please enter a valid email or username.";
-    }
-    if (strlen(trim($data['password'])) < 4) {
-        $errors['password'] = "Please enter a valid password.";
-    }
-
-    // check
-    if (count($errors) == 0) {
-        switch ($loginType) {
-            case 'Email':
-                $values['Email'] = $data['logininput'];
-                break;
-            case 'Username':
-                $values['Username'] = $data['logininput'];
-                break;
-            default:
-                break;
-        }
-        $password = $data['password'];
-
-        $query = "SELECT * FROM USER_T WHERE $loginType = :$loginType LIMIT 1;";
-        $result = run_database($query, $values);
-
-        if (!empty($result)) {
-            $result = $result[0];
-            if (password_verify($password, $result->Password)) {
-                $_SESSION['USER'] = $result;
-                $_SESSION['LOGGED_IN'] = true;
-            } else {
-                $errors['password'] = "Incorrect password.";
-            }
-        }
-    }
-
-    return $errors;
-}
-
-function check_email($data) {
-    $valid = false;
-
-    // validate
-    $values['Email'] = $data['email'];
-    $query = "SELECT * FROM USER_T WHERE Email = :Email LIMIT 1;";
-    $result = run_database($query, $values);
-    if (is_array($result)) {
-        $valid = true;
-    }
-
-    return $valid;
-}
-
-function reset_password($data) {
-    $status = "none";
-    $values = array();
-    $values['Code'] = $data['code'];
-    $query = "SELECT * FROM CODE_T WHERE Code = :Code LIMIT 1;";
-    $result = run_database($query, $values);
-
-    if (is_array($result)) {
-        $result = $result[0];
-        if (time() > $result->Expires) {
-            $status = "expired";
-        } else if (strlen(trim($data['password'])) < 4) {
-            $status = "invalid";
-        }
-        if ($status == "none") {
-            $values = array();
-            $values = [
-                'Email' => $result->Email,
-                'Password' => password_hash($data['password'], PASSWORD_DEFAULT)
-            ];
-            $query = "UPDATE USER_T SET Password = :Password WHERE Email = :Email";
-            run_database($query, $values);
-            delete_code("reset", $result->Email);
-            $status = "valid";
-        }
-    } else {
-        $status = "wrong";
-    }
-
-    return $status;
-}
-
-function verify_email($data) {
-    $values = [
-        'Email' => $_SESSION['USER']->Email,
-        'Code' => $data['code']
-    ];
-
-    $query = "SELECT * FROM CODE_T WHERE Email = :Email && Code = :Code;";
-    $result = run_database($query, $values);
-    if (is_array($result)) {
-        $result = $result[0];
-        if ($result->Expires > time()) {
-            $email = $result->Email;
-            $query = "UPDATE USER_T SET Verified = 1 WHERE Email = '$email' LIMIT 1;";
-            $result = run_database($query);
-            delete_code("verify", $email);
-            update_user();
-            header("Location: /account/profile.php");
-        } else {
-            $errors['code'] = "This code has expired.";
-        }
-    } else {
-        $errors['code'] = "This code is incorrect.";
-    }
-
-    return $errors;
-}
-
 function update_bio($data) {
     $values = [
         'UserID' => $_SESSION['USER']->UserID,
@@ -255,12 +306,6 @@ function update_password($data) {
     update_session();
 }
 
-function get_universities() {
-    $query = "SELECT Name FROM UNIVERSITY_T";
-    $result = run_database($query);
-    return $result;
-}
-
 function update_primary_university($data) {
     // If the input is blank, set the primary university to null
     if ($data['updateUniversity'] === '') {
@@ -278,6 +323,29 @@ function update_primary_university($data) {
         update_session();
 }
 
+function delete_account() {
+    $values = ['UserID' => $_SESSION['USER']->UserID];
+    //Posts created by the user will have there POST_T.UserID changed to DeletedUser's UserID
+    //Post likes creted by the user will be removed from the POST_LIKE_T table WHERE POST_LIKE_T.UserID = :UserID
+    //Study Sets created by the user will have there STUDY_SET_T.UserID changed to DeletedUser's UserID
+    //Study Set Ratings created by the user will have there STUDY_SET_RATINGS.UserID changed to DeletedUser's UserID
+    //Comments created by the user will have there COMMENT_T.UserID changed to DeletedUser's UserID
+    //Comment votes created by the user will have there COMMENT_LIKE_T.UserID changed to DeletedUser's UserID
+    //The user will have there row deleted from USER_T WHERE USER_T.UserID = :UserID
+    $deleteScript = "
+    UPDATE POST_T SET UserID = 1 WHERE UserID = :UserID;
+    DELETE FROM POST_LIKE_T WHERE UserID = :UserID;
+    UPDATE STUDY_SET_T SET UserID = 1 WHERE UserID = :UserID;
+    UPDATE STUDY_SET_RATINGS SET UserID = 1 WHERE UserID = :UserID;
+    UPDATE COMMENT_T SET UserID = 1 WHERE UserID = :UserID;
+    UPDATE  COMMENT_LIKE_T SET UserID = 1 WHERE UserID = :UserID;
+    DELETE FROM USER_T WHERE UserID = :UserID;";
+    run_database($deleteScript, $values);
+    session_destroy();
+    header("Location: /");
+}
+
+/////* Profile Functions */////
 // This function is used to populate all the information on the profile page when a user clicks on another users profile
 function get_user_info($username) {
     $values = ['Username' => $username];
@@ -334,28 +402,6 @@ function get_profile_users_liked_posts($userID) {
     ORDER BY POST_T.Created DESC
     query;
     return run_database($query, $values = ['UserID' => $userID]);
-}
-
-function delete_account() {
-    $values = ['UserID' => $_SESSION['USER']->UserID];
-    //Posts created by the user will have there POST_T.UserID changed to DeletedUser's UserID
-    //Post likes creted by the user will be removed from the POST_LIKE_T table WHERE POST_LIKE_T.UserID = :UserID
-    //Study Sets created by the user will have there STUDY_SET_T.UserID changed to DeletedUser's UserID
-    //Study Set Ratings created by the user will have there STUDY_SET_RATINGS.UserID changed to DeletedUser's UserID
-    //Comments created by the user will have there COMMENT_T.UserID changed to DeletedUser's UserID
-    //Comment votes created by the user will have there COMMENT_LIKE_T.UserID changed to DeletedUser's UserID
-    //The user will have there row deleted from USER_T WHERE USER_T.UserID = :UserID
-    $deleteScript = "
-    UPDATE POST_T SET UserID = 1 WHERE UserID = :UserID;
-    DELETE FROM POST_LIKE_T WHERE UserID = :UserID;
-    UPDATE STUDY_SET_T SET UserID = 1 WHERE UserID = :UserID;
-    UPDATE STUDY_SET_RATINGS SET UserID = 1 WHERE UserID = :UserID;
-    UPDATE COMMENT_T SET UserID = 1 WHERE UserID = :UserID;
-    UPDATE  COMMENT_LIKE_T SET UserID = 1 WHERE UserID = :UserID;
-    DELETE FROM USER_T WHERE UserID = :UserID;";
-    run_database($deleteScript, $values);
-    session_destroy();
-    header("Location: /");
 }
 
 ?>

@@ -77,7 +77,7 @@ $uniLogo = "https://studysink.s3.amazonaws.com/assets/Uni-logos/$uniAbb.png";
         <div class="recent-posts-container">
             <h2 class="home-container-title">Recently Viewed Posts</h2>
             <div class="post-tiles-container">
-                <?php if (isset($_COOKIE['viewed_posts'])) : ?>
+                <?php if (isset($_COOKIE['viewed_posts']) && is_array($viewedPosts)) : ?>
                     <?php foreach ($viewedPosts as $post) : ?>
                         <div class="post-tile PostLinkTile" data-id="<?= $post->PostID; ?>">
                             <div class="post-header">
@@ -110,7 +110,7 @@ $uniLogo = "https://studysink.s3.amazonaws.com/assets/Uni-logos/$uniAbb.png";
         <div class="recent-sets-container">
             <h2 class="home-container-title">Recently Viewed Study Sets</h2>
             <div class="study-sets-tiles-container">
-                <?php if (isset($_COOKIE['viewed_study_sets'])) : ?>
+                <?php if (isset($_COOKIE['viewed_study_sets']) && is_array($viewedStudySets)) : ?>
                     <?php foreach ($viewedStudySets as $studySet) : ?>
                         <div class="study-set-tile StudySetLinkTile" data-id="<?= $studySet->StudySetID; ?>">
                             <div class="study-set-header">

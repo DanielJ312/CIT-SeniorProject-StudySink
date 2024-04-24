@@ -21,7 +21,7 @@ $pageTitle = "Reset Password";
         <div class="forgot-container">
             <div class="reset-form" novalidate>
                 <div class="email-container">
-                    <p>We will send a verification code to your email</p>
+                    <p>Enter your account email to recieve a verification code.</p>
                     <p class="email">Email <input class="email-input" type="email" name="email"></p>
                     <input class="send-email" type="submit" value="Send Code">
                 </div>

@@ -168,6 +168,43 @@ if ($user != null) {
     <?php if (isset($_SESSION['USER']->Username) && $user->Username == $_SESSION['USER']->Username) : ?>
         window.history.replaceState({}, '', '/account/profile');
     <?php endif; ?>
+
+    window.onload = function () {
+        var textElement = document.querySelector('.bio-container p');
+        var textLength = textElement.textContent.length;
+
+        if (window.innerWidth > 850) {
+            if (textLength > 600) {
+                textElement.style.fontSize = '1em'; // smaller font size
+            } else if (textLength > 300) {
+                textElement.style.fontSize = '1.2em'; // medium font size
+            } else {
+                textElement.style.fontSize = '1.35em'; // larger font size
+            }
+        } else if (window.innerWidth > 550) {
+            if (textLength > 600) {
+                textElement.style.fontSize = '0.8em'; // smaller font size
+            } else if (textLength > 300) {
+                textElement.style.fontSize = '0.9em'; // medium font size
+            } else {
+                textElement.style.fontSize = '1.1em'; // larger font size
+            }
+        } else {
+            if (textLength > 600) {
+                textElement.style.fontSize = '0.65em'; // smaller font size
+            } else if (textLength > 300) {
+                textElement.style.fontSize = '0.8em'; // medium font size
+            } else {
+                textElement.style.fontSize = '.9em'; // larger font size
+            }
+        }
+    };
+    
+    // if $user->Bio; is empty, remove the bio-container and move profile-info to the center
+    if (document.querySelector('.bio-container p').textContent == '') {
+        document.querySelector('.bio-container').style.display = 'none';
+        document.querySelector('.profile-info').style.margin = '4% auto auto auto';
+    }
 </script>
 
 </html>
