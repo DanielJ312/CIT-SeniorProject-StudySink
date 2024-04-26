@@ -20,7 +20,8 @@ $query = "
 $set = run_database($query, $values)[0];
 
 if (empty($set)) {
-    university_redirect();
+    $location = isset($_SESSION['USER']->Abbreviation) ? "/university/{$_SESSION['USER']->Abbreviation}" : "/university";
+    redirect($location);
     exit;
 }
 
