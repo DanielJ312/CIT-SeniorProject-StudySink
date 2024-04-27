@@ -128,7 +128,7 @@ function login($data) {
     if (filter_var($data['logininput'], FILTER_VALIDATE_EMAIL)) {
         $loginType = "Email";
     } 
-    else if (check_alphanumeric($data['logininput']) && strlen($data['logininput']) >= 6) {
+    else if (check_alphanumeric($data['logininput']) && strlen($data['logininput']) >= 4) {
         $loginType = "Username";
     } 
     else {
