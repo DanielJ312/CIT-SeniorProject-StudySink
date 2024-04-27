@@ -28,7 +28,7 @@ function get_pdo_connection() {
     return $connection;
 }
 
-function read_config(){
+function read_config() {
     return parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
 }
 

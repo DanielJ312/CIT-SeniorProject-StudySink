@@ -1,8 +1,6 @@
 <?php
 //////////* Profile - Display the logged in user's profile page *//////////
 require_once($_SERVER['DOCUMENT_ROOT'] . "/functions/account-functions.php");
-// if (!check_login()) header("Location: /account/login.php");
-
 $urlUser = get_end_url();
 $username = $urlUser == "default" ? $_SESSION['USER']->Username : $urlUser;
 $user = get_user_info($username);
@@ -40,7 +38,7 @@ if ($user != null) {
                     <div class="profile-info">
                         <img src="<?= $user->Avatar; ?>" alt="Avatar" class="profile-pp" id="settingsProfilePicture" title="Avatar">
                         <h2 class="username"><?= $user->Username; ?></h2>
-                        <p class="university"><?= $user->Name; ?></p>
+                        <p class="university"><?= $user->Name ?? null; ?></p>
                     </div>
                     <div class="bio-container">
                         <h3>About Me</h3>
@@ -162,7 +160,6 @@ if ($user != null) {
         <?php include($_SERVER['DOCUMENT_ROOT'] . "/includes/footer.php"); ?>
     </footer>
 </body>
-</html>
 <script>
     window.history.replaceState({}, '', '/account/<?= $user->Username; ?>');
     <?php if (isset($_SESSION['USER']->Username) && $user->Username == $_SESSION['USER']->Username) : ?>
@@ -206,5 +203,4 @@ if ($user != null) {
         document.querySelector('.profile-info').style.margin = '4% auto auto auto';
     }
 </script>
-
 </html>

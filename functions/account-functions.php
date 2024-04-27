@@ -387,10 +387,13 @@ function delete_account() {
 // This function is used to populate all the information on the profile page when a user clicks on another users profile
 function get_user_info($username) {
     $values = ['Username' => $username];
-    $query = "SELECT * FROM USER_T INNER JOIN UNIVERSITY_T ON UNIVERSITY_T.UniversityID = USER_T.UniversityID WHERE Username = :Username LIMIT 1;";
+    $query = "SELECT * FROM USER_T WHERE Username = :Username LIMIT 1;";
     $result = run_database($query, $values);
+    if (is_array($result) && isset($result[0]->UniversityID)) {
+        $query = "SELECT * FROM USER_T INNER JOIN UNIVERSITY_T ON UNIVERSITY_T.UniversityID = USER_T.UniversityID WHERE Username = :Username LIMIT 1;";
+        $result = run_database($query, $values);
+    }    
     return is_array($result) ? $result[0] : null; 
-    
 }
 
 function get_profile_users_study_sets($userID) {
