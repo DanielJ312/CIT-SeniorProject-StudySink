@@ -7,6 +7,32 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php");
 use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
 
+/////* Functions Switch */////
+if (isset($_POST['function'])) {
+    switch ($_POST['function']) {
+        /////* Reset */////
+        case "email":
+            if (check_email($_POST) == true) {
+                send_verify_code("reset", $_POST['email']);
+                echo "true";
+            }
+            else {
+                echo "false";
+            }
+            break;
+        case "password":
+            echo reset_password($_POST);
+            break;
+        /////* Verify */////
+        case "delete":
+            delete_unverified();
+            break;
+        default:
+            break;
+    }
+}
+
+
 /////* Register Functions */////
 function signup($data) {
     $errors = array();
@@ -178,6 +204,11 @@ function verify_email($data) {
     return $errors;
 }
 
+function delete_unverified() {
+    logout();
+    redirect("/account/register");
+}
+
 /////* Reset Functions */////
 function check_email($data) {
     $valid = false;
@@ -223,6 +254,13 @@ function reset_password($data) {
     }
 
     return $status;
+}
+
+/////* Logout Functions */////
+function logout() {
+    unset($_SESSION['USER']);
+    unset($_SESSION['LOGGED_IN']);
+    session_destroy();
 }
 
 /////* Settings Functions */////

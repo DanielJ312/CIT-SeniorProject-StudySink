@@ -23,18 +23,21 @@ $pageTitle = "Verify Account";
         <div class="verify-container">
             <div class="vheader"><?= isset($pageTitle) ? $pageTitle : "Page Header" ?></div>
             <div>
-                <p>Your email must be verified before you can sign in. The code has been sent to <?= $_SESSION['USER']->Email; ?></p>
-                <p>Your code expires in: <span class="countdown"></span></p>
+                <p>The email associated with this account must be verified before you can sign in. A verification code has been sent to <?= $_SESSION['USER']->Email; ?>.</p>
+                <p>Your code expires in: <span class="countdown"></span>.</p>
                 <div class="verify-form-error">
                     <?= isset($errors['code']) ? "<p>" . $errors['code'] . "</p>" : ""; ?>
                 </div>
-                <form method="post">
+                <form class="code-input" method="post">
                     <div class="verify-code">
                         <p>Code</p>
-                        <input type="text" name="code">
+                        <input class="code-input" type="text" name="code">
                     </div>
                     <input type="submit" value="Verify">
                 </form>
+                <div class="expired" style="display: none;">
+                    <p>The verification code has expired and this account will now be deleted. You will be redirected to the Sign-Up page where you can begin the process again.</p>
+                </div>
             </div>
         </div>
     </main>

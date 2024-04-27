@@ -30,7 +30,7 @@ function send_mail($recipient, $subject, $message) {
 
 function send_verify_code($type, $recipient) {
     $values['Code'] = rand(10000, 99999);
-    $values['Expires'] = (time() + (60 * 10));
+    $values['Expires'] = (time() + (60 * 1));
     $values['Email'] = $recipient;
     $values['Type'] = "$type";
     $expireTime = date('Y-m-d H:i:s', $values['Expires']);

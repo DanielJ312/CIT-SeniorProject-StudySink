@@ -5,7 +5,7 @@ $(".send-email").on("click", function () {
 
     //check email
     $.ajax({
-        url: '/functions/reset-functions',
+        url: '/functions/account-functions',
         type: 'POST',
         data: { function: "email", email: email },
         success: function (response) {
@@ -38,7 +38,7 @@ function checkPassword(email) {
             $(".error").hide();
 
             $.ajax({
-                url: '/functions/reset-functions',
+                url: '/functions/account-functions',
                 type: 'POST',
                 data: { function: "password", email: email, code: code, password: password1 },
                 success: function (response) {
@@ -65,8 +65,22 @@ function updateCountdown(endTimeUnix) {
     var nowUnix = Math.floor(Date.now() / 1000);
     var timeLeft = endTimeUnix - nowUnix;
     if (timeLeft <= 0) {
-        $(".countdown").html("Expired");
+        $(".countdown").html("expired");
         clearInterval(timer);
+
+        $(".code-input").hide();
+        $(".expired").show();
+
+        setTimeout(function() {
+            $.ajax({
+                url: '/functions/account-functions',
+                type: 'POST',
+                data: { function: "delete" },
+                success: function (response) {
+                   window.location.href = '/account/register.php';
+                }
+            });
+        }, 10000);
         return;
     }
 

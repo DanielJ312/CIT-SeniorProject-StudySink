@@ -40,13 +40,14 @@ function check_login() {
 
 function update_session() {
     if (isset($_SESSION['USER']) && $_SESSION['USER']->Verified == 0) {
-        if (!($_SERVER['REQUEST_URI'] == "/account/verify")) {
+        if ($_SERVER['REQUEST_URI'] != "/account/logout" && $_SERVER['REQUEST_URI'] != "/account/verify") {
             header("Location: /account/verify.php");
         }
         $query = "SELECT Expires FROM CODE_T WHERE Email = '{$_SESSION['USER']->Email}';";
         $expirationTime = run_database($query)[0]->Expires; 
         if (time() > $expirationTime) {
-            $query = "DELETE FROM USER_T Where Email = '{$_SESSION['USER']->Email}';";
+            $query = "DELETE FROM USER_T WHERE Email = '{$_SESSION['USER']->Email}';
+                    DELETE FROM CODE_T WHERE Email = '{$_SESSION['USER']->Email}';";
             run_database($query);
             header("Location: /account/logout.php");
         }
