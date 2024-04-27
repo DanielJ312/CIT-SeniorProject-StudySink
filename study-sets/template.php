@@ -17,9 +17,11 @@ $query = "
     WHERE SS.StudySetID = :StudySetID;
 ";
 
-$set = run_database($query, $values)[0];
-
-if (empty($set)) {
+$set = run_database($query, $values);
+if (is_array($set)) {
+    $set = $set[0];
+}
+else {
     $location = isset($_SESSION['USER']->Abbreviation) ? "/university/{$_SESSION['USER']->Abbreviation}" : "/university";
     redirect($location);
     exit;
@@ -71,7 +73,6 @@ save_to_cookie("study-set");
     <main>
         <div class="studySetTemplateContainer">
             <h2><?= htmlspecialchars($set->Title) ?></h2>
-
             <div class="studySetDetails">
                 <div class="studySetTemplateHeader">
                     <img src="<?= htmlspecialchars($set->Avatar); ?>" alt="<?= htmlspecialchars($set->Username); ?>'s avatar" class="profile-picture"/>
@@ -103,10 +104,8 @@ save_to_cookie("study-set");
                         <p><?= htmlspecialchars($set->CourseAbbreviation); ?></p>
                         <p>Professor/Teacher: <?= htmlspecialchars($set->Instructor); ?></p>
                     </div>
-
                 </div>
             </div>
-
             <div class="actionButtonsContainer">
                 <!-- Edit button is only available to the owner, shown to the left if the user is the owner -->
                 <?php if (check_login() && $set->Username == $_SESSION['USER']->Username) : ?>
@@ -120,9 +119,7 @@ save_to_cookie("study-set");
                 <?php if (check_login() && $set->Username == $_SESSION['USER']->Username) : ?>
                     <a href="javascript:void(0);" class="actionButton deleteButton" style="float: right;" data-set-id="<?= htmlspecialchars($setID); ?>"><i class="fas fa-trash"></i></a>
                 <?php endif; ?>
-
             </div>
-
             <?php foreach ($cards as $card): ?>
                 <div class="cardContainer">
                     <div class="cardContainerFront"><?= nl2br(htmlspecialchars($card->Front)); ?></div>
@@ -158,7 +155,6 @@ save_to_cookie("study-set");
             </div>
         </div>
     </main>
-
     <div id="deleteConfirmationModal" style="display:none;">
         <div class="modal-content">
             <p>Are you sure you want to DELETE this study set?</p>
