@@ -85,6 +85,17 @@ document.addEventListener('DOMContentLoaded', function () {
     var universityPostSelect = document.getElementById('setPostUniversity');
     var subjectPostSelect = document.getElementById('setPostSubject');
 
+    function getBaseUrl() {
+        // Check if running locally
+        if (window.location.hostname === 'localhost' || window.location.hostname.startsWith('127.0.0')) {
+            // Use HTTP for local development
+            return 'http://localhost'; // Local dev site
+        } else {
+            // Use HTTPS for the live site
+            return 'https://studysink.com'; // Live site URL
+        }
+    }
+
     // Listens to the change event on the university input
     universityPostSelect.addEventListener('change', function () {
         var universityId = this.value;
@@ -96,7 +107,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Fetches subjects based on University Selection
     function fetchSubjectsForPostUniversity(universityId) {
-        fetch('/study-sets/get-subjects.php?universityId=' + universityId)
+        const baseUrl = getBaseUrl(); 
+        fetch(`${baseUrl}/study-sets/get-subjects?universityId=${universityId}`)
             .then(response => response.json())
             .then(subjects => {
                 // Update the subject options
