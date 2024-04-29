@@ -57,10 +57,20 @@ function search_posts($searchTerm) {
 }
 
 function search_users($searchTerm) {
-    $usersQuery = "SELECT USER_T.Username, USER_T.Bio, USER_T.Avatar, USER_T.Created, UNIVERSITY_T.Name AS UniversityName, UNIVERSITY_T.Abbreviation AS UniversityAbbreviation
-    FROM USER_T INNER JOIN UNIVERSITY_T ON USER_T.UniversityID = UNIVERSITY_T.UniversityID
-    WHERE USER_T.Username LIKE :searchTerm
-    GROUP BY USER_T.UserID";
+    $usersQuery = "SELECT 
+    USER_T.UserID,
+    USER_T.Username, 
+    USER_T.Bio,
+    USER_T.Avatar, 
+    USER_T.Created,
+    UNIVERSITY_T.Name AS UniversityName, 
+    UNIVERSITY_T.Abbreviation AS UniversityAbbreviation,
+    UNIVERSITY_T.Logo AS UniversityLogo
+FROM 
+    USER_T 
+LEFT JOIN UNIVERSITY_T ON USER_T.UniversityID = UNIVERSITY_T.UniversityID
+WHERE 
+    USER_T.Username LIKE :searchTerm";
     return run_database($usersQuery, ['searchTerm' => "%$searchTerm%"]);
 }
 
