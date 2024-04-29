@@ -137,13 +137,21 @@ $pageTitle = "Results for " . '"' . $searchTerm . '"';
                                             </div>
                                         </div>
                                         <div class="userDetailsBottom">
-                                            <div class="userDetailsBottomLeft">
-                                                <h3 class="post-account"><?= htmlspecialchars($user->UniversityName); ?></h3>
+                                            <?php if (!is_null($user->UniversityName) && !is_null($user->UniversityAbbreviation)) : ?>
+                                                <div class="userDetailsBottomLeft">
+                                                    <h3 class="post-account"><?= htmlspecialchars($user->UniversityName); ?></h3>
+                                                </div>
+                                                <div class="userDetailsBottomRight">
+                                                    <p class="post-account"><?= htmlspecialchars($user->UniversityAbbreviation); ?></p>
+                                                </div>
+                                            <?php endif; ?>
+                                            <!--
+                                            <div class="userBio">
+                                                <?php if (!is_null($user->Bio)) : ?>
+                                                    <p class="post-title"><?= htmlspecialchars($user->Bio); ?></p>
+                                                <?php endif; ?>
                                             </div>
-                                            <div class="userDetailsBottomRight">
-                                                <p class="post-account"><?= htmlspecialchars($user->UniversityAbbreviation); ?></p>
-                                                <!--<p class="post-title"><?= htmlspecialchars($user->Bio); ?></p>-->
-                                            </div>
+                                            -->
                                         </div>
                                     </a>
                                 </div>
