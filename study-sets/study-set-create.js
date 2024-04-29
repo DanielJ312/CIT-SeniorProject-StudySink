@@ -85,6 +85,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var initialCardCountEditPage = document.querySelectorAll('.studyCard').length;
 
+    function getBaseUrl() {
+        // Check if running locally
+        if (window.location.hostname === 'localhost' || window.location.hostname.startsWith('127.0.0')) {
+            // Use HTTP for local development
+            return 'http://localhost'; // Local dev site
+        } else {
+            // Use HTTPS for the live site
+            return 'https://studysink.com'; // Live site URL
+        }
+    }
+
     // Helps keep track of how many study cards there are
     if(pageType === 'edit') {
         initializeCardCount(initialCardCountEditPage);
@@ -175,7 +186,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });  
     
     function fetchSubjectsForUniversity(universityId, selectedSubjectId) {
-        fetch('./get-subjects.php?universityId=' + universityId)
+        const baseUrl = getBaseUrl();
+        fetch(`${baseUrl}/study-sets/get-subjects?universityId=${universityId}`)
             .then(response => response.json())
             .then(subjects => {
                 updateSubjectOptions(subjects, selectedSubjectId);
@@ -187,7 +199,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function fetchCoursesForSubject(subjectId) {
-        fetch('./get-courses.php?subjectId=' + subjectId)
+        const baseUrl = getBaseUrl(); 
+        fetch(`${baseUrl}/study-sets/get-courses?subjectId=${subjectId}`)
             .then(function(response) {
                 return response.json();
             })
