@@ -17,7 +17,6 @@ $pageTitle = "About";
     </header>
     <main>
         <h2>About Us</h2>
-        <img src="https://i0.wp.com/www.bishoprook.com/wp-content/uploads/2021/05/placeholder-image-gray-16x9-1.png?resize=300%2C169&ssl=1" alt="group picture" />
         <p>
             Welcome to our Study Sink!&nbsp; Our website is designed to be a hub where students can connect, study, and engage with their university community.&nbsp; Drawing from the knowledge and skills acquired through our courses at CSUN our group has utilized technologies such as AWS, HTML, CSS, and project management techniques to bring this platform to life.&nbsp;
 
