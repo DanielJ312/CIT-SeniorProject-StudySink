@@ -1,5 +1,10 @@
 ########## htaccess - Includes Apache Rules ##########
 
+# CORS Configuration
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "https://www.studysink.com"
+</IfModule>
+
 ErrorDocument 404 /index.php
 
 <FilesMatch "\.(html|htm|js|css)$">
