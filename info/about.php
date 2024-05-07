@@ -17,9 +17,10 @@ $pageTitle = "About";
     </header>
     <main>
         <h2>About Us</h2>
-        <img src="https://i0.wp.com/www.bishoprook.com/wp-content/uploads/2021/05/placeholder-image-gray-16x9-1.png?resize=300%2C169&ssl=1" alt="group picture" height="400px" />
+        <img src="https://studysink.s3.amazonaws.com/assets/GroupPhotoCrop.jpg" alt="group picture" height="500px" />
+        <p><b>StudySink &nbsp;Team</b>: &nbsp;Jared Gonsalves,&nbsp; Alejandro Lopez,&nbsp; Bryce Houck,&nbsp; Daniel Javaherian,&nbsp; Ani Gurgenian,&nbsp; and Niko Gevorgian</p>
         <p>
-            Welcome to our Study Sink!&nbsp; Our website is designed to be a hub where students can connect, study, and engage with their university community.&nbsp; Drawing from the knowledge and skills acquired through our courses at CSUN our group has utilized technologies such as AWS, HTML, CSS, and project management techniques to bring this platform to life.&nbsp;
+            Welcome to our StudySink!&nbsp; Our website is designed to be a hub where students can connect, study, and engage with their university community.&nbsp; Drawing from the knowledge and skills acquired through our courses at CSUN our group has utilized technologies such as AWS, HTML, CSS, and project management techniques to bring this platform to life.&nbsp;
 
             Our primary mission is to empower students by providing a space where they can collaborate, share insights, and support each other's learning journeys.&nbsp; Through features like commenting on posts and creating study sets, we aim to enhance the academic experience and foster a sense of community among users.&nbsp;
 

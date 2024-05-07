@@ -13,7 +13,7 @@ main {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin: 0 25%;
+    margin: 0 23%;
 }
 
 h2 {
@@ -34,5 +34,9 @@ p {
 @media screen and (max-width: 950px) {
     main {
         margin: 0 5%;
+    }
+
+    img {
+        height: 175px;
     }
 }
